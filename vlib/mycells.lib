@@ -1,0 +1,83 @@
+library(demo) {
+  cell(BUF_g) {
+    area: 6;
+    pin(A) { direction: input; }
+    pin(Y) { direction: output;
+              function: "A"; }
+  }
+  cell(NOT_g) {
+    area: 3;
+    pin(A) { direction: input; }
+    pin(Y) { direction: output;
+              function: "A'"; }
+  }
+  cell(AND_g) {
+    area: 4;
+    pin(A) { direction: input; }
+    pin(B) { direction: input; }
+    pin(Y) { direction: output;
+             function: "(A*B)"; }
+  }
+
+  cell(NAND_g) {
+    area: 4;
+    pin(A) { direction: input; }
+    pin(B) { direction: input; }
+    pin(Y) { direction: output;
+             function: "(A*B)'"; }
+  }
+
+
+  cell(NOR_g) {
+    area: 4;
+    pin(A) { direction: input; }
+    pin(B) { direction: input; }
+    pin(Y) { direction: output;
+             function: "(A|B)'"; }
+  }
+
+  cell(XOR_g) {
+    area: 4;
+    pin(A) { direction: input; }
+    pin(B) { direction: input; }
+    pin(Y) { direction: output;
+             function: "(A^B)"; }
+  }
+
+  cell(XNOR_g) {
+    area: 4;
+    pin(A) { direction: input; }
+    pin(B) { direction: input; }
+    pin(Y) { direction: output;
+             function: "(A^B)'"; }
+  }
+
+
+
+  cell(DFFcell) {
+    area: 18;
+    ff(IQ, IQN) { clocked_on: C;
+                  next_state: D; }
+    pin(C) { direction: input;
+                 clock: true; }
+    pin(D) { direction: input; }
+    pin(Q) { direction: output;
+              function: "IQ"; }
+  }
+
+
+    cell(DFFRcell) {
+    area: 18;
+    ff(IQ, IQN) { clocked_on: C;
+                  clear: R; 
+                  next_state: D;
+                       }
+    pin(C) { direction: input;
+                 clock: true; }
+    pin(R) { direction: input; }
+    pin(D) { direction: input; }
+    pin(Q) { direction: output;
+              function: "IQ"; }
+  }
+
+}
