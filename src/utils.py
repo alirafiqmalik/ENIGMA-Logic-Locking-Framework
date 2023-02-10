@@ -188,32 +188,37 @@ def extract_io_b(bench,mode="input"):
 
 ####################################################################################################################################
 ####################################################################################################################################
+def connector(bits,startbit,endbit) -> None:
+    return {"bits":bits,"startbit":startbit,"endbit":endbit}
+
 
 def extract_io_v(verilog,mode="input"):
-  nodes=[]
+  nodes={}
   port=""
-  tmp=re.findall(mode.lower()+" (.*);",verilog)
+  tmp=re.findall(mode.lower()+r"[\s\[](.*);",verilog)
   for i in tmp:
     if("[" in i):
-      ei,si,tmpi=re.findall(r"\[(\d+):(\d+)\] ?(.*)",i)[0]
-      if("," in tmpi):
-        tmpi=tmpi.split(",")
-        for k in tmpi:
-            port+=k+","
-            for j in range(int(si),int(ei)+1):
-                nodes.append(k+"["+str(j)+"]")
-      else:
-        port+=tmpi+","
-        for j in range(int(si),int(ei)+1):
-            nodes.append(tmpi+"["+str(j)+"]")
+        # print(i)
+        ei,si,tmpi=re.findall(r"\[(\d+):(\d+)\] ?(.*)",i)[0]
+        ei,si=int(ei),int(si)
+        if("," in tmpi):
+            tmpi=tmpi.split(",")
+            for k in tmpi:
+                nodes[k]=connector(ei-si+1,ei,si)
+                port+=k+","
+        else:
+            nodes[tmpi]=connector(ei-si+1,ei,si)
+            port+=tmpi+","
     elif("," in i):
         tmpi=i.split(",")
-        nodes=merge_lists((nodes,tmpi))
+        for k in tmpi:
+            nodes[k]=connector(1,0,0)
+            port+=k+","
     else:
-      nodes.append(i)
+      nodes[i]=connector(1,0,0)
       port+=i+","
-  return nodes,port
 
+  return nodes,port
 
 
 ####################################################################################################################################

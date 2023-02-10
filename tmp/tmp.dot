@@ -179,4 +179,14 @@ strict digraph "" {
 	"module#sarlock" -> "input#key[2]";
 	"module#sarlock" -> "input#key[6]";
 	"module#sarlock" -> "input#key[4]";
+	"module#sarlock" -> "inputs[0]";
+	"module#sarlock" -> "inputs[1]";
+	"module#sarlock" -> "inputs[2]";
+	"module#sarlock" -> "inputs[3]";
+	"module#sarlock" -> "inputs[4]";
+	"module#sarlock" -> "inputs[5]";
+	"module#sarlock" -> "inputs[6]";
+	"module#sarlock" -> "inputs[7]";
+	"module#ckt"	[init_name=c,
+		type=module];
 }

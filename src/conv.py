@@ -123,9 +123,21 @@ def verilog_to_bench(verilog):
     bench=""
 
     for i in inputs:
-        bench+="INPUT({})\n".format(i)
+        tmpi=inputs[i]
+        if(tmpi["bits"]==1):
+            bench+="INPUT({})\n".format(i)
+        else:
+            for k in range(tmpi['startbit'],tmpi['endbit']+1):
+                bench+="INPUT({})\n".format(i+f"[{k}]")
+
+        
     for i in outputs:
-        bench+="OUTPUT({})\n".format(i)
+        tmpi=outputs[i]
+        if(tmpi["bits"]==1):
+            bench+="OUTPUT({})\n".format(i)
+        else:
+            for k in range(tmpi['startbit'],tmpi['endbit']+1):
+                bench+="OUTPUT({})\n".format(i+f"[{k}]")
 
     
     for i in gates:

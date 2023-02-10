@@ -8,31 +8,28 @@
     "top_module": {
         "Verilog": "module locked(inputs, key, out);\ninput [7:0] inputs;\ninput [7:0] key;\noutput [1:0]out;\nsarlock s(.inputs(inputs), .key(key), .lock_out(out[0]));\nsarlock s1(.inputs(inputs), .key(key), .lock_out(out[1]));\nendmodule\n",
         "Synthesized_verilog": "module locked(inputs, key, out);\ninput [7:0] inputs;\nwire [7:0] inputs;\ninput [7:0] key;\nwire [7:0] key;\noutput [1:0] out;\nwire [1:0] out;\nsarlock s ( .inputs(inputs), .key(key), .lock_out(out[0]) );\nsarlock s1 ( .inputs(inputs), .key(key), .lock_out(out[1]) );\nendmodule\n",
-        "Bench_format": "INPUT(inputs[0])\nINPUT(inputs[1])\nINPUT(inputs[2])\nINPUT(inputs[3])\nINPUT(inputs[4])\nINPUT(inputs[5])\nINPUT(inputs[6])\nINPUT(inputs[7])\nINPUT(key[0])\nINPUT(key[1])\nINPUT(key[2])\nINPUT(key[3])\nINPUT(key[4])\nINPUT(key[5])\nINPUT(key[6])\nINPUT(key[7])\nOUTPUT(out[0])\nOUTPUT(out[1])\n",
+        "Bench_format": "",
         "Total_number_of_submodules": 2,
         "io": {
-            "inputs": [
-                "inputs[0]",
-                "inputs[1]",
-                "inputs[2]",
-                "inputs[3]",
-                "inputs[4]",
-                "inputs[5]",
-                "inputs[6]",
-                "inputs[7]",
-                "key[0]",
-                "key[1]",
-                "key[2]",
-                "key[3]",
-                "key[4]",
-                "key[5]",
-                "key[6]",
-                "key[7]"
-            ],
-            "outputs": [
-                "out[0]",
-                "out[1]"
-            ],
+            "inputs": {
+                "inputs": {
+                    "bits": 8,
+                    "startbit": 7,
+                    "endbit": 0
+                },
+                "key": {
+                    "bits": 8,
+                    "startbit": 7,
+                    "endbit": 0
+                }
+            },
+            "outputs": {
+                "out": {
+                    "bits": 2,
+                    "startbit": 1,
+                    "endbit": 0
+                }
+            },
             "input_ports": "inputs,key,",
             "output_ports": "out,"
         },
@@ -80,25 +77,27 @@
         "ckt": {
             "Verilog": "module ckt(a,b,c);\ninput [3:0] a,b;\noutput [4:0] c;\nBUF_g assignbuffer0 ( .A(a + b), .Y(c) );\nendmodule\n",
             "Synthesized_verilog": "module ckt(a, b, c);\nwire _00_;\nwire _01_;\nwire _02_;\nwire _03_;\nwire _04_;\nwire _05_;\nwire _06_;\nwire _07_;\nwire _08_;\nwire _09_;\nwire _10_;\nwire _11_;\ninput [3:0] a;\nwire [3:0] a;\ninput [3:0] b;\nwire [3:0] b;\noutput [4:0] c;\nwire [4:0] c;\nAND_g _12_ ( .A(a[0]), .B(b[0]), .Y(_00_) );\nNAND_g _13_ ( .A(a[1]), .B(b[1]), .Y(_01_) );\nXOR_g _14_ ( .A(a[1]), .B(b[1]), .Y(_02_) );\nNAND_g _15_ ( .A(_00_), .B(_02_), .Y(_03_) );\nXOR_g _16_ ( .A(_00_), .B(_02_), .Y(c[1]) );\nNAND_g _17_ ( .A(_01_), .B(_03_), .Y(_04_) );\nNAND_g _18_ ( .A(a[2]), .B(b[2]), .Y(_05_) );\nXOR_g _19_ ( .A(a[2]), .B(b[2]), .Y(_06_) );\nNAND_g _20_ ( .A(_04_), .B(_06_), .Y(_07_) );\nXOR_g _21_ ( .A(_04_), .B(_06_), .Y(c[2]) );\nNAND_g _22_ ( .A(_05_), .B(_07_), .Y(_08_) );\nNAND_g _23_ ( .A(a[3]), .B(b[3]), .Y(_09_) );\nXOR_g _24_ ( .A(a[3]), .B(b[3]), .Y(_10_) );\nNAND_g _25_ ( .A(_08_), .B(_10_), .Y(_11_) );\nXOR_g _26_ ( .A(_08_), .B(_10_), .Y(c[3]) );\nXOR_g _27_ ( .A(a[0]), .B(b[0]), .Y(c[0]) );\nNAND_g _28_ ( .A(_09_), .B(_11_), .Y(c[4]) );\nendmodule\n",
-            "Bench_format": "INPUT(a[0])\nINPUT(a[1])\nINPUT(a[2])\nINPUT(a[3])\nINPUT(b[0])\nINPUT(b[1])\nINPUT(b[2])\nINPUT(b[3])\nOUTPUT(c[0])\nOUTPUT(c[1])\nOUTPUT(c[2])\nOUTPUT(c[3])\nOUTPUT(c[4])\n_00_ = AND(a[0],b[0])\n_01_ = NAND(a[1],b[1])\n_03_ = NAND(_00_,_02_)\n_04_ = NAND(_01_,_03_)\n_05_ = NAND(a[2],b[2])\n_07_ = NAND(_04_,_06_)\n_08_ = NAND(_05_,_07_)\n_09_ = NAND(a[3],b[3])\n_11_ = NAND(_08_,_10_)\nc[4] = NAND(_09_,_11_)\n_02_ = XOR(a[1],b[1])\nc[1] = XOR(_00_,_02_)\n_06_ = XOR(a[2],b[2])\nc[2] = XOR(_04_,_06_)\n_10_ = XOR(a[3],b[3])\nc[3] = XOR(_08_,_10_)\nc[0] = XOR(a[0],b[0])\n",
+            "Bench_format": "_00_ = AND(a[0],b[0])\n_01_ = NAND(a[1],b[1])\n_03_ = NAND(_00_,_02_)\n_04_ = NAND(_01_,_03_)\n_05_ = NAND(a[2],b[2])\n_07_ = NAND(_04_,_06_)\n_08_ = NAND(_05_,_07_)\n_09_ = NAND(a[3],b[3])\n_11_ = NAND(_08_,_10_)\nc[4] = NAND(_09_,_11_)\n_02_ = XOR(a[1],b[1])\nc[1] = XOR(_00_,_02_)\n_06_ = XOR(a[2],b[2])\nc[2] = XOR(_04_,_06_)\n_10_ = XOR(a[3],b[3])\nc[3] = XOR(_08_,_10_)\nc[0] = XOR(a[0],b[0])\n",
             "io": {
-                "inputs": [
-                    "a[0]",
-                    "a[1]",
-                    "a[2]",
-                    "a[3]",
-                    "b[0]",
-                    "b[1]",
-                    "b[2]",
-                    "b[3]"
-                ],
-                "outputs": [
-                    "c[0]",
-                    "c[1]",
-                    "c[2]",
-                    "c[3]",
-                    "c[4]"
-                ],
+                "inputs": {
+                    "a": {
+                        "bits": 4,
+                        "startbit": 3,
+                        "endbit": 0
+                    },
+                    "b": {
+                        "bits": 4,
+                        "startbit": 3,
+                        "endbit": 0
+                    }
+                },
+                "outputs": {
+                    "c": {
+                        "bits": 5,
+                        "startbit": 4,
+                        "endbit": 0
+                    }
+                },
                 "input_ports": "a,b,",
                 "output_ports": "c,"
             },
@@ -260,29 +259,27 @@
         "sarlock": {
             "Verilog": "module sarlock (inputs, key, lock_out);\ninput [7:0] inputs;\ninput [7:0] key;\noutput lock_out;\nwire [4:0]ckt_out;\nreg keyx = 8'b01101101;\nassign lock_out =ckt_out[0]^( (inputs == key) & (inputs != keyx));\nckt c(.a(inputs[3:0]), .b(inputs[7:4]), .c(ckt_out));\nendmodule\n",
             "Synthesized_verilog": "module sarlock(inputs, key, lock_out);\nwire _00_;\nwire _01_;\nwire _02_;\nwire _03_;\nwire _04_;\nwire _05_;\nwire _06_;\nwire _07_;\nwire _08_;\nwire _09_;\nwire _10_;\nwire _11_;\nwire _12_;\nwire _13_;\nwire _14_;\nwire _15_;\nwire _16_;\nwire _17_;\nwire _18_;\nwire _19_;\nwire _20_;\nwire _21_;\nwire _22_;\nwire _23_;\nwire [4:0] ckt_out;\ninput [7:0] inputs;\nwire [7:0] inputs;\ninput [7:0] key;\nwire [7:0] key;\noutput lock_out;\nwire lock_out;\nNOT_g _24_ ( .A(inputs[3]), .Y(_00_) );\nXNOR_g _25_ ( .A(inputs[0]), .B(key[0]), .Y(_01_) );\nXNOR_g _26_ ( .A(inputs[7]), .B(key[7]), .Y(_02_) );\nAND_g _27_ ( .A(_01_), .B(_02_), .Y(_03_) );\nXNOR_g _28_ ( .A(inputs[1]), .B(key[1]), .Y(_04_) );\nXNOR_g _29_ ( .A(inputs[3]), .B(key[3]), .Y(_05_) );\nAND_g _30_ ( .A(_04_), .B(_05_), .Y(_06_) );\nAND_g _31_ ( .A(_03_), .B(_06_), .Y(_07_) );\nNOR_g _32_ ( .A(inputs[5]), .B(inputs[6]), .Y(_08_) );\nNOR_g _33_ ( .A(inputs[4]), .B(inputs[7]), .Y(_09_) );\nAND_g _34_ ( .A(_08_), .B(_09_), .Y(_10_) );\nNOR_g _35_ ( .A(inputs[1]), .B(inputs[2]), .Y(_11_) );\nAND_g _36_ ( .A(inputs[0]), .B(_00_), .Y(_12_) );\nAND_g _37_ ( .A(_11_), .B(_12_), .Y(_13_) );\nNAND_g _38_ ( .A(_10_), .B(_13_), .Y(_14_) );\nXNOR_g _39_ ( .A(inputs[5]), .B(key[5]), .Y(_15_) );\nXNOR_g _40_ ( .A(inputs[2]), .B(key[2]), .Y(_16_) );\nAND_g _41_ ( .A(_15_), .B(_16_), .Y(_17_) );\nXNOR_g _42_ ( .A(inputs[6]), .B(key[6]), .Y(_18_) );\nXNOR_g _43_ ( .A(inputs[4]), .B(key[4]), .Y(_19_) );\nAND_g _44_ ( .A(_18_), .B(_19_), .Y(_20_) );\nAND_g _45_ ( .A(_17_), .B(_20_), .Y(_21_) );\nAND_g _46_ ( .A(_14_), .B(_21_), .Y(_22_) );\nNAND_g _47_ ( .A(_07_), .B(_22_), .Y(_23_) );\nXNOR_g _48_ ( .A(ckt_out[0]), .B(_23_), .Y(lock_out) );\nckt c ( .a(inputs[3:0]), .b(inputs[7:4]), .c(ckt_out) );\nendmodule\n",
-            "Bench_format": "INPUT(inputs[0])\nINPUT(inputs[1])\nINPUT(inputs[2])\nINPUT(inputs[3])\nINPUT(inputs[4])\nINPUT(inputs[5])\nINPUT(inputs[6])\nINPUT(inputs[7])\nINPUT(key[0])\nINPUT(key[1])\nINPUT(key[2])\nINPUT(key[3])\nINPUT(key[4])\nINPUT(key[5])\nINPUT(key[6])\nINPUT(key[7])\nOUTPUT(lock_out)\n_00_ = NOT(inputs[3])\n_03_ = AND(_01_,_02_)\n_06_ = AND(_04_,_05_)\n_07_ = AND(_03_,_06_)\n_10_ = AND(_08_,_09_)\n_12_ = AND(inputs[0],_00_)\n_13_ = AND(_11_,_12_)\n_17_ = AND(_15_,_16_)\n_20_ = AND(_18_,_19_)\n_21_ = AND(_17_,_20_)\n_22_ = AND(_14_,_21_)\n_14_ = NAND(_10_,_13_)\n_23_ = NAND(_07_,_22_)\n_08_ = NOR(inputs[5],inputs[6])\n_09_ = NOR(inputs[4],inputs[7])\n_11_ = NOR(inputs[1],inputs[2])\n_01_ = XNOR(inputs[0],key[0])\n_02_ = XNOR(inputs[7],key[7])\n_04_ = XNOR(inputs[1],key[1])\n_05_ = XNOR(inputs[3],key[3])\n_15_ = XNOR(inputs[5],key[5])\n_16_ = XNOR(inputs[2],key[2])\n_18_ = XNOR(inputs[6],key[6])\n_19_ = XNOR(inputs[4],key[4])\nlock_out = XNOR(ckt_out[0],_23_)\n",
+            "Bench_format": "OUTPUT(lock_out)\n_00_ = NOT(inputs[3])\n_03_ = AND(_01_,_02_)\n_06_ = AND(_04_,_05_)\n_07_ = AND(_03_,_06_)\n_10_ = AND(_08_,_09_)\n_12_ = AND(inputs[0],_00_)\n_13_ = AND(_11_,_12_)\n_17_ = AND(_15_,_16_)\n_20_ = AND(_18_,_19_)\n_21_ = AND(_17_,_20_)\n_22_ = AND(_14_,_21_)\n_14_ = NAND(_10_,_13_)\n_23_ = NAND(_07_,_22_)\n_08_ = NOR(inputs[5],inputs[6])\n_09_ = NOR(inputs[4],inputs[7])\n_11_ = NOR(inputs[1],inputs[2])\n_01_ = XNOR(inputs[0],key[0])\n_02_ = XNOR(inputs[7],key[7])\n_04_ = XNOR(inputs[1],key[1])\n_05_ = XNOR(inputs[3],key[3])\n_15_ = XNOR(inputs[5],key[5])\n_16_ = XNOR(inputs[2],key[2])\n_18_ = XNOR(inputs[6],key[6])\n_19_ = XNOR(inputs[4],key[4])\nlock_out = XNOR(ckt_out[0],_23_)\n",
             "io": {
-                "inputs": [
-                    "inputs[0]",
-                    "inputs[1]",
-                    "inputs[2]",
-                    "inputs[3]",
-                    "inputs[4]",
-                    "inputs[5]",
-                    "inputs[6]",
-                    "inputs[7]",
-                    "key[0]",
-                    "key[1]",
-                    "key[2]",
-                    "key[3]",
-                    "key[4]",
-                    "key[5]",
-                    "key[6]",
-                    "key[7]"
-                ],
-                "outputs": [
-                    "lock_out"
-                ],
+                "inputs": {
+                    "inputs": {
+                        "bits": 8,
+                        "startbit": 7,
+                        "endbit": 0
+                    },
+                    "key": {
+                        "bits": 8,
+                        "startbit": 7,
+                        "endbit": 0
+                    }
+                },
+                "outputs": {
+                    "lock_out": {
+                        "bits": 1,
+                        "startbit": 0,
+                        "endbit": 0
+                    }
+                },
                 "input_ports": "inputs,key,",
                 "output_ports": "lock_out,"
             },

@@ -37,7 +37,7 @@ class AST:
             self.synthesized_verilog = None
             self.extracted_submodules = None
             self.top_module = module()
-            self.submodule = []
+            self.submodule = {}
             self.top=top
             self.gen_LLFile()
             self.writeLLFile()
@@ -80,18 +80,19 @@ class AST:
 
     def sub_modules_data(self):
         for i,key in enumerate(self.extracted_submodules):
-            self.submodule.append(module())
-            self.submodule[i].module_name = key
-            self.submodule[i].org_code_verilog = self.extracted_submodules[key]
-            self.submodule[i].org_code_bench = verilog_to_bench(self.submodules_techmap[key])
-            self.submodule[i].gate_level_verilog = self.submodules_techmap[key]
-            self.submodule[i].gates = gates_extraction(self.submodule[i].gate_level_verilog)
-            self.submodule[i].linkages = submodule_links_extraction(self.submodule[i].org_code_verilog)
+            # print("HERE",i,key)
+            self.submodule[key]=module()
+            self.submodule[key].module_name = key
+            self.submodule[key].org_code_verilog = self.extracted_submodules[key]
+            self.submodule[key].org_code_bench = verilog_to_bench(self.submodules_techmap[key])
+            self.submodule[key].gate_level_verilog = self.submodules_techmap[key]
+            self.submodule[key].gates = gates_extraction(self.submodule[key].gate_level_verilog)
+            self.submodule[key].linkages = submodule_links_extraction(self.submodule[key].org_code_verilog)
 
-            inputs, input_ports = extract_io_v(self.submodule[i].org_code_verilog)
-            outputs, output_ports = extract_io_v(self.submodule[i].org_code_verilog, "output")
+            inputs, input_ports = extract_io_v(self.submodule[key].org_code_verilog)
+            outputs, output_ports = extract_io_v(self.submodule[key].org_code_verilog, "output")
 
-            self.submodule[i].io = dict({'inputs':inputs,'outputs':outputs,'input_ports':input_ports,'output_ports':output_ports})
+            self.submodule[key].io = dict({'inputs':inputs,'outputs':outputs,'input_ports':input_ports,'output_ports':output_ports})
             
 
     def writeLLFile(self):
@@ -100,7 +101,7 @@ class AST:
 
         sub_dict = {}
         for i,key in enumerate(self.extracted_submodules):
-            sub_dict[key] = dict({"Verilog": self.submodule[i].org_code_verilog, "Synthesized_verilog" : self.submodule[i].gate_level_verilog, "Bench_format" : self.submodule[i].org_code_bench, "io":self.submodule[i].io, "gates": self.submodule[i].gates, "Linkages" : self.submodule[i].linkages})
+            sub_dict[key] = dict({"Verilog": self.submodule[key].org_code_verilog, "Synthesized_verilog" : self.submodule[key].gate_level_verilog, "Bench_format" : self.submodule[key].org_code_bench, "io":self.submodule[key].io, "gates": self.submodule[key].gates, "Linkages" : self.submodule[key].linkages})
 
 
         ast = dict({"AST":ast_dict, "top_module": top_dict, "submodules": sub_dict})
@@ -114,7 +115,7 @@ class AST:
             verilog_ast = json.load(json_file)
 
         self.top_module = module()
-        self.submodule = []
+        self.submodule = {}
         self.verilog =  verilog_ast["AST"]["orginal_code"]
         self.synthesized_verilog_flatten = verilog_ast["AST"]["gate_level_flattened"]
         self.synthesized_verilog = verilog_ast["AST"]["gate_level_not_flattened"]
@@ -130,20 +131,20 @@ class AST:
         self.top_module.linkages = verilog_ast["top_module"]["Linkages"]
 
         keys = list((verilog_ast["submodules"]).keys())
-        for i in range(self.no_of_submodules):
-            self.submodule.append(module())
-            self.submodule[i].module_name = keys[i]
-            self.submodule[i].org_code_verilog = verilog_ast["submodules"][keys[i]]["Verilog"]
-            self.submodule[i].gate_level_verilog = verilog_ast["submodules"][keys[i]]["Synthesized_verilog"]
-            self.submodule[i].org_code_bench = verilog_ast["submodules"][keys[i]]["Bench_format"]
-            self.submodule[i].io = verilog_ast["submodules"][keys[i]]["io"]
-            self.submodule[i].gates = verilog_ast["submodules"][keys[i]]["gates"]
-            self.submodule[i].linkages = verilog_ast["submodules"][keys[i]]["Linkages"]
+        for i in keys:
+            self.submodule[i]=module()
+            self.submodule[i].module_name = i
+            self.submodule[i].org_code_verilog = verilog_ast["submodules"][i]["Verilog"]
+            self.submodule[i].gate_level_verilog = verilog_ast["submodules"][i]["Synthesized_verilog"]
+            self.submodule[i].org_code_bench = verilog_ast["submodules"][i]["Bench_format"]
+            self.submodule[i].io = verilog_ast["submodules"][i]["io"]
+            self.submodule[i].gates = verilog_ast["submodules"][i]["gates"]
+            self.submodule[i].linkages = verilog_ast["submodules"][i]["Linkages"]
         
         self.update_LLverilog()
     
     def update_LLverilog(self):
         self.LLverilog+=self.top_module.gate_level_verilog+"\n"
         for i in self.submodule:
-            self.LLverilog+=i.gate_level_verilog+"\n"
+            self.LLverilog+=self.submodule[i].gate_level_verilog+"\n"
 
