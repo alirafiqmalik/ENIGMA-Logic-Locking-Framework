@@ -12,7 +12,6 @@ bench_gates=['DFF','BUF','NOT', 'AND', 'OR', 'NAND', 'NOR','XOR','XNOR']
 gate_to_assign={'BUF':'','NOT':'~', 'AND':'&', 'OR':'|','XOR':'^','NAND':'&', 'NOR':'|','XNOR':'^'}
 
 
-
 ####################################################################################################################################
 ####################################################################################################################################
 
@@ -127,7 +126,7 @@ def randKey(bits, seed=None):
 ####################################################################################################################################
 
 
-def format_verilog(verilog,remove_wire=False):
+def format_verilog(verilog,remove_wire=False,remove_assign=False):
     verilog=re.sub("//.*\n","",verilog)
     verilog=re.sub("[/][].[*][/]","",verilog)
     verilog=re.sub("[(][].[*][)]\n","",verilog)
@@ -147,17 +146,18 @@ def format_verilog(verilog,remove_wire=False):
     verilog_withoutwire=re.sub("wire .*;\n","",verilog)
     if(remove_wire):
         verilog=re.sub("wire .*;\n","",verilog)
-
+    
     tmpstr=""
-    count=0
-    for i in assign_nodes:
-        if(re.findall(i[0],verilog_withoutwire)!=[]):
-            if("1'h" in i[1]):
-                print(i,re.findall(i[0],verilog))
-                raise Exception("\n\n\n\t   GONNA HAVE TO FIX THIS NOW!!!!!!!!!! \n\n =====>>> Binary value on left Side of assign <<<=====")
-            else:
-                tmpstr+="BUF_g assignbuffer{} ( .A({}), .Y({}) );\n".format(count,i[1],i[0])
-                count+=1
+    if(remove_assign):
+        count=0
+        for i in assign_nodes:
+            if(re.findall(i[0],verilog_withoutwire)!=[]):
+                if("1'h" in i[1]):
+                    print(i,re.findall(i[0],verilog))
+                    raise Exception("\n\n\n\t   GONNA HAVE TO FIX THIS NOW!!!!!!!!!! \n\n =====>>> Binary value on left Side of assign <<<=====")
+                else:
+                    tmpstr+="BUF_g assignbuffer{} ( .A({}), .Y({}) );\n".format(count,i[1],i[0])
+                    count+=1
 
     verilog=re.sub("endmodule",tmpstr+"endmodule",verilog)
     return verilog
@@ -204,10 +204,10 @@ def extract_io_v(verilog,mode="input"):
         if("," in tmpi):
             tmpi=tmpi.split(",")
             for k in tmpi:
-                nodes[k]=connector(ei-si+1,ei,si)
+                nodes[k]=connector(ei-si+1,si,ei)
                 port+=k+","
         else:
-            nodes[tmpi]=connector(ei-si+1,ei,si)
+            nodes[tmpi]=connector(ei-si+1,si,ei)
             port+=tmpi+","
     elif("," in i):
         tmpi=i.split(",")
@@ -325,7 +325,7 @@ def synthesize_verilog(verilog, top,flag = "flatten"):
     module_name = top
     subprocess.run(cmd.format(module_name), shell=True)
     synthesized_verilog = open(f"./tmp/tmp_syn2{flag}.v", "r").read()
-    synthesized_verilog = format_verilog(synthesized_verilog,remove_wire=False)
+    synthesized_verilog = format_verilog(synthesized_verilog,remove_wire=False,remove_assign=True)
     with open(f"./tmp/tmp_syn2{flag}.v","w") as f:
         f.write(synthesized_verilog)    
     #os.remove("./tmp/tmp_syn1.v")
@@ -333,24 +333,24 @@ def synthesize_verilog(verilog, top,flag = "flatten"):
 
     return synthesized_verilog
 
-def synthesize_bench(bench):
-    text_file = open("./tmp/tmp_syn1.bench", "w")
-    text_file.write(bench)
-    text_file.close()
+# def synthesize_bench(bench):
+#     text_file = open("./tmp/tmp_syn1.bench", "w")
+#     text_file.write(bench)
+#     text_file.close()
     
-    cmd = """
-        ~/FYP/linux/yosys/build/yosys-abc'
-        read_bench ./tmp/tmp_syn1.bench
-        write_bench -l ./tmp/tmp_syn2.bench
-        '
-    """
-    synthesized_verilog = open(f"./tmp/tmp_syn2.v", "r").read()
-    synthesized_verilog = format_verilog(synthesized_verilog,remove_wire=False)
-    with open(f"./tmp/tmp_syn2.v","w") as f:
-        f.write(synthesized_verilog)
-    #os.remove("./tmp/tmp_syn1.v")
-    #os.remove("./tmp/tmp_syn2.v")
-    return synthesized_verilog
+#     cmd = """
+#         ~/FYP/linux/yosys/build/yosys-abc'
+#         read_bench ./tmp/tmp_syn1.bench
+#         write_bench -l ./tmp/tmp_syn2.bench
+#         '
+#     """
+#     synthesized_verilog = open(f"./tmp/tmp_syn2.v", "r").read()
+#     synthesized_verilog = format_verilog(synthesized_verilog,remove_wire=False)
+#     with open(f"./tmp/tmp_syn2.v","w") as f:
+#         f.write(synthesized_verilog)
+#     #os.remove("./tmp/tmp_syn1.v")
+#     #os.remove("./tmp/tmp_syn2.v")
+#     return synthesized_verilog
 
 def module_extraction (verilog):
         modules = re.findall(r'(module\s+(\w+)\s*\(.*?\)\s*;.*?endmodule)', verilog, re.DOTALL)
@@ -379,8 +379,8 @@ def gates_extraction(verilog):
     return gates
 
 def submodule_links_extraction(verilog):
-    # print("dd")
     linkages = []
+    # (?!module)
     for match in re.finditer(r"(\w+)\s+(\w+)\s*\((.*?)\);", verilog):
         module_name = match.group(1)
         instance_name = match.group(2)
@@ -389,7 +389,8 @@ def submodule_links_extraction(verilog):
         if(module_name=='module'):
             pass
         else:
-            linkages.append({"module_name": module_name, "init_name":instance_name,"linkages": input_list})
+            print("THIS ",input_list)
+            linkages.append({"module_name": module_name, "init_name":instance_name,"links": input_list})
     
     # print(linkages)
     # first_key = next(iter(linkages))
