@@ -258,10 +258,10 @@ if __name__ == '__main__':
 
 
 
-# import networkx as nx
-# import json
-# import pickle
-# import base64
+import networkx as nx
+import json
+import pickle
+import base64
 
 # G = nx.DiGraph()
 # # Add node with attributes
@@ -304,28 +304,28 @@ if __name__ == '__main__':
 
 
 
-# # Encode the graph object to a binary string using pickle
-# binary_data = pickle.dumps(G_merged)
+# Encode the graph object to a binary string using pickle
+binary_data = pickle.dumps(G_merged)
 
-# # Encode the binary string to a base64 string
-# base64_data = base64.b64encode(binary_data).decode('utf-8')
+# Encode the binary string to a base64 string
+base64_data = base64.b64encode(binary_data).decode('utf-8')
 
-# # Store the base64 encoded data in a JSON object
-# data = {'DiGraph': base64_data}
+# Store the base64 encoded data in a JSON object
+data = {'DiGraph': base64_data}
 
-# # Write the JSON object to a file
-# with open('./tmp/graph.json', 'w') as f:
-#     json.dump(data, f)
+# Write the JSON object to a file
+with open('./tmp/graph.json', 'w') as f:
+    json.dump(data, f)
 
-# # Load the JSON object from the file
-# with open('./tmp/graph.json', 'r') as f:
-#     data = json.load(f)
+# Load the JSON object from the file
+with open('./tmp/graph.json', 'r') as f:
+    data = json.load(f)
 
-# # Decode the base64 string back to binary
-# binary_data = base64.b64decode(data['DiGraph'].encode('utf-8'))
+# Decode the base64 string back to binary
+binary_data = base64.b64decode(data['DiGraph'].encode('utf-8'))
 
-# # Decode the binary string back to a graph object
-# G2 = pickle.loads(binary_data)
+# Decode the binary string back to a graph object
+G2 = pickle.loads(binary_data)
 
 # # Check if the graph has been successfully decoded
 # assert nx.is_isomorphic(G_merged, G2)

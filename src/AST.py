@@ -70,11 +70,15 @@ class module:
                 for k in range(tmpi['startbit'],tmpi["endbit"]+1):
                     self.circuitgraph.add_edge("module#"+self.module_name,"input#"+i+f"[{k}]")
 
+    
+        # Encode the graph object to a binary string using pickle and encode the binary string to a base64 string
+        self.base64_data = base64.b64encode(pickle.dumps(self.circuitgraph)).decode('utf-8')
+
     def save_graph(self):
         nx.drawing.nx_agraph.write_dot(self.circuitgraph, "./tmp/tmp.dot")
-
         import subprocess
         subprocess.run("dot -Tsvg ./tmp/tmp.dot > ./tmp/tmp.svg", shell=True)
+
 
 
 class AST:
@@ -135,6 +139,7 @@ class AST:
         wire={key:wire[key]  for key in get_difference_abs(wire.keys(),inputs.keys(),outputs.keys())}
         self.top_module.io = dict({'wires':wire,'inputs':inputs,'outputs':outputs,'input_ports':input_ports,'output_ports':output_ports})
         self.top_module.gen_graph()
+        
 
     def sub_modules_data(self):
         for key in self.extracted_submodules:
@@ -154,11 +159,11 @@ class AST:
 
     def writeLLFile(self):
         ast_dict = dict({"orginal_code" : self.verilog, "gate_level_flattened" : self.synthesized_verilog_flatten,"Bench_format_flattened" : self.flatten_bench, "gate_level_not_flattened" : self.synthesized_verilog, "top_module_name" : self.top_module_name})
-        top_dict = dict({"Verilog": self.top_module.org_code_verilog, "Synthesized_verilog" : self.top_module.gate_level_verilog, "Total_number_of_submodules":self.no_of_submodules, "io":self.top_module.io, "gates": self.top_module.gates, "Linkages" : self.top_module.linkages})
+        top_dict = dict({"Verilog": self.top_module.org_code_verilog, "Synthesized_verilog" : self.top_module.gate_level_verilog, "Total_number_of_submodules":self.no_of_submodules, "io":self.top_module.io, "gates": self.top_module.gates, "Linkages" : self.top_module.linkages, "DiGraph":self.top_module.base64_data})
 
         sub_dict = {}
         for key in self.extracted_submodules:
-            sub_dict[key] = dict({"Verilog": self.submodule[key].org_code_verilog, "Synthesized_verilog" : self.submodule[key].gate_level_verilog, "io":self.submodule[key].io, "gates": self.submodule[key].gates, "Linkages" : self.submodule[key].linkages})
+            sub_dict[key] = dict({"Verilog": self.submodule[key].org_code_verilog, "Synthesized_verilog" : self.submodule[key].gate_level_verilog, "io":self.submodule[key].io, "gates": self.submodule[key].gates, "Linkages" : self.submodule[key].linkages,"DiGraph":self.submodule[key].base64_data})
 
 
         ast = dict({"AST":ast_dict, "top_module": top_dict, "submodules": sub_dict})
@@ -190,6 +195,9 @@ class AST:
         self.top_module.io = verilog_ast["top_module"]["io"]
         self.top_module.gates = verilog_ast["top_module"]["gates"]
         self.top_module.linkages = verilog_ast["top_module"]["Linkages"]
+        #Decode the base64 string back to binary
+        # Decode the binary string back to a graph object
+        self.top_module.circuitgraph = pickle.loads(base64.b64decode(verilog_ast["top_module"]["DiGraph"].encode('utf-8')))
 
         keys = list((verilog_ast["submodules"]).keys())
         for i in keys:
@@ -201,7 +209,9 @@ class AST:
             self.submodule[i].io = verilog_ast["submodules"][i]["io"]
             self.submodule[i].gates = verilog_ast["submodules"][i]["gates"]
             self.submodule[i].linkages = verilog_ast["submodules"][i]["Linkages"]
-        
+            #Decode the base64 string back to binary
+            # Decode the binary string back to a graph object
+            self.submodule[i].circuitgraph = pickle.loads(base64.b64decode(verilog_ast["submodules"][i]["DiGraph"].encode('utf-8'))) 
         self.update_LLverilog()
     
     def update_LLverilog(self):

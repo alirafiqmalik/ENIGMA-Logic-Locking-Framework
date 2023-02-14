@@ -13,13 +13,14 @@ import re
 
 # if __name__=="__main__":
 
-obj=AST("./input_files/tmporg.v",rw="w",flag="v",top="locked")
-# obj = AST("./output_files/locked.json",rw='r',top="locked") # r for read from file
+# obj=AST("./input_files/tmporg.v",rw="w",flag="v",top="locked")
+obj = AST("./output_files/locked.json",rw='r',top="locked") # r for read from file
 
 
 
 
 print(obj.top_module.circuitgraph)
+obj.top_module.save_graph()
 
 for i in obj.submodule:
   print(obj.submodule[i].circuitgraph)
