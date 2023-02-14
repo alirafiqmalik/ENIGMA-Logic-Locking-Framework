@@ -77,44 +77,44 @@
     },
     "submodules": {
         "ckt": {
-            "Verilog": "module ckt(a,b,c);\ninput [3:0] a,b;\noutput [4:0] c;\nendmodule\n",
+            "Verilog": "module ckt(a,b,c);\ninput [3:0] a,b;\noutput [4:0] c;\nassign c = a + b;\nendmodule\n",
             "Synthesized_verilog": "module ckt(a, b, c);\nwire _00_;\nwire _01_;\nwire _02_;\nwire _03_;\nwire _04_;\nwire _05_;\nwire _06_;\nwire _07_;\nwire _08_;\nwire _09_;\nwire _10_;\nwire _11_;\ninput [3:0] a;\nwire [3:0] a;\ninput [3:0] b;\nwire [3:0] b;\noutput [4:0] c;\nwire [4:0] c;\nAND_g _12_ ( .A(a[0]), .B(b[0]), .Y(_00_) );\nNAND_g _13_ ( .A(a[1]), .B(b[1]), .Y(_01_) );\nXOR_g _14_ ( .A(a[1]), .B(b[1]), .Y(_02_) );\nNAND_g _15_ ( .A(_00_), .B(_02_), .Y(_03_) );\nXOR_g _16_ ( .A(_00_), .B(_02_), .Y(c[1]) );\nNAND_g _17_ ( .A(_01_), .B(_03_), .Y(_04_) );\nNAND_g _18_ ( .A(a[2]), .B(b[2]), .Y(_05_) );\nXOR_g _19_ ( .A(a[2]), .B(b[2]), .Y(_06_) );\nNAND_g _20_ ( .A(_04_), .B(_06_), .Y(_07_) );\nXOR_g _21_ ( .A(_04_), .B(_06_), .Y(c[2]) );\nNAND_g _22_ ( .A(_05_), .B(_07_), .Y(_08_) );\nNAND_g _23_ ( .A(a[3]), .B(b[3]), .Y(_09_) );\nXOR_g _24_ ( .A(a[3]), .B(b[3]), .Y(_10_) );\nNAND_g _25_ ( .A(_08_), .B(_10_), .Y(_11_) );\nXOR_g _26_ ( .A(_08_), .B(_10_), .Y(c[3]) );\nXOR_g _27_ ( .A(a[0]), .B(b[0]), .Y(c[0]) );\nNAND_g _28_ ( .A(_09_), .B(_11_), .Y(c[4]) );\nendmodule\n",
             "io": {
                 "wires": {
-                    "_10_": {
-                        "bits": 1
-                    },
-                    "_04_": {
-                        "bits": 1
-                    },
-                    "_03_": {
-                        "bits": 1
-                    },
-                    "_07_": {
-                        "bits": 1
-                    },
-                    "_09_": {
-                        "bits": 1
-                    },
-                    "_05_": {
-                        "bits": 1
-                    },
                     "_00_": {
-                        "bits": 1
-                    },
-                    "_02_": {
-                        "bits": 1
-                    },
-                    "_06_": {
                         "bits": 1
                     },
                     "_01_": {
                         "bits": 1
                     },
-                    "_08_": {
+                    "_05_": {
+                        "bits": 1
+                    },
+                    "_02_": {
+                        "bits": 1
+                    },
+                    "_04_": {
                         "bits": 1
                     },
                     "_11_": {
+                        "bits": 1
+                    },
+                    "_06_": {
+                        "bits": 1
+                    },
+                    "_08_": {
+                        "bits": 1
+                    },
+                    "_09_": {
+                        "bits": 1
+                    },
+                    "_07_": {
+                        "bits": 1
+                    },
+                    "_03_": {
+                        "bits": 1
+                    },
+                    "_10_": {
                         "bits": 1
                     }
                 },
@@ -292,45 +292,10 @@
             "Synthesized_verilog": "module sarlock(inputs, key, lock_out);\nwire _00_;\nwire _01_;\nwire _02_;\nwire _03_;\nwire _04_;\nwire _05_;\nwire _06_;\nwire _07_;\nwire _08_;\nwire _09_;\nwire _10_;\nwire _11_;\nwire _12_;\nwire _13_;\nwire _14_;\nwire _15_;\nwire _16_;\nwire _17_;\nwire _18_;\nwire _19_;\nwire _20_;\nwire _21_;\nwire _22_;\nwire _23_;\nwire [4:0] ckt_out;\ninput [7:0] inputs;\nwire [7:0] inputs;\ninput [7:0] key;\nwire [7:0] key;\noutput lock_out;\nwire lock_out;\nNOT_g _24_ ( .A(inputs[3]), .Y(_00_) );\nXNOR_g _25_ ( .A(inputs[0]), .B(key[0]), .Y(_01_) );\nXNOR_g _26_ ( .A(inputs[7]), .B(key[7]), .Y(_02_) );\nAND_g _27_ ( .A(_01_), .B(_02_), .Y(_03_) );\nXNOR_g _28_ ( .A(inputs[1]), .B(key[1]), .Y(_04_) );\nXNOR_g _29_ ( .A(inputs[3]), .B(key[3]), .Y(_05_) );\nAND_g _30_ ( .A(_04_), .B(_05_), .Y(_06_) );\nAND_g _31_ ( .A(_03_), .B(_06_), .Y(_07_) );\nNOR_g _32_ ( .A(inputs[5]), .B(inputs[6]), .Y(_08_) );\nNOR_g _33_ ( .A(inputs[4]), .B(inputs[7]), .Y(_09_) );\nAND_g _34_ ( .A(_08_), .B(_09_), .Y(_10_) );\nNOR_g _35_ ( .A(inputs[1]), .B(inputs[2]), .Y(_11_) );\nAND_g _36_ ( .A(inputs[0]), .B(_00_), .Y(_12_) );\nAND_g _37_ ( .A(_11_), .B(_12_), .Y(_13_) );\nNAND_g _38_ ( .A(_10_), .B(_13_), .Y(_14_) );\nXNOR_g _39_ ( .A(inputs[5]), .B(key[5]), .Y(_15_) );\nXNOR_g _40_ ( .A(inputs[2]), .B(key[2]), .Y(_16_) );\nAND_g _41_ ( .A(_15_), .B(_16_), .Y(_17_) );\nXNOR_g _42_ ( .A(inputs[6]), .B(key[6]), .Y(_18_) );\nXNOR_g _43_ ( .A(inputs[4]), .B(key[4]), .Y(_19_) );\nAND_g _44_ ( .A(_18_), .B(_19_), .Y(_20_) );\nAND_g _45_ ( .A(_17_), .B(_20_), .Y(_21_) );\nAND_g _46_ ( .A(_14_), .B(_21_), .Y(_22_) );\nNAND_g _47_ ( .A(_07_), .B(_22_), .Y(_23_) );\nXNOR_g _48_ ( .A(ckt_out[0]), .B(_23_), .Y(lock_out) );\nckt c ( .a(inputs[3:0]), .b(inputs[7:4]), .c(ckt_out) );\nendmodule\n",
             "io": {
                 "wires": {
+                    "_20_": {
+                        "bits": 1
+                    },
                     "_17_": {
-                        "bits": 1
-                    },
-                    "_10_": {
-                        "bits": 1
-                    },
-                    "_15_": {
-                        "bits": 1
-                    },
-                    "_19_": {
-                        "bits": 1
-                    },
-                    "ckt_out": {
-                        "bits": 5,
-                        "startbit": 0,
-                        "endbit": 4
-                    },
-                    "_12_": {
-                        "bits": 1
-                    },
-                    "_03_": {
-                        "bits": 1
-                    },
-                    "_13_": {
-                        "bits": 1
-                    },
-                    "_07_": {
-                        "bits": 1
-                    },
-                    "_05_": {
-                        "bits": 1
-                    },
-                    "_06_": {
-                        "bits": 1
-                    },
-                    "_02_": {
-                        "bits": 1
-                    },
-                    "_00_": {
                         "bits": 1
                     },
                     "_01_": {
@@ -339,34 +304,69 @@
                     "_11_": {
                         "bits": 1
                     },
-                    "_22_": {
+                    "_06_": {
                         "bits": 1
                     },
-                    "_08_": {
+                    "_14_": {
                         "bits": 1
                     },
-                    "_16_": {
+                    "_19_": {
                         "bits": 1
                     },
-                    "_20_": {
-                        "bits": 1
-                    },
-                    "_04_": {
-                        "bits": 1
-                    },
-                    "_18_": {
+                    "_12_": {
                         "bits": 1
                     },
                     "_21_": {
                         "bits": 1
                     },
+                    "_00_": {
+                        "bits": 1
+                    },
+                    "_02_": {
+                        "bits": 1
+                    },
+                    "_05_": {
+                        "bits": 1
+                    },
+                    "_13_": {
+                        "bits": 1
+                    },
+                    "_04_": {
+                        "bits": 1
+                    },
                     "_09_": {
+                        "bits": 1
+                    },
+                    "_08_": {
                         "bits": 1
                     },
                     "_23_": {
                         "bits": 1
                     },
-                    "_14_": {
+                    "_07_": {
+                        "bits": 1
+                    },
+                    "_16_": {
+                        "bits": 1
+                    },
+                    "_18_": {
+                        "bits": 1
+                    },
+                    "_03_": {
+                        "bits": 1
+                    },
+                    "_22_": {
+                        "bits": 1
+                    },
+                    "ckt_out": {
+                        "bits": 5,
+                        "startbit": 0,
+                        "endbit": 4
+                    },
+                    "_15_": {
+                        "bits": 1
+                    },
+                    "_10_": {
                         "bits": 1
                     }
                 },

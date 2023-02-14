@@ -1,21 +1,126 @@
 strict digraph "" {
-	"module#locked"	[type=module];
-	"module#locked" -> "input#inputs[0]";
-	"module#locked" -> "input#inputs[1]";
-	"module#locked" -> "input#inputs[2]";
-	"module#locked" -> "input#inputs[3]";
-	"module#locked" -> "input#inputs[4]";
-	"module#locked" -> "input#inputs[5]";
-	"module#locked" -> "input#inputs[6]";
-	"module#locked" -> "input#inputs[7]";
-	"module#locked" -> "input#key[0]";
-	"module#locked" -> "input#key[1]";
-	"module#locked" -> "input#key[2]";
-	"module#locked" -> "input#key[3]";
-	"module#locked" -> "input#key[4]";
-	"module#locked" -> "input#key[5]";
-	"module#locked" -> "input#key[6]";
-	"module#locked" -> "input#key[7]";
-	"output#out[0]" -> "module#locked";
-	"output#out[1]" -> "module#locked";
+	"AND#_12_"	[logic=AND,
+		type=gate];
+	"wire#_00_"	[type=wire];
+	"AND#_12_" -> "wire#_00_";
+	"NAND#_15_"	[logic=NAND,
+		type=gate];
+	"wire#_00_" -> "NAND#_15_";
+	"XOR#_16_"	[logic=XOR,
+		type=gate];
+	"wire#_00_" -> "XOR#_16_";
+	"input#b[0]"	[type=input];
+	"input#b[0]" -> "AND#_12_";
+	"XOR#_27_"	[logic=XOR,
+		type=gate];
+	"input#b[0]" -> "XOR#_27_";
+	"input#a[0]"	[type=input];
+	"input#a[0]" -> "AND#_12_";
+	"input#a[0]" -> "XOR#_27_";
+	"NAND#_13_"	[logic=NAND,
+		type=gate];
+	"wire#_01_"	[type=wire];
+	"NAND#_13_" -> "wire#_01_";
+	"NAND#_17_"	[logic=NAND,
+		type=gate];
+	"wire#_01_" -> "NAND#_17_";
+	"input#b[1]"	[type=input];
+	"input#b[1]" -> "NAND#_13_";
+	"XOR#_14_"	[logic=XOR,
+		type=gate];
+	"input#b[1]" -> "XOR#_14_";
+	"input#a[1]"	[type=input];
+	"input#a[1]" -> "NAND#_13_";
+	"input#a[1]" -> "XOR#_14_";
+	"wire#_03_"	[type=wire];
+	"NAND#_15_" -> "wire#_03_";
+	"wire#_03_" -> "NAND#_17_";
+	"wire#_02_"	[type=wire];
+	"wire#_02_" -> "NAND#_15_";
+	"wire#_02_" -> "XOR#_16_";
+	"wire#_04_"	[type=wire];
+	"NAND#_17_" -> "wire#_04_";
+	"NAND#_20_"	[logic=NAND,
+		type=gate];
+	"wire#_04_" -> "NAND#_20_";
+	"XOR#_21_"	[logic=XOR,
+		type=gate];
+	"wire#_04_" -> "XOR#_21_";
+	"NAND#_18_"	[logic=NAND,
+		type=gate];
+	"wire#_05_"	[type=wire];
+	"NAND#_18_" -> "wire#_05_";
+	"NAND#_22_"	[logic=NAND,
+		type=gate];
+	"wire#_05_" -> "NAND#_22_";
+	"input#b[2]"	[type=input];
+	"input#b[2]" -> "NAND#_18_";
+	"XOR#_19_"	[logic=XOR,
+		type=gate];
+	"input#b[2]" -> "XOR#_19_";
+	"input#a[2]"	[type=input];
+	"input#a[2]" -> "NAND#_18_";
+	"input#a[2]" -> "XOR#_19_";
+	"wire#_07_"	[type=wire];
+	"NAND#_20_" -> "wire#_07_";
+	"wire#_07_" -> "NAND#_22_";
+	"wire#_06_"	[type=wire];
+	"wire#_06_" -> "NAND#_20_";
+	"wire#_06_" -> "XOR#_21_";
+	"wire#_08_"	[type=wire];
+	"NAND#_22_" -> "wire#_08_";
+	"NAND#_25_"	[logic=NAND,
+		type=gate];
+	"wire#_08_" -> "NAND#_25_";
+	"XOR#_26_"	[logic=XOR,
+		type=gate];
+	"wire#_08_" -> "XOR#_26_";
+	"NAND#_23_"	[logic=NAND,
+		type=gate];
+	"wire#_09_"	[type=wire];
+	"NAND#_23_" -> "wire#_09_";
+	"NAND#_28_"	[logic=NAND,
+		type=gate];
+	"wire#_09_" -> "NAND#_28_";
+	"input#b[3]"	[type=input];
+	"input#b[3]" -> "NAND#_23_";
+	"XOR#_24_"	[logic=XOR,
+		type=gate];
+	"input#b[3]" -> "XOR#_24_";
+	"input#a[3]"	[type=input];
+	"input#a[3]" -> "NAND#_23_";
+	"input#a[3]" -> "XOR#_24_";
+	"wire#_11_"	[type=wire];
+	"NAND#_25_" -> "wire#_11_";
+	"wire#_11_" -> "NAND#_28_";
+	"wire#_10_"	[type=wire];
+	"wire#_10_" -> "NAND#_25_";
+	"wire#_10_" -> "XOR#_26_";
+	"output#c[4]"	[type=output];
+	"NAND#_28_" -> "output#c[4]";
+	"module#ckt"	[type=module];
+	"output#c[4]" -> "module#ckt";
+	"XOR#_14_" -> "wire#_02_";
+	"output#c[1]"	[type=output];
+	"XOR#_16_" -> "output#c[1]";
+	"output#c[1]" -> "module#ckt";
+	"XOR#_19_" -> "wire#_06_";
+	"output#c[2]"	[type=output];
+	"XOR#_21_" -> "output#c[2]";
+	"output#c[2]" -> "module#ckt";
+	"XOR#_24_" -> "wire#_10_";
+	"output#c[3]"	[type=output];
+	"XOR#_26_" -> "output#c[3]";
+	"output#c[3]" -> "module#ckt";
+	"output#c[0]"	[type=output];
+	"XOR#_27_" -> "output#c[0]";
+	"output#c[0]" -> "module#ckt";
+	"module#ckt" -> "input#b[0]";
+	"module#ckt" -> "input#a[0]";
+	"module#ckt" -> "input#b[1]";
+	"module#ckt" -> "input#a[1]";
+	"module#ckt" -> "input#b[2]";
+	"module#ckt" -> "input#a[2]";
+	"module#ckt" -> "input#b[3]";
+	"module#ckt" -> "input#a[3]";
 }

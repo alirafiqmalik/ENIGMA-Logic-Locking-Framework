@@ -131,27 +131,42 @@ def randKey(bits, seed=None):
 ####################################################################################################################################
 ####################################################################################################################################
 
-
-def format_verilog(verilog,remove_wire=False,remove_assign=False):
-    verilog=re.sub("//.*\n","",verilog)
-    verilog=re.sub("[/][].[*][/]","",verilog)
-    verilog=re.sub("[(][].[*][)]\n","",verilog)
+def format_verilog_org(verilog):
+    verilog=re.sub(r"//.*\n","",verilog)
+    verilog=re.sub(r"[/][].[*][/]","",verilog)
+    verilog=re.sub(r"[(][].[*][)]\n","",verilog)
     verilog=re.sub(r"/\*.*?\*/", "", verilog, flags=re.DOTALL)
 
-    verilog=re.sub("\n+","",verilog)
+    verilog=re.sub(r"\n+","",verilog)
     verilog=re.sub(r"\s+"," ",verilog)
-    verilog=re.sub(" ?; ?",";\n",verilog)
-    verilog=re.sub("endmodule","endmodule\n",verilog)
-    verilog=re.sub("end ","end\n",verilog)
-    verilog=re.sub("begin","begin\n",verilog)
+    verilog=re.sub(r" ?; ?",";\n",verilog)
+    verilog=re.sub(r"endmodule","endmodule\n",verilog)
+    verilog=re.sub(r"end ","end\n",verilog)
+    verilog=re.sub(r"begin","begin\n",verilog)
+    return verilog
+
+
+
+def format_verilog(verilog,remove_wire=False,remove_assign=False):
+    verilog=re.sub(r"//.*\n","",verilog)
+    verilog=re.sub(r"[/][].[*][/]","",verilog)
+    verilog=re.sub(r"[(][].[*][)]\n","",verilog)
+    verilog=re.sub(r"/\*.*?\*/", "", verilog, flags=re.DOTALL)
+
+    verilog=re.sub(r"\n+","",verilog)
+    verilog=re.sub(r"\s+"," ",verilog)
+    verilog=re.sub(r" ?; ?",";\n",verilog)
+    verilog=re.sub(r"endmodule","endmodule\n",verilog)
+    verilog=re.sub(r"end ","end\n",verilog)
+    verilog=re.sub(r"begin","begin\n",verilog)
 
     assign_nodes=re.findall(r"assign (\\?.*) = (\\?.*) ?;\n",verilog)
 
     verilog=re.sub(r"assign (\\?.*) = (\\?.*) ?;\n","",verilog) #BUF_g node\1_ ( .A(\2), .Y(\1) );\n
 
-    verilog_withoutwire=re.sub("wire .*;\n","",verilog)
+    verilog_withoutwire=re.sub(r"wire .*;\n","",verilog)
     if(remove_wire):
-        verilog=re.sub("wire .*;\n","",verilog)
+        verilog=re.sub(r"wire .*;\n","",verilog)
     
     tmpstr=""
     if(remove_assign):
@@ -363,7 +378,7 @@ def synthesize_verilog(verilog, top,flag = "flatten"):
 
 def module_extraction (verilog):
         modules = re.findall(r'(module\s+(\w+)\s*\(.*?\)\s*;.*?endmodule)', verilog, re.DOTALL)
-        module_dict = dict((module[1], format_verilog(module[0],remove_wire=False)) for module in modules)
+        module_dict = dict((module[1], format_verilog_org(module[0])) for module in modules)
         return module_dict      #module_dict = {'modulename' : "module code"}
 
 # def gates_extraction(verilog):

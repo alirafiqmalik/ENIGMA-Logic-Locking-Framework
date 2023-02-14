@@ -20,12 +20,12 @@ obj = AST("./output_files/locked.json",rw='r',top="locked") # r for read from fi
 
 
 print(obj.top_module.circuitgraph)
-obj.top_module.save_graph()
+# obj.top_module.save_graph()
 
 for i in obj.submodule:
   print(obj.submodule[i].circuitgraph)
 
-
+obj.submodule["ckt"].save_graph()
 
 
 
