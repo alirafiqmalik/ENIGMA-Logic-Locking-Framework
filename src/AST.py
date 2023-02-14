@@ -31,13 +31,14 @@ class module:
 
                 self.circuitgraph.add_node(node_name, type="gate",logic=logic_gate)
 
-                if(node_output in self.io["outputs"]):
+                if(re.sub("\[\d+\]","",node_output) in self.io["outputs"]):
                     self.circuitgraph.add_node("output#"+node_output, type="output")
                     self.circuitgraph.add_edge(node_name, "output#"+node_output)
                 elif(re.sub("\[\d+\]","",node_output) in self.io["wires"]):
                     self.circuitgraph.add_node("wire#"+node_output, type="wire")
                     self.circuitgraph.add_edge(node_name, "wire#"+node_output)
                 else:
+                    print(re.sub("\[\d+\]","",node_output),node_output)
                     raise Exception("NODE NOT FOUND")
 
                 for i in node_input:
@@ -48,6 +49,7 @@ class module:
                         self.circuitgraph.add_node("wire#"+i, type="wire")
                         self.circuitgraph.add_edge("wire#"+i,node_name)
                     else:
+                        print(re.sub("\[\d+\]","",i),i)
                         raise Exception("NODE NOT FOUND")
 
         self.circuitgraph.add_node("module#"+self.module_name, type="module")
@@ -132,6 +134,7 @@ class AST:
         wire, _ = extract_io_v(self.top_module_verilog, "wire")    
         wire={key:wire[key]  for key in get_difference_abs(wire.keys(),inputs.keys(),outputs.keys())}
         self.top_module.io = dict({'wires':wire,'inputs':inputs,'outputs':outputs,'input_ports':input_ports,'output_ports':output_ports})
+        self.top_module.gen_graph()
 
     def sub_modules_data(self):
         for key in self.extracted_submodules:
@@ -146,10 +149,10 @@ class AST:
             wire, _ = extract_io_v(self.submodule[key].gate_level_verilog, "wire")    
             wire={key:wire[key]  for key in get_difference_abs(wire.keys(),inputs.keys(),outputs.keys())}
             self.submodule[key].io = dict({'wires':wire,'inputs':inputs,'outputs':outputs,'input_ports':input_ports,'output_ports':output_ports})
+            self.submodule[key].gen_graph()
             
 
     def writeLLFile(self):
-        
         ast_dict = dict({"orginal_code" : self.verilog, "gate_level_flattened" : self.synthesized_verilog_flatten,"Bench_format_flattened" : self.flatten_bench, "gate_level_not_flattened" : self.synthesized_verilog, "top_module_name" : self.top_module_name})
         top_dict = dict({"Verilog": self.top_module.org_code_verilog, "Synthesized_verilog" : self.top_module.gate_level_verilog, "Total_number_of_submodules":self.no_of_submodules, "io":self.top_module.io, "gates": self.top_module.gates, "Linkages" : self.top_module.linkages})
 
@@ -203,6 +206,8 @@ class AST:
     
     def update_LLverilog(self):
         self.LLverilog+=self.top_module.gate_level_verilog+"\n"
+        # self.circuitgraph
         for i in self.submodule:
             self.LLverilog+=self.submodule[i].gate_level_verilog+"\n"
+            # self.circuitgraph
 

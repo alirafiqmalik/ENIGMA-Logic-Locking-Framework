@@ -18,6 +18,19 @@ obj=AST("./input_files/tmporg.v",rw="w",flag="v",top="locked")
 
 
 
+
+print(obj.top_module.circuitgraph)
+
+for i in obj.submodule:
+  print(obj.submodule[i].circuitgraph)
+
+
+
+
+
+
+
+
 # print( module.io["inputs"])
 # # print(module.linkages)
 # print(module.io["input_ports"])
@@ -81,38 +94,6 @@ obj=AST("./input_files/tmporg.v",rw="w",flag="v",top="locked")
 
 
 
-class Netlist():
-  def __init__(self,module):
-    module.io
-  
-  
-  def gen_graph(self,netlist=None):
-    self.circuitgraph = nx.DiGraph()
-    for i in self.gates.keys():
-      if i=='NOT' or i=='BUF':
-        tmp=re.findall("(.*) = "+ i +"\((.*)\)\n?",netlist)
-        for count,j in enumerate(tmp):
-          #print(j)
-          self.circuitgraph.add_edge(i+"_"+str(count),j[0].strip())
-          self.circuitgraph.add_edge(j[1].strip(),i+"_"+str(count))
-          for k in j:
-            tmpk=k.strip()
-            if( (tmpk not in self.inputs) and (tmpk not in self.outputs) and (tmpk not in self.wires) ):
-              self.wires.append(tmpk)
-              #print(k)
-      else:
-        tmp=re.findall("(.*) = "+ i +"\((.*),(.*)\)\n?",netlist)
-        for count,j in enumerate(tmp):
-          #print(j)
-          self.circuitgraph.add_edge(i+"_"+str(count),j[0].strip())
-          self.circuitgraph.add_edge(j[1].strip(),i+"_"+str(count))
-          self.circuitgraph.add_edge(j[2].strip(),i+"_"+str(count))
-          for k in j:
-            tmpk=k.strip()
-            if( (tmpk not in self.inputs) and (tmpk not in self.outputs) and (tmpk not in self.wires) ):
-              self.wires.append(tmpk)
-              #print(k)
-      self.gates[i]+=len(tmp)
 
 
 
