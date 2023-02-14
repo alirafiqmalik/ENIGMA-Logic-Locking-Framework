@@ -377,8 +377,8 @@ def synthesize_verilog(verilog, top,flag = "flatten"):
 #     return synthesized_verilog
 
 def module_extraction (verilog):
-        modules = re.findall(r'(module\s+(\w+)\s*\(.*?\)\s*;.*?endmodule)', verilog, re.DOTALL)
-        module_dict = dict((module[1], format_verilog_org(module[0])) for module in modules)
+        modules = re.findall(r'(module\s+(\w+)\s*\(.*?\)\s*;.*?endmodule)', format_verilog_org(verilog), re.DOTALL)
+        module_dict = dict((module[1], module[0]) for module in modules)
         return module_dict      #module_dict = {'modulename' : "module code"}
 
 # def gates_extraction(verilog):

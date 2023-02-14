@@ -18,6 +18,7 @@ class module:
         self.linkages = None #[ {"instant_name":None,"module_name":None,"links":{"out":"lock_out"}}]
         self.module_LLverilog=None
         self.module_LLcircuitgraph=None
+        self.circuitgraph=None
     
     def gen_graph(self):
         self.circuitgraph = nx.DiGraph()
@@ -38,6 +39,7 @@ class module:
                     self.circuitgraph.add_node("wire#"+node_output, type="wire")
                     self.circuitgraph.add_edge(node_name, "wire#"+node_output)
                 else:
+                    print(self.module_name)
                     print(re.sub("\[\d+\]","",node_output),node_output)
                     raise Exception("NODE NOT FOUND")
 
@@ -49,6 +51,7 @@ class module:
                         self.circuitgraph.add_node("wire#"+i, type="wire")
                         self.circuitgraph.add_edge("wire#"+i,node_name)
                     else:
+                        print(self.module_name)
                         print(re.sub("\[\d+\]","",i),i)
                         raise Exception("NODE NOT FOUND")
 
@@ -92,7 +95,7 @@ class AST:
                 self.verilog = open(file_path).read()
             elif flag == 'b':
                 self.bench = open(file_path).read()
-                self.verilog = verilog_to_bench(self.bench)
+                self.verilog = bench_to_verilog(self.bench)
             else:
                 Exception("Enter either 'v' (for verilog) or 'b' (for bench)")
             self.synthesized_verilog = None
@@ -110,14 +113,19 @@ class AST:
         self.synthesized_verilog_flatten = synthesize_verilog(self.verilog,top=self.top_module_name)
         self.flatten_bench = verilog_to_bench(self.synthesized_verilog_flatten)
 
+
+
+
         self.submodules_techmap = module_extraction(self.synthesized_verilog)
         self.top_module_verilog_techmap = self.submodules_techmap[self.top_module_name]
         del self.submodules_techmap[self.top_module_name]
+
 
         self.extracted_submodules = module_extraction(self.verilog)
         self.top_module_verilog = self.extracted_submodules[self.top_module_name]
         del self.extracted_submodules[self.top_module_name]
         self.no_of_submodules = len(self.extracted_submodules)
+
 
         self.top_module_info()
         self.sub_modules_data()
@@ -131,10 +139,11 @@ class AST:
         self.top_module.gates,self.top_module.linkages = gates_module_extraction(self.top_module.gate_level_verilog)
         inputs, input_ports = extract_io_v(self.top_module_verilog)
         outputs, output_ports = extract_io_v(self.top_module_verilog, "output")
-        wire, _ = extract_io_v(self.top_module_verilog, "wire")    
+        wire, _ = extract_io_v(self.top_module.gate_level_verilog, "wire")    
         wire={key:wire[key]  for key in get_difference_abs(wire.keys(),inputs.keys(),outputs.keys())}
         self.top_module.io = dict({'wires':wire,'inputs':inputs,'outputs':outputs,'input_ports':input_ports,'output_ports':output_ports})
         self.top_module.gen_graph()
+
         
 
     def sub_modules_data(self):
@@ -147,7 +156,9 @@ class AST:
             inputs, input_ports = extract_io_v(self.submodule[key].org_code_verilog)
             outputs, output_ports = extract_io_v(self.submodule[key].org_code_verilog, "output")
             wire, _ = extract_io_v(self.submodule[key].gate_level_verilog, "wire")    
+            
             wire={key:wire[key]  for key in get_difference_abs(wire.keys(),inputs.keys(),outputs.keys())}
+            # print(wire)
             self.submodule[key].io = dict({'wires':wire,'inputs':inputs,'outputs':outputs,'input_ports':input_ports,'output_ports':output_ports})
             self.submodule[key].gen_graph()
             
@@ -211,4 +222,48 @@ class AST:
         self.LLverilog+=self.top_module.gate_level_verilog+"\n"
         for i in self.submodule:
             self.LLverilog+=self.submodule[i].gate_level_verilog+"\n"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# // module locked(inputs, key, out);
+# // input [7:0] inputs;
+# // input [7:0] key;
+# // output [1:0]out;
+# // sarlock s(.inputs(inputs), .key(key), .lock_out(out[0]));
+# // sarlock s1(.inputs(inputs), .key(key), .lock_out(out[1]));
+# // endmodule
+
+# // module ckt(a,b,c);
+# // input [3:0] a,b;
+# // output [4:0] c;
+# // assign	c = a + b;
+# // endmodule
+
+# // module sarlock (inputs, key, lock_out);
+# // input [7:0] inputs;
+# // input [7:0] key;
+# // output lock_out;
+# // wire [4:0]ckt_out; 
+# // reg keyx = 8'b01101101;
+# // assign lock_out =ckt_out[0]^( (inputs == key) & (inputs != keyx));
+# // ckt c(.a(inputs[3:0]), .b(inputs[7:4]), .c(ckt_out));
+# // endmodule
 

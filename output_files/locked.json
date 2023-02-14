@@ -1,24 +1,112 @@
 {
     "AST": {
-        "orginal_code": "module locked(inputs, key, out);\ninput [7:0] inputs;\ninput [7:0] key;\noutput [1:0]out;\nsarlock s(.inputs(inputs), .key(key), .lock_out(out[0]));\nsarlock s1(.inputs(inputs), .key(key), .lock_out(out[1]));\nendmodule\n\nmodule ckt(a,b,c);\ninput [3:0] a,b;\noutput [4:0] c;\nassign\tc = a + b;\nendmodule\n\nmodule sarlock (inputs, key, lock_out);\ninput [7:0] inputs;\ninput [7:0] key;\noutput lock_out;\nwire [4:0]ckt_out; \nreg keyx = 8'b01101101;\nassign lock_out =ckt_out[0]^( (inputs == key) & (inputs != keyx));\nckt c(.a(inputs[3:0]), .b(inputs[7:4]), .c(ckt_out));\nendmodule\n\n\n",
-        "gate_level_flattened": "module locked(inputs, key, out);\nwire _000_;\nwire _001_;\nwire _002_;\nwire _003_;\nwire _004_;\nwire _005_;\nwire _006_;\nwire _007_;\nwire _008_;\nwire _009_;\nwire _010_;\nwire _011_;\nwire _012_;\nwire _013_;\nwire _014_;\nwire _015_;\nwire _016_;\nwire _017_;\nwire _018_;\nwire _019_;\nwire _020_;\nwire _021_;\nwire _022_;\nwire _023_;\nwire _024_;\nwire _025_;\nwire _026_;\nwire _027_;\nwire _028_;\nwire _029_;\nwire _030_;\nwire _031_;\nwire _032_;\nwire _033_;\nwire _034_;\nwire _035_;\nwire _036_;\nwire _037_;\nwire _038_;\nwire _039_;\nwire _040_;\nwire _041_;\nwire _042_;\nwire _043_;\nwire _044_;\nwire _045_;\nwire _046_;\nwire _047_;\nwire _048_;\nwire _049_;\nwire _050_;\nwire _051_;\nwire _052_;\nwire _053_;\nwire _054_;\nwire _055_;\nwire _056_;\nwire _057_;\nwire _058_;\nwire _059_;\nwire _060_;\nwire _061_;\nwire _062_;\nwire _063_;\nwire _064_;\nwire _065_;\nwire _066_;\nwire _067_;\nwire _068_;\nwire _069_;\nwire _070_;\nwire _071_;\ninput [7:0] inputs;\nwire [7:0] inputs;\ninput [7:0] key;\nwire [7:0] key;\noutput [1:0] out;\nwire [1:0] out;\nwire [4:0] \\s.c.c;\nwire [4:0] \\s1.c.c;\nNOT_g _072_ ( .A(inputs[3]), .Y(_000_) );\nXNOR_g _073_ ( .A(inputs[0]), .B(key[0]), .Y(_001_) );\nXNOR_g _074_ ( .A(inputs[7]), .B(key[7]), .Y(_002_) );\nAND_g _075_ ( .A(_001_), .B(_002_), .Y(_003_) );\nXNOR_g _076_ ( .A(inputs[1]), .B(key[1]), .Y(_004_) );\nXNOR_g _077_ ( .A(inputs[3]), .B(key[3]), .Y(_005_) );\nAND_g _078_ ( .A(_004_), .B(_005_), .Y(_006_) );\nAND_g _079_ ( .A(_003_), .B(_006_), .Y(_007_) );\nNOR_g _080_ ( .A(inputs[5]), .B(inputs[6]), .Y(_008_) );\nNOR_g _081_ ( .A(inputs[4]), .B(inputs[7]), .Y(_009_) );\nAND_g _082_ ( .A(_008_), .B(_009_), .Y(_010_) );\nNOR_g _083_ ( .A(inputs[1]), .B(inputs[2]), .Y(_011_) );\nAND_g _084_ ( .A(inputs[0]), .B(_000_), .Y(_012_) );\nAND_g _085_ ( .A(_011_), .B(_012_), .Y(_013_) );\nNAND_g _086_ ( .A(_010_), .B(_013_), .Y(_014_) );\nXNOR_g _087_ ( .A(inputs[5]), .B(key[5]), .Y(_015_) );\nXNOR_g _088_ ( .A(inputs[2]), .B(key[2]), .Y(_016_) );\nAND_g _089_ ( .A(_015_), .B(_016_), .Y(_017_) );\nXNOR_g _090_ ( .A(inputs[6]), .B(key[6]), .Y(_018_) );\nXNOR_g _091_ ( .A(inputs[4]), .B(key[4]), .Y(_019_) );\nAND_g _092_ ( .A(_018_), .B(_019_), .Y(_020_) );\nAND_g _093_ ( .A(_017_), .B(_020_), .Y(_021_) );\nAND_g _094_ ( .A(_014_), .B(_021_), .Y(_022_) );\nNAND_g _095_ ( .A(_007_), .B(_022_), .Y(_023_) );\nXNOR_g _096_ ( .A(\\s.c.c [0]), .B(_023_), .Y(out[0]) );\nAND_g _097_ ( .A(inputs[0]), .B(inputs[4]), .Y(_024_) );\nNAND_g _098_ ( .A(inputs[1]), .B(inputs[5]), .Y(_025_) );\nXOR_g _099_ ( .A(inputs[1]), .B(inputs[5]), .Y(_026_) );\nNAND_g _100_ ( .A(_024_), .B(_026_), .Y(_027_) );\nXOR_g _101_ ( .A(_024_), .B(_026_), .Y(\\s.c.c [1]) );\nNAND_g _102_ ( .A(_025_), .B(_027_), .Y(_028_) );\nNAND_g _103_ ( .A(inputs[2]), .B(inputs[6]), .Y(_029_) );\nXOR_g _104_ ( .A(inputs[2]), .B(inputs[6]), .Y(_030_) );\nNAND_g _105_ ( .A(_028_), .B(_030_), .Y(_031_) );\nXOR_g _106_ ( .A(_028_), .B(_030_), .Y(\\s.c.c [2]) );\nNAND_g _107_ ( .A(_029_), .B(_031_), .Y(_032_) );\nNAND_g _108_ ( .A(inputs[3]), .B(inputs[7]), .Y(_033_) );\nXOR_g _109_ ( .A(inputs[3]), .B(inputs[7]), .Y(_034_) );\nNAND_g _110_ ( .A(_032_), .B(_034_), .Y(_035_) );\nXOR_g _111_ ( .A(_032_), .B(_034_), .Y(\\s.c.c [3]) );\nXOR_g _112_ ( .A(inputs[0]), .B(inputs[4]), .Y(\\s.c.c [0]) );\nNAND_g _113_ ( .A(_033_), .B(_035_), .Y(\\s.c.c [4]) );\nNOT_g _114_ ( .A(inputs[3]), .Y(_036_) );\nXNOR_g _115_ ( .A(inputs[0]), .B(key[0]), .Y(_037_) );\nXNOR_g _116_ ( .A(inputs[7]), .B(key[7]), .Y(_038_) );\nAND_g _117_ ( .A(_037_), .B(_038_), .Y(_039_) );\nXNOR_g _118_ ( .A(inputs[1]), .B(key[1]), .Y(_040_) );\nXNOR_g _119_ ( .A(inputs[3]), .B(key[3]), .Y(_041_) );\nAND_g _120_ ( .A(_040_), .B(_041_), .Y(_042_) );\nAND_g _121_ ( .A(_039_), .B(_042_), .Y(_043_) );\nNOR_g _122_ ( .A(inputs[5]), .B(inputs[6]), .Y(_044_) );\nNOR_g _123_ ( .A(inputs[4]), .B(inputs[7]), .Y(_045_) );\nAND_g _124_ ( .A(_044_), .B(_045_), .Y(_046_) );\nNOR_g _125_ ( .A(inputs[1]), .B(inputs[2]), .Y(_047_) );\nAND_g _126_ ( .A(inputs[0]), .B(_036_), .Y(_048_) );\nAND_g _127_ ( .A(_047_), .B(_048_), .Y(_049_) );\nNAND_g _128_ ( .A(_046_), .B(_049_), .Y(_050_) );\nXNOR_g _129_ ( .A(inputs[5]), .B(key[5]), .Y(_051_) );\nXNOR_g _130_ ( .A(inputs[2]), .B(key[2]), .Y(_052_) );\nAND_g _131_ ( .A(_051_), .B(_052_), .Y(_053_) );\nXNOR_g _132_ ( .A(inputs[6]), .B(key[6]), .Y(_054_) );\nXNOR_g _133_ ( .A(inputs[4]), .B(key[4]), .Y(_055_) );\nAND_g _134_ ( .A(_054_), .B(_055_), .Y(_056_) );\nAND_g _135_ ( .A(_053_), .B(_056_), .Y(_057_) );\nAND_g _136_ ( .A(_050_), .B(_057_), .Y(_058_) );\nNAND_g _137_ ( .A(_043_), .B(_058_), .Y(_059_) );\nXNOR_g _138_ ( .A(\\s1.c.c [0]), .B(_059_), .Y(out[1]) );\nAND_g _139_ ( .A(inputs[0]), .B(inputs[4]), .Y(_060_) );\nNAND_g _140_ ( .A(inputs[1]), .B(inputs[5]), .Y(_061_) );\nXOR_g _141_ ( .A(inputs[1]), .B(inputs[5]), .Y(_062_) );\nNAND_g _142_ ( .A(_060_), .B(_062_), .Y(_063_) );\nXOR_g _143_ ( .A(_060_), .B(_062_), .Y(\\s1.c.c [1]) );\nNAND_g _144_ ( .A(_061_), .B(_063_), .Y(_064_) );\nNAND_g _145_ ( .A(inputs[2]), .B(inputs[6]), .Y(_065_) );\nXOR_g _146_ ( .A(inputs[2]), .B(inputs[6]), .Y(_066_) );\nNAND_g _147_ ( .A(_064_), .B(_066_), .Y(_067_) );\nXOR_g _148_ ( .A(_064_), .B(_066_), .Y(\\s1.c.c [2]) );\nNAND_g _149_ ( .A(_065_), .B(_067_), .Y(_068_) );\nNAND_g _150_ ( .A(inputs[3]), .B(inputs[7]), .Y(_069_) );\nXOR_g _151_ ( .A(inputs[3]), .B(inputs[7]), .Y(_070_) );\nNAND_g _152_ ( .A(_068_), .B(_070_), .Y(_071_) );\nXOR_g _153_ ( .A(_068_), .B(_070_), .Y(\\s1.c.c [3]) );\nXOR_g _154_ ( .A(inputs[0]), .B(inputs[4]), .Y(\\s1.c.c [0]) );\nNAND_g _155_ ( .A(_069_), .B(_071_), .Y(\\s1.c.c [4]) );\nendmodule\n",
-        "Bench_format_flattened": "_000_ = NOT(inputs[3])\n_036_ = NOT(inputs[3])\n_003_ = AND(_001_,_002_)\n_006_ = AND(_004_,_005_)\n_007_ = AND(_003_,_006_)\n_010_ = AND(_008_,_009_)\n_012_ = AND(inputs[0],_000_)\n_013_ = AND(_011_,_012_)\n_017_ = AND(_015_,_016_)\n_020_ = AND(_018_,_019_)\n_021_ = AND(_017_,_020_)\n_022_ = AND(_014_,_021_)\n_024_ = AND(inputs[0],inputs[4])\n_039_ = AND(_037_,_038_)\n_042_ = AND(_040_,_041_)\n_043_ = AND(_039_,_042_)\n_046_ = AND(_044_,_045_)\n_048_ = AND(inputs[0],_036_)\n_049_ = AND(_047_,_048_)\n_053_ = AND(_051_,_052_)\n_056_ = AND(_054_,_055_)\n_057_ = AND(_053_,_056_)\n_058_ = AND(_050_,_057_)\n_060_ = AND(inputs[0],inputs[4])\n_014_ = NAND(_010_,_013_)\n_023_ = NAND(_007_,_022_)\n_025_ = NAND(inputs[1],inputs[5])\n_027_ = NAND(_024_,_026_)\n_028_ = NAND(_025_,_027_)\n_029_ = NAND(inputs[2],inputs[6])\n_031_ = NAND(_028_,_030_)\n_032_ = NAND(_029_,_031_)\n_033_ = NAND(inputs[3],inputs[7])\n_035_ = NAND(_032_,_034_)\n\\s.c.c [4] = NAND(_033_,_035_)\n_050_ = NAND(_046_,_049_)\n_059_ = NAND(_043_,_058_)\n_061_ = NAND(inputs[1],inputs[5])\n_063_ = NAND(_060_,_062_)\n_064_ = NAND(_061_,_063_)\n_065_ = NAND(inputs[2],inputs[6])\n_067_ = NAND(_064_,_066_)\n_068_ = NAND(_065_,_067_)\n_069_ = NAND(inputs[3],inputs[7])\n_071_ = NAND(_068_,_070_)\n\\s1.c.c [4] = NAND(_069_,_071_)\n_008_ = NOR(inputs[5],inputs[6])\n_009_ = NOR(inputs[4],inputs[7])\n_011_ = NOR(inputs[1],inputs[2])\n_044_ = NOR(inputs[5],inputs[6])\n_045_ = NOR(inputs[4],inputs[7])\n_047_ = NOR(inputs[1],inputs[2])\n_026_ = XOR(inputs[1],inputs[5])\n\\s.c.c [1] = XOR(_024_,_026_)\n_030_ = XOR(inputs[2],inputs[6])\n\\s.c.c [2] = XOR(_028_,_030_)\n_034_ = XOR(inputs[3],inputs[7])\n\\s.c.c [3] = XOR(_032_,_034_)\n\\s.c.c [0] = XOR(inputs[0],inputs[4])\n_062_ = XOR(inputs[1],inputs[5])\n\\s1.c.c [1] = XOR(_060_,_062_)\n_066_ = XOR(inputs[2],inputs[6])\n\\s1.c.c [2] = XOR(_064_,_066_)\n_070_ = XOR(inputs[3],inputs[7])\n\\s1.c.c [3] = XOR(_068_,_070_)\n\\s1.c.c [0] = XOR(inputs[0],inputs[4])\n_001_ = XNOR(inputs[0],key[0])\n_002_ = XNOR(inputs[7],key[7])\n_004_ = XNOR(inputs[1],key[1])\n_005_ = XNOR(inputs[3],key[3])\n_015_ = XNOR(inputs[5],key[5])\n_016_ = XNOR(inputs[2],key[2])\n_018_ = XNOR(inputs[6],key[6])\n_019_ = XNOR(inputs[4],key[4])\nout[0] = XNOR(\\s.c.c [0],_023_)\n_037_ = XNOR(inputs[0],key[0])\n_038_ = XNOR(inputs[7],key[7])\n_040_ = XNOR(inputs[1],key[1])\n_041_ = XNOR(inputs[3],key[3])\n_051_ = XNOR(inputs[5],key[5])\n_052_ = XNOR(inputs[2],key[2])\n_054_ = XNOR(inputs[6],key[6])\n_055_ = XNOR(inputs[4],key[4])\nout[1] = XNOR(\\s1.c.c [0],_059_)\n",
-        "gate_level_not_flattened": "module ckt(a, b, c);\nwire _00_;\nwire _01_;\nwire _02_;\nwire _03_;\nwire _04_;\nwire _05_;\nwire _06_;\nwire _07_;\nwire _08_;\nwire _09_;\nwire _10_;\nwire _11_;\ninput [3:0] a;\nwire [3:0] a;\ninput [3:0] b;\nwire [3:0] b;\noutput [4:0] c;\nwire [4:0] c;\nAND_g _12_ ( .A(a[0]), .B(b[0]), .Y(_00_) );\nNAND_g _13_ ( .A(a[1]), .B(b[1]), .Y(_01_) );\nXOR_g _14_ ( .A(a[1]), .B(b[1]), .Y(_02_) );\nNAND_g _15_ ( .A(_00_), .B(_02_), .Y(_03_) );\nXOR_g _16_ ( .A(_00_), .B(_02_), .Y(c[1]) );\nNAND_g _17_ ( .A(_01_), .B(_03_), .Y(_04_) );\nNAND_g _18_ ( .A(a[2]), .B(b[2]), .Y(_05_) );\nXOR_g _19_ ( .A(a[2]), .B(b[2]), .Y(_06_) );\nNAND_g _20_ ( .A(_04_), .B(_06_), .Y(_07_) );\nXOR_g _21_ ( .A(_04_), .B(_06_), .Y(c[2]) );\nNAND_g _22_ ( .A(_05_), .B(_07_), .Y(_08_) );\nNAND_g _23_ ( .A(a[3]), .B(b[3]), .Y(_09_) );\nXOR_g _24_ ( .A(a[3]), .B(b[3]), .Y(_10_) );\nNAND_g _25_ ( .A(_08_), .B(_10_), .Y(_11_) );\nXOR_g _26_ ( .A(_08_), .B(_10_), .Y(c[3]) );\nXOR_g _27_ ( .A(a[0]), .B(b[0]), .Y(c[0]) );\nNAND_g _28_ ( .A(_09_), .B(_11_), .Y(c[4]) );\nendmodule\nmodule locked(inputs, key, out);\ninput [7:0] inputs;\nwire [7:0] inputs;\ninput [7:0] key;\nwire [7:0] key;\noutput [1:0] out;\nwire [1:0] out;\nsarlock s ( .inputs(inputs), .key(key), .lock_out(out[0]) );\nsarlock s1 ( .inputs(inputs), .key(key), .lock_out(out[1]) );\nendmodule\nmodule sarlock(inputs, key, lock_out);\nwire _00_;\nwire _01_;\nwire _02_;\nwire _03_;\nwire _04_;\nwire _05_;\nwire _06_;\nwire _07_;\nwire _08_;\nwire _09_;\nwire _10_;\nwire _11_;\nwire _12_;\nwire _13_;\nwire _14_;\nwire _15_;\nwire _16_;\nwire _17_;\nwire _18_;\nwire _19_;\nwire _20_;\nwire _21_;\nwire _22_;\nwire _23_;\nwire [4:0] ckt_out;\ninput [7:0] inputs;\nwire [7:0] inputs;\ninput [7:0] key;\nwire [7:0] key;\noutput lock_out;\nwire lock_out;\nNOT_g _24_ ( .A(inputs[3]), .Y(_00_) );\nXNOR_g _25_ ( .A(inputs[0]), .B(key[0]), .Y(_01_) );\nXNOR_g _26_ ( .A(inputs[7]), .B(key[7]), .Y(_02_) );\nAND_g _27_ ( .A(_01_), .B(_02_), .Y(_03_) );\nXNOR_g _28_ ( .A(inputs[1]), .B(key[1]), .Y(_04_) );\nXNOR_g _29_ ( .A(inputs[3]), .B(key[3]), .Y(_05_) );\nAND_g _30_ ( .A(_04_), .B(_05_), .Y(_06_) );\nAND_g _31_ ( .A(_03_), .B(_06_), .Y(_07_) );\nNOR_g _32_ ( .A(inputs[5]), .B(inputs[6]), .Y(_08_) );\nNOR_g _33_ ( .A(inputs[4]), .B(inputs[7]), .Y(_09_) );\nAND_g _34_ ( .A(_08_), .B(_09_), .Y(_10_) );\nNOR_g _35_ ( .A(inputs[1]), .B(inputs[2]), .Y(_11_) );\nAND_g _36_ ( .A(inputs[0]), .B(_00_), .Y(_12_) );\nAND_g _37_ ( .A(_11_), .B(_12_), .Y(_13_) );\nNAND_g _38_ ( .A(_10_), .B(_13_), .Y(_14_) );\nXNOR_g _39_ ( .A(inputs[5]), .B(key[5]), .Y(_15_) );\nXNOR_g _40_ ( .A(inputs[2]), .B(key[2]), .Y(_16_) );\nAND_g _41_ ( .A(_15_), .B(_16_), .Y(_17_) );\nXNOR_g _42_ ( .A(inputs[6]), .B(key[6]), .Y(_18_) );\nXNOR_g _43_ ( .A(inputs[4]), .B(key[4]), .Y(_19_) );\nAND_g _44_ ( .A(_18_), .B(_19_), .Y(_20_) );\nAND_g _45_ ( .A(_17_), .B(_20_), .Y(_21_) );\nAND_g _46_ ( .A(_14_), .B(_21_), .Y(_22_) );\nNAND_g _47_ ( .A(_07_), .B(_22_), .Y(_23_) );\nXNOR_g _48_ ( .A(ckt_out[0]), .B(_23_), .Y(lock_out) );\nckt c ( .a(inputs[3:0]), .b(inputs[7:4]), .c(ckt_out) );\nendmodule\n",
+        "orginal_code": "module locked(inputA, inputB, out);\ninput [7:0] inputA;\ninput [7:0] inputB;\noutput [8:0] out;\nassign out=inputA+inputB;\nendmodule\n\n\n\n\n\n// module locked(inputs, key, out);\n// input [7:0] inputs;\n// input [7:0] key;\n// output [1:0]out;\n// sarlock s(.inputs(inputs), .key(key), .lock_out(out[0]));\n// sarlock s1(.inputs(inputs), .key(key), .lock_out(out[1]));\n// endmodule\n\n// module ckt(a,b,c);\n// input [3:0] a,b;\n// output [4:0] c;\n// assign\tc = a + b;\n// endmodule\n\n// module sarlock (inputs, key, lock_out);\n// input [7:0] inputs;\n// input [7:0] key;\n// output lock_out;\n// wire [4:0]ckt_out; \n// reg keyx = 8'b01101101;\n// assign lock_out =ckt_out[0]^( (inputs == key) & (inputs != keyx));\n// ckt c(.a(inputs[3:0]), .b(inputs[7:4]), .c(ckt_out));\n// endmodule\n\n",
+        "gate_level_flattened": "module locked(inputA, inputB, out);\nwire _00_;\nwire _01_;\nwire _02_;\nwire _03_;\nwire _04_;\nwire _05_;\nwire _06_;\nwire _07_;\nwire _08_;\nwire _09_;\nwire _10_;\nwire _11_;\nwire _12_;\nwire _13_;\nwire _14_;\nwire _15_;\nwire _16_;\nwire _17_;\nwire _18_;\nwire _19_;\nwire _20_;\nwire _21_;\nwire _22_;\nwire _23_;\nwire _24_;\nwire _25_;\nwire _26_;\nwire _27_;\nwire _28_;\ninput [7:0] inputA;\nwire [7:0] inputA;\ninput [7:0] inputB;\nwire [7:0] inputB;\noutput [8:0] out;\nwire [8:0] out;\nNAND_g _29_ ( .A(inputA[7]), .B(inputB[7]), .Y(_00_) );\nNOR_g _30_ ( .A(inputA[7]), .B(inputB[7]), .Y(_01_) );\nNAND_g _31_ ( .A(inputA[6]), .B(inputB[6]), .Y(_02_) );\nXOR_g _32_ ( .A(inputA[6]), .B(inputB[6]), .Y(_03_) );\nNAND_g _33_ ( .A(inputA[5]), .B(inputB[5]), .Y(_04_) );\nNAND_g _34_ ( .A(inputA[4]), .B(inputB[4]), .Y(_05_) );\nNAND_g _35_ ( .A(inputA[3]), .B(inputB[3]), .Y(_06_) );\nNAND_g _36_ ( .A(inputA[2]), .B(inputB[2]), .Y(_07_) );\nNAND_g _37_ ( .A(inputA[1]), .B(inputB[1]), .Y(_08_) );\nAND_g _38_ ( .A(inputA[0]), .B(inputB[0]), .Y(_09_) );\nXOR_g _39_ ( .A(inputA[1]), .B(inputB[1]), .Y(_10_) );\nNAND_g _40_ ( .A(_09_), .B(_10_), .Y(_11_) );\nNAND_g _41_ ( .A(_08_), .B(_11_), .Y(_12_) );\nXOR_g _42_ ( .A(inputA[2]), .B(inputB[2]), .Y(_13_) );\nNAND_g _43_ ( .A(_12_), .B(_13_), .Y(_14_) );\nNAND_g _44_ ( .A(_07_), .B(_14_), .Y(_15_) );\nXOR_g _45_ ( .A(inputA[3]), .B(inputB[3]), .Y(_16_) );\nNAND_g _46_ ( .A(_15_), .B(_16_), .Y(_17_) );\nNAND_g _47_ ( .A(_06_), .B(_17_), .Y(_18_) );\nXOR_g _48_ ( .A(inputA[4]), .B(inputB[4]), .Y(_19_) );\nNAND_g _49_ ( .A(_18_), .B(_19_), .Y(_20_) );\nNAND_g _50_ ( .A(_05_), .B(_20_), .Y(_21_) );\nXOR_g _51_ ( .A(inputA[5]), .B(inputB[5]), .Y(_22_) );\nNAND_g _52_ ( .A(_21_), .B(_22_), .Y(_23_) );\nNAND_g _53_ ( .A(_04_), .B(_23_), .Y(_24_) );\nNAND_g _54_ ( .A(_03_), .B(_24_), .Y(_25_) );\nAND_g _55_ ( .A(_02_), .B(_25_), .Y(_26_) );\nAND_g _56_ ( .A(_00_), .B(_26_), .Y(_27_) );\nNOR_g _57_ ( .A(_01_), .B(_27_), .Y(out[8]) );\nXOR_g _58_ ( .A(_09_), .B(_10_), .Y(out[1]) );\nXOR_g _59_ ( .A(_12_), .B(_13_), .Y(out[2]) );\nXOR_g _60_ ( .A(_15_), .B(_16_), .Y(out[3]) );\nXOR_g _61_ ( .A(_18_), .B(_19_), .Y(out[4]) );\nXOR_g _62_ ( .A(_21_), .B(_22_), .Y(out[5]) );\nXOR_g _63_ ( .A(_03_), .B(_24_), .Y(out[6]) );\nXOR_g _64_ ( .A(inputA[7]), .B(inputB[7]), .Y(_28_) );\nXNOR_g _65_ ( .A(_26_), .B(_28_), .Y(out[7]) );\nXOR_g _66_ ( .A(inputA[0]), .B(inputB[0]), .Y(out[0]) );\nendmodule\n",
+        "Bench_format_flattened": "_09_ = AND(inputA[0],inputB[0])\n_26_ = AND(_02_,_25_)\n_27_ = AND(_00_,_26_)\n_00_ = NAND(inputA[7],inputB[7])\n_02_ = NAND(inputA[6],inputB[6])\n_04_ = NAND(inputA[5],inputB[5])\n_05_ = NAND(inputA[4],inputB[4])\n_06_ = NAND(inputA[3],inputB[3])\n_07_ = NAND(inputA[2],inputB[2])\n_08_ = NAND(inputA[1],inputB[1])\n_11_ = NAND(_09_,_10_)\n_12_ = NAND(_08_,_11_)\n_14_ = NAND(_12_,_13_)\n_15_ = NAND(_07_,_14_)\n_17_ = NAND(_15_,_16_)\n_18_ = NAND(_06_,_17_)\n_20_ = NAND(_18_,_19_)\n_21_ = NAND(_05_,_20_)\n_23_ = NAND(_21_,_22_)\n_24_ = NAND(_04_,_23_)\n_25_ = NAND(_03_,_24_)\n_01_ = NOR(inputA[7],inputB[7])\nout[8] = NOR(_01_,_27_)\n_03_ = XOR(inputA[6],inputB[6])\n_10_ = XOR(inputA[1],inputB[1])\n_13_ = XOR(inputA[2],inputB[2])\n_16_ = XOR(inputA[3],inputB[3])\n_19_ = XOR(inputA[4],inputB[4])\n_22_ = XOR(inputA[5],inputB[5])\nout[1] = XOR(_09_,_10_)\nout[2] = XOR(_12_,_13_)\nout[3] = XOR(_15_,_16_)\nout[4] = XOR(_18_,_19_)\nout[5] = XOR(_21_,_22_)\nout[6] = XOR(_03_,_24_)\n_28_ = XOR(inputA[7],inputB[7])\nout[0] = XOR(inputA[0],inputB[0])\nout[7] = XNOR(_26_,_28_)\n",
+        "gate_level_not_flattened": "module locked(inputA, inputB, out);\nwire _00_;\nwire _01_;\nwire _02_;\nwire _03_;\nwire _04_;\nwire _05_;\nwire _06_;\nwire _07_;\nwire _08_;\nwire _09_;\nwire _10_;\nwire _11_;\nwire _12_;\nwire _13_;\nwire _14_;\nwire _15_;\nwire _16_;\nwire _17_;\nwire _18_;\nwire _19_;\nwire _20_;\nwire _21_;\nwire _22_;\nwire _23_;\nwire _24_;\nwire _25_;\nwire _26_;\nwire _27_;\nwire _28_;\ninput [7:0] inputA;\nwire [7:0] inputA;\ninput [7:0] inputB;\nwire [7:0] inputB;\noutput [8:0] out;\nwire [8:0] out;\nNAND_g _29_ ( .A(inputA[7]), .B(inputB[7]), .Y(_00_) );\nNOR_g _30_ ( .A(inputA[7]), .B(inputB[7]), .Y(_01_) );\nNAND_g _31_ ( .A(inputA[6]), .B(inputB[6]), .Y(_02_) );\nXOR_g _32_ ( .A(inputA[6]), .B(inputB[6]), .Y(_03_) );\nNAND_g _33_ ( .A(inputA[5]), .B(inputB[5]), .Y(_04_) );\nNAND_g _34_ ( .A(inputA[4]), .B(inputB[4]), .Y(_05_) );\nNAND_g _35_ ( .A(inputA[3]), .B(inputB[3]), .Y(_06_) );\nNAND_g _36_ ( .A(inputA[2]), .B(inputB[2]), .Y(_07_) );\nNAND_g _37_ ( .A(inputA[1]), .B(inputB[1]), .Y(_08_) );\nAND_g _38_ ( .A(inputA[0]), .B(inputB[0]), .Y(_09_) );\nXOR_g _39_ ( .A(inputA[1]), .B(inputB[1]), .Y(_10_) );\nNAND_g _40_ ( .A(_09_), .B(_10_), .Y(_11_) );\nNAND_g _41_ ( .A(_08_), .B(_11_), .Y(_12_) );\nXOR_g _42_ ( .A(inputA[2]), .B(inputB[2]), .Y(_13_) );\nNAND_g _43_ ( .A(_12_), .B(_13_), .Y(_14_) );\nNAND_g _44_ ( .A(_07_), .B(_14_), .Y(_15_) );\nXOR_g _45_ ( .A(inputA[3]), .B(inputB[3]), .Y(_16_) );\nNAND_g _46_ ( .A(_15_), .B(_16_), .Y(_17_) );\nNAND_g _47_ ( .A(_06_), .B(_17_), .Y(_18_) );\nXOR_g _48_ ( .A(inputA[4]), .B(inputB[4]), .Y(_19_) );\nNAND_g _49_ ( .A(_18_), .B(_19_), .Y(_20_) );\nNAND_g _50_ ( .A(_05_), .B(_20_), .Y(_21_) );\nXOR_g _51_ ( .A(inputA[5]), .B(inputB[5]), .Y(_22_) );\nNAND_g _52_ ( .A(_21_), .B(_22_), .Y(_23_) );\nNAND_g _53_ ( .A(_04_), .B(_23_), .Y(_24_) );\nNAND_g _54_ ( .A(_03_), .B(_24_), .Y(_25_) );\nAND_g _55_ ( .A(_02_), .B(_25_), .Y(_26_) );\nAND_g _56_ ( .A(_00_), .B(_26_), .Y(_27_) );\nNOR_g _57_ ( .A(_01_), .B(_27_), .Y(out[8]) );\nXOR_g _58_ ( .A(_09_), .B(_10_), .Y(out[1]) );\nXOR_g _59_ ( .A(_12_), .B(_13_), .Y(out[2]) );\nXOR_g _60_ ( .A(_15_), .B(_16_), .Y(out[3]) );\nXOR_g _61_ ( .A(_18_), .B(_19_), .Y(out[4]) );\nXOR_g _62_ ( .A(_21_), .B(_22_), .Y(out[5]) );\nXOR_g _63_ ( .A(_03_), .B(_24_), .Y(out[6]) );\nXOR_g _64_ ( .A(inputA[7]), .B(inputB[7]), .Y(_28_) );\nXNOR_g _65_ ( .A(_26_), .B(_28_), .Y(out[7]) );\nXOR_g _66_ ( .A(inputA[0]), .B(inputB[0]), .Y(out[0]) );\nendmodule\n",
         "top_module_name": "locked"
     },
     "top_module": {
-        "Verilog": "module locked(inputs, key, out);\ninput [7:0] inputs;\ninput [7:0] key;\noutput [1:0]out;\nsarlock s(.inputs(inputs), .key(key), .lock_out(out[0]));\nsarlock s1(.inputs(inputs), .key(key), .lock_out(out[1]));\nendmodule\n",
-        "Synthesized_verilog": "module locked(inputs, key, out);\ninput [7:0] inputs;\nwire [7:0] inputs;\ninput [7:0] key;\nwire [7:0] key;\noutput [1:0] out;\nwire [1:0] out;\nsarlock s ( .inputs(inputs), .key(key), .lock_out(out[0]) );\nsarlock s1 ( .inputs(inputs), .key(key), .lock_out(out[1]) );\nendmodule\n",
-        "Total_number_of_submodules": 2,
+        "Verilog": "module locked(inputA, inputB, out);\ninput [7:0] inputA;\ninput [7:0] inputB;\noutput [8:0] out;\nassign out=inputA+inputB;\nendmodule",
+        "Synthesized_verilog": "module locked(inputA, inputB, out);\nwire _00_;\nwire _01_;\nwire _02_;\nwire _03_;\nwire _04_;\nwire _05_;\nwire _06_;\nwire _07_;\nwire _08_;\nwire _09_;\nwire _10_;\nwire _11_;\nwire _12_;\nwire _13_;\nwire _14_;\nwire _15_;\nwire _16_;\nwire _17_;\nwire _18_;\nwire _19_;\nwire _20_;\nwire _21_;\nwire _22_;\nwire _23_;\nwire _24_;\nwire _25_;\nwire _26_;\nwire _27_;\nwire _28_;\ninput [7:0] inputA;\nwire [7:0] inputA;\ninput [7:0] inputB;\nwire [7:0] inputB;\noutput [8:0] out;\nwire [8:0] out;\nNAND_g _29_ ( .A(inputA[7]), .B(inputB[7]), .Y(_00_) );\nNOR_g _30_ ( .A(inputA[7]), .B(inputB[7]), .Y(_01_) );\nNAND_g _31_ ( .A(inputA[6]), .B(inputB[6]), .Y(_02_) );\nXOR_g _32_ ( .A(inputA[6]), .B(inputB[6]), .Y(_03_) );\nNAND_g _33_ ( .A(inputA[5]), .B(inputB[5]), .Y(_04_) );\nNAND_g _34_ ( .A(inputA[4]), .B(inputB[4]), .Y(_05_) );\nNAND_g _35_ ( .A(inputA[3]), .B(inputB[3]), .Y(_06_) );\nNAND_g _36_ ( .A(inputA[2]), .B(inputB[2]), .Y(_07_) );\nNAND_g _37_ ( .A(inputA[1]), .B(inputB[1]), .Y(_08_) );\nAND_g _38_ ( .A(inputA[0]), .B(inputB[0]), .Y(_09_) );\nXOR_g _39_ ( .A(inputA[1]), .B(inputB[1]), .Y(_10_) );\nNAND_g _40_ ( .A(_09_), .B(_10_), .Y(_11_) );\nNAND_g _41_ ( .A(_08_), .B(_11_), .Y(_12_) );\nXOR_g _42_ ( .A(inputA[2]), .B(inputB[2]), .Y(_13_) );\nNAND_g _43_ ( .A(_12_), .B(_13_), .Y(_14_) );\nNAND_g _44_ ( .A(_07_), .B(_14_), .Y(_15_) );\nXOR_g _45_ ( .A(inputA[3]), .B(inputB[3]), .Y(_16_) );\nNAND_g _46_ ( .A(_15_), .B(_16_), .Y(_17_) );\nNAND_g _47_ ( .A(_06_), .B(_17_), .Y(_18_) );\nXOR_g _48_ ( .A(inputA[4]), .B(inputB[4]), .Y(_19_) );\nNAND_g _49_ ( .A(_18_), .B(_19_), .Y(_20_) );\nNAND_g _50_ ( .A(_05_), .B(_20_), .Y(_21_) );\nXOR_g _51_ ( .A(inputA[5]), .B(inputB[5]), .Y(_22_) );\nNAND_g _52_ ( .A(_21_), .B(_22_), .Y(_23_) );\nNAND_g _53_ ( .A(_04_), .B(_23_), .Y(_24_) );\nNAND_g _54_ ( .A(_03_), .B(_24_), .Y(_25_) );\nAND_g _55_ ( .A(_02_), .B(_25_), .Y(_26_) );\nAND_g _56_ ( .A(_00_), .B(_26_), .Y(_27_) );\nNOR_g _57_ ( .A(_01_), .B(_27_), .Y(out[8]) );\nXOR_g _58_ ( .A(_09_), .B(_10_), .Y(out[1]) );\nXOR_g _59_ ( .A(_12_), .B(_13_), .Y(out[2]) );\nXOR_g _60_ ( .A(_15_), .B(_16_), .Y(out[3]) );\nXOR_g _61_ ( .A(_18_), .B(_19_), .Y(out[4]) );\nXOR_g _62_ ( .A(_21_), .B(_22_), .Y(out[5]) );\nXOR_g _63_ ( .A(_03_), .B(_24_), .Y(out[6]) );\nXOR_g _64_ ( .A(inputA[7]), .B(inputB[7]), .Y(_28_) );\nXNOR_g _65_ ( .A(_26_), .B(_28_), .Y(out[7]) );\nXOR_g _66_ ( .A(inputA[0]), .B(inputB[0]), .Y(out[0]) );\nendmodule\n",
+        "Total_number_of_submodules": 0,
         "io": {
-            "wires": {},
+            "wires": {
+                "_11_": {
+                    "bits": 1
+                },
+                "_18_": {
+                    "bits": 1
+                },
+                "_03_": {
+                    "bits": 1
+                },
+                "_15_": {
+                    "bits": 1
+                },
+                "_26_": {
+                    "bits": 1
+                },
+                "_16_": {
+                    "bits": 1
+                },
+                "_19_": {
+                    "bits": 1
+                },
+                "_06_": {
+                    "bits": 1
+                },
+                "_09_": {
+                    "bits": 1
+                },
+                "_23_": {
+                    "bits": 1
+                },
+                "_04_": {
+                    "bits": 1
+                },
+                "_25_": {
+                    "bits": 1
+                },
+                "_01_": {
+                    "bits": 1
+                },
+                "_24_": {
+                    "bits": 1
+                },
+                "_12_": {
+                    "bits": 1
+                },
+                "_07_": {
+                    "bits": 1
+                },
+                "_27_": {
+                    "bits": 1
+                },
+                "_13_": {
+                    "bits": 1
+                },
+                "_05_": {
+                    "bits": 1
+                },
+                "_14_": {
+                    "bits": 1
+                },
+                "_17_": {
+                    "bits": 1
+                },
+                "_28_": {
+                    "bits": 1
+                },
+                "_21_": {
+                    "bits": 1
+                },
+                "_00_": {
+                    "bits": 1
+                },
+                "_08_": {
+                    "bits": 1
+                },
+                "_10_": {
+                    "bits": 1
+                },
+                "_02_": {
+                    "bits": 1
+                },
+                "_22_": {
+                    "bits": 1
+                },
+                "_20_": {
+                    "bits": 1
+                }
+            },
             "inputs": {
-                "inputs": {
+                "inputA": {
                     "bits": 8,
                     "startbit": 0,
                     "endbit": 7
                 },
-                "key": {
+                "inputB": {
                     "bits": 8,
                     "startbit": 0,
                     "endbit": 7
@@ -26,602 +114,332 @@
             },
             "outputs": {
                 "out": {
-                    "bits": 2,
+                    "bits": 9,
                     "startbit": 0,
-                    "endbit": 1
+                    "endbit": 8
                 }
             },
-            "input_ports": "inputs,key,",
+            "input_ports": "inputA,inputB,",
             "output_ports": "out,"
         },
-        "gates": {},
-        "Linkages": [
-            {
-                "module_name": "sarlock",
-                "init_name": "s",
-                "links": [
-                    [
-                        "inputs",
-                        "inputs"
-                    ],
-                    [
-                        "key",
-                        "key"
-                    ],
-                    [
-                        "lock_out",
-                        "out[0]"
-                    ]
-                ]
-            },
-            {
-                "module_name": "sarlock",
-                "init_name": "s1",
-                "links": [
-                    [
-                        "inputs",
-                        "inputs"
-                    ],
-                    [
-                        "key",
-                        "key"
-                    ],
-                    [
-                        "lock_out",
-                        "out[1]"
-                    ]
-                ]
-            }
-        ],
-        "DiGraph": "gASVEAQAAAAAAACMGG5ldHdvcmt4LmNsYXNzZXMuZGlncmFwaJSMB0RpR3JhcGiUk5QpgZR9lCiMBWdyYXBolH2UjAVfbm9kZZR9lCiMDW1vZHVsZSNsb2NrZWSUfZSMBHR5cGWUjAZtb2R1bGWUc4wNb3V0cHV0I291dFswXZR9lIwNb3V0cHV0I291dFsxXZR9lIwPaW5wdXQjaW5wdXRzWzBdlH2UjA9pbnB1dCNpbnB1dHNbMV2UfZSMD2lucHV0I2lucHV0c1syXZR9lIwPaW5wdXQjaW5wdXRzWzNdlH2UjA9pbnB1dCNpbnB1dHNbNF2UfZSMD2lucHV0I2lucHV0c1s1XZR9lIwPaW5wdXQjaW5wdXRzWzZdlH2UjA9pbnB1dCNpbnB1dHNbN12UfZSMDGlucHV0I2tleVswXZR9lIwMaW5wdXQja2V5WzFdlH2UjAxpbnB1dCNrZXlbMl2UfZSMDGlucHV0I2tleVszXZR9lIwMaW5wdXQja2V5WzRdlH2UjAxpbnB1dCNrZXlbNV2UfZSMDGlucHV0I2tleVs2XZR9lIwMaW5wdXQja2V5WzddlH2UdYwEX2FkapR9lChoCX2UKGgRfZRoE32UaBV9lGgXfZRoGX2UaBt9lGgdfZRoH32UaCF9lGgjfZRoJX2UaCd9lGgpfZRoK32UaC19lGgvfZR1aA19lIwNbW9kdWxlI2xvY2tlZJR9lHNoD32UjA1tb2R1bGUjbG9ja2VklH2Uc2gRfZRoE32UaBV9lGgXfZRoGX2UaBt9lGgdfZRoH32UaCF9lGgjfZRoJX2UaCd9lGgpfZRoK32UaC19lGgvfZR1jAVfc3VjY5RoMowFX3ByZWSUfZQoaAl9lChoDWhGaA9oSXVoDX2UaA99lGgRfZSMDW1vZHVsZSNsb2NrZWSUaDRzaBN9lIwNbW9kdWxlI2xvY2tlZJRoNXNoFX2UjA1tb2R1bGUjbG9ja2VklGg2c2gXfZSMDW1vZHVsZSNsb2NrZWSUaDdzaBl9lIwNbW9kdWxlI2xvY2tlZJRoOHNoG32UjA1tb2R1bGUjbG9ja2VklGg5c2gdfZSMDW1vZHVsZSNsb2NrZWSUaDpzaB99lIwNbW9kdWxlI2xvY2tlZJRoO3NoIX2UjA1tb2R1bGUjbG9ja2VklGg8c2gjfZSMDW1vZHVsZSNsb2NrZWSUaD1zaCV9lIwNbW9kdWxlI2xvY2tlZJRoPnNoJ32UjA1tb2R1bGUjbG9ja2VklGg/c2gpfZSMDW1vZHVsZSNsb2NrZWSUaEBzaCt9lIwNbW9kdWxlI2xvY2tlZJRoQXNoLX2UjA1tb2R1bGUjbG9ja2VklGhCc2gvfZSMDW1vZHVsZSNsb2NrZWSUaENzdXViLg=="
-    },
-    "submodules": {
-        "ckt": {
-            "Verilog": "module ckt(a,b,c);\ninput [3:0] a,b;\noutput [4:0] c;\nassign c = a + b;\nendmodule\n",
-            "Synthesized_verilog": "module ckt(a, b, c);\nwire _00_;\nwire _01_;\nwire _02_;\nwire _03_;\nwire _04_;\nwire _05_;\nwire _06_;\nwire _07_;\nwire _08_;\nwire _09_;\nwire _10_;\nwire _11_;\ninput [3:0] a;\nwire [3:0] a;\ninput [3:0] b;\nwire [3:0] b;\noutput [4:0] c;\nwire [4:0] c;\nAND_g _12_ ( .A(a[0]), .B(b[0]), .Y(_00_) );\nNAND_g _13_ ( .A(a[1]), .B(b[1]), .Y(_01_) );\nXOR_g _14_ ( .A(a[1]), .B(b[1]), .Y(_02_) );\nNAND_g _15_ ( .A(_00_), .B(_02_), .Y(_03_) );\nXOR_g _16_ ( .A(_00_), .B(_02_), .Y(c[1]) );\nNAND_g _17_ ( .A(_01_), .B(_03_), .Y(_04_) );\nNAND_g _18_ ( .A(a[2]), .B(b[2]), .Y(_05_) );\nXOR_g _19_ ( .A(a[2]), .B(b[2]), .Y(_06_) );\nNAND_g _20_ ( .A(_04_), .B(_06_), .Y(_07_) );\nXOR_g _21_ ( .A(_04_), .B(_06_), .Y(c[2]) );\nNAND_g _22_ ( .A(_05_), .B(_07_), .Y(_08_) );\nNAND_g _23_ ( .A(a[3]), .B(b[3]), .Y(_09_) );\nXOR_g _24_ ( .A(a[3]), .B(b[3]), .Y(_10_) );\nNAND_g _25_ ( .A(_08_), .B(_10_), .Y(_11_) );\nXOR_g _26_ ( .A(_08_), .B(_10_), .Y(c[3]) );\nXOR_g _27_ ( .A(a[0]), .B(b[0]), .Y(c[0]) );\nNAND_g _28_ ( .A(_09_), .B(_11_), .Y(c[4]) );\nendmodule\n",
-            "io": {
-                "wires": {
-                    "_00_": {
-                        "bits": 1
-                    },
-                    "_01_": {
-                        "bits": 1
-                    },
-                    "_05_": {
-                        "bits": 1
-                    },
-                    "_02_": {
-                        "bits": 1
-                    },
-                    "_04_": {
-                        "bits": 1
-                    },
-                    "_11_": {
-                        "bits": 1
-                    },
-                    "_06_": {
-                        "bits": 1
-                    },
-                    "_08_": {
-                        "bits": 1
-                    },
-                    "_09_": {
-                        "bits": 1
-                    },
-                    "_07_": {
-                        "bits": 1
-                    },
-                    "_03_": {
-                        "bits": 1
-                    },
-                    "_10_": {
-                        "bits": 1
-                    }
-                },
-                "inputs": {
-                    "a": {
-                        "bits": 4,
-                        "startbit": 0,
-                        "endbit": 3
-                    },
-                    "b": {
-                        "bits": 4,
-                        "startbit": 0,
-                        "endbit": 3
-                    }
-                },
-                "outputs": {
-                    "c": {
-                        "bits": 5,
-                        "startbit": 0,
-                        "endbit": 4
-                    }
-                },
-                "input_ports": "a,b,",
-                "output_ports": "c,"
-            },
-            "gates": {
-                "AND": [
-                    {
-                        "init_name": "_12_",
-                        "inputs": [
-                            "b[0]",
-                            "a[0]"
-                        ],
-                        "outputs": "_00_"
-                    }
-                ],
-                "NAND": [
-                    {
-                        "init_name": "_13_",
-                        "inputs": [
-                            "b[1]",
-                            "a[1]"
-                        ],
-                        "outputs": "_01_"
-                    },
-                    {
-                        "init_name": "_15_",
-                        "inputs": [
-                            "_02_",
-                            "_00_"
-                        ],
-                        "outputs": "_03_"
-                    },
-                    {
-                        "init_name": "_17_",
-                        "inputs": [
-                            "_03_",
-                            "_01_"
-                        ],
-                        "outputs": "_04_"
-                    },
-                    {
-                        "init_name": "_18_",
-                        "inputs": [
-                            "b[2]",
-                            "a[2]"
-                        ],
-                        "outputs": "_05_"
-                    },
-                    {
-                        "init_name": "_20_",
-                        "inputs": [
-                            "_06_",
-                            "_04_"
-                        ],
-                        "outputs": "_07_"
-                    },
-                    {
-                        "init_name": "_22_",
-                        "inputs": [
-                            "_07_",
-                            "_05_"
-                        ],
-                        "outputs": "_08_"
-                    },
-                    {
-                        "init_name": "_23_",
-                        "inputs": [
-                            "b[3]",
-                            "a[3]"
-                        ],
-                        "outputs": "_09_"
-                    },
-                    {
-                        "init_name": "_25_",
-                        "inputs": [
-                            "_10_",
-                            "_08_"
-                        ],
-                        "outputs": "_11_"
-                    },
-                    {
-                        "init_name": "_28_",
-                        "inputs": [
-                            "_11_",
-                            "_09_"
-                        ],
-                        "outputs": "c[4]"
-                    }
-                ],
-                "XOR": [
-                    {
-                        "init_name": "_14_",
-                        "inputs": [
-                            "b[1]",
-                            "a[1]"
-                        ],
-                        "outputs": "_02_"
-                    },
-                    {
-                        "init_name": "_16_",
-                        "inputs": [
-                            "_02_",
-                            "_00_"
-                        ],
-                        "outputs": "c[1]"
-                    },
-                    {
-                        "init_name": "_19_",
-                        "inputs": [
-                            "b[2]",
-                            "a[2]"
-                        ],
-                        "outputs": "_06_"
-                    },
-                    {
-                        "init_name": "_21_",
-                        "inputs": [
-                            "_06_",
-                            "_04_"
-                        ],
-                        "outputs": "c[2]"
-                    },
-                    {
-                        "init_name": "_24_",
-                        "inputs": [
-                            "b[3]",
-                            "a[3]"
-                        ],
-                        "outputs": "_10_"
-                    },
-                    {
-                        "init_name": "_26_",
-                        "inputs": [
-                            "_10_",
-                            "_08_"
-                        ],
-                        "outputs": "c[3]"
-                    },
-                    {
-                        "init_name": "_27_",
-                        "inputs": [
-                            "b[0]",
-                            "a[0]"
-                        ],
-                        "outputs": "c[0]"
-                    }
-                ]
-            },
-            "Linkages": [],
-            "DiGraph": "gASVOAsAAAAAAACMGG5ldHdvcmt4LmNsYXNzZXMuZGlncmFwaJSMB0RpR3JhcGiUk5QpgZR9lCiMBWdyYXBolH2UjAVfbm9kZZR9lCiMCEFORCNfMTJflH2UKIwEdHlwZZSMBGdhdGWUjAVsb2dpY5SMA0FORJR1jAl3aXJlI18wMF+UfZRoC4wEd2lyZZRzjAppbnB1dCNiWzBdlH2UaAuMBWlucHV0lHOMCmlucHV0I2FbMF2UfZRoC2gUc4wJTkFORCNfMTNflH2UKGgLaAxoDYwETkFORJR1jAl3aXJlI18wMV+UfZRoC2gRc4wKaW5wdXQjYlsxXZR9lGgLaBRzjAppbnB1dCNhWzFdlH2UaAtoFHOMCU5BTkQjXzE1X5R9lChoC2gMaA1oGXWMCXdpcmUjXzAzX5R9lGgLaBFzjAl3aXJlI18wMl+UfZRoC2gRc4wJTkFORCNfMTdflH2UKGgLaAxoDWgZdYwJd2lyZSNfMDRflH2UaAtoEXOMCU5BTkQjXzE4X5R9lChoC2gMaA1oGXWMCXdpcmUjXzA1X5R9lGgLaBFzjAppbnB1dCNiWzJdlH2UaAtoFHOMCmlucHV0I2FbMl2UfZRoC2gUc4wJTkFORCNfMjBflH2UKGgLaAxoDWgZdYwJd2lyZSNfMDdflH2UaAtoEXOMCXdpcmUjXzA2X5R9lGgLaBFzjAlOQU5EI18yMl+UfZQoaAtoDGgNaBl1jAl3aXJlI18wOF+UfZRoC2gRc4wJTkFORCNfMjNflH2UKGgLaAxoDWgZdYwJd2lyZSNfMDlflH2UaAtoEXOMCmlucHV0I2JbM12UfZRoC2gUc4wKaW5wdXQjYVszXZR9lGgLaBRzjAlOQU5EI18yNV+UfZQoaAtoDGgNaBl1jAl3aXJlI18xMV+UfZRoC2gRc4wJd2lyZSNfMTBflH2UaAtoEXOMCU5BTkQjXzI4X5R9lChoC2gMaA1oGXWMC291dHB1dCNjWzRdlH2UaAuMBm91dHB1dJRzjAhYT1IjXzE0X5R9lChoC2gMaA2MA1hPUpR1jAhYT1IjXzE2X5R9lChoC2gMaA1oUXWMC291dHB1dCNjWzFdlH2UaAtoTnOMCFhPUiNfMTlflH2UKGgLaAxoDWhRdYwIWE9SI18yMV+UfZQoaAtoDGgNaFF1jAtvdXRwdXQjY1syXZR9lGgLaE5zjAhYT1IjXzI0X5R9lChoC2gMaA1oUXWMCFhPUiNfMjZflH2UKGgLaAxoDWhRdYwLb3V0cHV0I2NbM12UfZRoC2hOc4wIWE9SI18yN1+UfZQoaAtoDGgNaFF1jAtvdXRwdXQjY1swXZR9lGgLaE5zjAptb2R1bGUjY2t0lH2UaAuMBm1vZHVsZZRzdYwEX2FkapR9lChoCX2UjAl3aXJlI18wMF+UfZRzaA99lChoIH2UaFJ9lHVoEn2UKGgJfZRoYn2UdWgVfZQoaAl9lGhifZR1aBd9lIwJd2lyZSNfMDFflH2Uc2gafZRoJn2Uc2gcfZQoaBd9lGhPfZR1aB59lChoF32UaE99lHVoIH2UjAl3aXJlI18wM1+UfZRzaCJ9lGgmfZRzaCR9lChoIH2UaFJ9lHVoJn2UjAl3aXJlI18wNF+UfZRzaCh9lChoMn2UaFh9lHVoKn2UjAl3aXJlI18wNV+UfZRzaCx9lGg4fZRzaC59lChoKn2UaFZ9lHVoMH2UKGgqfZRoVn2UdWgyfZSMCXdpcmUjXzA3X5R9lHNoNH2UaDh9lHNoNn2UKGgyfZRoWH2UdWg4fZSMCXdpcmUjXzA4X5R9lHNoOn2UKGhEfZRoXn2UdWg8fZSMCXdpcmUjXzA5X5R9lHNoPn2UaEp9lHNoQH2UKGg8fZRoXH2UdWhCfZQoaDx9lGhcfZR1aER9lIwJd2lyZSNfMTFflH2Uc2hGfZRoSn2Uc2hIfZQoaER9lGhefZR1aEp9lIwLb3V0cHV0I2NbNF2UfZRzaEx9lIwKbW9kdWxlI2NrdJR9lHNoT32UjAl3aXJlI18wMl+UfZRzaFJ9lIwLb3V0cHV0I2NbMV2UfZRzaFR9lIwKbW9kdWxlI2NrdJR9lHNoVn2UjAl3aXJlI18wNl+UfZRzaFh9lIwLb3V0cHV0I2NbMl2UfZRzaFp9lIwKbW9kdWxlI2NrdJR9lHNoXH2UjAl3aXJlI18xMF+UfZRzaF59lIwLb3V0cHV0I2NbM12UfZRzaGB9lIwKbW9kdWxlI2NrdJR9lHNoYn2UjAtvdXRwdXQjY1swXZR9lHNoZH2UjAptb2R1bGUjY2t0lH2Uc2hmfZQojAppbnB1dCNhWzBdlH2UjAppbnB1dCNhWzFdlH2UjAppbnB1dCNhWzJdlH2UjAppbnB1dCNhWzNdlH2UjAppbnB1dCNiWzBdlH2UjAppbnB1dCNiWzFdlH2UjAppbnB1dCNiWzJdlH2UjAppbnB1dCNiWzNdlH2UdXWMBV9zdWNjlGhqjAVfcHJlZJR9lChoCX2UKIwKaW5wdXQjYlswXZRocowKaW5wdXQjYVswXZRodXVoD32UaAlobXNoEn2UjAptb2R1bGUjY2t0lGjtc2gVfZSMCm1vZHVsZSNja3SUaOVzaBd9lCiMCmlucHV0I2JbMV2UaH2MCmlucHV0I2FbMV2UaIB1aBp9lGgXaHlzaBx9lIwKbW9kdWxlI2NrdJRo73NoHn2UjAptb2R1bGUjY2t0lGjnc2ggfZQojAl3aXJlI18wMl+UaIiMCXdpcmUjXzAwX5Rob3VoIn2UaCBohHNoJH2UaE9oxHNoJn2UKIwJd2lyZSNfMDNflGiGjAl3aXJlI18wMV+UaHt1aCh9lGgmaIxzaCp9lCiMCmlucHV0I2JbMl2UaJaMCmlucHV0I2FbMl2UaJl1aCx9lGgqaJJzaC59lIwKbW9kdWxlI2NrdJRo8XNoMH2UjAptb2R1bGUjY2t0lGjpc2gyfZQojAl3aXJlI18wNl+UaKGMCXdpcmUjXzA0X5RojnVoNH2UaDJonXNoNn2UaFZozXNoOH2UKIwJd2lyZSNfMDdflGifjAl3aXJlI18wNV+UaJR1aDp9lGg4aKVzaDx9lCiMCmlucHV0I2JbM12UaK+MCmlucHV0I2FbM12UaLJ1aD59lGg8aKtzaEB9lIwKbW9kdWxlI2NrdJRo83NoQn2UjAptb2R1bGUjY2t0lGjrc2hEfZQojAl3aXJlI18xMF+UaLqMCXdpcmUjXzA4X5Rop3VoRn2UaERotnNoSH2UaFxo1nNoSn2UKIwJd2lyZSNfMTFflGi4jAl3aXJlI18wOV+UaK11aEx9lGhKaL5zaE99lCiMCmlucHV0I2JbMV2UaH6MCmlucHV0I2FbMV2UaIF1aFJ9lCiMCXdpcmUjXzAyX5RoiYwJd2lyZSNfMDBflGhwdWhUfZRoUmjHc2hWfZQojAppbnB1dCNiWzJdlGiXjAppbnB1dCNhWzJdlGiadWhYfZQojAl3aXJlI18wNl+UaKKMCXdpcmUjXzA0X5Roj3VoWn2UaFho0HNoXH2UKIwKaW5wdXQjYlszXZRosIwKaW5wdXQjYVszXZRos3VoXn2UKIwJd2lyZSNfMTBflGi7jAl3aXJlI18wOF+UaKh1aGB9lGheaNlzaGJ9lCiMCmlucHV0I2JbMF2UaHOMCmlucHV0I2FbMF2UaHZ1aGR9lGhiaN9zaGZ9lCiMC291dHB1dCNjWzBdlGjijAtvdXRwdXQjY1sxXZRoyowLb3V0cHV0I2NbMl2UaNOMC291dHB1dCNjWzNdlGjcjAtvdXRwdXQjY1s0XZRowXV1dWIu"
-        },
-        "sarlock": {
-            "Verilog": "module sarlock (inputs, key, lock_out);\ninput [7:0] inputs;\ninput [7:0] key;\noutput lock_out;\nwire [4:0]ckt_out;\nreg keyx = 8'b01101101;\nassign lock_out =ckt_out[0]^( (inputs == key) & (inputs != keyx));\nckt c(.a(inputs[3:0]), .b(inputs[7:4]), .c(ckt_out));\nendmodule\n",
-            "Synthesized_verilog": "module sarlock(inputs, key, lock_out);\nwire _00_;\nwire _01_;\nwire _02_;\nwire _03_;\nwire _04_;\nwire _05_;\nwire _06_;\nwire _07_;\nwire _08_;\nwire _09_;\nwire _10_;\nwire _11_;\nwire _12_;\nwire _13_;\nwire _14_;\nwire _15_;\nwire _16_;\nwire _17_;\nwire _18_;\nwire _19_;\nwire _20_;\nwire _21_;\nwire _22_;\nwire _23_;\nwire [4:0] ckt_out;\ninput [7:0] inputs;\nwire [7:0] inputs;\ninput [7:0] key;\nwire [7:0] key;\noutput lock_out;\nwire lock_out;\nNOT_g _24_ ( .A(inputs[3]), .Y(_00_) );\nXNOR_g _25_ ( .A(inputs[0]), .B(key[0]), .Y(_01_) );\nXNOR_g _26_ ( .A(inputs[7]), .B(key[7]), .Y(_02_) );\nAND_g _27_ ( .A(_01_), .B(_02_), .Y(_03_) );\nXNOR_g _28_ ( .A(inputs[1]), .B(key[1]), .Y(_04_) );\nXNOR_g _29_ ( .A(inputs[3]), .B(key[3]), .Y(_05_) );\nAND_g _30_ ( .A(_04_), .B(_05_), .Y(_06_) );\nAND_g _31_ ( .A(_03_), .B(_06_), .Y(_07_) );\nNOR_g _32_ ( .A(inputs[5]), .B(inputs[6]), .Y(_08_) );\nNOR_g _33_ ( .A(inputs[4]), .B(inputs[7]), .Y(_09_) );\nAND_g _34_ ( .A(_08_), .B(_09_), .Y(_10_) );\nNOR_g _35_ ( .A(inputs[1]), .B(inputs[2]), .Y(_11_) );\nAND_g _36_ ( .A(inputs[0]), .B(_00_), .Y(_12_) );\nAND_g _37_ ( .A(_11_), .B(_12_), .Y(_13_) );\nNAND_g _38_ ( .A(_10_), .B(_13_), .Y(_14_) );\nXNOR_g _39_ ( .A(inputs[5]), .B(key[5]), .Y(_15_) );\nXNOR_g _40_ ( .A(inputs[2]), .B(key[2]), .Y(_16_) );\nAND_g _41_ ( .A(_15_), .B(_16_), .Y(_17_) );\nXNOR_g _42_ ( .A(inputs[6]), .B(key[6]), .Y(_18_) );\nXNOR_g _43_ ( .A(inputs[4]), .B(key[4]), .Y(_19_) );\nAND_g _44_ ( .A(_18_), .B(_19_), .Y(_20_) );\nAND_g _45_ ( .A(_17_), .B(_20_), .Y(_21_) );\nAND_g _46_ ( .A(_14_), .B(_21_), .Y(_22_) );\nNAND_g _47_ ( .A(_07_), .B(_22_), .Y(_23_) );\nXNOR_g _48_ ( .A(ckt_out[0]), .B(_23_), .Y(lock_out) );\nckt c ( .a(inputs[3:0]), .b(inputs[7:4]), .c(ckt_out) );\nendmodule\n",
-            "io": {
-                "wires": {
-                    "_20_": {
-                        "bits": 1
-                    },
-                    "_17_": {
-                        "bits": 1
-                    },
-                    "_01_": {
-                        "bits": 1
-                    },
-                    "_11_": {
-                        "bits": 1
-                    },
-                    "_06_": {
-                        "bits": 1
-                    },
-                    "_14_": {
-                        "bits": 1
-                    },
-                    "_19_": {
-                        "bits": 1
-                    },
-                    "_12_": {
-                        "bits": 1
-                    },
-                    "_21_": {
-                        "bits": 1
-                    },
-                    "_00_": {
-                        "bits": 1
-                    },
-                    "_02_": {
-                        "bits": 1
-                    },
-                    "_05_": {
-                        "bits": 1
-                    },
-                    "_13_": {
-                        "bits": 1
-                    },
-                    "_04_": {
-                        "bits": 1
-                    },
-                    "_09_": {
-                        "bits": 1
-                    },
-                    "_08_": {
-                        "bits": 1
-                    },
-                    "_23_": {
-                        "bits": 1
-                    },
-                    "_07_": {
-                        "bits": 1
-                    },
-                    "_16_": {
-                        "bits": 1
-                    },
-                    "_18_": {
-                        "bits": 1
-                    },
-                    "_03_": {
-                        "bits": 1
-                    },
-                    "_22_": {
-                        "bits": 1
-                    },
-                    "ckt_out": {
-                        "bits": 5,
-                        "startbit": 0,
-                        "endbit": 4
-                    },
-                    "_15_": {
-                        "bits": 1
-                    },
-                    "_10_": {
-                        "bits": 1
-                    }
-                },
-                "inputs": {
-                    "inputs": {
-                        "bits": 8,
-                        "startbit": 0,
-                        "endbit": 7
-                    },
-                    "key": {
-                        "bits": 8,
-                        "startbit": 0,
-                        "endbit": 7
-                    }
-                },
-                "outputs": {
-                    "lock_out": {
-                        "bits": 1
-                    }
-                },
-                "input_ports": "inputs,key,",
-                "output_ports": "lock_out,"
-            },
-            "gates": {
-                "NOT": [
-                    {
-                        "init_name": "_24_",
-                        "inputs": [
-                            "inputs[3]"
-                        ],
-                        "outputs": "_00_"
-                    }
-                ],
-                "XNOR": [
-                    {
-                        "init_name": "_25_",
-                        "inputs": [
-                            "key[0]",
-                            "inputs[0]"
-                        ],
-                        "outputs": "_01_"
-                    },
-                    {
-                        "init_name": "_26_",
-                        "inputs": [
-                            "key[7]",
-                            "inputs[7]"
-                        ],
-                        "outputs": "_02_"
-                    },
-                    {
-                        "init_name": "_28_",
-                        "inputs": [
-                            "key[1]",
-                            "inputs[1]"
-                        ],
-                        "outputs": "_04_"
-                    },
-                    {
-                        "init_name": "_29_",
-                        "inputs": [
-                            "key[3]",
-                            "inputs[3]"
-                        ],
-                        "outputs": "_05_"
-                    },
-                    {
-                        "init_name": "_39_",
-                        "inputs": [
-                            "key[5]",
-                            "inputs[5]"
-                        ],
-                        "outputs": "_15_"
-                    },
-                    {
-                        "init_name": "_40_",
-                        "inputs": [
-                            "key[2]",
-                            "inputs[2]"
-                        ],
-                        "outputs": "_16_"
-                    },
-                    {
-                        "init_name": "_42_",
-                        "inputs": [
-                            "key[6]",
-                            "inputs[6]"
-                        ],
-                        "outputs": "_18_"
-                    },
-                    {
-                        "init_name": "_43_",
-                        "inputs": [
-                            "key[4]",
-                            "inputs[4]"
-                        ],
-                        "outputs": "_19_"
-                    },
-                    {
-                        "init_name": "_48_",
-                        "inputs": [
-                            "_23_",
-                            "ckt_out[0]"
-                        ],
-                        "outputs": "lock_out"
-                    }
-                ],
-                "AND": [
-                    {
-                        "init_name": "_27_",
-                        "inputs": [
-                            "_02_",
-                            "_01_"
-                        ],
-                        "outputs": "_03_"
-                    },
-                    {
-                        "init_name": "_30_",
-                        "inputs": [
-                            "_05_",
-                            "_04_"
-                        ],
-                        "outputs": "_06_"
-                    },
-                    {
-                        "init_name": "_31_",
-                        "inputs": [
-                            "_06_",
-                            "_03_"
-                        ],
-                        "outputs": "_07_"
-                    },
-                    {
-                        "init_name": "_34_",
-                        "inputs": [
-                            "_09_",
-                            "_08_"
-                        ],
-                        "outputs": "_10_"
-                    },
-                    {
-                        "init_name": "_36_",
-                        "inputs": [
-                            "_00_",
-                            "inputs[0]"
-                        ],
-                        "outputs": "_12_"
-                    },
-                    {
-                        "init_name": "_37_",
-                        "inputs": [
-                            "_12_",
-                            "_11_"
-                        ],
-                        "outputs": "_13_"
-                    },
-                    {
-                        "init_name": "_41_",
-                        "inputs": [
-                            "_16_",
-                            "_15_"
-                        ],
-                        "outputs": "_17_"
-                    },
-                    {
-                        "init_name": "_44_",
-                        "inputs": [
-                            "_19_",
-                            "_18_"
-                        ],
-                        "outputs": "_20_"
-                    },
-                    {
-                        "init_name": "_45_",
-                        "inputs": [
-                            "_20_",
-                            "_17_"
-                        ],
-                        "outputs": "_21_"
-                    },
-                    {
-                        "init_name": "_46_",
-                        "inputs": [
-                            "_21_",
-                            "_14_"
-                        ],
-                        "outputs": "_22_"
-                    }
-                ],
-                "NOR": [
-                    {
-                        "init_name": "_32_",
-                        "inputs": [
-                            "inputs[6]",
-                            "inputs[5]"
-                        ],
-                        "outputs": "_08_"
-                    },
-                    {
-                        "init_name": "_33_",
-                        "inputs": [
-                            "inputs[7]",
-                            "inputs[4]"
-                        ],
-                        "outputs": "_09_"
-                    },
-                    {
-                        "init_name": "_35_",
-                        "inputs": [
-                            "inputs[2]",
-                            "inputs[1]"
-                        ],
-                        "outputs": "_11_"
-                    }
-                ],
-                "NAND": [
-                    {
-                        "init_name": "_38_",
-                        "inputs": [
-                            "_13_",
-                            "_10_"
-                        ],
-                        "outputs": "_14_"
-                    },
-                    {
-                        "init_name": "_47_",
-                        "inputs": [
-                            "_22_",
-                            "_07_"
-                        ],
-                        "outputs": "_23_"
-                    }
-                ]
-            },
-            "Linkages": [
+        "gates": {
+            "NAND": [
                 {
-                    "module_name": "ckt",
-                    "init_name": "c",
-                    "links": [
-                        [
-                            "a",
-                            "inputs[3:0]"
-                        ],
-                        [
-                            "b",
-                            "inputs[7:4]"
-                        ],
-                        [
-                            "c",
-                            "ckt_out"
-                        ]
-                    ]
+                    "init_name": "_29_",
+                    "inputs": [
+                        "inputB[7]",
+                        "inputA[7]"
+                    ],
+                    "outputs": "_00_"
+                },
+                {
+                    "init_name": "_31_",
+                    "inputs": [
+                        "inputB[6]",
+                        "inputA[6]"
+                    ],
+                    "outputs": "_02_"
+                },
+                {
+                    "init_name": "_33_",
+                    "inputs": [
+                        "inputB[5]",
+                        "inputA[5]"
+                    ],
+                    "outputs": "_04_"
+                },
+                {
+                    "init_name": "_34_",
+                    "inputs": [
+                        "inputB[4]",
+                        "inputA[4]"
+                    ],
+                    "outputs": "_05_"
+                },
+                {
+                    "init_name": "_35_",
+                    "inputs": [
+                        "inputB[3]",
+                        "inputA[3]"
+                    ],
+                    "outputs": "_06_"
+                },
+                {
+                    "init_name": "_36_",
+                    "inputs": [
+                        "inputB[2]",
+                        "inputA[2]"
+                    ],
+                    "outputs": "_07_"
+                },
+                {
+                    "init_name": "_37_",
+                    "inputs": [
+                        "inputB[1]",
+                        "inputA[1]"
+                    ],
+                    "outputs": "_08_"
+                },
+                {
+                    "init_name": "_40_",
+                    "inputs": [
+                        "_10_",
+                        "_09_"
+                    ],
+                    "outputs": "_11_"
+                },
+                {
+                    "init_name": "_41_",
+                    "inputs": [
+                        "_11_",
+                        "_08_"
+                    ],
+                    "outputs": "_12_"
+                },
+                {
+                    "init_name": "_43_",
+                    "inputs": [
+                        "_13_",
+                        "_12_"
+                    ],
+                    "outputs": "_14_"
+                },
+                {
+                    "init_name": "_44_",
+                    "inputs": [
+                        "_14_",
+                        "_07_"
+                    ],
+                    "outputs": "_15_"
+                },
+                {
+                    "init_name": "_46_",
+                    "inputs": [
+                        "_16_",
+                        "_15_"
+                    ],
+                    "outputs": "_17_"
+                },
+                {
+                    "init_name": "_47_",
+                    "inputs": [
+                        "_17_",
+                        "_06_"
+                    ],
+                    "outputs": "_18_"
+                },
+                {
+                    "init_name": "_49_",
+                    "inputs": [
+                        "_19_",
+                        "_18_"
+                    ],
+                    "outputs": "_20_"
+                },
+                {
+                    "init_name": "_50_",
+                    "inputs": [
+                        "_20_",
+                        "_05_"
+                    ],
+                    "outputs": "_21_"
+                },
+                {
+                    "init_name": "_52_",
+                    "inputs": [
+                        "_22_",
+                        "_21_"
+                    ],
+                    "outputs": "_23_"
+                },
+                {
+                    "init_name": "_53_",
+                    "inputs": [
+                        "_23_",
+                        "_04_"
+                    ],
+                    "outputs": "_24_"
+                },
+                {
+                    "init_name": "_54_",
+                    "inputs": [
+                        "_24_",
+                        "_03_"
+                    ],
+                    "outputs": "_25_"
                 }
             ],
-            "DiGraph": "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NF+UfZRzaCh9lGhifZRzaCp9lGgmfZRzaCx9lChoJn2UaJN9lHVoLn2UjAl3aXJlI18wNV+UfZRzaDB9lGhifZRzaDJ9lGgufZRzaDR9lIwJd2lyZSNfMTVflH2Uc2g2fZRofH2Uc2g4fZRoNH2Uc2g6fZQoaDR9lGiOfZR1aDx9lIwJd2lyZSNfMTZflH2Uc2g+fZRofH2Uc2hAfZRoPH2Uc2hCfZQoaDx9lGiTfZR1aER9lIwJd2lyZSNfMThflH2Uc2hGfZRogH2Uc2hIfZRoRH2Uc2hKfZQoaER9lGiOfZR1aEx9lIwJd2lyZSNfMTlflH2Uc2hOfZRogH2Uc2hQfZRoTH2Uc2hSfZQoaEx9lGiRfZR1aFR9lIwPb3V0cHV0I2xvY2tfb3V0lH2Uc2hWfZSMDm1vZHVsZSNzYXJsb2NrlH2Uc2hZfZRoVH2Uc2hbfZRoVH2Uc2hdfZSMCXdpcmUjXzAzX5R9lHNoYH2UaGZ9lHNoYn2UjAl3aXJlI18wNl+UfZRzaGR9lGhmfZRzaGZ9lIwJd2lyZSNfMDdflH2Uc2hofZRomH2Uc2hqfZSMCXdpcmUjXzEwX5R9lHNobH2UaJV9lHNobn2UaGp9lHNocH2UaGp9lHNocn2UjAl3aXJlI18xMl+UfZRzaHR9lGh2fZRzaHZ9lIwJd2lyZSNfMTNflH2Uc2h4fZRolX2Uc2h6fZRodn2Uc2h8fZSMCXdpcmUjXzE3X5R9lHNofn2UaIR9lHNogH2UjAl3aXJlI18yMF+UfZRzaIJ9lGiEfZRzaIR9lIwJd2lyZSNfMjFflH2Uc2iGfZRoiH2Uc2iIfZSMCXdpcmUjXzIyX5R9lHNoin2UaJh9lHNojH2UaIh9lHNojn2UjAl3aXJlI18wOF+UfZRzaJF9lIwJd2lyZSNfMDlflH2Uc2iTfZSMCXdpcmUjXzExX5R9lHNolX2UjAl3aXJlI18xNF+UfZRzaJh9lIwJd2lyZSNfMjNflH2Uc2iafZQojA9pbnB1dCNpbnB1dHNbMF2UfZSMD2lucHV0I2lucHV0c1sxXZR9lIwPaW5wdXQjaW5wdXRzWzJdlH2UjA9pbnB1dCNpbnB1dHNbM12UfZSMD2lucHV0I2lucHV0c1s0XZR9lIwPaW5wdXQjaW5wdXRzWzVdlH2UjA9pbnB1dCNpbnB1dHNbNl2U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"
-        }
-    }
+            "NOR": [
+                {
+                    "init_name": "_30_",
+                    "inputs": [
+                        "inputB[7]",
+                        "inputA[7]"
+                    ],
+                    "outputs": "_01_"
+                },
+                {
+                    "init_name": "_57_",
+                    "inputs": [
+                        "_27_",
+                        "_01_"
+                    ],
+                    "outputs": "out[8]"
+                }
+            ],
+            "XOR": [
+                {
+                    "init_name": "_32_",
+                    "inputs": [
+                        "inputB[6]",
+                        "inputA[6]"
+                    ],
+                    "outputs": "_03_"
+                },
+                {
+                    "init_name": "_39_",
+                    "inputs": [
+                        "inputB[1]",
+                        "inputA[1]"
+                    ],
+                    "outputs": "_10_"
+                },
+                {
+                    "init_name": "_42_",
+                    "inputs": [
+                        "inputB[2]",
+                        "inputA[2]"
+                    ],
+                    "outputs": "_13_"
+                },
+                {
+                    "init_name": "_45_",
+                    "inputs": [
+                        "inputB[3]",
+                        "inputA[3]"
+                    ],
+                    "outputs": "_16_"
+                },
+                {
+                    "init_name": "_48_",
+                    "inputs": [
+                        "inputB[4]",
+                        "inputA[4]"
+                    ],
+                    "outputs": "_19_"
+                },
+                {
+                    "init_name": "_51_",
+                    "inputs": [
+                        "inputB[5]",
+                        "inputA[5]"
+                    ],
+                    "outputs": "_22_"
+                },
+                {
+                    "init_name": "_58_",
+                    "inputs": [
+                        "_10_",
+                        "_09_"
+                    ],
+                    "outputs": "out[1]"
+                },
+                {
+                    "init_name": "_59_",
+                    "inputs": [
+                        "_13_",
+                        "_12_"
+                    ],
+                    "outputs": "out[2]"
+                },
+                {
+                    "init_name": "_60_",
+                    "inputs": [
+                        "_16_",
+                        "_15_"
+                    ],
+                    "outputs": "out[3]"
+                },
+                {
+                    "init_name": "_61_",
+                    "inputs": [
+                        "_19_",
+                        "_18_"
+                    ],
+                    "outputs": "out[4]"
+                },
+                {
+                    "init_name": "_62_",
+                    "inputs": [
+                        "_22_",
+                        "_21_"
+                    ],
+                    "outputs": "out[5]"
+                },
+                {
+                    "init_name": "_63_",
+                    "inputs": [
+                        "_24_",
+                        "_03_"
+                    ],
+                    "outputs": "out[6]"
+                },
+                {
+                    "init_name": "_64_",
+                    "inputs": [
+                        "inputB[7]",
+                        "inputA[7]"
+                    ],
+                    "outputs": "_28_"
+                },
+                {
+                    "init_name": "_66_",
+                    "inputs": [
+                        "inputB[0]",
+                        "inputA[0]"
+                    ],
+                    "outputs": "out[0]"
+                }
+            ],
+            "AND": [
+                {
+                    "init_name": "_38_",
+                    "inputs": [
+                        "inputB[0]",
+                        "inputA[0]"
+                    ],
+                    "outputs": "_09_"
+                },
+                {
+                    "init_name": "_55_",
+                    "inputs": [
+                        "_25_",
+                        "_02_"
+                    ],
+                    "outputs": "_26_"
+                },
+                {
+                    "init_name": "_56_",
+                    "inputs": [
+                        "_26_",
+                        "_00_"
+                    ],
+                    "outputs": "_27_"
+                }
+            ],
+            "XNOR": [
+                {
+                    "init_name": "_65_",
+                    "inputs": [
+                        "_28_",
+                        "_26_"
+                    ],
+                    "outputs": "out[7]"
+                }
+            ]
+        },
+        "Linkages": [],
+        "DiGraph": "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aFF9lChoU32UaJ59lHVoU32UjAl3aXJlI18xNF+UfZRzaFV9lGhZfZRzaFd9lChoU32UaJ59lHVoWX2UjAl3aXJlI18xNV+UfZRzaFt9lChoXX2UaKJ9lHVoXX2UjAl3aXJlI18xN1+UfZRzaF99lGhjfZRzaGF9lChoXX2UaKJ9lHVoY32UjAl3aXJlI18xOF+UfZRzaGV9lChoZ32UaKZ9lHVoZ32UjAl3aXJlI18yMF+UfZRzaGl9lGhtfZRzaGt9lChoZ32UaKZ9lHVobX2UjAl3aXJlI18yMV+UfZRzaG99lChocX2UaKp9lHVocX2UjAl3aXJlI18yM1+UfZRzaHN9lGh3fZRzaHV9lChocX2UaKp9lHVod32UjAl3aXJlI18yNF+UfZRzaHl9lChoe32UaK59lHVoe32UjAl3aXJlI18yNV+UfZRzaH19lGjBfZRzaH99lChoe32UaK59lHVogX2UjAl3aXJlI18wMV+UfZRzaIR9lGiGfZRzaIZ9lIwNb3V0cHV0I291dFs4XZR9lHNoiH2UjA1tb2R1bGUjbG9ja2VklH2Uc2iLfZRohn2Uc2iNfZSMCXdpcmUjXzAzX5R9lHNokH2UjAl3aXJlI18xMF+UfZRzaJJ9lIwJd2lyZSNfMTNflH2Uc2iUfZSMCXdpcmUjXzE2X5R9lHNoln2UjAl3aXJlI18xOV+UfZRzaJh9lIwJd2lyZSNfMjJflH2Uc2iafZSMDW91dHB1dCNvdXRbMV2UfZRzaJx9lIwNbW9kdWxlI2xvY2tlZJR9lHNonn2UjA1vdXRwdXQjb3V0WzJdlH2Uc2igfZSMDW1vZHVsZSNsb2NrZWSUfZRzaKJ9lIwNb3V0cHV0I291dFszXZR9lHNopH2UjA1tb2R1bGUjbG9ja2VklH2Uc2imfZSMDW91dHB1dCNvdXRbNF2UfZRzaKh9lIwNbW9kdWxlI2xvY2tlZJR9lHNoqn2UjA1vdXRwdXQjb3V0WzVdlH2Uc2isfZSMDW1vZHVsZSNsb2NrZWSUfZRzaK59lIwNb3V0cHV0I291dFs2XZR9lHNosH2UjA1tb2R1bGUjbG9ja2VklH2Uc2iyfZSMCXdpcmUjXzI4X5R9lHNotH2UaMd9lHNotn2UjA1vdXRwdXQjb3V0WzBdlH2Uc2i4fZSMDW1vZHVsZSNsb2NrZWSUfZRzaLp9lChotn2UaL59lHVovH2UKGi2fZRovn2UdWi+fZSMCXdpcmUjXzA5X5R9lHNowX2UjAl3aXJlI18yNl+UfZRzaMN9lChoxX2UaMd9lHVoxX2UjAl3aXJlI18yN1+UfZRzaMd9lIwNb3V0cHV0I291dFs3XZR9lHNoyn2UjA1tb2R1bGUjbG9ja2VklH2Uc2jMfZQojA9pbnB1dCNpbnB1dEFbMF2UfZSMD2lucHV0I2lucHV0QVsxXZR9lIwPaW5wdXQjaW5wdXRBWzJdlH2UjA9pbnB1dCNpbnB1dEFbM12UfZSMD2lucHV0I2lucHV0QVs0XZR9lIwPaW5wdXQjaW5wdXRBWzVdlH2UjA9pbnB1dCNpbnB1dEFbNl2UfZSMD2lucHV0I2lucHV0QVs3XZR9lIwPaW5wdXQjaW5wdXRCWzBdlH2UjA9pbnB1dCNpbnB1dEJbMV2UfZSMD2lucHV0I2lucHV0QlsyXZR9lIwPaW5wdXQjaW5wdXRCWzNdlH2UjA9pbnB1dCNpbnB1dEJbNF2UfZSMD2lucHV0I2lucHV0Qls1XZR9lIwPaW5wdXQjaW5wdXRCWzZdlH2UjA9pbnB1dCNpbnB1dEJbN12UfZR1dYwFX3N1Y2OUaNCMBV9wcmVklH2UKGgJfZQojA9pbnB1dCNpbnB1dEJbN12UaNeMD2lucHV0I2lucHV0QVs3XZRo23VoD32UaAlo03NoEn2UjA1tb2R1bGUjbG9ja2VklGr3AQAAc2gVfZSMDW1vZHVsZSNsb2NrZWSUaucBAABzaBd9lCiMD2lucHV0I2lucHV0Qls2XZRo5IwPaW5wdXQjaW5wdXRBWzZdlGjndWgZfZRoF2jgc2gbfZSMDW1vZHVsZSNsb2NrZWSUavUBAABzaB19lIwNbW9kdWxlI2xvY2tlZJRq5QEAAHNoH32UKIwPaW5wdXQjaW5wdXRCWzVdlGjvjA9pbnB1dCNpbnB1dEFbNV2UaPJ1aCF9lGgfaOtzaCN9lIwNbW9kdWxlI2xvY2tlZJRq8wEAAHNoJX2UjA1tb2R1bGUjbG9ja2VklGrjAQAAc2gnfZQojA9pbnB1dCNpbnB1dEJbNF2UaPqMD2lucHV0I2lucHV0QVs0XZRo/XVoKX2UaCdo9nNoK32UjA1tb2R1bGUjbG9ja2VklGrxAQAAc2gtfZSMDW1vZHVsZSNsb2NrZWSUauEBAABzaC99lCiMD2lucHV0I2lucHV0QlszXZRqBQEAAIwPaW5wdXQjaW5wdXRBWzNdlGoIAQAAdWgxfZRoL2oBAQAAc2gzfZSMDW1vZHVsZSNsb2NrZWSUau8BAABzaDV9lIwNbW9kdWxlI2xvY2tlZJRq3wEAAHNoN32UKIwPaW5wdXQjaW5wdXRCWzJdlGoQAQAAjA9pbnB1dCNpbnB1dEFbMl2UahMBAAB1aDl9lGg3agwBAABzaDt9lIwNbW9kdWxlI2xvY2tlZJRq7QEAAHNoPX2UjA1tb2R1bGUjbG9ja2VklGrdAQAAc2g/fZQojA9pbnB1dCNpbnB1dEJbMV2UahsBAACMD2lucHV0I2lucHV0QVsxXZRqHgEAAHVoQX2UaD9qFwEAAHNoQ32UjA1tb2R1bGUjbG9ja2VklGrrAQAAc2hFfZSMDW1vZHVsZSNsb2NrZWSUatsBAABzaEd9lCiMCXdpcmUjXzEwX5RqJgEAAIwJd2lyZSNfMDlflGopAQAAdWhJfZRoR2oiAQAAc2hLfZRokGqDAQAAc2hNfZRovmrHAQAAc2hPfZQojAl3aXJlI18xMV+UaiQBAACMCXdpcmUjXzA4X5RqGQEAAHVoUX2UaE9qLQEAAHNoU32UKIwJd2lyZSNfMTNflGo3AQAAjAl3aXJlI18xMl+Uai8BAAB1aFV9lGhTajMBAABzaFd9lGiSaoYBAABzaFl9lCiMCXdpcmUjXzE0X5RqNQEAAIwJd2lyZSNfMDdflGoOAQAAdWhbfZRoWWo7AQAAc2hdfZQojAl3aXJlI18xNl+UakUBAACMCXdpcmUjXzE1X5RqPQEAAHVoX32UaF1qQQEAAHNoYX2UaJRqiQEAAHNoY32UKIwJd2lyZSNfMTdflGpDAQAAjAl3aXJlI18wNl+UagMBAAB1aGV9lGhjakkBAABzaGd9lCiMCXdpcmUjXzE5X5RqUwEAAIwJd2lyZSNfMThflGpLAQAAdWhpfZRoZ2pPAQAAc2hrfZRolmqMAQAAc2htfZQojAl3aXJlI18yMF+UalEBAACMCXdpcmUjXzA1X5Ro+HVob32UaG1qVwEAAHNocX2UKIwJd2lyZSNfMjJflGphAQAAjAl3aXJlI18yMV+UalkBAAB1aHN9lGhxal0BAABzaHV9lGiYao8BAABzaHd9lCiMCXdpcmUjXzIzX5RqXwEAAIwJd2lyZSNfMDRflGjtdWh5fZRod2plAQAAc2h7fZQojAl3aXJlI18yNF+UamcBAACMCXdpcmUjXzAzX5RqbwEAAHVofX2UaHtqawEAAHNof32UaI1qgAEAAHNogX2UKIwPaW5wdXQjaW5wdXRCWzddlGjYjA9pbnB1dCNpbnB1dEFbN12UaNx1aIR9lGiBanMBAABzaIZ9lCiMCXdpcmUjXzI3X5RqfQEAAIwJd2lyZSNfMDFflGp1AQAAdWiIfZRohmp4AQAAc2iLfZRoxWrQAQAAc2iNfZQojA9pbnB1dCNpbnB1dEJbNl2UaOWMD2lucHV0I2lucHV0QVs2XZRo6HVokH2UKIwPaW5wdXQjaW5wdXRCWzFdlGocAQAAjA9pbnB1dCNpbnB1dEFbMV2Uah8BAAB1aJJ9lCiMD2lucHV0I2lucHV0QlsyXZRqEQEAAIwPaW5wdXQjaW5wdXRBWzJdlGoUAQAAdWiUfZQojA9pbnB1dCNpbnB1dEJbM12UagYBAACMD2lucHV0I2lucHV0QVszXZRqCQEAAHVoln2UKIwPaW5wdXQjaW5wdXRCWzRdlGj7jA9pbnB1dCNpbnB1dEFbNF2UaP51aJh9lCiMD2lucHV0I2lucHV0Qls1XZRo8IwPaW5wdXQjaW5wdXRBWzVdlGjzdWiafZQojAl3aXJlI18xMF+UaicBAACMCXdpcmUjXzA5X5RqKgEAAHVonH2UaJpqkgEAAHNonn2UKIwJd2lyZSNfMTNflGo4AQAAjAl3aXJlI18xMl+UajABAAB1aKB9lGieapgBAABzaKJ9lCiMCXdpcmUjXzE2X5RqRgEAAIwJd2lyZSNfMTVflGo+AQAAdWikfZRoomqeAQAAc2imfZQojAl3aXJlI18xOV+UalQBAACMCXdpcmUjXzE4X5RqTAEAAHVoqH2UaKZqpAEAAHNoqn2UKIwJd2lyZSNfMjJflGpiAQAAjAl3aXJlI18yMV+UaloBAAB1aKx9lGiqaqoBAABzaK59lCiMCXdpcmUjXzI0X5RqaAEAAIwJd2lyZSNfMDNflGpwAQAAdWiwfZRormqwAQAAc2iyfZQojA9pbnB1dCNpbnB1dEJbN12UaNmMD2lucHV0I2lucHV0QVs3XZRo3XVotH2UaLJqtgEAAHNotn2UKIwPaW5wdXQjaW5wdXRCWzBdlGrAAQAAjA9pbnB1dCNpbnB1dEFbMF2UasMBAAB1aLh9lGi2arsBAABzaLp9lIwNbW9kdWxlI2xvY2tlZJRq6QEAAHNovH2UjA1tb2R1bGUjbG9ja2VklGrZAQAAc2i+fZQojA9pbnB1dCNpbnB1dEJbMF2UasEBAACMD2lucHV0I2lucHV0QVswXZRqxAEAAHVowX2UKIwJd2lyZSNfMjVflGptAQAAjAl3aXJlI18wMl+UaOJ1aMN9lGjBasoBAABzaMV9lCiMCXdpcmUjXzI2X5RqzAEAAIwJd2lyZSNfMDBflGjVdWjHfZQojAl3aXJlI18yOF+UargBAACMCXdpcmUjXzI2X5RqzQEAAHVoyn2UaMdq0wEAAHNozH2UKIwNb3V0cHV0I291dFswXZRqvgEAAIwNb3V0cHV0I291dFsxXZRqlQEAAIwNb3V0cHV0I291dFsyXZRqmwEAAIwNb3V0cHV0I291dFszXZRqoQEAAIwNb3V0cHV0I291dFs0XZRqpwEAAIwNb3V0cHV0I291dFs1XZRqrQEAAIwNb3V0cHV0I291dFs2XZRqswEAAIwNb3V0cHV0I291dFs3XZRq1gEAAIwNb3V0cHV0I291dFs4XZRqewEAAHV1dWIu"
+    },
+    "submodules": {}
 }
