@@ -93,16 +93,17 @@ class AST:
             self.extracted_submodules = None
             self.top_module = module()
             self.submodule = {}
-            self.top=top
+            self.top_module_name=top
             self.gen_LLFile()
             self.writeLLFile()
         else:
             Exception("Enter either 'r' (for read) or 'w' (for write)")
 
     def gen_LLFile(self):
-        self.synthesized_verilog = synthesize_verilog(self.verilog,top=self.top,flag="dont_flatten")
-        self.synthesized_verilog_flatten = synthesize_verilog(self.verilog,top=self.top)
-        self.top_module_name  = self.top
+        self.synthesized_verilog = synthesize_verilog(self.verilog,top=self.top_module_name,flag="dont_flatten")
+        self.synthesized_verilog_flatten = synthesize_verilog(self.verilog,top=self.top_module_name)
+        self.flatten_bench = verilog_to_bench(self.synthesized_verilog_flatten)
+
         # print(self.top_module_name)
 
         self.submodules_techmap = module_extraction(self.synthesized_verilog) # dictionary {module name : module code}
@@ -124,7 +125,7 @@ class AST:
     def top_module_info(self):
         self.top_module.module_name = self.top_module_name
         self.top_module.org_code_verilog = self.top_module_verilog
-        self.top_module.org_code_bench = verilog_to_bench(self.top_module_verilog_techmap)
+        # self.top_module.org_code_bench = verilog_to_bench(self.top_module_verilog_techmap)
         self.top_module.gate_level_verilog = format_verilog(self.top_module_verilog_techmap)
         self.top_module.gates,self.top_module.linkages = gates_module_extraction(self.top_module.gate_level_verilog)
 
@@ -155,12 +156,13 @@ class AST:
             
 
     def writeLLFile(self):
-        ast_dict = dict({"orginal_code" : self.verilog, "gate_level_flattened" : self.synthesized_verilog_flatten, "gate_level_not_flattened" : self.synthesized_verilog, "top_module_name" : self.top_module_name})
-        top_dict = dict({"Verilog": self.top_module.org_code_verilog, "Synthesized_verilog" : self.top_module.gate_level_verilog, "Bench_format" : self.top_module.org_code_bench, "Total_number_of_submodules":self.no_of_submodules, "io":self.top_module.io, "gates": self.top_module.gates, "Linkages" : self.top_module.linkages})
+        
+        ast_dict = dict({"orginal_code" : self.verilog, "gate_level_flattened" : self.synthesized_verilog_flatten,"Bench_format_flattened" : self.flatten_bench, "gate_level_not_flattened" : self.synthesized_verilog, "top_module_name" : self.top_module_name})
+        top_dict = dict({"Verilog": self.top_module.org_code_verilog, "Synthesized_verilog" : self.top_module.gate_level_verilog, "Total_number_of_submodules":self.no_of_submodules, "io":self.top_module.io, "gates": self.top_module.gates, "Linkages" : self.top_module.linkages})
 
         sub_dict = {}
-        for i,key in enumerate(self.extracted_submodules):
-            sub_dict[key] = dict({"Verilog": self.submodule[key].org_code_verilog, "Synthesized_verilog" : self.submodule[key].gate_level_verilog, "Bench_format" : self.submodule[key].org_code_bench, "io":self.submodule[key].io, "gates": self.submodule[key].gates, "Linkages" : self.submodule[key].linkages})
+        for key in self.extracted_submodules:
+            sub_dict[key] = dict({"Verilog": self.submodule[key].org_code_verilog, "Synthesized_verilog" : self.submodule[key].gate_level_verilog, "io":self.submodule[key].io, "gates": self.submodule[key].gates, "Linkages" : self.submodule[key].linkages})
 
 
         ast = dict({"AST":ast_dict, "top_module": top_dict, "submodules": sub_dict})
@@ -187,7 +189,7 @@ class AST:
         self.top_module.module_name = self.top_module_name
         self.top_module.org_code_verilog = verilog_ast["top_module"]["Verilog"]
         self.top_module.gate_level_verilog = verilog_ast["top_module"]["Synthesized_verilog"]
-        self.top_module.org_code_bench = verilog_ast["top_module"]["Bench_format"]
+        # self.top_module.org_code_bench = verilog_ast["top_module"]["Bench_format"]
         self.no_of_submodules = verilog_ast["top_module"]["Total_number_of_submodules"]
         self.top_module.io = verilog_ast["top_module"]["io"]
         self.top_module.gates = verilog_ast["top_module"]["gates"]
@@ -199,7 +201,7 @@ class AST:
             self.submodule[i].module_name = i
             self.submodule[i].org_code_verilog = verilog_ast["submodules"][i]["Verilog"]
             self.submodule[i].gate_level_verilog = verilog_ast["submodules"][i]["Synthesized_verilog"]
-            self.submodule[i].org_code_bench = verilog_ast["submodules"][i]["Bench_format"]
+            # self.submodule[i].org_code_bench = verilog_ast["submodules"][i]["Bench_format"]
             self.submodule[i].io = verilog_ast["submodules"][i]["io"]
             self.submodule[i].gates = verilog_ast["submodules"][i]["gates"]
             self.submodule[i].linkages = verilog_ast["submodules"][i]["Linkages"]
