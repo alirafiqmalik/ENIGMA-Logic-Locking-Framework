@@ -1,6 +1,7 @@
 from src.utils import *
 import re
-
+import multiprocessing
+import random
 
 
 verilog="""
@@ -36,9 +37,9 @@ input [7:0] key;
 wire [7:0] key;
 output lock_out;
 wire lock_out;
-NOT_g _24_ ( .A(inputs[3]), .Y(_00_) );
-XNOR_g _25_ ( .A(inputs[0]), .B(key[0]), .Y(_01_) );
-XNOR_g _26_ ( .A(inputs[7]), .B(key[7]), .Y(_02_) );
+NOT_g _24_ ( .A#$%_5(inputs[3]), .^Y#$%_5(_00_) );
+XNOR_g _25_ ( .^&A(inputs[0]), .B&*(key[0]), .Y_-(_01_) );
+XNOR_g _26_ ( .A(inputs[7]), .dsdsB(key[7]), .Y(_02_) );
 AND_g _27_ ( .A(_01_), .B(_02_), .Y(_03_) );
 XNOR_g _28_ ( .A(inputs[1]), .B(key[1]), .Y(_04_) );
 XNOR_g _29_ ( .A(inputs[3]), .B(key[3]), .Y(_05_) );
@@ -66,30 +67,6 @@ endmodule
 """
 
 
-def extract_gates_b(bench):
-    tmp={i:[] for i in bench_gates}
-    gate_count = {i: 0 for i in tmp}
-    for i in bench_gates:
-        if(i.lower() in bench):
-            ix=i.lower()
-        else:
-            ix=i
-
-        if i=='NOT' or i=='BUF' or i=='DFF':
-            tmp[i]=re.findall(r" ?(.*) = "+ ix +r"\((.*)\)\n?",bench)
-
-            i.lower()
-        else:
-            tmp[i]=re.findall(r" ?(.*) = "+ ix +r"\((.*), ?(.*)\)\n?",bench)
-        
-        gcount = len(tmp[i])
-        if (gcount == 0):
-            tmp.pop(i, None)
-        else:
-            gate_count[i] = gcount
-    return tmp,gate_count
-
-
 def gates_extraction(verilog):
     pattern = r"(\w+)_g\s+(\w+)\s+\(\s*.*\((.*)\),\s*\.B\((.*)\),\s*\.Y\((.*)\)\s*\);"
     regex = re.compile(pattern)
@@ -111,130 +88,129 @@ def gates_extraction(verilog):
 
     return gates
 
-import multiprocessing
-import random
 
-def process_chunk(chunk, shared_dict):
-  pass
+
+def gates_module_extraction():
+  gate_tech={}
+  sub_module=[]
+  def process_chunk(chunk):
+    # gated={'BUF':[],'NOT':[], 'AND':[], 'OR':[],'XOR':[],'NAND':[], 'NOR':[],'XNOR':[]}
     # for type,init,extra in chunk:
-    #   type=re.sub("_g",type)
-    #   # print(type,init,extra)
-    #   if(re.sub("_g","",type) in gate_tech.keys()):
-    #     print(re.sub("_g","",type),type)
-    #     for i in extra.split(","):
-    #       Lnode,Rnode=re.findall("\.(.*)\((.*)\)",i)[0]
-    
-    
-    # for item in chunk:
-    #     if item in shared_dict:
-        #     shared_dict[item[0]]= {
-        #     "type": type,
-        #     "inputs": [input_a, input_b],
-        #     "outputs": output
-        # }
-    #     else:
-    #         shared_dict[item] = []
-
-
-def traverse_array_with_multiprocessing(array,gate_tech, num_processes):
-    manager = multiprocessing.Manager()
-    shared_dict = manager.dict(gate_tech)
-    chunk_size = len(array) // num_processes
-    chunks = [array[i:i + chunk_size] for i in range(0, len(array), chunk_size)]
-
-    processes = []
-    for chunk in chunks:
-        process = multiprocessing.Process(target=process_chunk, args=(chunk, shared_dict))
-        process.start()
-        processes.append(process)
-
-    for process in processes:
-        process.join()
-
-    return dict(shared_dict)
-
-if __name__ == "__main__":
-  gate_tech={'BUF':[],'NOT':[], 'AND':[], 'OR':[],'XOR':[],'NAND':[], 'NOR':[],'XNOR':[]}
-  sub_module={}
-  for type,init,extra in re.findall(r"(\w+) (\w+) \((.*)\);",verilog)[:]:
-    # print(type,init,extra)
-    if(re.sub("_g","",type) in gate_tech.keys()):
-      tmpx=re.findall(r'\.[A-Za-z]+\(([^\(\),]+)\)',extra)
+    type,init,extra=chunk
+    # re.sub("_g","",type)
+    if(type in ['BUF_g','NOT_g', 'AND_g', 'OR_g', 'NAND_g', 'NOR_g','XOR_g','XNOR_g']):
+      tmpx=re.findall(r'\.\S+\(([^\(\),]+)\)',extra)
+      # print(type,tmpx)
       tmpx.reverse()
-      gate_tech[re.sub("_g","",type)].append({"init_name": init,"inputs": tmpx[1:] ,"outputs": tmpx[0]})
+      if re.sub("_g","",type) not in gate_tech:
+        gate_tech[re.sub("_g","",type)]=[{"init_name": init,"inputs": tmpx[1:] ,"outputs": tmpx[0]}]
+      else:
+        gate_tech[re.sub("_g","",type)].append({"init_name": init,"inputs": tmpx[1:] ,"outputs": tmpx[0]})
+      # print(gate_tech)
     else:
-      # tmpx=[re.findall("\.(.*)\((.*)\)",i)[0] for i in extra.split(",")]
-      # print(tmpx)
       links=[]
       for i in extra.split(","):
         Lnode,Rnode=re.findall("\.(.*)\((.*)\)",i)[0]
-        Rnoded={}
-        Lnoded={}
+        nodel={}
+        noder={}
+
         if(":" in Rnode):
           nodename,startbit,endbit=re.findall(r"(.*)\[(\d+):(\d+)\]",Rnode)[0]
           startbit=int(startbit)
           endbit=int(endbit)
-          Rnoded[nodename]=connector(startbit-endbit+1,startbit,endbit)
+          noder=connector(startbit-endbit+1,startbit,endbit)
+          noder["node_name"]=nodename
         else:
-          Rnoded[Rnode]=connector(1,0,0)
+          noder=Rnode
 
         if(":" in Lnode):
           nodename,startbit,endbit=re.findall(r"(.*)\[(\d+):(\d+)\]",Lnode)[0]
           startbit=int(startbit)
           endbit=int(endbit)
-          Lnoded[nodename]=connector(startbit-endbit+1,startbit,endbit)
+          nodel=connector(startbit-endbit+1,startbit,endbit)
+          noder["node_name"]=nodename
         else:
-          Lnoded[Lnode]=connector(1,0,0)
+          nodel=Lnode
+        links.append((nodel,noder))
+      sub_module.append({"module_name": type, "init_name": init, "links":links})
 
-        print(Lnoded,Rnoded)
+  for i in re.findall(r"(\w+) (\w+) \((.*)\);",verilog):
+    process_chunk(i)
 
-          
-# {"module_name": type, "init_name": init, "links":}
-
-
-  # print(gate_tech)  
-    
-    # print(type,tmpx[0],tmpx[1:])
-    
-    
-    # if(re.sub("_g","",type) in gate_tech.keys()):
-    #   print(re.sub("_g","",type),type)
-
-    #   A,B,Y=re.findall("\.A\((.*)\), \.B\((.*)\), \.Y\((.*)\)",extra)
-    #   # print()re.findall("\.A\((.*)\), \.B\((.*)\), \.Y\((.*)\)",extra)
-    
-    
-    # for i in extra.split(","):
-    #   Lnode,Rnode=re.findall("\.(.*)\((.*)\)",i)[0]
-      # print(Lnode,Rnode)
-
-    
-  # process_chunk(match.groups(), 
-  # result = traverse_array_with_multiprocessing(array, 10)
-  # print(result)
-
-# print(gates_extraction(verilog).keys())
-# print(submodule_links_extraction(verilog))
+  return gate_tech,sub_module
 
 
-# for type, init,extra in re.findall(r"(\w+) (\w+) \((.*)\);",verilog)[-5:]:
-#   print(type, init)
-#   # arg=extra.split(",")
-
-#   # print(re.findall(r"\.", extra))
 
 
-#   # print(re.findall(r"\.(\w)+\((\w+\[(\d+)(?::(\d+))?\])\)",extra))
-#   # \.\w+\(\w+\[(\d+)(?::(\d+))?\]\)
-
-#   # \.(\w+)\((\w+\[?\d*\]?)\),?
-
-#   # print(extra)
-#   for j in extra.split(","):
-#     print(j,end=" <=> ")
-#   print()
 
 
+if __name__ == '__main__':
+
+  
+  # for type,init,extra in re.findall(r"(\w+) (\w+) \((.*)\);",verilog)[0:5]:
+  #   print(extra)
+  #   tmpx=re.findall(r'\.\S+\(([^\(\),]+)\)',extra)
+  #   tmpx.reverse()
+  #   print(type,init,tmpx)
+  #   print()
+
+  # manager=multiprocessing.Manager()
+  #   # gate_tech={'BUF':[],'NOT':[], 'AND':[], 'OR':[],'XOR':[],'NAND':[], 'NOR':[],'XNOR':[]}
+  #   # sub_module=[]
+  # gate_tech = manager.dict()
+  # sub_module = manager.list()
+  gate_tech,sub_module=tmpfn()
+  
+
+
+  for i in gate_tech:
+    print(i,len(gate_tech[i]))
+
+  
+  print(sub_module)
+
+
+# if __name__ == "__main__":
+#   manager = multiprocessing.Manager()
+#   # with multiprocessing.Manager() as manager:
+#   # gate_tech = manager.dict()
+#   # sub_module = manager.list()
+#   processes=[]
+#   for i in re.findall(r"(\w+) (\w+) \((.*)\);",verilog):
+#     process = multiprocessing.Process(target=process_chunk, args=(i,))
+#     process.start()
+#     processes.append(process)
+
+#   for process in processes:
+#     process.join()
+
+#   print(gate_tech)
+  
+
+
+
+
+  
+
+  #   processes = []
+  #   for chunk in re.findall(r"(\w+) (\w+) \((.*)\);",verilog):
+  #     # print(chunk)
+      # process = multiprocessing.Process(target=process_chunk, args=(chunk,))
+      # print(process)
+      # process.start()
+      # processes.append(process)
+
+  # for process in processes:
+  #     process.join()
+
+
+
+  # print(re.findall(r"(\w+) (\w+) \((.*)\);",verilog)[0])
+  # re.findall(r"(\w+) (\w+) \((.*)\);",verilog)[0]
+  # print()
+  # d,l=traverse_array_with_multiprocessing(re.findall(r"(\w+) (\w+) \((.*)\);",verilog)[:], 10)
+  # print(d)
+  
 
 
 

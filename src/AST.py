@@ -18,6 +18,61 @@ class module:
         self.linkages = None #[ {"instant_name":None,"module_name":None,"links":{"out":"lock_out"}}]
         self.module_LLverilog=None
         self.module_LLcircuitgraph=None
+    def gen_graph(self):
+        self.circuitgraph = nx.DiGraph()
+        for logic_gate in self.gates:
+            for node in self.gates[logic_gate]:
+                tmpi=self.gates[logic_gate]
+                init_name=node["init_name"]
+                node_input=node["inputs"]
+                node_output=node["outputs"]
+                node_name=logic_gate+"#"+init_name
+
+                self.circuitgraph.add_node(node_name, type="gate",logic=logic_gate)
+
+                if(node_output in self.io["outputs"]):
+                    self.circuitgraph.add_node("output#"+node_output, type="output")
+                    self.circuitgraph.add_edge(node_name, "output#"+node_output)
+                elif(re.sub("\[\d+\]","",node_output) in self.io["wires"]):
+                    self.circuitgraph.add_node("wire#"+node_output, type="wire")
+                    self.circuitgraph.add_edge(node_name, "wire#"+node_output)
+                else:
+                    raise Exception("NODE NOT FOUND")
+
+                for i in node_input:
+                    if(re.sub("\[\d+\]","",i) in self.io["inputs"]):
+                        self.circuitgraph.add_node("input#"+i, type="input")
+                        self.circuitgraph.add_edge("input#"+i,node_name)
+                    elif(re.sub("\[\d+\]","",i) in self.io["wires"]):
+                        self.circuitgraph.add_node("wire#"+i, type="wire")
+                        self.circuitgraph.add_edge("wire#"+i,node_name)
+                    else:
+                        raise Exception("NODE NOT FOUND")
+
+        self.circuitgraph.add_node("module#"+self.module_name, type="module")
+        for i in self.io["outputs"]:
+            tmpi=self.io["outputs"][i]
+            if(tmpi['bits']==1):
+                self.circuitgraph.add_edge("output#"+i,"module#"+self.module_name)
+            else:
+                for k in range(tmpi['startbit'],tmpi["endbit"]+1):
+                    # print("output#"+i+f"[{k}]")
+                    self.circuitgraph.add_edge("output#"+i+f"[{k}]","module#"+self.module_name)
+
+        for i in self.io["inputs"]:
+            tmpi=self.io["inputs"][i]
+            if(tmpi['bits']==1):
+                self.circuitgraph.add_edge("module#"+self.module_name,"input#"+i)
+            else:
+                for k in range(tmpi['startbit'],tmpi["endbit"]+1):
+                    self.circuitgraph.add_edge("module#"+self.module_name,"input#"+i+f"[{k}]")
+
+    def save_graph(self,module):
+        nx.drawing.nx_agraph.write_dot(self.circuitgraph, "./tmp/tmp.dot")
+
+        import subprocess
+        subprocess.run("dot -Tsvg ./tmp/tmp.dot > ./tmp/tmp.svg", shell=True)
+
 
 
 class AST:
@@ -64,19 +119,20 @@ class AST:
         self.sub_modules_data()
         self.update_LLverilog()
 
-    def top_module_info(self):
 
+    
+    def top_module_info(self):
         self.top_module.module_name = self.top_module_name
         self.top_module.org_code_verilog = self.top_module_verilog
         self.top_module.org_code_bench = verilog_to_bench(self.top_module_verilog_techmap)
         self.top_module.gate_level_verilog = format_verilog(self.top_module_verilog_techmap)
-        self.top_module.gates = gates_extraction(self.top_module.gate_level_verilog)
-        self.top_module.linkages = submodule_links_extraction(self.top_module.org_code_verilog)
+        self.top_module.gates,self.top_module.linkages = gates_module_extraction(self.top_module.gate_level_verilog)
 
         inputs, input_ports = extract_io_v(self.top_module_verilog)
         outputs, output_ports = extract_io_v(self.top_module_verilog, "output")
-
-        self.top_module.io = dict({'inputs':inputs,'outputs':outputs,'input_ports':input_ports,'output_ports':output_ports})
+        wire, _ = extract_io_v(self.top_module_verilog, "wire")    
+        wire={key:wire[key]  for key in get_difference_abs(wire.keys(),inputs.keys(),outputs.keys())}
+        self.top_module.io = dict({'wires':wire,'inputs':inputs,'outputs':outputs,'input_ports':input_ports,'output_ports':output_ports})
 
     def sub_modules_data(self):
         for i,key in enumerate(self.extracted_submodules):
@@ -84,15 +140,18 @@ class AST:
             self.submodule[key]=module()
             self.submodule[key].module_name = key
             self.submodule[key].org_code_verilog = self.extracted_submodules[key]
-            self.submodule[key].org_code_bench = verilog_to_bench(self.submodules_techmap[key])
+            # self.submodule[key].org_code_bench = verilog_to_bench(self.submodules_techmap[key])
             self.submodule[key].gate_level_verilog = self.submodules_techmap[key]
-            self.submodule[key].gates = gates_extraction(self.submodule[key].gate_level_verilog)
-            self.submodule[key].linkages = submodule_links_extraction(self.submodule[key].org_code_verilog)
+            self.submodule[key].gates,self.submodule[key].linkages = gates_module_extraction(self.submodule[key].gate_level_verilog)
+            
+            # gates_extraction(self.submodule[key].gate_level_verilog)
+            # self.submodule[key].linkages = submodule_links_extraction(self.submodule[key].org_code_verilog)
 
             inputs, input_ports = extract_io_v(self.submodule[key].org_code_verilog)
             outputs, output_ports = extract_io_v(self.submodule[key].org_code_verilog, "output")
-
-            self.submodule[key].io = dict({'inputs':inputs,'outputs':outputs,'input_ports':input_ports,'output_ports':output_ports})
+            wire, _ = extract_io_v(self.submodule[key].gate_level_verilog, "wire")    
+            wire={key:wire[key]  for key in get_difference_abs(wire.keys(),inputs.keys(),outputs.keys())}
+            self.submodule[key].io = dict({'wires':wire,'inputs':inputs,'outputs':outputs,'input_ports':input_ports,'output_ports':output_ports})
             
 
     def writeLLFile(self):
@@ -110,6 +169,10 @@ class AST:
         with open("./output_files/{}.json".format(self.top_module_name), "w") as verilog_ast:
             verilog_ast.write(json_file)
 
+    
+    
+    
+    
     def read_LLFile(self, file_path):
         with open(file_path) as json_file:
             verilog_ast = json.load(json_file)
