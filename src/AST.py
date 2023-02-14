@@ -18,6 +18,7 @@ class module:
         self.linkages = None #[ {"instant_name":None,"module_name":None,"links":{"out":"lock_out"}}]
         self.module_LLverilog=None
         self.module_LLcircuitgraph=None
+    
     def gen_graph(self):
         self.circuitgraph = nx.DiGraph()
         for logic_gate in self.gates:
@@ -67,12 +68,11 @@ class module:
                 for k in range(tmpi['startbit'],tmpi["endbit"]+1):
                     self.circuitgraph.add_edge("module#"+self.module_name,"input#"+i+f"[{k}]")
 
-    def save_graph(self,module):
+    def save_graph(self):
         nx.drawing.nx_agraph.write_dot(self.circuitgraph, "./tmp/tmp.dot")
 
         import subprocess
         subprocess.run("dot -Tsvg ./tmp/tmp.dot > ./tmp/tmp.svg", shell=True)
-
 
 
 class AST:
@@ -120,7 +120,6 @@ class AST:
         self.sub_modules_data()
         self.update_LLverilog()
 
-
     
     def top_module_info(self):
         self.top_module.module_name = self.top_module_name
@@ -128,7 +127,6 @@ class AST:
         # self.top_module.org_code_bench = verilog_to_bench(self.top_module_verilog_techmap)
         self.top_module.gate_level_verilog = format_verilog(self.top_module_verilog_techmap)
         self.top_module.gates,self.top_module.linkages = gates_module_extraction(self.top_module.gate_level_verilog)
-
         inputs, input_ports = extract_io_v(self.top_module_verilog)
         outputs, output_ports = extract_io_v(self.top_module_verilog, "output")
         wire, _ = extract_io_v(self.top_module_verilog, "wire")    
@@ -136,18 +134,13 @@ class AST:
         self.top_module.io = dict({'wires':wire,'inputs':inputs,'outputs':outputs,'input_ports':input_ports,'output_ports':output_ports})
 
     def sub_modules_data(self):
-        for i,key in enumerate(self.extracted_submodules):
-            # print("HERE",i,key)
+        for key in self.extracted_submodules:
             self.submodule[key]=module()
             self.submodule[key].module_name = key
             self.submodule[key].org_code_verilog = self.extracted_submodules[key]
             # self.submodule[key].org_code_bench = verilog_to_bench(self.submodules_techmap[key])
             self.submodule[key].gate_level_verilog = self.submodules_techmap[key]
             self.submodule[key].gates,self.submodule[key].linkages = gates_module_extraction(self.submodule[key].gate_level_verilog)
-            
-            # gates_extraction(self.submodule[key].gate_level_verilog)
-            # self.submodule[key].linkages = submodule_links_extraction(self.submodule[key].org_code_verilog)
-
             inputs, input_ports = extract_io_v(self.submodule[key].org_code_verilog)
             outputs, output_ports = extract_io_v(self.submodule[key].org_code_verilog, "output")
             wire, _ = extract_io_v(self.submodule[key].gate_level_verilog, "wire")    
