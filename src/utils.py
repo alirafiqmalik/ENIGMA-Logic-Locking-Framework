@@ -440,30 +440,6 @@ def gates_module_extraction(verilog):
         gate_tech[re.sub("_g","",type)].append({"init_name": init,"inputs": tmpx[1:] ,"outputs": tmpx[0]})
     else:
       links=[re.findall("\.(.*)\((.*)\)",i)[0] for i in extra.split(",")]
-    #   for i in extra.split(","):
-    #     Lnode,Rnode=re.findall("\.(.*)\((.*)\)",i)[0]
-    #     print(Lnode,Rnode)
-        # nodel={}
-        # noder={}
-
-        # if(":" in Rnode):
-        #   nodename,startbit,endbit=re.findall(r"(.*)\[(\d+):(\d+)\]",Rnode)[0]
-        #   startbit=int(startbit)
-        #   endbit=int(endbit)
-        #   noder=connector(startbit-endbit+1,startbit,endbit)
-        #   noder["node_name"]=nodename
-        # else:
-        #   noder=Rnode
-
-        # if(":" in Lnode):
-        #   nodename,startbit,endbit=re.findall(r"(.*)\[(\d+):(\d+)\]",Lnode)[0]
-        #   startbit=int(startbit)
-        #   endbit=int(endbit)
-        #   nodel=connector(startbit-endbit+1,startbit,endbit)
-        #   noder["node_name"]=nodename
-        # else:
-        #   nodel=Lnode
-        # links.append((nodel,noder))
       sub_module.append({"module_name": type, "init_name": init, "links":links})
 
   for i in re.findall(r"(\w+) (\w+) \((.*)\);",verilog):

@@ -13,12 +13,85 @@ import re
 
 # if __name__=="__main__":
 
-# obj=AST("./input_files/tmporg.v",rw="w",flag="v",top="locked")
-obj = AST("./output_files/locked.json",rw='r',top="locked") # r for read from file
+# obj=AST(file_path="./input_files/tmporg.v",rw="w",flag="v",top="locked",filename="new")
+obj = AST(file_path="./output_files/locked_new.json",rw='r',top="locked") # r for read from file
 
 
-print(obj.top_module.circuitgraph)
-# obj.top_module.save_graph()
+# print(obj.top_module.circuitgraph)
+
+module=obj.submodule["locked"]
+
+
+
+for i in module.linkages:
+  print(i['init_name'],i)
+  module.circuitgraph.add_node("module#"+i['module_name'], type="module",init_name=i['init_name'])
+  for j in i['links']:
+    L,R=j
+    if(":" in R):
+      node,end,start=re.findall("(.*)\[(\d+):?(\d*)\]",R)[0]
+      end,start=int(end),int(start)
+      node_bus=[node+f"[{x}]" for x in range(start,end+1)]
+    else:
+      node=None
+      node_bus=[R]
+
+    if(re.sub("\[\d+:?\d*\]","",R) in module.io['inputs']):
+      print("INPUTS ",L,R,module.io['inputs'][re.sub("\[\d+:?\d*\]","",R)])
+    elif(re.sub("\[\d+:?\d*\]","",R) in module.io['outputs']):
+      print("OUTPUT ",L,R,module.io['outputs'][re.sub("\[\d+:?\d*\]","",R)])
+    elif(re.sub("\[\d+:?\d*\]","",R) in module.io['wires']):
+      print("############ wire ",L,R,module.io['wires'][re.sub("\[\d+:?\d*\]","",R)])
+      if(re.sub("\[\d+:?\d*\]","",R) in module.io['inputs']):
+        print("INPUT ",L,R,module.io['inputs'][re.sub("\[\d+:?\d*\]","",R)])
+      elif(re.sub("\[\d+:?\d*\]","",R) in module.io['outputs']):
+        print("OUTPUT ",L,R,module.io['outputs'][re.sub("\[\d+:?\d*\]","",R)])
+      
+    else:
+      raise Exception("NODE NOT FOUND")
+
+
+    # if L in obj.submodule[i['module_name']].io['inputs'].keys():
+    #   # module.circuitgraph.add_edge("input#"+x,"module#"+i['module_name']) for x in node_bus
+    #   print("IF ",L,R)
+    # elif L in obj.submodule[i['module_name']].io['outputs'].keys():
+    #   pass
+    # elif L in obj.submodule[i['module_name']].io['wires'].keys():
+    #   pass
+    # else:
+    #   raise Exception("NODE NOT FOUND")
+
+
+
+    # if(re.sub("\[\d+:?\d*\]","",R) in module.io['inputs']):
+    #   print("INPUT ",L,R,module.io['inputs'][re.sub("\[\d+:?\d*\]","",R)])
+      
+    # elif(re.sub("\[\d+:?\d*\]","",R) in module.io['outputs']):
+    #   print("OUTPUT ",L,R,module.io['outputs'][re.sub("\[\d+:?\d*\]","",R)])
+    # elif(re.sub("\[\d+:?\d*\]","",R) in module.io['wires']):
+    #   print("wire ",L,R,module.io['wires'][re.sub("\[\d+:?\d*\]","",R)])
+    # else:
+    #   raise Exception("NODE NOT FOUND")
+
+
+def t(self):
+  LLverilog=""
+  LLverilog+=self.top_module.gate_level_verilog+"\n"
+  for i in self.submodule:
+    LLverilog+=self.submodule[i].gate_level_verilog+"\n"
+  return LLverilog
+
+
+LLverilog=t(obj)
+# print(LLverilog)
+
+
+
+
+# obj.update_LLverilog()
+
+module.save_graph()
+
 
 # for i in obj.submodule:
 #   print(obj.submodule[i].circuitgraph)
