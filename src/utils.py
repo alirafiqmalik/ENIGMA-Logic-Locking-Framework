@@ -381,50 +381,6 @@ def module_extraction (verilog):
         module_dict = dict((module[1], module[0]) for module in modules)
         return module_dict      #module_dict = {'modulename' : "module code"}
 
-# def gates_extraction(verilog):
-#     pattern = r"(\w+)_g\s+(\w+)\s+\(\s*.*\((.*)\),\s*\.B\((.*)\),\s*\.Y\((.*)\)\s*\);"
-#     regex = re.compile(pattern)
-#     matches = regex.finditer(verilog)
-#     # Initialize an empty dictionary to store the gate information
-#     gates = {}
-
-#     # Iterate over the matches
-#     for match in matches:
-#         # Extract the gate type, input A, input B, and output from the match
-#         gate_type, gate_name, input_a, input_b, output = match.groups()
-        
-#         # Add the gate information to the dictionary
-#         gates[gate_name] = {
-#             "type": gate_type,
-#             "inputs": [input_a, input_b],
-#             "outputs": output
-#         }
-
-#     return gates
-
-# def submodule_links_extraction(verilog):
-#     linkages = []
-#     # (?!module)
-#     for match in re.finditer(r"(\w+)\s+(\w+)\s*\((.*?)\);", verilog):
-#         module_name = match.group(1)
-#         instance_name = match.group(2)
-#         inputs_str = match.group(3)
-#         input_list = re.findall(r"\.(\w+)\((.*?)\)", inputs_str)
-#         if(module_name=='module'):
-#             pass
-#         else:
-#             print("THIS ",input_list)
-#             linkages.append({"module_name": module_name, "init_name":instance_name,"links": input_list})
-    
-#     # print(linkages)
-#     # first_key = next(iter(linkages))
-#     # print(first_key)
-#     # linkages.pop(first_key)
-
-#     # print(linkages)
-    
-#     return linkages
-
 def gates_module_extraction(verilog):
   gates=['BUF_g','NOT_g', 'AND_g', 'OR_g', 'NAND_g', 'NOR_g','XOR_g','XNOR_g']
   gate_tech={}
@@ -462,7 +418,6 @@ def submodules_info(sub):
         dictionary[ii]  =  dict({"module_name": module_name, "io":io, "gates": gates, "linkages":linkages, "number_of_submodules":number_of_submodules})
     
     return dictionary
-
 
 
 

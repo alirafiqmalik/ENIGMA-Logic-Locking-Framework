@@ -17,92 +17,12 @@ from src.utils import connector
 obj = AST(file_path="./output_files/locked_new.json",rw='r',top="locked") # r for read from file
 
 
-# print(obj.top_module.circuitgraph)
 
 module=obj.submodule["sarlock"]
 
-module.save_graph()
-
-
-# def process_node(R):
-#   if(":" in R):
-#     node,endbit,startbit=re.findall("(.*)\[(\d+):?(\d*)\]",R)[0]
-#     endbit,startbit=int(endbit),int(startbit)
-#   elif("[" in R):
-#     node,bit=re.findall("(.*)\[(\d+)\]",R)[0]
-#     endbit,startbit=int(bit),int(bit)
-#   else:
-#     node=R
-#     print("NODE  ",node)
-#     if(R in module.io['inputs']):
-#       endbit=module.io['inputs'][node]['endbit']
-#       startbit=module.io['inputs'][node]['startbit']
-#     elif(R in module.io['outputs']):
-#       endbit=module.io['outputs'][node]['endbit']
-#       startbit=module.io['outputs'][node]['startbit']
-#     elif(R in module.io['wires']):
-#       endbit=module.io['wires'][node]['endbit']
-#       startbit=module.io['wires'][node]['startbit']
-#     else:
-#       raise Exception("NODE NOT FOUND")
-#   return node,endbit,startbit
 
 
 
-
-
-def process_node(R):
-  if(":" in R):
-    node,endbit,startbit=re.findall("(.*)\[(\d+):?(\d*)\]",R)[0]
-    endbit,startbit=int(endbit),int(startbit)
-  elif("[" in R):
-    node,bit=re.findall("(.*)\[(\d+)\]",R)[0]
-    endbit,startbit=int(bit),int(bit)
-  else:
-    node=R
-    endbit,startbit=None,None
-
-  if(node in module.io['inputs']):
-    Node=module.io['inputs'][node]
-    type='input'
-  elif(R in module.io['outputs']):
-    Node=module.io['outputs'][node]
-    type='output'
-  elif(R in module.io['wires']):
-    Node=module.io['wires'][node]
-    type='wire'
-  else:
-    raise Exception("NODE NOT FOUND")
-
-  if(endbit==None):
-    endbit=Node['endbit']
-    startbit=Node['startbit']
-
-  return node,type,endbit,startbit
-
-
-
-
-for i in module.linkages:
-  module_node_name="module#"+i['init_name']
-  module.circuitgraph.add_node(module_node_name, type="module",module_name=i['module_name'],init_name=i['init_name'])
-  for j in i['links']:
-    L,R=j
-    # print(L,process_node(R))
-    node,type,endbit,startbit=process_node(R)
-    
-    if(L in obj.submodule[i['module_name']].io['inputs']):
-      pass
-      # print(node,endbit,startbit)
-      for k in range(startbit,endbit+1):
-        module.circuitgraph.add_edge(f"{type}#"+node+f"[{k}]",module_node_name)
-        # module.circuitgraph.add_edge("input#"+node+f"[{k}]",module_node_name)
-    elif(L in obj.submodule[i['module_name']].io['outputs']):
-      for k in range(startbit,endbit+1):
-        module.circuitgraph.add_edge(module_node_name,f"{type}#"+node+f"[{k}]")
-    else:
-      raise Exception("NODE NOT FOUND")
-    
 
 
 
@@ -123,65 +43,6 @@ LLverilog=t(obj)
 # obj.update_LLverilog()
 
 module.save_graph()
-
-
-# for i in obj.submodule:
-#   print(obj.submodule[i].circuitgraph)
-
-# obj.submodule["ckt"].save_graph()
-
-
-
-
-
-
-# print( module.io["inputs"])
-# # print(module.linkages)
-# print(module.io["input_ports"])
-
-# for i in module.linkages:
-#     module_name=i["module_name"]
-#     init_name=i["init_name"]
-#     # print(i,i["linkages"]) 
-#     # print(module.io)
-#     # print(obj.submodule[module_name].io)
-#     self.circuitgraph.add_node("module#"+module_name, type="module",init_name=init_name)
-#     for j in i["links"]:
-#       # print("HERE",j[0],j[1])
-#       if(":" in j[1]):
-#           bus_node_name,endbit,startbit=re.findall("(.*)\[(.*):(.*)\]",j[1])[0]
-#           # print(bus_node_name,startbit,endbit)
-#           # print(bus_node_name in module.io['inputs'])
-#           # print(obj.submodule[module_name].io)
-#           # print(j[0] in obj.submodule[module_name].io["input_ports"])
-#       #     if(j[0] in obj.submodule[module_name].io["input_ports"]):
-#       #         for k in range(int(startbit),int(endbit)+1):
-#       #             module_node=bus_node_name+f"[{k}]"
-#       #             link_node=j[0]+f"[{k}]"
-#       #             # print(j[0]+f"[{k}]",bus_node_name+f"[{k}]")
-#       #             self.circuitgraph.add_edge("module#"+module.module_name,module_node) 
-#       #     elif(j[0] in obj.submodule[module_name].io["output_ports"]):
-#       #         for k in range(int(startbit),int(endbit)+1):
-#       #             module_node=bus_node_name+f"[{k}]"
-#       #             link_node=j[0]+f"[{k}]"
-#       #             # print(j[0]+f"[{k}]",bus_node_name+f"[{k}]")
-#       #             # self.circuitgraph.add_edge("module#"+module.module_name,module_node) 
-#       #     else:
-#       #         print("EXCEPTION")
-#       #         raise Exception(f"{bus_node_name} not found in ")
-
-
-
-
-
-
-
-
-# print(module.module_LLverilog)
-# print(module.module_LLself.circuitgraph)
-
-
-
 
 
 

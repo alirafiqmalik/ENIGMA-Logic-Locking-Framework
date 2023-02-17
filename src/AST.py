@@ -73,7 +73,8 @@ class module:
                 for k in range(tmpi['startbit'],tmpi["endbit"]+1):
                     self.circuitgraph.add_edge("module#"+self.module_name,"input#"+i+f"[{k}]")
 
-    
+
+    def bin_graph(self):
         # Encode the graph object to a binary string using pickle and encode the binary string to a base64 string
         self.base64_data = base64.b64encode(pickle.dumps(self.circuitgraph)).decode('utf-8')
 
@@ -130,18 +131,10 @@ class AST:
 
         self.sub_modules_data()
         self.update_LLverilog()
-
-    
-    # def top_module_info(self):
-    #     self.top_module.module_name = self.top_module_name
-    #     self.top_module.gate_level_verilog = format_verilog(self.top_module_verilog_techmap)
-    #     self.top_module.gates,self.top_module.linkages = gates_module_extraction(self.top_module.gate_level_verilog)
-    #     inputs, input_ports = extract_io_v(self.top_module.org_code_verilog) 
-    #     outputs, output_ports = extract_io_v(self.top_module.org_code_verilog, "output")
-    #     wire, _ = extract_io_v(self.top_module.gate_level_verilog, "wire")    
-    #     wire={key:wire[key]  for key in get_difference_abs(wire.keys(),inputs.keys(),outputs.keys())}
-    #     self.top_module.io = dict({'wires':wire,'inputs':inputs,'outputs':outputs,'input_ports':input_ports,'output_ports':output_ports})
-    #     self.top_module.gen_graph()
+        for i in self.submodule:
+            self.gen_graph_links(self.submodule[i])
+            self.submodule[i].bin_graph()
+            
         
     def sub_modules_data(self):
         for key in self.extracted_submodules:
@@ -155,7 +148,6 @@ class AST:
             wire, _ = extract_io_v(self.submodule[key].gate_level_verilog, "wire")
             wire={key:wire[key]  for key in get_difference_abs(wire.keys(),inputs.keys(),outputs.keys())}
             self.submodule[key].io = dict({'wires':wire,'inputs':inputs,'outputs':outputs,'input_ports':input_ports,'output_ports':output_ports})
-            # print(self.submodule[key].gates)
             self.submodule[key].gen_graph()
         self.top_module=self.submodule[self.top_module_name]
             
@@ -175,9 +167,55 @@ class AST:
         with open(self.filepath, "w") as verilog_ast:
             verilog_ast.write(json_file)
 
-    
-    
-    
+
+    def gen_graph_links(self,module):
+        def process_node(R):
+            if(":" in R):
+                node,endbit,startbit=re.findall("(.*)\[(\d+):?(\d*)\]",R)[0]
+                endbit,startbit=int(endbit),int(startbit)
+            elif("[" in R):
+                node,bit=re.findall("(.*)\[(\d+)\]",R)[0]
+                # print(node)
+                endbit,startbit=int(bit),int(bit)
+            else:
+                node=R
+                endbit,startbit=None,None
+
+            if(node in module.io['inputs']):
+                Node=module.io['inputs'][node]
+                type='input'
+            elif(node in module.io['outputs']):
+                Node=module.io['outputs'][node]
+                type='output'
+            elif(node in module.io['wires']):
+                Node=module.io['wires'][node]
+                type='wire'
+            else:
+                # print(module.module_name,R)
+                raise Exception("NODE NOT FOUND")
+
+            if(endbit==None):
+                endbit=Node['endbit']
+                startbit=Node['startbit']
+
+            return node,type,endbit,startbit
+
+        for i in module.linkages:
+            module_node_name="module#"+i['init_name']
+            module.circuitgraph.add_node(module_node_name, type="module",module_name=i['module_name'],init_name=i['init_name'])
+            for j in i['links']:
+                L,R=j
+                node,type,endbit,startbit=process_node(R)
+                
+                if(L in self.submodule[i['module_name']].io['inputs']):
+                    for k in range(startbit,endbit+1):
+                        module.circuitgraph.add_edge(f"{type}#"+node+f"[{k}]",module_node_name)
+                elif(L in self.submodule[i['module_name']].io['outputs']):
+                    for k in range(startbit,endbit+1):
+                        module.circuitgraph.add_edge(module_node_name,f"{type}#"+node+f"[{k}]")
+                else:
+                    raise Exception("NODE NOT FOUND")
+            
     
     def read_LLFile(self, file_path):
         with open(file_path) as json_file:
