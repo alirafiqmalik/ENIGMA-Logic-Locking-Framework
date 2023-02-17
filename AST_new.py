@@ -95,11 +95,11 @@ for i in module.linkages:
       pass
       # print(node,endbit,startbit)
       for k in range(startbit,endbit+1):
-        module.circuitgraph.add_edge(module_node_name,f"{type}#"+node+f"[{k}]")
+        module.circuitgraph.add_edge(f"{type}#"+node+f"[{k}]",module_node_name)
         # module.circuitgraph.add_edge("input#"+node+f"[{k}]",module_node_name)
     elif(L in obj.submodule[i['module_name']].io['outputs']):
       for k in range(startbit,endbit+1):
-        module.circuitgraph.add_edge(f"{type}#"+node+f"[{k}]",module_node_name)
+        module.circuitgraph.add_edge(module_node_name,f"{type}#"+node+f"[{k}]")
     else:
       raise Exception("NODE NOT FOUND")
     

@@ -11,6 +11,10 @@ strict digraph "" {
 	"XNOR#_29_"	[logic=XNOR,
 		type=gate];
 	"input#inputs[3]" -> "XNOR#_29_";
+	"module#c"	[init_name=c,
+		module_name=ckt,
+		type=module];
+	"input#inputs[3]" -> "module#c";
 	"XNOR#_25_"	[logic=XNOR,
 		type=gate];
 	"wire#_01_"	[type=wire];
@@ -23,6 +27,7 @@ strict digraph "" {
 	"input#inputs[0]"	[type=input];
 	"input#inputs[0]" -> "XNOR#_25_";
 	"input#inputs[0]" -> "AND#_36_";
+	"input#inputs[0]" -> "module#c";
 	"XNOR#_26_"	[logic=XNOR,
 		type=gate];
 	"wire#_02_"	[type=wire];
@@ -35,6 +40,7 @@ strict digraph "" {
 	"NOR#_33_"	[logic=NOR,
 		type=gate];
 	"input#inputs[7]" -> "NOR#_33_";
+	"input#inputs[7]" -> "module#c";
 	"XNOR#_28_"	[logic=XNOR,
 		type=gate];
 	"wire#_04_"	[type=wire];
@@ -49,6 +55,7 @@ strict digraph "" {
 	"NOR#_35_"	[logic=NOR,
 		type=gate];
 	"input#inputs[1]" -> "NOR#_35_";
+	"input#inputs[1]" -> "module#c";
 	"wire#_05_"	[type=wire];
 	"XNOR#_29_" -> "wire#_05_";
 	"wire#_05_" -> "AND#_30_";
@@ -68,6 +75,7 @@ strict digraph "" {
 	"NOR#_32_"	[logic=NOR,
 		type=gate];
 	"input#inputs[5]" -> "NOR#_32_";
+	"input#inputs[5]" -> "module#c";
 	"XNOR#_40_"	[logic=XNOR,
 		type=gate];
 	"wire#_16_"	[type=wire];
@@ -78,6 +86,7 @@ strict digraph "" {
 	"input#inputs[2]"	[type=input];
 	"input#inputs[2]" -> "XNOR#_40_";
 	"input#inputs[2]" -> "NOR#_35_";
+	"input#inputs[2]" -> "module#c";
 	"XNOR#_42_"	[logic=XNOR,
 		type=gate];
 	"wire#_18_"	[type=wire];
@@ -90,6 +99,7 @@ strict digraph "" {
 	"input#inputs[6]"	[type=input];
 	"input#inputs[6]" -> "XNOR#_42_";
 	"input#inputs[6]" -> "NOR#_32_";
+	"input#inputs[6]" -> "module#c";
 	"XNOR#_43_"	[logic=XNOR,
 		type=gate];
 	"wire#_19_"	[type=wire];
@@ -100,6 +110,7 @@ strict digraph "" {
 	"input#inputs[4]"	[type=input];
 	"input#inputs[4]" -> "XNOR#_43_";
 	"input#inputs[4]" -> "NOR#_33_";
+	"input#inputs[4]" -> "module#c";
 	"XNOR#_48_"	[logic=XNOR,
 		type=gate];
 	"output#lock_out"	[type=output];
@@ -110,10 +121,6 @@ strict digraph "" {
 	"wire#_23_" -> "XNOR#_48_";
 	"wire#ckt_out[0]"	[type=wire];
 	"wire#ckt_out[0]" -> "XNOR#_48_";
-	"module#c"	[init_name=c,
-		module_name=ckt,
-		type=module];
-	"wire#ckt_out[0]" -> "module#c";
 	"wire#_03_"	[type=wire];
 	"AND#_27_" -> "wire#_03_";
 	"AND#_31_"	[logic=AND,
@@ -187,16 +194,9 @@ strict digraph "" {
 	"module#sarlock" -> "input#inputs[6]";
 	"module#sarlock" -> "input#key[4]";
 	"module#sarlock" -> "input#inputs[4]";
-	"module#c" -> "input#inputs[3]";
-	"module#c" -> "input#inputs[0]";
-	"module#c" -> "input#inputs[7]";
-	"module#c" -> "input#inputs[1]";
-	"module#c" -> "input#inputs[5]";
-	"module#c" -> "input#inputs[2]";
-	"module#c" -> "input#inputs[6]";
-	"module#c" -> "input#inputs[4]";
-	"wire#ckt_out[1]" -> "module#c";
-	"wire#ckt_out[2]" -> "module#c";
-	"wire#ckt_out[3]" -> "module#c";
-	"wire#ckt_out[4]" -> "module#c";
+	"module#c" -> "wire#ckt_out[0]";
+	"module#c" -> "wire#ckt_out[1]";
+	"module#c" -> "wire#ckt_out[2]";
+	"module#c" -> "wire#ckt_out[3]";
+	"module#c" -> "wire#ckt_out[4]";
 }
