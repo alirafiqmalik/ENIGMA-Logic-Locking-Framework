@@ -64,13 +64,13 @@ def process_node(R):
 
   if(node in module.io['inputs']):
     Node=module.io['inputs'][node]
-    type='inputs'
+    type='input'
   elif(R in module.io['outputs']):
     Node=module.io['outputs'][node]
-    type='outputs'
+    type='output'
   elif(R in module.io['wires']):
     Node=module.io['wires'][node]
-    type='wires'
+    type='wire'
   else:
     raise Exception("NODE NOT FOUND")
 
@@ -84,16 +84,13 @@ def process_node(R):
 
 
 for i in module.linkages:
-  # print(i['init_name'],i)
   module_node_name="module#"+i['init_name']
   module.circuitgraph.add_node(module_node_name, type="module",module_name=i['module_name'],init_name=i['init_name'])
   for j in i['links']:
     L,R=j
-    print(L,process_node(R))
+    # print(L,process_node(R))
     node,type,endbit,startbit=process_node(R)
     
-
-
     if(L in obj.submodule[i['module_name']].io['inputs']):
       pass
       # print(node,endbit,startbit)
@@ -107,67 +104,6 @@ for i in module.linkages:
       raise Exception("NODE NOT FOUND")
     
 
-
-
-    # if(node in module.io['inputs']):
-    #   pass
-    # elif(node in module.io['outputs']):
-    #   pass
-    # elif(node in module.io['wires']):
-      # if(L in module.io['inputs']):
-      #   pass
-      # elif(L in module.io['outputs']):
-      #   pass
-      # else:
-      #   pass
-    # else:
-    #   raise Exception("NODE NOT FOUND")
-
-
-
-
-    # if(node in module.io['inputs']):
-    #   # if(module.io['inputs'][node]['bits']):
-      # for k in range(start,end+1):
-      #   module.circuitgraph.add_edge("input#"+node+f"[{k}]",module_node_name)
-    # elif(node in module.io['outputs']):
-    #   for k in range(start,end+1):
-    #     module.circuitgraph.add_edge(module_node_name,"output#"+node+f"[{k}]")
-    # elif(node in module.io['wires']):
-    #   if(L in module.io['inputs']):
-    #     print("INPUT ",L,R,module.io['inputs'][node])
-    #     # for k in range(start,end+1):
-    #     # module.circuitgraph.add_edge(module_node_name,"output#"+node+f"[{k}]")
-    #   elif(L in module.io['outputs']):
-    #     print("OUTPUT ",L,R,module.io['outputs'][node])
-    #   else:
-    #     pass
-    # else:
-    #   raise Exception("NODE NOT FOUND")
-      
-
-
-    # if L in obj.submodule[i['module_name']].io['inputs'].keys():
-    #   # module.circuitgraph.add_edge("input#"+x,"module#"+i['module_name']) for x in node_bus
-    #   print("IF ",L,R)
-    # elif L in obj.submodule[i['module_name']].io['outputs'].keys():
-    #   pass
-    # elif L in obj.submodule[i['module_name']].io['wires'].keys():
-    #   pass
-    # else:
-    #   raise Exception("NODE NOT FOUND")
-
-
-
-    # if(re.sub("\[\d+:?\d*\]","",R) in module.io['inputs']):
-    #   print("INPUT ",L,R,module.io['inputs'][re.sub("\[\d+:?\d*\]","",R)])
-      
-    # elif(re.sub("\[\d+:?\d*\]","",R) in module.io['outputs']):
-    #   print("OUTPUT ",L,R,module.io['outputs'][re.sub("\[\d+:?\d*\]","",R)])
-    # elif(re.sub("\[\d+:?\d*\]","",R) in module.io['wires']):
-    #   print("wire ",L,R,module.io['wires'][re.sub("\[\d+:?\d*\]","",R)])
-    # else:
-    #   raise Exception("NODE NOT FOUND")
 
 
 def t(self):
