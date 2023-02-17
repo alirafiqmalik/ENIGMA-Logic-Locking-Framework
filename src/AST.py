@@ -66,6 +66,7 @@ class module:
 
         for i in self.io["inputs"]:
             tmpi=self.io["inputs"][i]
+            # print("HRERE  ",tmpi)
             if(tmpi['bits']==1):
                 self.circuitgraph.add_edge("module#"+self.module_name,"input#"+i)
             else:
@@ -154,6 +155,7 @@ class AST:
             wire, _ = extract_io_v(self.submodule[key].gate_level_verilog, "wire")
             wire={key:wire[key]  for key in get_difference_abs(wire.keys(),inputs.keys(),outputs.keys())}
             self.submodule[key].io = dict({'wires':wire,'inputs':inputs,'outputs':outputs,'input_ports':input_ports,'output_ports':output_ports})
+            # print(self.submodule[key].gates)
             self.submodule[key].gen_graph()
         self.top_module=self.submodule[self.top_module_name]
             

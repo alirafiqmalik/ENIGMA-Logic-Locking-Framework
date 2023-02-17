@@ -426,12 +426,13 @@ def module_extraction (verilog):
 #     return linkages
 
 def gates_module_extraction(verilog):
+  gates=['BUF_g','NOT_g', 'AND_g', 'OR_g', 'NAND_g', 'NOR_g','XOR_g','XNOR_g']
   gate_tech={}
 #   {'BUF':[],'NOT':[], 'AND':[], 'OR':[],'XOR':[],'NAND':[], 'NOR':[],'XNOR':[]}
   sub_module=[]
   def process_chunk(chunk):
     type,init,extra=chunk
-    if(type in ['BUF_g','NOT_g', 'AND_g', 'OR_g', 'NAND_g', 'NOR_g','XOR_g','XNOR_g']):
+    if(type in gates):
       tmpx=re.findall(r'\.\S+\(([^\(\),]+)\)',extra)
       tmpx.reverse()
       if re.sub("_g","",type) not in gate_tech:

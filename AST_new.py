@@ -5,7 +5,7 @@ import base64
 import json
 import re
 
-
+from src.utils import connector
 
 
 
@@ -19,36 +19,132 @@ obj = AST(file_path="./output_files/locked_new.json",rw='r',top="locked") # r fo
 
 # print(obj.top_module.circuitgraph)
 
-module=obj.submodule["locked"]
+module=obj.submodule["sarlock"]
+
+module.save_graph()
+
+
+# def process_node(R):
+#   if(":" in R):
+#     node,endbit,startbit=re.findall("(.*)\[(\d+):?(\d*)\]",R)[0]
+#     endbit,startbit=int(endbit),int(startbit)
+#   elif("[" in R):
+#     node,bit=re.findall("(.*)\[(\d+)\]",R)[0]
+#     endbit,startbit=int(bit),int(bit)
+#   else:
+#     node=R
+#     print("NODE  ",node)
+#     if(R in module.io['inputs']):
+#       endbit=module.io['inputs'][node]['endbit']
+#       startbit=module.io['inputs'][node]['startbit']
+#     elif(R in module.io['outputs']):
+#       endbit=module.io['outputs'][node]['endbit']
+#       startbit=module.io['outputs'][node]['startbit']
+#     elif(R in module.io['wires']):
+#       endbit=module.io['wires'][node]['endbit']
+#       startbit=module.io['wires'][node]['startbit']
+#     else:
+#       raise Exception("NODE NOT FOUND")
+#   return node,endbit,startbit
+
+
+
+
+
+def process_node(R):
+  if(":" in R):
+    node,endbit,startbit=re.findall("(.*)\[(\d+):?(\d*)\]",R)[0]
+    endbit,startbit=int(endbit),int(startbit)
+  elif("[" in R):
+    node,bit=re.findall("(.*)\[(\d+)\]",R)[0]
+    endbit,startbit=int(bit),int(bit)
+  else:
+    node=R
+    endbit,startbit=None,None
+
+  if(node in module.io['inputs']):
+    Node=module.io['inputs'][node]
+    type='inputs'
+  elif(R in module.io['outputs']):
+    Node=module.io['outputs'][node]
+    type='outputs'
+  elif(R in module.io['wires']):
+    Node=module.io['wires'][node]
+    type='wires'
+  else:
+    raise Exception("NODE NOT FOUND")
+
+  if(endbit==None):
+    endbit=Node['endbit']
+    startbit=Node['startbit']
+
+  return node,type,endbit,startbit
+
 
 
 
 for i in module.linkages:
-  print(i['init_name'],i)
-  module.circuitgraph.add_node("module#"+i['module_name'], type="module",init_name=i['init_name'])
+  # print(i['init_name'],i)
+  module_node_name="module#"+i['init_name']
+  module.circuitgraph.add_node(module_node_name, type="module",module_name=i['module_name'],init_name=i['init_name'])
   for j in i['links']:
     L,R=j
-    if(":" in R):
-      node,end,start=re.findall("(.*)\[(\d+):?(\d*)\]",R)[0]
-      end,start=int(end),int(start)
-      node_bus=[node+f"[{x}]" for x in range(start,end+1)]
-    else:
-      node=None
-      node_bus=[R]
+    print(L,process_node(R))
+    node,type,endbit,startbit=process_node(R)
+    
 
-    if(re.sub("\[\d+:?\d*\]","",R) in module.io['inputs']):
-      print("INPUTS ",L,R,module.io['inputs'][re.sub("\[\d+:?\d*\]","",R)])
-    elif(re.sub("\[\d+:?\d*\]","",R) in module.io['outputs']):
-      print("OUTPUT ",L,R,module.io['outputs'][re.sub("\[\d+:?\d*\]","",R)])
-    elif(re.sub("\[\d+:?\d*\]","",R) in module.io['wires']):
-      print("############ wire ",L,R,module.io['wires'][re.sub("\[\d+:?\d*\]","",R)])
-      if(re.sub("\[\d+:?\d*\]","",R) in module.io['inputs']):
-        print("INPUT ",L,R,module.io['inputs'][re.sub("\[\d+:?\d*\]","",R)])
-      elif(re.sub("\[\d+:?\d*\]","",R) in module.io['outputs']):
-        print("OUTPUT ",L,R,module.io['outputs'][re.sub("\[\d+:?\d*\]","",R)])
-      
+
+    if(L in obj.submodule[i['module_name']].io['inputs']):
+      pass
+      # print(node,endbit,startbit)
+      for k in range(startbit,endbit+1):
+        module.circuitgraph.add_edge(module_node_name,f"{type}#"+node+f"[{k}]")
+        # module.circuitgraph.add_edge("input#"+node+f"[{k}]",module_node_name)
+    elif(L in obj.submodule[i['module_name']].io['outputs']):
+      for k in range(startbit,endbit+1):
+        module.circuitgraph.add_edge(f"{type}#"+node+f"[{k}]",module_node_name)
     else:
       raise Exception("NODE NOT FOUND")
+    
+
+
+
+    # if(node in module.io['inputs']):
+    #   pass
+    # elif(node in module.io['outputs']):
+    #   pass
+    # elif(node in module.io['wires']):
+      # if(L in module.io['inputs']):
+      #   pass
+      # elif(L in module.io['outputs']):
+      #   pass
+      # else:
+      #   pass
+    # else:
+    #   raise Exception("NODE NOT FOUND")
+
+
+
+
+    # if(node in module.io['inputs']):
+    #   # if(module.io['inputs'][node]['bits']):
+      # for k in range(start,end+1):
+      #   module.circuitgraph.add_edge("input#"+node+f"[{k}]",module_node_name)
+    # elif(node in module.io['outputs']):
+    #   for k in range(start,end+1):
+    #     module.circuitgraph.add_edge(module_node_name,"output#"+node+f"[{k}]")
+    # elif(node in module.io['wires']):
+    #   if(L in module.io['inputs']):
+    #     print("INPUT ",L,R,module.io['inputs'][node])
+    #     # for k in range(start,end+1):
+    #     # module.circuitgraph.add_edge(module_node_name,"output#"+node+f"[{k}]")
+    #   elif(L in module.io['outputs']):
+    #     print("OUTPUT ",L,R,module.io['outputs'][node])
+    #   else:
+    #     pass
+    # else:
+    #   raise Exception("NODE NOT FOUND")
+      
 
 
     # if L in obj.submodule[i['module_name']].io['inputs'].keys():
