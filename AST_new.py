@@ -13,15 +13,21 @@ from src.utils import connector
 
 # if __name__=="__main__":
 
-# obj=AST(file_path="./input_files/tmporg.v",rw="w",flag="v",top="locked",filename="new")
+obj=AST(file_path="./input_files/tmporg.v",rw="w",flag="v",top="locked",filename="new")
 obj = AST(file_path="./output_files/locked_new.json",rw='r',top="locked") # r for read from file
 
 
 
-module=obj.submodule["sarlock"]
+module=obj.modules["locked"]
 
 
 
+for i in obj.modules:
+  tmpi=obj.modules[i]
+  print(i)
+  for j in tmpi.linkages:
+    print(j["module_name"],j["init_name"])
+  print("#####################")
 
 
 
@@ -29,13 +35,13 @@ module=obj.submodule["sarlock"]
 def t(self):
   LLverilog=""
   LLverilog+=self.top_module.gate_level_verilog+"\n"
-  for i in self.submodule:
-    LLverilog+=self.submodule[i].gate_level_verilog+"\n"
+  for i in self.modules:
+    LLverilog+=self.modules[i].gate_level_verilog+"\n"
   return LLverilog
 
 
 LLverilog=t(obj)
-# print(LLverilog)
+# print(LLverilog) 
 
 
 
@@ -176,7 +182,7 @@ module.save_graph()
 # print(list(obj.top_module.linkages.keys())[0])
 # print()
 
-# for i in obj.submodule:
+# for i in obj.modules:
 #     print(i.module_name,end=" ==>  ")
 #     print(i.gates.keys())
 #     print(i.linkages.keys())
