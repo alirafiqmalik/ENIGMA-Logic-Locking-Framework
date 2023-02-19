@@ -385,16 +385,16 @@ def gates_module_extraction(verilog):
   gates=['BUF_g','NOT_g', 'AND_g', 'OR_g', 'NAND_g', 'NOR_g','XOR_g','XNOR_g']
   gate_tech={}
 #   {'BUF':[],'NOT':[], 'AND':[], 'OR':[],'XOR':[],'NAND':[], 'NOR':[],'XNOR':[]}
-  sub_module=[]
+  sub_module={}
   def process_chunk(chunk):
     type,init,extra=chunk
     if(type in gates):
       tmpx=re.findall(r'\.\S+\(([^\(\),]+)\)',extra)
       tmpx.reverse()
       if re.sub("_g","",type) not in gate_tech:
-        gate_tech[re.sub("_g","",type)]=[{"init_name": init,"inputs": tmpx[1:] ,"outputs": tmpx[0]}]
+        gate_tech[re.sub("_g","",type)]=[{"init_name": "gateinit"+init,"inputs": tmpx[1:] ,"outputs": tmpx[0]}]
       else:
-        gate_tech[re.sub("_g","",type)].append({"init_name": init,"inputs": tmpx[1:] ,"outputs": tmpx[0]})
+        gate_tech[re.sub("_g","",type)].append({"init_name": "gateinit"+init,"inputs": tmpx[1:] ,"outputs": tmpx[0]})
     else:
         L,R=[],[]
         # L,R
@@ -404,7 +404,7 @@ def gates_module_extraction(verilog):
             R.append(Ri) 
         # links=[re.findall("\.(.*)\((.*)\)",i)[0] for i in extra.split(",")]
         
-        sub_module.append({"module_name": type, "init_name": init,"L":L,"R":R})#"links":[],
+        sub_module[init]={"module_name": type,"L":L,"R":R}#"links":[],
 
   for i in re.findall(r"(\w+) (\w+) \((.*)\);",verilog):
     process_chunk(i)

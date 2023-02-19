@@ -1,111 +1,42 @@
 from src.AST import AST
-import networkx as nx
-import pickle
-import base64
-import json
-import re
-
-from src.utils import connector
+from src.PreSAT import LogicLocking
 
 
-
-
-
-# if __name__=="__main__":
 
 # obj=AST(file_path="./input_files/tmporg.v",rw="w",flag="v",top="locked",filename="locked_new")
 obj = AST(file_path="./output_files/locked_new.json",rw='r',top="locked",filename="locked") # r for read from file
 # obj.save_module_connections()
 
 
+# LL=LogicLocking(obj.modules['sarlock'])
 
+# LL.RLL(6,8)
 
-
-obj.modules['sarlock'].save_graph()
-
-
-
-# obj.modules['sarlock'].circuirgraph
-
-
-keygates={"XNOR":[]}
-
-# gate_tech[re.sub("_g","",type)]=[{"init_name": init,"inputs": tmpx[1:] ,"outputs": tmpx[0]}]
-def InsertKeyGate(tmpselfmodule, NodeA: str, NodeB: str, gatetype: str = 'XOR') -> None:
-  keygatecount=len(tmpselfmodule.lockingdata["gates"])
-  
-  keygate_name=f"keygate_{gatetype}_{str(keygatecount)}"
-  keygate = f"{gatetype}#{keygate_name}"
-  tmpselfmodule.circuitgraph.remove_edge(NodeA, NodeB)
-
-  keywire_name="keywire"+str(len(tmpselfmodule.io["wires"]))
-  keywire = f"wire#{keywire_name}"
-  
-  tmpselfmodule.circuitgraph.add_node(keywire,)
-  
-  tmpselfmodule.circuitgraph.add_edge(NodeA, keywire)
-  tmpselfmodule.circuitgraph.add_edge(keywire, keygate)
-  tmpselfmodule.circuitgraph.add_edge(keygate, NodeB)
-
-  keygate_input_name="lockingkeyinput"+str(len(tmpselfmodule.lockingdata["inputs"]))
-  tmpselfmodule.circuitgraph.add_edge("input#"+keygate_input_name, keygate)
-
-
-  tmpselfmodule.lockingdata["gates"].append(keygate_name)
-  tmpselfmodule.lockingdata["inputs"].append(keygate_input_name)
-  tmpselfmodule.lockingdata["wires"].append(keywire_name)
-
-  tmpselfmodule.io['wires'][keywire_name]=connector(1,0,0)
-
-  tmpselfmodule.io['inputs'][keygate_input_name]=connector(1,0,0)
-
-  print(NodeA)
-
-  if(gatetype in tmpselfmodule.gates.keys()):
-    tmpselfmodule.gates[gatetype].append({"init_name": keygate_name,"inputs": [keywire_name,NodeB] ,"outputs": NodeB})
-  else:
-    tmpselfmodule.gates[gatetype]=[{"init_name": keygate_name,"inputs": [keywire_name,NodeB] ,"outputs": NodeB}]
+# obj.modules['sarlock']
 
 
 
 
-InsertKeyGate(obj.modules['sarlock'],"module#c","wire#ckt_out[1]")
+
+
+
+
+
+
+
+
+
+
+
+
+# for i in obj.modules['sarlock'].circuitgraph.nodes:
+#   print(i,obj.modules['sarlock'].circuitgraph.nodes[i])
 
 
 obj.modules['sarlock'].save_graph()
 
 
 obj.writeLLFile()
-
-def test(self):
-    def InsertKeyGate(self, NodeA: str, NodeB: str, gatetype: str = 'XOR') -> None:
-        keygatecount = self.gates[gatetype]
-        keygate = gatetype+"_"+str(keygatecount)
-        self.circuitgraph.remove_edge(NodeA, NodeB)
-
-        # keywire = "KEY"+str(len(self.wires))
-        keywire = "keywire"+str(len(self.wires))
-
-        self.circuitgraph.add_edge(NodeA, keywire)
-        self.circuitgraph.add_edge(keywire, keygate)
-        self.circuitgraph.add_edge(keygate, NodeB)
-
-        # self.circuitgraph.add_edge("KEY["+str(self.keygatescount)+"]", keygate)
-        # self.inputs.append("KEY["+str(self.keygatescount)+"]")
-
-        self.circuitgraph.add_edge("keyinput_"+str(self.keygatescount), keygate)
-        self.inputs.append("keyinput_"+str(self.keygatescount))
-
-        self.wires.append(keywire)
-
-        self.gates[gatetype] += 1
-        self.gatecount += 1
-
-        self.keygates[gatetype] += 1
-        self.keygatescount += 1
-
-
-
 
 
 

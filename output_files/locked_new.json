@@ -17,7 +17,7 @@
                 "gates": [],
                 "inputs": []
             },
-            "DiGraph": "gASVpgcAAAAAAACMGG5ldHdvcmt4LmNsYXNzZXMuZGlncmFwaJSMB0RpR3JhcGiUk5QpgZR9lCiMBWdyYXBolH2UjAVfbm9kZZR9lCiMDW1vZHVsZSNsb2NrZWSUfZSMBHR5cGWUjAZtb2R1bGWUc4wNb3V0cHV0I291dFswXZR9lIwNb3V0cHV0I291dFsxXZR9lIwPaW5wdXQjaW5wdXRzWzBdlH2UjA9pbnB1dCNpbnB1dHNbMV2UfZSMD2lucHV0I2lucHV0c1syXZR9lIwPaW5wdXQjaW5wdXRzWzNdlH2UjA9pbnB1dCNpbnB1dHNbNF2UfZSMD2lucHV0I2lucHV0c1s1XZR9lIwPaW5wdXQjaW5wdXRzWzZdlH2UjA9pbnB1dCNpbnB1dHNbN12UfZSMDGlucHV0I2tleVswXZR9lIwMaW5wdXQja2V5WzFdlH2UjAxpbnB1dCNrZXlbMl2UfZSMDGlucHV0I2tleVszXZR9lIwMaW5wdXQja2V5WzRdlH2UjAxpbnB1dCNrZXlbNV2UfZSMDGlucHV0I2tleVs2XZR9lIwMaW5wdXQja2V5WzddlH2UjAhtb2R1bGUjc5R9lChoC2gMjAttb2R1bGVfbmFtZZSMB3NhcmxvY2uUjAlpbml0X25hbWWUjAFzlHWMCW1vZHVsZSNzMZR9lChoC2gMaDOMB3NhcmxvY2uUaDWMAnMxlHV1jARfYWRqlH2UKGgJfZQoaBF9lGgTfZRoFX2UaBd9lGgZfZRoG32UaB19lGgffZRoIX2UaCN9lGglfZRoJ32UaCl9lGgrfZRoLX2UaC99lHVoDX2UjA1tb2R1bGUjbG9ja2VklH2Uc2gPfZSMDW1vZHVsZSNsb2NrZWSUfZRzaBF9lChoMX2UaDd9lHVoE32UKGgxfZRoN32UdWgVfZQoaDF9lGg3fZR1aBd9lChoMX2UaDd9lHVoGX2UKGgxfZRoN32UdWgbfZQoaDF9lGg3fZR1aB19lChoMX2UaDd9lHVoH32UKGgxfZRoN32UdWghfZQoaDF9lGg3fZR1aCN9lChoMX2UaDd9lHVoJX2UKGgxfZRoN32UdWgnfZQoaDF9lGg3fZR1aCl9lChoMX2UaDd9lHVoK32UKGgxfZRoN32UdWgtfZQoaDF9lGg3fZR1aC99lChoMX2UaDd9lHVoMX2UjA1vdXRwdXQjb3V0WzBdlH2Uc2g3fZSMDW91dHB1dCNvdXRbMV2UfZRzdYwFX3N1Y2OUaDyMBV9wcmVklH2UKGgJfZQoaA1oUGgPaFN1aA19lGgxaIZzaA99lGg3aIlzaBF9lIwNbW9kdWxlI2xvY2tlZJRoPnNoE32UjA1tb2R1bGUjbG9ja2VklGg/c2gVfZSMDW1vZHVsZSNsb2NrZWSUaEBzaBd9lIwNbW9kdWxlI2xvY2tlZJRoQXNoGX2UjA1tb2R1bGUjbG9ja2VklGhCc2gbfZSMDW1vZHVsZSNsb2NrZWSUaENzaB19lIwNbW9kdWxlI2xvY2tlZJRoRHNoH32UjA1tb2R1bGUjbG9ja2VklGhFc2ghfZSMDW1vZHVsZSNsb2NrZWSUaEZzaCN9lIwNbW9kdWxlI2xvY2tlZJRoR3NoJX2UjA1tb2R1bGUjbG9ja2VklGhIc2gnfZSMDW1vZHVsZSNsb2NrZWSUaElzaCl9lIwNbW9kdWxlI2xvY2tlZJRoSnNoK32UjA1tb2R1bGUjbG9ja2VklGhLc2gtfZSMDW1vZHVsZSNsb2NrZWSUaExzaC99lIwNbW9kdWxlI2xvY2tlZJRoTXNoMX2UKIwPaW5wdXQjaW5wdXRzWzBdlGhVjA9pbnB1dCNpbnB1dHNbMV2UaFiMD2lucHV0I2lucHV0c1syXZRoW4wPaW5wdXQjaW5wdXRzWzNdlGhejA9pbnB1dCNpbnB1dHNbNF2UaGGMD2lucHV0I2lucHV0c1s1XZRoZIwPaW5wdXQjaW5wdXRzWzZdlGhnjA9pbnB1dCNpbnB1dHNbN12UaGqMDGlucHV0I2tleVswXZRobYwMaW5wdXQja2V5WzFdlGhwjAxpbnB1dCNrZXlbMl2UaHOMDGlucHV0I2tleVszXZRodowMaW5wdXQja2V5WzRdlGh5jAxpbnB1dCNrZXlbNV2UaHyMDGlucHV0I2tleVs2XZRof4wMaW5wdXQja2V5WzddlGiCdWg3fZQojA9pbnB1dCNpbnB1dHNbMF2UaFaMD2lucHV0I2lucHV0c1sxXZRoWYwPaW5wdXQjaW5wdXRzWzJdlGhcjA9pbnB1dCNpbnB1dHNbM12UaF+MD2lucHV0I2lucHV0c1s0XZRoYowPaW5wdXQjaW5wdXRzWzVdlGhljA9pbnB1dCNpbnB1dHNbNl2UaGiMD2lucHV0I2lucHV0c1s3XZRoa4wMaW5wdXQja2V5WzBdlGhujAxpbnB1dCNrZXlbMV2UaHGMDGlucHV0I2tleVsyXZRodIwMaW5wdXQja2V5WzNdlGh3jAxpbnB1dCNrZXlbNF2UaHqMDGlucHV0I2tleVs1XZRofYwMaW5wdXQja2V5WzZdlGiAjAxpbnB1dCNrZXlbN12UaIN1dXViLg==",
+            "DiGraph": "gASVQwcAAAAAAACMGG5ldHdvcmt4LmNsYXNzZXMuZGlncmFwaJSMB0RpR3JhcGiUk5QpgZR9lCiMBWdyYXBolH2UjAVfbm9kZZR9lCiMDW1vZHVsZSNsb2NrZWSUfZSMBHR5cGWUjAZtb2R1bGWUc4wGb3V0WzBdlH2UKGgLjAZvdXRwdXSUjARwb3J0lIwDb3V0lHWMBm91dFsxXZR9lChoC2gPaBCMA291dJR1jAlpbnB1dHNbMF2UfZQoaAuMBWlucHV0lGgQjAZpbnB1dHOUdYwJaW5wdXRzWzFdlH2UKGgLaBdoEGgYdYwJaW5wdXRzWzJdlH2UKGgLaBdoEGgYdYwJaW5wdXRzWzNdlH2UKGgLaBdoEGgYdYwJaW5wdXRzWzRdlH2UKGgLaBdoEGgYdYwJaW5wdXRzWzVdlH2UKGgLaBdoEGgYdYwJaW5wdXRzWzZdlH2UKGgLaBdoEGgYdYwJaW5wdXRzWzddlH2UKGgLaBdoEGgYdYwGa2V5WzBdlH2UKGgLaBdoEIwDa2V5lHWMBmtleVsxXZR9lChoC2gXaBBoKXWMBmtleVsyXZR9lChoC2gXaBBoKXWMBmtleVszXZR9lChoC2gXaBBoKXWMBmtleVs0XZR9lChoC2gXaBBoKXWMBmtleVs1XZR9lChoC2gXaBBoKXWMBmtleVs2XZR9lChoC2gXaBBoKXWMBmtleVs3XZR9lChoC2gXaBBoKXWMCG1vZHVsZSNzlH2UKGgLaAyMC21vZHVsZV9uYW1llIwHc2FybG9ja5SMCWluaXRfbmFtZZSMAXOUdYwJbW9kdWxlI3MxlH2UKGgLaAxoOowHc2FybG9ja5RoPIwCczGUdXWMBF9hZGqUfZQoaAl9lChoFX2UaBl9lGgbfZRoHX2UaB99lGghfZRoI32UaCV9lGgnfZRoKn2UaCx9lGgufZRoMH2UaDJ9lGg0fZRoNn2UdWgNfZSMDW1vZHVsZSNsb2NrZWSUfZRzaBJ9lIwNbW9kdWxlI2xvY2tlZJR9lHNoFX2UKGg4fZRoPn2UdWgZfZQoaDh9lGg+fZR1aBt9lChoOH2UaD59lHVoHX2UKGg4fZRoPn2UdWgffZQoaDh9lGg+fZR1aCF9lChoOH2UaD59lHVoI32UKGg4fZRoPn2UdWglfZQoaDh9lGg+fZR1aCd9lChoOH2UaD59lHVoKn2UKGg4fZRoPn2UdWgsfZQoaDh9lGg+fZR1aC59lChoOH2UaD59lHVoMH2UKGg4fZRoPn2UdWgyfZQoaDh9lGg+fZR1aDR9lChoOH2UaD59lHVoNn2UKGg4fZRoPn2UdWg4fZSMBm91dFswXZR9lHNoPn2UjAZvdXRbMV2UfZRzdYwFX3N1Y2OUaEOMBV9wcmVklH2UKGgJfZQoaA1oV2gSaFp1aA19lGg4aI1zaBJ9lGg+aJBzaBV9lIwNbW9kdWxlI2xvY2tlZJRoRXNoGX2UjA1tb2R1bGUjbG9ja2VklGhGc2gbfZSMDW1vZHVsZSNsb2NrZWSUaEdzaB19lIwNbW9kdWxlI2xvY2tlZJRoSHNoH32UjA1tb2R1bGUjbG9ja2VklGhJc2ghfZSMDW1vZHVsZSNsb2NrZWSUaEpzaCN9lIwNbW9kdWxlI2xvY2tlZJRoS3NoJX2UjA1tb2R1bGUjbG9ja2VklGhMc2gnfZSMDW1vZHVsZSNsb2NrZWSUaE1zaCp9lIwNbW9kdWxlI2xvY2tlZJRoTnNoLH2UjA1tb2R1bGUjbG9ja2VklGhPc2gufZSMDW1vZHVsZSNsb2NrZWSUaFBzaDB9lIwNbW9kdWxlI2xvY2tlZJRoUXNoMn2UjA1tb2R1bGUjbG9ja2VklGhSc2g0fZSMDW1vZHVsZSNsb2NrZWSUaFNzaDZ9lIwNbW9kdWxlI2xvY2tlZJRoVHNoOH2UKIwJaW5wdXRzWzBdlGhcjAlpbnB1dHNbMV2UaF+MCWlucHV0c1syXZRoYowJaW5wdXRzWzNdlGhljAlpbnB1dHNbNF2UaGiMCWlucHV0c1s1XZRoa4wJaW5wdXRzWzZdlGhujAlpbnB1dHNbN12UaHGMBmtleVswXZRodIwGa2V5WzFdlGh3jAZrZXlbMl2UaHqMBmtleVszXZRofYwGa2V5WzRdlGiAjAZrZXlbNV2UaIOMBmtleVs2XZRohowGa2V5WzddlGiJdWg+fZQojAlpbnB1dHNbMF2UaF2MCWlucHV0c1sxXZRoYIwJaW5wdXRzWzJdlGhjjAlpbnB1dHNbM12UaGaMCWlucHV0c1s0XZRoaYwJaW5wdXRzWzVdlGhsjAlpbnB1dHNbNl2UaG+MCWlucHV0c1s3XZRocowGa2V5WzBdlGh1jAZrZXlbMV2UaHiMBmtleVsyXZRoe4wGa2V5WzNdlGh+jAZrZXlbNF2UaIGMBmtleVs1XZRohIwGa2V5WzZdlGiHjAZrZXlbN12UaIp1dXViLg==",
             "io": {
                 "wires": {},
                 "inputs": {
@@ -43,10 +43,9 @@
                 "output_ports": "out,"
             },
             "gates": {},
-            "links": [
-                {
+            "links": {
+                "s": {
                     "module_name": "sarlock",
-                    "init_name": "s",
                     "L": [
                         "inputs",
                         "key",
@@ -58,9 +57,8 @@
                         "out[0]"
                     ]
                 },
-                {
+                "s1": {
                     "module_name": "sarlock",
-                    "init_name": "s1",
                     "L": [
                         "inputs",
                         "key",
@@ -72,7 +70,7 @@
                         "out[1]"
                     ]
                 }
-            ]
+            }
         },
         "ckt": {
             "Verilog": "module ckt(a,b,c);\ninput [3:0] a,b;\noutput [4:0] c;\nassign c = a + b;\nendmodule",
@@ -82,43 +80,43 @@
                 "gates": [],
                 "inputs": []
             },
-            "DiGraph": "gASVOAsAAAAAAACMGG5ldHdvcmt4LmNsYXNzZXMuZGlncmFwaJSMB0RpR3JhcGiUk5QpgZR9lCiMBWdyYXBolH2UjAVfbm9kZZR9lCiMCEFORCNfMTJflH2UKIwEdHlwZZSMBGdhdGWUjAVsb2dpY5SMA0FORJR1jAl3aXJlI18wMF+UfZRoC4wEd2lyZZRzjAppbnB1dCNiWzBdlH2UaAuMBWlucHV0lHOMCmlucHV0I2FbMF2UfZRoC2gUc4wJTkFORCNfMTNflH2UKGgLaAxoDYwETkFORJR1jAl3aXJlI18wMV+UfZRoC2gRc4wKaW5wdXQjYlsxXZR9lGgLaBRzjAppbnB1dCNhWzFdlH2UaAtoFHOMCU5BTkQjXzE1X5R9lChoC2gMaA1oGXWMCXdpcmUjXzAzX5R9lGgLaBFzjAl3aXJlI18wMl+UfZRoC2gRc4wJTkFORCNfMTdflH2UKGgLaAxoDWgZdYwJd2lyZSNfMDRflH2UaAtoEXOMCU5BTkQjXzE4X5R9lChoC2gMaA1oGXWMCXdpcmUjXzA1X5R9lGgLaBFzjAppbnB1dCNiWzJdlH2UaAtoFHOMCmlucHV0I2FbMl2UfZRoC2gUc4wJTkFORCNfMjBflH2UKGgLaAxoDWgZdYwJd2lyZSNfMDdflH2UaAtoEXOMCXdpcmUjXzA2X5R9lGgLaBFzjAlOQU5EI18yMl+UfZQoaAtoDGgNaBl1jAl3aXJlI18wOF+UfZRoC2gRc4wJTkFORCNfMjNflH2UKGgLaAxoDWgZdYwJd2lyZSNfMDlflH2UaAtoEXOMCmlucHV0I2JbM12UfZRoC2gUc4wKaW5wdXQjYVszXZR9lGgLaBRzjAlOQU5EI18yNV+UfZQoaAtoDGgNaBl1jAl3aXJlI18xMV+UfZRoC2gRc4wJd2lyZSNfMTBflH2UaAtoEXOMCU5BTkQjXzI4X5R9lChoC2gMaA1oGXWMC291dHB1dCNjWzRdlH2UaAuMBm91dHB1dJRzjAhYT1IjXzE0X5R9lChoC2gMaA2MA1hPUpR1jAhYT1IjXzE2X5R9lChoC2gMaA1oUXWMC291dHB1dCNjWzFdlH2UaAtoTnOMCFhPUiNfMTlflH2UKGgLaAxoDWhRdYwIWE9SI18yMV+UfZQoaAtoDGgNaFF1jAtvdXRwdXQjY1syXZR9lGgLaE5zjAhYT1IjXzI0X5R9lChoC2gMaA1oUXWMCFhPUiNfMjZflH2UKGgLaAxoDWhRdYwLb3V0cHV0I2NbM12UfZRoC2hOc4wIWE9SI18yN1+UfZQoaAtoDGgNaFF1jAtvdXRwdXQjY1swXZR9lGgLaE5zjAptb2R1bGUjY2t0lH2UaAuMBm1vZHVsZZRzdYwEX2FkapR9lChoCX2UjAl3aXJlI18wMF+UfZRzaA99lChoIH2UaFJ9lHVoEn2UKGgJfZRoYn2UdWgVfZQoaAl9lGhifZR1aBd9lIwJd2lyZSNfMDFflH2Uc2gafZRoJn2Uc2gcfZQoaBd9lGhPfZR1aB59lChoF32UaE99lHVoIH2UjAl3aXJlI18wM1+UfZRzaCJ9lGgmfZRzaCR9lChoIH2UaFJ9lHVoJn2UjAl3aXJlI18wNF+UfZRzaCh9lChoMn2UaFh9lHVoKn2UjAl3aXJlI18wNV+UfZRzaCx9lGg4fZRzaC59lChoKn2UaFZ9lHVoMH2UKGgqfZRoVn2UdWgyfZSMCXdpcmUjXzA3X5R9lHNoNH2UaDh9lHNoNn2UKGgyfZRoWH2UdWg4fZSMCXdpcmUjXzA4X5R9lHNoOn2UKGhEfZRoXn2UdWg8fZSMCXdpcmUjXzA5X5R9lHNoPn2UaEp9lHNoQH2UKGg8fZRoXH2UdWhCfZQoaDx9lGhcfZR1aER9lIwJd2lyZSNfMTFflH2Uc2hGfZRoSn2Uc2hIfZQoaER9lGhefZR1aEp9lIwLb3V0cHV0I2NbNF2UfZRzaEx9lIwKbW9kdWxlI2NrdJR9lHNoT32UjAl3aXJlI18wMl+UfZRzaFJ9lIwLb3V0cHV0I2NbMV2UfZRzaFR9lIwKbW9kdWxlI2NrdJR9lHNoVn2UjAl3aXJlI18wNl+UfZRzaFh9lIwLb3V0cHV0I2NbMl2UfZRzaFp9lIwKbW9kdWxlI2NrdJR9lHNoXH2UjAl3aXJlI18xMF+UfZRzaF59lIwLb3V0cHV0I2NbM12UfZRzaGB9lIwKbW9kdWxlI2NrdJR9lHNoYn2UjAtvdXRwdXQjY1swXZR9lHNoZH2UjAptb2R1bGUjY2t0lH2Uc2hmfZQojAppbnB1dCNhWzBdlH2UjAppbnB1dCNhWzFdlH2UjAppbnB1dCNhWzJdlH2UjAppbnB1dCNhWzNdlH2UjAppbnB1dCNiWzBdlH2UjAppbnB1dCNiWzFdlH2UjAppbnB1dCNiWzJdlH2UjAppbnB1dCNiWzNdlH2UdXWMBV9zdWNjlGhqjAVfcHJlZJR9lChoCX2UKIwKaW5wdXQjYlswXZRocowKaW5wdXQjYVswXZRodXVoD32UaAlobXNoEn2UjAptb2R1bGUjY2t0lGjtc2gVfZSMCm1vZHVsZSNja3SUaOVzaBd9lCiMCmlucHV0I2JbMV2UaH2MCmlucHV0I2FbMV2UaIB1aBp9lGgXaHlzaBx9lIwKbW9kdWxlI2NrdJRo73NoHn2UjAptb2R1bGUjY2t0lGjnc2ggfZQojAl3aXJlI18wMl+UaIiMCXdpcmUjXzAwX5Rob3VoIn2UaCBohHNoJH2UaE9oxHNoJn2UKIwJd2lyZSNfMDNflGiGjAl3aXJlI18wMV+UaHt1aCh9lGgmaIxzaCp9lCiMCmlucHV0I2JbMl2UaJaMCmlucHV0I2FbMl2UaJl1aCx9lGgqaJJzaC59lIwKbW9kdWxlI2NrdJRo8XNoMH2UjAptb2R1bGUjY2t0lGjpc2gyfZQojAl3aXJlI18wNl+UaKGMCXdpcmUjXzA0X5RojnVoNH2UaDJonXNoNn2UaFZozXNoOH2UKIwJd2lyZSNfMDdflGifjAl3aXJlI18wNV+UaJR1aDp9lGg4aKVzaDx9lCiMCmlucHV0I2JbM12UaK+MCmlucHV0I2FbM12UaLJ1aD59lGg8aKtzaEB9lIwKbW9kdWxlI2NrdJRo83NoQn2UjAptb2R1bGUjY2t0lGjrc2hEfZQojAl3aXJlI18xMF+UaLqMCXdpcmUjXzA4X5Rop3VoRn2UaERotnNoSH2UaFxo1nNoSn2UKIwJd2lyZSNfMTFflGi4jAl3aXJlI18wOV+UaK11aEx9lGhKaL5zaE99lCiMCmlucHV0I2JbMV2UaH6MCmlucHV0I2FbMV2UaIF1aFJ9lCiMCXdpcmUjXzAyX5RoiYwJd2lyZSNfMDBflGhwdWhUfZRoUmjHc2hWfZQojAppbnB1dCNiWzJdlGiXjAppbnB1dCNhWzJdlGiadWhYfZQojAl3aXJlI18wNl+UaKKMCXdpcmUjXzA0X5Roj3VoWn2UaFho0HNoXH2UKIwKaW5wdXQjYlszXZRosIwKaW5wdXQjYVszXZRos3VoXn2UKIwJd2lyZSNfMTBflGi7jAl3aXJlI18wOF+UaKh1aGB9lGheaNlzaGJ9lCiMCmlucHV0I2JbMF2UaHOMCmlucHV0I2FbMF2UaHZ1aGR9lGhiaN9zaGZ9lCiMC291dHB1dCNjWzBdlGjijAtvdXRwdXQjY1sxXZRoyowLb3V0cHV0I2NbMl2UaNOMC291dHB1dCNjWzNdlGjcjAtvdXRwdXQjY1s0XZRowXV1dWIu",
+            "DiGraph": "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",
             "io": {
                 "wires": {
-                    "_10_": {
-                        "bits": 1
-                    },
-                    "_00_": {
-                        "bits": 1
-                    },
-                    "_05_": {
-                        "bits": 1
-                    },
-                    "_06_": {
-                        "bits": 1
-                    },
-                    "_02_": {
-                        "bits": 1
-                    },
-                    "_03_": {
-                        "bits": 1
-                    },
-                    "_09_": {
+                    "_07_": {
                         "bits": 1
                     },
                     "_04_": {
                         "bits": 1
                     },
-                    "_07_": {
-                        "bits": 1
-                    },
-                    "_08_": {
-                        "bits": 1
-                    },
                     "_01_": {
                         "bits": 1
                     },
+                    "_00_": {
+                        "bits": 1
+                    },
+                    "_02_": {
+                        "bits": 1
+                    },
+                    "_10_": {
+                        "bits": 1
+                    },
                     "_11_": {
+                        "bits": 1
+                    },
+                    "_05_": {
+                        "bits": 1
+                    },
+                    "_09_": {
+                        "bits": 1
+                    },
+                    "_03_": {
+                        "bits": 1
+                    },
+                    "_06_": {
+                        "bits": 1
+                    },
+                    "_08_": {
                         "bits": 1
                     }
                 },
@@ -147,7 +145,7 @@
             "gates": {
                 "AND": [
                     {
-                        "init_name": "_12_",
+                        "init_name": "gateinit_12_",
                         "inputs": [
                             "b[0]",
                             "a[0]"
@@ -157,7 +155,7 @@
                 ],
                 "NAND": [
                     {
-                        "init_name": "_13_",
+                        "init_name": "gateinit_13_",
                         "inputs": [
                             "b[1]",
                             "a[1]"
@@ -165,7 +163,7 @@
                         "outputs": "_01_"
                     },
                     {
-                        "init_name": "_15_",
+                        "init_name": "gateinit_15_",
                         "inputs": [
                             "_02_",
                             "_00_"
@@ -173,7 +171,7 @@
                         "outputs": "_03_"
                     },
                     {
-                        "init_name": "_17_",
+                        "init_name": "gateinit_17_",
                         "inputs": [
                             "_03_",
                             "_01_"
@@ -181,7 +179,7 @@
                         "outputs": "_04_"
                     },
                     {
-                        "init_name": "_18_",
+                        "init_name": "gateinit_18_",
                         "inputs": [
                             "b[2]",
                             "a[2]"
@@ -189,7 +187,7 @@
                         "outputs": "_05_"
                     },
                     {
-                        "init_name": "_20_",
+                        "init_name": "gateinit_20_",
                         "inputs": [
                             "_06_",
                             "_04_"
@@ -197,7 +195,7 @@
                         "outputs": "_07_"
                     },
                     {
-                        "init_name": "_22_",
+                        "init_name": "gateinit_22_",
                         "inputs": [
                             "_07_",
                             "_05_"
@@ -205,7 +203,7 @@
                         "outputs": "_08_"
                     },
                     {
-                        "init_name": "_23_",
+                        "init_name": "gateinit_23_",
                         "inputs": [
                             "b[3]",
                             "a[3]"
@@ -213,7 +211,7 @@
                         "outputs": "_09_"
                     },
                     {
-                        "init_name": "_25_",
+                        "init_name": "gateinit_25_",
                         "inputs": [
                             "_10_",
                             "_08_"
@@ -221,7 +219,7 @@
                         "outputs": "_11_"
                     },
                     {
-                        "init_name": "_28_",
+                        "init_name": "gateinit_28_",
                         "inputs": [
                             "_11_",
                             "_09_"
@@ -231,7 +229,7 @@
                 ],
                 "XOR": [
                     {
-                        "init_name": "_14_",
+                        "init_name": "gateinit_14_",
                         "inputs": [
                             "b[1]",
                             "a[1]"
@@ -239,7 +237,7 @@
                         "outputs": "_02_"
                     },
                     {
-                        "init_name": "_16_",
+                        "init_name": "gateinit_16_",
                         "inputs": [
                             "_02_",
                             "_00_"
@@ -247,7 +245,7 @@
                         "outputs": "c[1]"
                     },
                     {
-                        "init_name": "_19_",
+                        "init_name": "gateinit_19_",
                         "inputs": [
                             "b[2]",
                             "a[2]"
@@ -255,7 +253,7 @@
                         "outputs": "_06_"
                     },
                     {
-                        "init_name": "_21_",
+                        "init_name": "gateinit_21_",
                         "inputs": [
                             "_06_",
                             "_04_"
@@ -263,7 +261,7 @@
                         "outputs": "c[2]"
                     },
                     {
-                        "init_name": "_24_",
+                        "init_name": "gateinit_24_",
                         "inputs": [
                             "b[3]",
                             "a[3]"
@@ -271,7 +269,7 @@
                         "outputs": "_10_"
                     },
                     {
-                        "init_name": "_26_",
+                        "init_name": "gateinit_26_",
                         "inputs": [
                             "_10_",
                             "_08_"
@@ -279,7 +277,7 @@
                         "outputs": "c[3]"
                     },
                     {
-                        "init_name": "_27_",
+                        "init_name": "gateinit_27_",
                         "inputs": [
                             "b[0]",
                             "a[0]"
@@ -288,7 +286,7 @@
                     }
                 ]
             },
-            "links": []
+            "links": {}
         },
         "sarlock": {
             "Verilog": "module sarlock (inputs, key, lock_out);\ninput [7:0] inputs;\ninput [7:0] key;\noutput lock_out;\nwire [4:0]ckt_out;\nreg keyx = 8'b01101101;\nassign lock_out =ckt_out[0]^( (inputs == key) & (inputs != keyx));\nckt c(.a(inputs[3:0]), .b(inputs[7:4]), .c(ckt_out));\nendmodule",
@@ -298,40 +296,76 @@
                 "gates": [],
                 "inputs": []
             },
-            "DiGraph": "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lGhyfZRzaBJ9lChoCX2UaC59lGidfZR1aBV9lIwJd2lyZSNfMDFflH2Uc2gYfZRoXX2Uc2gafZRoFX2Uc2gcfZQoaBV9lGhyfZRonX2UdWgefZSMCXdpcmUjXzAyX5R9lHNoIH2UaF19lHNoIn2UaB59lHNoJH2UKGgefZRokX2UaJ19lHVoJn2UjAl3aXJlI18wNF+UfZRzaCh9lGhifZRzaCp9lGgmfZRzaCx9lChoJn2UaJN9lGidfZR1aC59lIwJd2lyZSNfMDVflH2Uc2gwfZRoYn2Uc2gyfZRoLn2Uc2g0fZSMCXdpcmUjXzE1X5R9lHNoNn2UaHx9lHNoOH2UaDR9lHNoOn2UKGg0fZRojn2UaJ19lHVoPH2UjAl3aXJlI18xNl+UfZRzaD59lGh8fZRzaEB9lGg8fZRzaEJ9lChoPH2UaJN9lGidfZR1aER9lIwJd2lyZSNfMThflH2Uc2hGfZRogH2Uc2hIfZRoRH2Uc2hKfZQoaER9lGiOfZRonX2UdWhMfZSMCXdpcmUjXzE5X5R9lHNoTn2UaIB9lHNoUH2UaEx9lHNoUn2UKGhMfZRokX2UaJ19lHVoVH2UjA9vdXRwdXQjbG9ja19vdXSUfZRzaFZ9lIwObW9kdWxlI3NhcmxvY2uUfZRzaFl9lGhUfZRzaFt9lGhUfZRzaF19lIwJd2lyZSNfMDNflH2Uc2hgfZRoZn2Uc2hifZSMCXdpcmUjXzA2X5R9lHNoZH2UaGZ9lHNoZn2UjAl3aXJlI18wN1+UfZRzaGh9lGiYfZRzaGp9lIwJd2lyZSNfMTBflH2Uc2hsfZRolX2Uc2hufZRoan2Uc2hwfZRoan2Uc2hyfZSMCXdpcmUjXzEyX5R9lHNodH2UaHZ9lHNodn2UjAl3aXJlI18xM1+UfZRzaHh9lGiVfZRzaHp9lGh2fZRzaHx9lIwJd2lyZSNfMTdflH2Uc2h+fZRohH2Uc2iAfZSMCXdpcmUjXzIwX5R9lHNogn2UaIR9lHNohH2UjAl3aXJlI18yMV+UfZRzaIZ9lGiIfZRzaIh9lIwJd2lyZSNfMjJflH2Uc2iKfZRomH2Uc2iMfZRoiH2Uc2iOfZSMCXdpcmUjXzA4X5R9lHNokX2UjAl3aXJlI18wOV+UfZRzaJN9lIwJd2lyZSNfMTFflH2Uc2iVfZSMCXdpcmUjXzE0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",
+            "DiGraph": "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aW5pdF80N1+UfZQoaAtoDGgNaLZ1jA5tb2R1bGUjc2FybG9ja5R9lGgLjAZtb2R1bGWUc4wIbW9kdWxlI2OUfZQoaAtou4wLbW9kdWxlX25hbWWUjANja3SUjAlpbml0X25hbWWUjAFjlHWMCmNrdF9vdXRbMV2UfZQoaAtoEWgSaHF1jApja3Rfb3V0WzJdlH2UKGgLaBFoEmhxdYwKY2t0X291dFszXZR9lChoC2gRaBJocXWMCmNrdF9vdXRbNF2UfZQoaAtoEWgSaHF1dYwEX2FkapR9lChoCX2UaA99lHNoD32UaIt9lHNoFH2UKGgJfZRoOH2UaLx9lHVoGH2UaBt9lHNoG32UaHJ9lHNoHn2UaBh9lHNoIX2UKGgYfZRoi32UaLx9lHVoI32UaCV9lHNoJX2UaHJ9lHNoKH2UaCN9lHNoK32UKGgjfZRosH2UaLx9lHVoLn2UaDB9lHNoMH2UaHh9lHNoM32UaC59lHNoNn2UKGgufZRosn2UaLx9lHVoOH2UaDp9lHNoOn2UaHh9lHNoPX2UaDh9lHNoQH2UaEJ9lHNoQn2UaJd9lHNoRX2UaEB9lHNoSH2UKGhAfZRorX2UaLx9lHVoSn2UaEx9lHNoTH2UaJd9lHNoT32UaEp9lHNoUn2UKGhKfZRosn2UaLx9lHVoVH2UaFZ9lHNoVn2UaJx9lHNoWX2UaFR9lHNoXH2UKGhUfZRorX2UaLx9lHVoXn2UaGB9lHNoYH2UaJx9lHNoY32UaF59lHNoZn2UKGhefZRosH2UaLx9lHVoaH2UaGp9lHNoan2UjA5tb2R1bGUjc2FybG9ja5R9lHNobX2UaGh9lHNob32UaGh9lHNocn2UaHV9lHNodX2UaH19lHNoeH2UaHp9lHNoen2UaH19lHNofX2UaH99lHNof32UaLd9lHNogn2UaIR9lHNohH2UaLR9lHNoh32UaIJ9lHNoiX2UaIJ9lHNoi32UaI19lHNojX2UaJB9lHNokH2UaJJ9lHNokn2UaLR9lHNolX2UaJB9lHNol32UaJl9lHNomX2UaKF9lHNonH2UaJ59lHNonn2UaKF9lHNooX2UaKN9lHNoo32UaKZ9lHNopn2UaKh9lHNoqH2UaLd9lHNoq32UaKZ9lHNorX2UjARfMDhflH2Uc2iwfZSMBF8wOV+UfZRzaLJ9lIwEXzEx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",
             "io": {
                 "wires": {
-                    "_22_": {
+                    "ckt_out": {
+                        "bits": 5,
+                        "startbit": 0,
+                        "endbit": 4
+                    },
+                    "_20_": {
                         "bits": 1
                     },
-                    "_00_": {
-                        "bits": 1
-                    },
-                    "_16_": {
-                        "bits": 1
-                    },
-                    "_06_": {
-                        "bits": 1
-                    },
-                    "_03_": {
-                        "bits": 1
-                    },
-                    "_15_": {
+                    "_04_": {
                         "bits": 1
                     },
                     "_07_": {
                         "bits": 1
                     },
+                    "_14_": {
+                        "bits": 1
+                    },
+                    "_11_": {
+                        "bits": 1
+                    },
+                    "_18_": {
+                        "bits": 1
+                    },
+                    "_19_": {
+                        "bits": 1
+                    },
+                    "_21_": {
+                        "bits": 1
+                    },
+                    "_06_": {
+                        "bits": 1
+                    },
                     "_08_": {
+                        "bits": 1
+                    },
+                    "_22_": {
                         "bits": 1
                     },
                     "_23_": {
                         "bits": 1
                     },
-                    "ckt_out": {
-                        "bits": 5,
-                        "startbit": 0,
-                        "endbit": 4
+                    "_01_": {
+                        "bits": 1
+                    },
+                    "_00_": {
+                        "bits": 1
+                    },
+                    "_02_": {
+                        "bits": 1
+                    },
+                    "_10_": {
+                        "bits": 1
+                    },
+                    "_16_": {
+                        "bits": 1
+                    },
+                    "_05_": {
+                        "bits": 1
+                    },
+                    "_15_": {
+                        "bits": 1
+                    },
+                    "_09_": {
+                        "bits": 1
+                    },
+                    "_12_": {
+                        "bits": 1
                     },
                     "_13_": {
                         "bits": 1
@@ -339,43 +373,7 @@
                     "_17_": {
                         "bits": 1
                     },
-                    "_20_": {
-                        "bits": 1
-                    },
-                    "_11_": {
-                        "bits": 1
-                    },
-                    "_10_": {
-                        "bits": 1
-                    },
-                    "_05_": {
-                        "bits": 1
-                    },
-                    "_12_": {
-                        "bits": 1
-                    },
-                    "_21_": {
-                        "bits": 1
-                    },
-                    "_14_": {
-                        "bits": 1
-                    },
-                    "_02_": {
-                        "bits": 1
-                    },
-                    "_09_": {
-                        "bits": 1
-                    },
-                    "_19_": {
-                        "bits": 1
-                    },
-                    "_04_": {
-                        "bits": 1
-                    },
-                    "_18_": {
-                        "bits": 1
-                    },
-                    "_01_": {
+                    "_03_": {
                         "bits": 1
                     }
                 },
@@ -402,7 +400,7 @@
             "gates": {
                 "NOT": [
                     {
-                        "init_name": "_24_",
+                        "init_name": "gateinit_24_",
                         "inputs": [
                             "inputs[3]"
                         ],
@@ -411,7 +409,7 @@
                 ],
                 "XNOR": [
                     {
-                        "init_name": "_25_",
+                        "init_name": "gateinit_25_",
                         "inputs": [
                             "key[0]",
                             "inputs[0]"
@@ -419,7 +417,7 @@
                         "outputs": "_01_"
                     },
                     {
-                        "init_name": "_26_",
+                        "init_name": "gateinit_26_",
                         "inputs": [
                             "key[7]",
                             "inputs[7]"
@@ -427,7 +425,7 @@
                         "outputs": "_02_"
                     },
                     {
-                        "init_name": "_28_",
+                        "init_name": "gateinit_28_",
                         "inputs": [
                             "key[1]",
                             "inputs[1]"
@@ -435,7 +433,7 @@
                         "outputs": "_04_"
                     },
                     {
-                        "init_name": "_29_",
+                        "init_name": "gateinit_29_",
                         "inputs": [
                             "key[3]",
                             "inputs[3]"
@@ -443,7 +441,7 @@
                         "outputs": "_05_"
                     },
                     {
-                        "init_name": "_39_",
+                        "init_name": "gateinit_39_",
                         "inputs": [
                             "key[5]",
                             "inputs[5]"
@@ -451,7 +449,7 @@
                         "outputs": "_15_"
                     },
                     {
-                        "init_name": "_40_",
+                        "init_name": "gateinit_40_",
                         "inputs": [
                             "key[2]",
                             "inputs[2]"
@@ -459,7 +457,7 @@
                         "outputs": "_16_"
                     },
                     {
-                        "init_name": "_42_",
+                        "init_name": "gateinit_42_",
                         "inputs": [
                             "key[6]",
                             "inputs[6]"
@@ -467,7 +465,7 @@
                         "outputs": "_18_"
                     },
                     {
-                        "init_name": "_43_",
+                        "init_name": "gateinit_43_",
                         "inputs": [
                             "key[4]",
                             "inputs[4]"
@@ -475,7 +473,7 @@
                         "outputs": "_19_"
                     },
                     {
-                        "init_name": "_48_",
+                        "init_name": "gateinit_48_",
                         "inputs": [
                             "_23_",
                             "ckt_out[0]"
@@ -485,7 +483,7 @@
                 ],
                 "AND": [
                     {
-                        "init_name": "_27_",
+                        "init_name": "gateinit_27_",
                         "inputs": [
                             "_02_",
                             "_01_"
@@ -493,7 +491,7 @@
                         "outputs": "_03_"
                     },
                     {
-                        "init_name": "_30_",
+                        "init_name": "gateinit_30_",
                         "inputs": [
                             "_05_",
                             "_04_"
@@ -501,7 +499,7 @@
                         "outputs": "_06_"
                     },
                     {
-                        "init_name": "_31_",
+                        "init_name": "gateinit_31_",
                         "inputs": [
                             "_06_",
                             "_03_"
@@ -509,7 +507,7 @@
                         "outputs": "_07_"
                     },
                     {
-                        "init_name": "_34_",
+                        "init_name": "gateinit_34_",
                         "inputs": [
                             "_09_",
                             "_08_"
@@ -517,7 +515,7 @@
                         "outputs": "_10_"
                     },
                     {
-                        "init_name": "_36_",
+                        "init_name": "gateinit_36_",
                         "inputs": [
                             "_00_",
                             "inputs[0]"
@@ -525,7 +523,7 @@
                         "outputs": "_12_"
                     },
                     {
-                        "init_name": "_37_",
+                        "init_name": "gateinit_37_",
                         "inputs": [
                             "_12_",
                             "_11_"
@@ -533,7 +531,7 @@
                         "outputs": "_13_"
                     },
                     {
-                        "init_name": "_41_",
+                        "init_name": "gateinit_41_",
                         "inputs": [
                             "_16_",
                             "_15_"
@@ -541,7 +539,7 @@
                         "outputs": "_17_"
                     },
                     {
-                        "init_name": "_44_",
+                        "init_name": "gateinit_44_",
                         "inputs": [
                             "_19_",
                             "_18_"
@@ -549,7 +547,7 @@
                         "outputs": "_20_"
                     },
                     {
-                        "init_name": "_45_",
+                        "init_name": "gateinit_45_",
                         "inputs": [
                             "_20_",
                             "_17_"
@@ -557,7 +555,7 @@
                         "outputs": "_21_"
                     },
                     {
-                        "init_name": "_46_",
+                        "init_name": "gateinit_46_",
                         "inputs": [
                             "_21_",
                             "_14_"
@@ -567,7 +565,7 @@
                 ],
                 "NOR": [
                     {
-                        "init_name": "_32_",
+                        "init_name": "gateinit_32_",
                         "inputs": [
                             "inputs[6]",
                             "inputs[5]"
@@ -575,7 +573,7 @@
                         "outputs": "_08_"
                     },
                     {
-                        "init_name": "_33_",
+                        "init_name": "gateinit_33_",
                         "inputs": [
                             "inputs[7]",
                             "inputs[4]"
@@ -583,7 +581,7 @@
                         "outputs": "_09_"
                     },
                     {
-                        "init_name": "_35_",
+                        "init_name": "gateinit_35_",
                         "inputs": [
                             "inputs[2]",
                             "inputs[1]"
@@ -593,7 +591,7 @@
                 ],
                 "NAND": [
                     {
-                        "init_name": "_38_",
+                        "init_name": "gateinit_38_",
                         "inputs": [
                             "_13_",
                             "_10_"
@@ -601,7 +599,7 @@
                         "outputs": "_14_"
                     },
                     {
-                        "init_name": "_47_",
+                        "init_name": "gateinit_47_",
                         "inputs": [
                             "_22_",
                             "_07_"
@@ -610,10 +608,9 @@
                     }
                 ]
             },
-            "links": [
-                {
+            "links": {
+                "c": {
                     "module_name": "ckt",
-                    "init_name": "c",
                     "L": [
                         "a",
                         "b",
@@ -625,7 +622,7 @@
                         "ckt_out"
                     ]
                 }
-            ]
+            }
         }
     }
 }

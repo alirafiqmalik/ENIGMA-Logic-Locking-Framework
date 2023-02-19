@@ -1,205 +1,271 @@
 strict digraph "" {
-	"NOT#_24_"	[logic=NOT,
+	gateinit_24_	[logic=NOT,
 		type=gate];
-	"wire#_00_"	[type=wire];
-	"NOT#_24_" -> "wire#_00_";
-	"AND#_36_"	[logic=AND,
+	_00_	[port=_00_,
+		type=wire];
+	gateinit_24_ -> _00_;
+	gateinit_36_	[logic=AND,
 		type=gate];
-	"wire#_00_" -> "AND#_36_";
-	"input#inputs[3]"	[type=input];
-	"input#inputs[3]" -> "NOT#_24_";
-	"XNOR#_29_"	[logic=XNOR,
+	_00_ -> gateinit_36_;
+	"inputs[3]"	[port=inputs,
+		type=input];
+	"inputs[3]" -> gateinit_24_;
+	gateinit_29_	[logic=XNOR,
 		type=gate];
-	"input#inputs[3]" -> "XNOR#_29_";
+	"inputs[3]" -> gateinit_29_;
 	"module#c"	[init_name=c,
 		module_name=ckt,
 		type=module];
-	"input#inputs[3]" -> "module#c";
-	"XNOR#_25_"	[logic=XNOR,
+	"inputs[3]" -> "module#c";
+	gateinit_25_	[logic=XNOR,
 		type=gate];
-	"wire#_01_"	[type=wire];
-	"XNOR#_25_" -> "wire#_01_";
-	"AND#_27_"	[logic=AND,
+	gateinit_25_ -> keywire27;
+	_01_	[port=_01_,
+		type=wire];
+	gateinit_27_	[logic=AND,
 		type=gate];
-	"wire#_01_" -> "AND#_27_";
-	"input#key[0]"	[type=input];
-	"input#key[0]" -> "XNOR#_25_";
-	"input#inputs[0]"	[type=input];
-	"input#inputs[0]" -> "XNOR#_25_";
-	"input#inputs[0]" -> "AND#_36_";
-	"input#inputs[0]" -> "module#c";
-	"XNOR#_26_"	[logic=XNOR,
+	_01_ -> gateinit_27_;
+	"key[0]"	[port=key,
+		type=input];
+	"key[0]" -> gateinit_25_;
+	"inputs[0]"	[port=inputs,
+		type=input];
+	"inputs[0]" -> gateinit_25_;
+	"inputs[0]" -> gateinit_36_;
+	"inputs[0]" -> "module#c";
+	gateinit_26_	[logic=XNOR,
 		type=gate];
-	"wire#_02_"	[type=wire];
-	"XNOR#_26_" -> "wire#_02_";
-	"wire#_02_" -> "AND#_27_";
-	"input#key[7]"	[type=input];
-	"input#key[7]" -> "XNOR#_26_";
-	"input#inputs[7]"	[type=input];
-	"input#inputs[7]" -> "XNOR#_26_";
-	"NOR#_33_"	[logic=NOR,
+	gateinit_26_ -> keywire28;
+	_02_	[port=_02_,
+		type=wire];
+	_02_ -> gateinit_27_;
+	"key[7]"	[port=key,
+		type=input];
+	"key[7]" -> gateinit_26_;
+	"inputs[7]"	[port=inputs,
+		type=input];
+	"inputs[7]" -> gateinit_26_;
+	gateinit_33_	[logic=NOR,
 		type=gate];
-	"input#inputs[7]" -> "NOR#_33_";
-	"input#inputs[7]" -> "module#c";
-	"XNOR#_28_"	[logic=XNOR,
+	"inputs[7]" -> gateinit_33_;
+	"inputs[7]" -> "module#c";
+	gateinit_28_	[logic=XNOR,
 		type=gate];
-	"wire#_04_"	[type=wire];
-	"XNOR#_28_" -> "wire#_04_";
-	"AND#_30_"	[logic=AND,
+	_04_	[port=_04_,
+		type=wire];
+	gateinit_28_ -> _04_;
+	gateinit_30_	[logic=AND,
 		type=gate];
-	"wire#_04_" -> "AND#_30_";
-	"input#key[1]"	[type=input];
-	"input#key[1]" -> "XNOR#_28_";
-	"input#inputs[1]"	[type=input];
-	"input#inputs[1]" -> "XNOR#_28_";
-	"NOR#_35_"	[logic=NOR,
+	_04_ -> gateinit_30_;
+	"key[1]"	[port=key,
+		type=input];
+	"key[1]" -> gateinit_28_;
+	"inputs[1]"	[port=inputs,
+		type=input];
+	"inputs[1]" -> gateinit_28_;
+	gateinit_35_	[logic=NOR,
 		type=gate];
-	"input#inputs[1]" -> "NOR#_35_";
-	"input#inputs[1]" -> "module#c";
-	"wire#_05_"	[type=wire];
-	"XNOR#_29_" -> "wire#_05_";
-	"wire#_05_" -> "AND#_30_";
-	"input#key[3]"	[type=input];
-	"input#key[3]" -> "XNOR#_29_";
-	"XNOR#_39_"	[logic=XNOR,
+	"inputs[1]" -> gateinit_35_;
+	"inputs[1]" -> "module#c";
+	gateinit_29_ -> keywire25;
+	_05_	[port=_05_,
+		type=wire];
+	_05_ -> gateinit_30_;
+	"key[3]"	[port=key,
+		type=input];
+	"key[3]" -> gateinit_29_;
+	gateinit_39_	[logic=XNOR,
 		type=gate];
-	"wire#_15_"	[type=wire];
-	"XNOR#_39_" -> "wire#_15_";
-	"AND#_41_"	[logic=AND,
+	_15_	[port=_15_,
+		type=wire];
+	gateinit_39_ -> _15_;
+	gateinit_41_	[logic=AND,
 		type=gate];
-	"wire#_15_" -> "AND#_41_";
-	"input#key[5]"	[type=input];
-	"input#key[5]" -> "XNOR#_39_";
-	"input#inputs[5]"	[type=input];
-	"input#inputs[5]" -> "XNOR#_39_";
-	"NOR#_32_"	[logic=NOR,
+	_15_ -> gateinit_41_;
+	"key[5]"	[port=key,
+		type=input];
+	"key[5]" -> gateinit_39_;
+	"inputs[5]"	[port=inputs,
+		type=input];
+	"inputs[5]" -> gateinit_39_;
+	gateinit_32_	[logic=NOR,
 		type=gate];
-	"input#inputs[5]" -> "NOR#_32_";
-	"input#inputs[5]" -> "module#c";
-	"XNOR#_40_"	[logic=XNOR,
+	"inputs[5]" -> gateinit_32_;
+	"inputs[5]" -> "module#c";
+	gateinit_40_	[logic=XNOR,
 		type=gate];
-	"wire#_16_"	[type=wire];
-	"XNOR#_40_" -> "wire#_16_";
-	"wire#_16_" -> "AND#_41_";
-	"input#key[2]"	[type=input];
-	"input#key[2]" -> "XNOR#_40_";
-	"input#inputs[2]"	[type=input];
-	"input#inputs[2]" -> "XNOR#_40_";
-	"input#inputs[2]" -> "NOR#_35_";
-	"input#inputs[2]" -> "module#c";
-	"XNOR#_42_"	[logic=XNOR,
+	_16_	[port=_16_,
+		type=wire];
+	gateinit_40_ -> _16_;
+	_16_ -> gateinit_41_;
+	"key[2]"	[port=key,
+		type=input];
+	"key[2]" -> gateinit_40_;
+	"inputs[2]"	[port=inputs,
+		type=input];
+	"inputs[2]" -> gateinit_40_;
+	"inputs[2]" -> gateinit_35_;
+	"inputs[2]" -> "module#c";
+	gateinit_42_	[logic=XNOR,
 		type=gate];
-	"wire#_18_"	[type=wire];
-	"XNOR#_42_" -> "wire#_18_";
-	"AND#_44_"	[logic=AND,
+	_18_	[port=_18_,
+		type=wire];
+	gateinit_42_ -> _18_;
+	gateinit_44_	[logic=AND,
 		type=gate];
-	"wire#_18_" -> "AND#_44_";
-	"input#key[6]"	[type=input];
-	"input#key[6]" -> "XNOR#_42_";
-	"input#inputs[6]"	[type=input];
-	"input#inputs[6]" -> "XNOR#_42_";
-	"input#inputs[6]" -> "NOR#_32_";
-	"input#inputs[6]" -> "module#c";
-	"XNOR#_43_"	[logic=XNOR,
+	_18_ -> gateinit_44_;
+	"key[6]"	[port=key,
+		type=input];
+	"key[6]" -> gateinit_42_;
+	"inputs[6]"	[port=inputs,
+		type=input];
+	"inputs[6]" -> gateinit_42_;
+	"inputs[6]" -> gateinit_32_;
+	"inputs[6]" -> "module#c";
+	gateinit_43_	[logic=XNOR,
 		type=gate];
-	"wire#_19_"	[type=wire];
-	"XNOR#_43_" -> "wire#_19_";
-	"wire#_19_" -> "AND#_44_";
-	"input#key[4]"	[type=input];
-	"input#key[4]" -> "XNOR#_43_";
-	"input#inputs[4]"	[type=input];
-	"input#inputs[4]" -> "XNOR#_43_";
-	"input#inputs[4]" -> "NOR#_33_";
-	"input#inputs[4]" -> "module#c";
-	"XNOR#_48_"	[logic=XNOR,
+	_19_	[port=_19_,
+		type=wire];
+	gateinit_43_ -> _19_;
+	_19_ -> gateinit_44_;
+	"key[4]"	[port=key,
+		type=input];
+	"key[4]" -> gateinit_43_;
+	"inputs[4]"	[port=inputs,
+		type=input];
+	"inputs[4]" -> gateinit_43_;
+	"inputs[4]" -> gateinit_33_;
+	"inputs[4]" -> "module#c";
+	gateinit_48_	[logic=XNOR,
 		type=gate];
-	"output#lock_out"	[type=output];
-	"XNOR#_48_" -> "output#lock_out";
+	lock_out	[type=output];
+	gateinit_48_ -> lock_out;
 	"module#sarlock"	[type=module];
-	"output#lock_out" -> "module#sarlock";
-	"wire#_23_"	[type=wire];
-	"wire#_23_" -> "XNOR#_48_";
-	"wire#ckt_out[0]"	[type=wire];
-	"wire#ckt_out[0]" -> "XNOR#_48_";
-	"wire#_03_"	[type=wire];
-	"AND#_27_" -> "wire#_03_";
-	"AND#_31_"	[logic=AND,
+	lock_out -> "module#sarlock";
+	_23_	[port=_23_,
+		type=wire];
+	_23_ -> gateinit_48_;
+	"ckt_out[0]"	[port=ckt_out,
+		type=wire];
+	"ckt_out[0]" -> gateinit_48_;
+	_03_	[port=_03_,
+		type=wire];
+	gateinit_27_ -> _03_;
+	gateinit_31_	[logic=AND,
 		type=gate];
-	"wire#_03_" -> "AND#_31_";
-	"wire#_06_"	[type=wire];
-	"AND#_30_" -> "wire#_06_";
-	"wire#_06_" -> "AND#_31_";
-	"wire#_07_"	[type=wire];
-	"AND#_31_" -> "wire#_07_";
-	"NAND#_47_"	[logic=NAND,
+	_03_ -> gateinit_31_;
+	_06_	[port=_06_,
+		type=wire];
+	gateinit_30_ -> _06_;
+	_06_ -> gateinit_31_;
+	_07_	[port=_07_,
+		type=wire];
+	gateinit_31_ -> _07_;
+	gateinit_47_	[logic=NAND,
 		type=gate];
-	"wire#_07_" -> "NAND#_47_";
-	"AND#_34_"	[logic=AND,
+	_07_ -> gateinit_47_;
+	gateinit_34_	[logic=AND,
 		type=gate];
-	"wire#_10_"	[type=wire];
-	"AND#_34_" -> "wire#_10_";
-	"NAND#_38_"	[logic=NAND,
+	_10_	[port=_10_,
+		type=wire];
+	gateinit_34_ -> _10_;
+	gateinit_38_	[logic=NAND,
 		type=gate];
-	"wire#_10_" -> "NAND#_38_";
-	"wire#_09_"	[type=wire];
-	"wire#_09_" -> "AND#_34_";
-	"wire#_08_"	[type=wire];
-	"wire#_08_" -> "AND#_34_";
-	"wire#_12_"	[type=wire];
-	"AND#_36_" -> "wire#_12_";
-	"AND#_37_"	[logic=AND,
+	_10_ -> gateinit_38_;
+	_09_	[port=_09_,
+		type=wire];
+	_09_ -> gateinit_34_;
+	_08_	[port=_08_,
+		type=wire];
+	_08_ -> gateinit_34_;
+	_12_	[port=_12_,
+		type=wire];
+	gateinit_36_ -> _12_;
+	gateinit_37_	[logic=AND,
 		type=gate];
-	"wire#_12_" -> "AND#_37_";
-	"wire#_13_"	[type=wire];
-	"AND#_37_" -> "wire#_13_";
-	"wire#_13_" -> "NAND#_38_";
-	"wire#_11_"	[type=wire];
-	"wire#_11_" -> "AND#_37_";
-	"wire#_17_"	[type=wire];
-	"AND#_41_" -> "wire#_17_";
-	"AND#_45_"	[logic=AND,
+	_12_ -> gateinit_37_;
+	_13_	[port=_13_,
+		type=wire];
+	gateinit_37_ -> _13_;
+	_13_ -> gateinit_38_;
+	_11_	[port=_11_,
+		type=wire];
+	_11_ -> gateinit_37_;
+	_17_	[port=_17_,
+		type=wire];
+	gateinit_41_ -> _17_;
+	gateinit_45_	[logic=AND,
 		type=gate];
-	"wire#_17_" -> "AND#_45_";
-	"wire#_20_"	[type=wire];
-	"AND#_44_" -> "wire#_20_";
-	"wire#_20_" -> "AND#_45_";
-	"wire#_21_"	[type=wire];
-	"AND#_45_" -> "wire#_21_";
-	"AND#_46_"	[logic=AND,
+	_17_ -> gateinit_45_;
+	gateinit_44_ -> keywire26;
+	_20_	[port=_20_,
+		type=wire];
+	_20_ -> gateinit_45_;
+	_21_	[port=_21_,
+		type=wire];
+	gateinit_45_ -> _21_;
+	gateinit_46_	[logic=AND,
 		type=gate];
-	"wire#_21_" -> "AND#_46_";
-	"wire#_22_"	[type=wire];
-	"AND#_46_" -> "wire#_22_";
-	"wire#_22_" -> "NAND#_47_";
-	"wire#_14_"	[type=wire];
-	"wire#_14_" -> "AND#_46_";
-	"NOR#_32_" -> "wire#_08_";
-	"NOR#_33_" -> "wire#_09_";
-	"NOR#_35_" -> "wire#_11_";
-	"NAND#_38_" -> "wire#_14_";
-	"NAND#_47_" -> "wire#_23_";
-	"module#sarlock" -> "input#inputs[3]";
-	"module#sarlock" -> "input#key[0]";
-	"module#sarlock" -> "input#inputs[0]";
-	"module#sarlock" -> "input#key[7]";
-	"module#sarlock" -> "input#inputs[7]";
-	"module#sarlock" -> "input#key[1]";
-	"module#sarlock" -> "input#inputs[1]";
-	"module#sarlock" -> "input#key[3]";
-	"module#sarlock" -> "input#key[5]";
-	"module#sarlock" -> "input#inputs[5]";
-	"module#sarlock" -> "input#key[2]";
-	"module#sarlock" -> "input#inputs[2]";
-	"module#sarlock" -> "input#key[6]";
-	"module#sarlock" -> "input#inputs[6]";
-	"module#sarlock" -> "input#key[4]";
-	"module#sarlock" -> "input#inputs[4]";
-	"module#c" -> "wire#ckt_out[0]";
-	"module#c" -> "wire#ckt_out[2]";
-	"module#c" -> "wire#ckt_out[3]";
-	"module#c" -> "wire#ckt_out[4]";
-	"module#c" -> "wire#keywire25";
-	"wire#keywire25" -> "XOR#keygate_XOR_0";
-	"XOR#keygate_XOR_0" -> "wire#ckt_out[1]";
-	"input#lockingkeyinput0" -> "XOR#keygate_XOR_0";
+	_21_ -> gateinit_46_;
+	_22_	[port=_22_,
+		type=wire];
+	gateinit_46_ -> _22_;
+	_22_ -> gateinit_47_;
+	_14_	[port=_14_,
+		type=wire];
+	_14_ -> gateinit_46_;
+	gateinit_32_ -> _08_;
+	gateinit_33_ -> _09_;
+	gateinit_35_ -> _11_;
+	gateinit_38_ -> _14_;
+	gateinit_47_ -> _23_;
+	"module#sarlock" -> "inputs[3]";
+	"module#sarlock" -> "key[0]";
+	"module#sarlock" -> "inputs[0]";
+	"module#sarlock" -> "key[7]";
+	"module#sarlock" -> "inputs[7]";
+	"module#sarlock" -> "key[1]";
+	"module#sarlock" -> "inputs[1]";
+	"module#sarlock" -> "key[3]";
+	"module#sarlock" -> "key[5]";
+	"module#sarlock" -> "inputs[5]";
+	"module#sarlock" -> "key[2]";
+	"module#sarlock" -> "inputs[2]";
+	"module#sarlock" -> "key[6]";
+	"module#sarlock" -> "inputs[6]";
+	"module#sarlock" -> "key[4]";
+	"module#sarlock" -> "inputs[4]";
+	"module#sarlock" -> lockingkeyinput0;
+	"module#sarlock" -> lockingkeyinput1;
+	"module#sarlock" -> lockingkeyinput2;
+	"module#sarlock" -> lockingkeyinput3;
+	"module#sarlock" -> lockingkeyinput4;
+	"module#c" -> "ckt_out[0]";
+	"ckt_out[1]"	[port=ckt_out,
+		type=wire];
+	"module#c" -> "ckt_out[1]";
+	"ckt_out[2]"	[port=ckt_out,
+		type=wire];
+	"module#c" -> "ckt_out[2]";
+	"ckt_out[3]"	[port=ckt_out,
+		type=wire];
+	"module#c" -> "ckt_out[3]";
+	"ckt_out[4]"	[port=ckt_out,
+		type=wire];
+	"module#c" -> "ckt_out[4]";
+	keywire25 -> keygate_XOR_0;
+	keygate_XOR_0 -> keywire29;
+	lockingkeyinput0 -> keygate_XOR_0;
+	keywire26 -> keygate_XOR_1;
+	keygate_XOR_1 -> _20_;
+	lockingkeyinput1 -> keygate_XOR_1;
+	keywire27 -> keygate_XOR_2;
+	keygate_XOR_2 -> _01_;
+	lockingkeyinput2 -> keygate_XOR_2;
+	keywire28 -> keygate_XNOR_3;
+	keygate_XNOR_3 -> _02_;
+	lockingkeyinput3 -> keygate_XNOR_3;
+	keywire29 -> keygate_XOR_4;
+	keygate_XOR_4 -> _05_;
+	lockingkeyinput4 -> keygate_XOR_4;
 }
