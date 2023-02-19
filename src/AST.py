@@ -16,6 +16,8 @@ class module:
         self.io = None
         self.linkages = None
         self.circuitgraph=None
+        self.module_LLverilog=None
+        self.lockingdata={"wires":[],"gates":[],"inputs":[]}
         # self.module_LLverilog=None
         # self.module_LLcircuitgraph=None
     
@@ -79,9 +81,10 @@ class module:
         self.base64_data = base64.b64encode(pickle.dumps(self.circuitgraph)).decode('utf-8')
 
     def save_graph(self):
-        nx.drawing.nx_agraph.write_dot(self.circuitgraph, "./tmp/tmp.dot")
-        import subprocess
-        subprocess.run("dot -Tsvg ./tmp/tmp.dot > ./tmp/tmp.svg", shell=True)
+        save_graph(self.circuitgraph)
+        # nx.drawing.nx_agraph.write_dot(self.circuitgraph, "./tmp/tmp.dot")
+        # import subprocess
+        # subprocess.run("dot -Tsvg ./tmp/tmp.dot > ./tmp/tmp.svg", shell=True)
 
 
 
@@ -92,7 +95,7 @@ class AST:
             self.filename=top
             self.filepath="./output_files/{}.json".format(top)
         else:
-            self.filename=top+"_"+filename
+            self.filename=filename
             self.filepath="./output_files/{}.json".format(self.filename)
 
         if rw == 'r':
@@ -100,6 +103,8 @@ class AST:
         elif rw == 'w':
             if flag == 'v':
                 self.verilog = open(file_path).read()
+                # verilog=re.sub(r"//.*\n","",verilog)
+                # verilog=re.sub(r"[/][].[*][/]","",verilog)
             elif flag == 'b':
                 self.bench = open(file_path).read()
                 self.verilog = bench_to_verilog(self.bench)
@@ -133,7 +138,9 @@ class AST:
         self.update_LLverilog()
         for i in self.modules:
             self.gen_graph_links(self.modules[i])
-            self.modules[i].bin_graph()
+            # self.modules[i].bin_graph()
+        
+        self.gen_module_connections()
             
         
     def sub_modules_data(self):
@@ -153,13 +160,14 @@ class AST:
             
 
     def writeLLFile(self):
-        ast_dict = dict({"orginal_code" : self.verilog, "gate_level_flattened" : self.synthesized_verilog_flatten,"Bench_format_flattened" : self.flatten_bench, "gate_level_not_flattened" : self.synthesized_verilog, "top_module_name" : self.top_module_name,"Total_number_of_modules":self.no_of_modules})
-        # top_dict = dict({"Verilog": self.top_module.org_code_verilog, "Synthesized_verilog" : self.top_module.gate_level_verilog, "Total_number_of_modules":self.no_of_modules, "io":self.top_module.io, "gates": self.top_module.gates, "Linkages" : self.top_module.linkages, "DiGraph":self.top_module.base64_data})
-        # top_dict = dict({"Total_number_of_modules":self.no_of_modules, "io":self.top_module.io, "gates": self.top_module.gates, "Linkages" : self.top_module.linkages, "DiGraph":self.top_module.base64_data})
+        ast_dict = dict({"orginal_code" : self.verilog, "gate_level_flattened" : self.synthesized_verilog_flatten,"Bench_format_flattened" : self.flatten_bench, "gate_level_not_flattened" : self.synthesized_verilog, "top_module_name" : self.top_module_name,"Total_number_of_modules":self.no_of_modules,"LL_gatelevel_verilog":self.LLverilog})
+        # top_dict = dict({"Verilog": self.top_module.org_code_verilog, "Synthesized_verilog" : self.top_module.gate_level_verilog, "Total_number_of_modules":self.no_of_modules, "io":self.top_module.io, "gates": self.top_module.gates, "links" : self.top_module.linkages, "DiGraph":self.top_module.base64_data})
+        # top_dict = dict({"Total_number_of_modules":self.no_of_modules, "io":self.top_module.io, "gates": self.top_module.gates, "links" : self.top_module.linkages, "DiGraph":self.top_module.base64_data})
 
         sub_dict = {}
-        for key in self.extracted_modules:
-            sub_dict[key] = dict({"Verilog": self.modules[key].org_code_verilog, "Synthesized_verilog" : self.modules[key].gate_level_verilog, "io":self.modules[key].io, "gates": self.modules[key].gates, "Linkages" : self.modules[key].linkages,"DiGraph":self.modules[key].base64_data})
+        for key in list(self.modules.keys()):
+            self.modules[key].bin_graph()
+            sub_dict[key] = dict({"Verilog": self.modules[key].org_code_verilog, "Synthesized_verilog" : self.modules[key].gate_level_verilog,"lockingdata":self.modules[key].lockingdata,"DiGraph":self.modules[key].base64_data, "io":self.modules[key].io, "gates": self.modules[key].gates, "links" : self.modules[key].linkages})
 
 
         ast = dict({"AST":ast_dict, "modules": sub_dict})
@@ -204,8 +212,10 @@ class AST:
         for i in module.linkages:
             module_node_name="module#"+i['init_name']
             module.circuitgraph.add_node(module_node_name, type="module",module_name=i['module_name'],init_name=i['init_name'])
-            for j in i['links']:
-                L,R=j
+
+            for L,R in zip(i['L'],i['R']):
+                # L,R=j
+                # print(L,R)
                 node,type,endbit,startbit=process_node(R)
                 
                 if(L in self.modules[i['module_name']].io['inputs']):
@@ -228,6 +238,9 @@ class AST:
         self.synthesized_verilog_flatten = verilog_ast["AST"]["gate_level_flattened"]
         self.synthesized_verilog = verilog_ast["AST"]["gate_level_not_flattened"]
         self.top_module_name  = verilog_ast["AST"]["top_module_name"]
+        self.no_of_modules = verilog_ast["AST"]["Total_number_of_modules"]
+        self.flatten_bench=verilog_ast["AST"]["Bench_format_flattened"]
+
 
         # self.top_module.module_name = self.top_module_name
         # self.top_module.org_code_verilog = verilog_ast["top_module"]["Verilog"]
@@ -235,7 +248,7 @@ class AST:
         # self.no_of_modules = verilog_ast["top_module"]["Total_number_of_modules"]
         # self.top_module.io = verilog_ast["top_module"]["io"]
         # self.top_module.gates = verilog_ast["top_module"]["gates"]
-        # self.top_module.linkages = verilog_ast["top_module"]["Linkages"]
+        # self.top_module.linkages = verilog_ast["top_module"]["links"]
         #Decode the base64 string back to binary
         # Decode the binary string back to a graph object
         # self.top_module.circuitgraph = pickle.loads(base64.b64decode(verilog_ast["top_module"]["DiGraph"].encode('utf-8')))
@@ -248,17 +261,46 @@ class AST:
             self.modules[i].gate_level_verilog = verilog_ast["modules"][i]["Synthesized_verilog"]
             self.modules[i].io = verilog_ast["modules"][i]["io"]
             self.modules[i].gates = verilog_ast["modules"][i]["gates"]
-            self.modules[i].linkages = verilog_ast["modules"][i]["Linkages"]
+            self.modules[i].linkages = verilog_ast["modules"][i]["links"]
+            self.modules[i].lockingdata=verilog_ast["modules"][i]["lockingdata"]
             #Decode the base64 string back to binary
             # Decode the binary string back to a graph object
-            self.modules[i].circuitgraph = pickle.loads(base64.b64decode(verilog_ast["modules"][i]["DiGraph"].encode('utf-8'))) 
+            # self.base64_data = base64.b64encode(pickle.dumps(self.circuitgraph)).decode('utf-8')
+            # self.modules[i].circuitgraph = pickle.loads(base64.b64decode(verilog_ast["modules"][i]["DiGraph"].encode('utf-8'))) 
+            self.modules[i].base64_data = verilog_ast["modules"][i]["DiGraph"]
+            self.modules[i].circuitgraph = pickle.loads(base64.b64decode(self.modules[i].base64_data.encode('utf-8')))
         self.update_LLverilog()
         self.top_module=self.modules[self.top_module_name]
     
-    def update_LLverilog(self):
-        # self.LLverilog+=self.top_module.gate_level_verilog+"\n"
+    
+    def gen_module_connections(self):
+        self.module_connections = nx.DiGraph()
         for i in self.modules:
-            self.LLverilog+=self.modules[i].gate_level_verilog+"\n"
+            tmpi=self.modules[i]
+            for j in tmpi.linkages:
+                module_name = j['module_name']
+                init_name = j['init_name']  
+                # Check if an edge already exists in the graph
+                if self.module_connections.has_edge(i, module_name):
+                    # If an edge already exists, update its attributes without overwriting
+                    # existing ones
+                    tmp=[self.module_connections[i][module_name]['init_name']]
+                    tmp.append(init_name)
+                    # print(tmp)
+                    self.module_connections[i][module_name].update({'init_name': tmp})
+                else:
+                    # If no edge exists, add a new edge with the specified attributes
+                    self.module_connections.add_edge(i, module_name, init_name=init_name) 
+
+    
+    def save_module_connections(self):
+        save_graph(self.module_connections)
+    
+    def update_LLverilog(self):
+        pass
+        # self.LLverilog+=self.top_module.gate_level_verilog+"\n"
+        # for i in self.modules:
+        #     self.LLverilog+=self.modules[i].gate_level_verilog+"\n"
 
 
 

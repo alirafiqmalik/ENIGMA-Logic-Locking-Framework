@@ -4,7 +4,9 @@
 // output [8:0] out;
 // assign out=inputA+inputB;
 // endmodule
+/*
 
+*/
 
 module locked(inputs, key, out);
 input [7:0] inputs;

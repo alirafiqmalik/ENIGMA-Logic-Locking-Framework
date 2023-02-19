@@ -322,7 +322,8 @@ with open('./tmp/graph.json', 'r') as f:
     data = json.load(f)
 
 # Decode the base64 string back to binary
-binary_data = base64.b64decode(data['DiGraph'].encode('utf-8'))
+tmp=data['DiGraph']
+binary_data = base64.b64decode(tmp.encode('utf-8'))
 
 # Decode the binary string back to a graph object
 G2 = pickle.loads(binary_data)

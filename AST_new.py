@@ -13,45 +13,185 @@ from src.utils import connector
 
 # if __name__=="__main__":
 
-obj=AST(file_path="./input_files/tmporg.v",rw="w",flag="v",top="locked",filename="new")
-obj = AST(file_path="./output_files/locked_new.json",rw='r',top="locked") # r for read from file
-
-
-
-module=obj.modules["locked"]
-
-
-
-for i in obj.modules:
-  tmpi=obj.modules[i]
-  print(i)
-  for j in tmpi.linkages:
-    print(j["module_name"],j["init_name"])
-  print("#####################")
+# obj=AST(file_path="./input_files/tmporg.v",rw="w",flag="v",top="locked",filename="locked_new")
+obj = AST(file_path="./output_files/locked_new.json",rw='r',top="locked",filename="locked") # r for read from file
+# obj.save_module_connections()
 
 
 
 
-def t(self):
-  LLverilog=""
-  LLverilog+=self.top_module.gate_level_verilog+"\n"
-  for i in self.modules:
-    LLverilog+=self.modules[i].gate_level_verilog+"\n"
-  return LLverilog
 
-
-LLverilog=t(obj)
-# print(LLverilog) 
+obj.modules['sarlock'].save_graph()
 
 
 
+# obj.modules['sarlock'].circuirgraph
 
+
+keygates={"XNOR":[]}
+
+# gate_tech[re.sub("_g","",type)]=[{"init_name": init,"inputs": tmpx[1:] ,"outputs": tmpx[0]}]
+def InsertKeyGate(tmpselfmodule, NodeA: str, NodeB: str, gatetype: str = 'XOR') -> None:
+  keygatecount=len(tmpselfmodule.lockingdata["gates"])
+  
+  keygate_name=f"keygate_{gatetype}_{str(keygatecount)}"
+  keygate = f"{gatetype}#{keygate_name}"
+  tmpselfmodule.circuitgraph.remove_edge(NodeA, NodeB)
+
+  keywire_name="keywire"+str(len(tmpselfmodule.io["wires"]))
+  keywire = f"wire#{keywire_name}"
+  
+  tmpselfmodule.circuitgraph.add_node(keywire,)
+  
+  tmpselfmodule.circuitgraph.add_edge(NodeA, keywire)
+  tmpselfmodule.circuitgraph.add_edge(keywire, keygate)
+  tmpselfmodule.circuitgraph.add_edge(keygate, NodeB)
+
+  keygate_input_name="lockingkeyinput"+str(len(tmpselfmodule.lockingdata["inputs"]))
+  tmpselfmodule.circuitgraph.add_edge("input#"+keygate_input_name, keygate)
+
+
+  tmpselfmodule.lockingdata["gates"].append(keygate_name)
+  tmpselfmodule.lockingdata["inputs"].append(keygate_input_name)
+  tmpselfmodule.lockingdata["wires"].append(keywire_name)
+
+  tmpselfmodule.io['wires'][keywire_name]=connector(1,0,0)
+
+  tmpselfmodule.io['inputs'][keygate_input_name]=connector(1,0,0)
+
+  print(NodeA)
+
+  if(gatetype in tmpselfmodule.gates.keys()):
+    tmpselfmodule.gates[gatetype].append({"init_name": keygate_name,"inputs": [keywire_name,NodeB] ,"outputs": NodeB})
+  else:
+    tmpselfmodule.gates[gatetype]=[{"init_name": keygate_name,"inputs": [keywire_name,NodeB] ,"outputs": NodeB}]
+
+
+
+
+InsertKeyGate(obj.modules['sarlock'],"module#c","wire#ckt_out[1]")
+
+
+obj.modules['sarlock'].save_graph()
+
+
+obj.writeLLFile()
+
+def test(self):
+    def InsertKeyGate(self, NodeA: str, NodeB: str, gatetype: str = 'XOR') -> None:
+        keygatecount = self.gates[gatetype]
+        keygate = gatetype+"_"+str(keygatecount)
+        self.circuitgraph.remove_edge(NodeA, NodeB)
+
+        # keywire = "KEY"+str(len(self.wires))
+        keywire = "keywire"+str(len(self.wires))
+
+        self.circuitgraph.add_edge(NodeA, keywire)
+        self.circuitgraph.add_edge(keywire, keygate)
+        self.circuitgraph.add_edge(keygate, NodeB)
+
+        # self.circuitgraph.add_edge("KEY["+str(self.keygatescount)+"]", keygate)
+        # self.inputs.append("KEY["+str(self.keygatescount)+"]")
+
+        self.circuitgraph.add_edge("keyinput_"+str(self.keygatescount), keygate)
+        self.inputs.append("keyinput_"+str(self.keygatescount))
+
+        self.wires.append(keywire)
+
+        self.gates[gatetype] += 1
+        self.gatecount += 1
+
+        self.keygates[gatetype] += 1
+        self.keygatescount += 1
+
+
+
+
+
+
+
+# import random
+
+# rndx=list(obj.module_connections.nodes())
+# rndi=random.randint(0,len(rndx)-1)
+
+
+
+
+# print(rndx[rndi])
+# # rnd=
+
+
+# # for i in obj.module_connections:
+# #   print(i)
+
+
+
+# # print(i,j['module_name'],module_connections[i][j['module_name']])  
+
+
+
+
+
+
+
+# module=obj.modules["locked"]
+# for i in obj.modules:
+#   tmpi=obj.modules[i]
+#   print(i)
+#   for j in tmpi.linkages:
+#     print(j["module_name"],j["init_name"])
+#   print("#####################")
+
+
+
+# for i in obj.modules:
+#   tmpi=obj.modules[i]
+#   print(i)
+#   for j in tmpi.linkages:
+#     tmpi.io["inputs"]["lockingkey"]=connector(4,3,0)
+#     print(obj.modules[i].io["inputs"])
+    
+#     # print(i,j['module_name'],j['init_name'])
+#     j['L'].append("key")
+#     j['R'].append("lockingkey[0]")
+
+
+
+
+# for i in obj.modules:
+#   tmpi=obj.modules[i]
+#   # print(i)
+#   # tmpi.bin_graph()
+#   for j in tmpi.linkages:
+#     # print(i,j['module_name'],j['init_name'])
+#     port=""
+#     for L,R in zip(j['L'],j['R']):
+#       # print(L,R)
+#       port+=f".{L}({R}), "
+#       # pass
+#     # for k in j['links']:
+#     #   port+=f".{k[0]}({k[1]}), "
+#     #   # print(f".{k[0]}({k[1]}), ",end="")
+#     print(port[:-2])
+
+
+
+# obj.writeLLFile()
 # obj.update_LLverilog()
 
-module.save_graph()
+# obj.top_module.save_graph()
+
+# def t(self):
+#   LLverilog=""
+#   LLverilog+=self.top_module.gate_level_verilog+"\n"
+#   for i in self.modules:
+#     LLverilog+=self.modules[i].gate_level_verilog+"\n"
+#   return LLverilog
 
 
-
+# LLverilog=t(obj)
+# # print(LLverilog) 
 
 
 

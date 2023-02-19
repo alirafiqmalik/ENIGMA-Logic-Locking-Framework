@@ -134,7 +134,7 @@ def randKey(bits, seed=None):
 def format_verilog_org(verilog):
     verilog=re.sub(r"//.*\n","",verilog)
     verilog=re.sub(r"[/][].[*][/]","",verilog)
-    verilog=re.sub(r"[(][].[*][)]\n","",verilog)
+    # verilog=re.sub(r"[(][].[*][)]\n","",verilog)
     verilog=re.sub(r"/\*.*?\*/", "", verilog, flags=re.DOTALL)
 
     verilog=re.sub(r"\n+","",verilog)
@@ -396,8 +396,15 @@ def gates_module_extraction(verilog):
       else:
         gate_tech[re.sub("_g","",type)].append({"init_name": init,"inputs": tmpx[1:] ,"outputs": tmpx[0]})
     else:
-      links=[re.findall("\.(.*)\((.*)\)",i)[0] for i in extra.split(",")]
-      sub_module.append({"module_name": type, "init_name": init, "links":links})
+        L,R=[],[]
+        # L,R
+        for i in extra.split(","):
+            Li,Ri=re.findall("\.(.*)\((.*)\)",i)[0]
+            L.append(Li)
+            R.append(Ri) 
+        # links=[re.findall("\.(.*)\((.*)\)",i)[0] for i in extra.split(",")]
+        
+        sub_module.append({"module_name": type, "init_name": init,"L":L,"R":R})#"links":[],
 
   for i in re.findall(r"(\w+) (\w+) \((.*)\);",verilog):
     process_chunk(i)
@@ -420,7 +427,13 @@ def submodules_info(sub):
     return dictionary
 
 
-
+####################################################################################################################################
+####################################################################################################################################
+def save_graph(G):
+    import networkx as nx
+    nx.drawing.nx_agraph.write_dot(G, "./tmp/tmp.dot")
+    import subprocess
+    subprocess.run("dot -Tsvg ./tmp/tmp.dot > ./tmp/tmp.svg", shell=True)
 
 ####################################################################################################################################
 ####################################################################################################################################
