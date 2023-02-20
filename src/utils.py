@@ -133,7 +133,7 @@ def randKey(bits, seed=None):
 
 def format_verilog_org(verilog):
     verilog=re.sub(r"//.*\n","",verilog)
-    verilog=re.sub(r"[/][].[*][/]","",verilog)
+    # verilog=re.sub(r"[/][].[*][/]","",verilog)
     # verilog=re.sub(r"[(][].[*][)]\n","",verilog)
     verilog=re.sub(r"/\*.*?\*/", "", verilog, flags=re.DOTALL)
 
@@ -149,9 +149,11 @@ def format_verilog_org(verilog):
 
 def format_verilog(verilog,remove_wire=False,remove_assign=False):
     verilog=re.sub(r"//.*\n","",verilog)
-    verilog=re.sub(r"[/][].[*][/]","",verilog)
-    verilog=re.sub(r"[(][].[*][)]\n","",verilog)
+    # verilog=re.sub(r"[/][].[*][/]","",verilog)
+    # verilog=re.sub(r"[(][].[*][)]\n","",verilog)
     verilog=re.sub(r"/\*.*?\*/", "", verilog, flags=re.DOTALL)
+    verilog=re.sub(r"(\w) (\[\d\])", r"\1\2", verilog)
+    verilog=re.sub(r"\\","",verilog)
 
     verilog=re.sub(r"\n+","",verilog)
     verilog=re.sub(r"\s+"," ",verilog)
@@ -222,7 +224,6 @@ def extract_io_v(verilog,mode="input"):
   tmp=re.findall(mode.lower()+r"[\s\[](.*);",verilog)
   for i in tmp:
     if("[" in i):
-        # print(i)
         ei,si,tmpi=re.findall(r"\[(\d+):(\d+)\] ?(.*)",i)[0]
         ei,si=int(ei),int(si)
         if("," in tmpi):
@@ -310,6 +311,24 @@ def extract_module_name(verilog):
         module_name = module_match.group(1)
     return module_name
 
+
+def verify_verilog(path,top):
+  cmd = """
+      ~/FYP/linux/yosys/build/yosys -q -p'
+      read_verilog {path}
+      hierarchy -check -top {top}
+      '
+  """
+  result = subprocess.run(cmd.format(path=path,top=top), shell=True)
+  if(result.returncode==1):
+    print("Error")
+  elif(result.returncode==0):
+    print("Wokrng")
+  else:
+    print(f"Unknown Error Code {result.returncode}")
+
+
+
 def synthesize_verilog(verilog, top,flag = "flatten"):
     with open("./tmp/tmp_syn1.v", "w") as f:
         f.write(verilog)
@@ -392,9 +411,10 @@ def gates_module_extraction(verilog):
       tmpx=re.findall(r'\.\S+\(([^\(\),]+)\)',extra)
       tmpx.reverse()
       if re.sub("_g","",type) not in gate_tech:
-        gate_tech[re.sub("_g","",type)]=[{"init_name": "gateinit"+init,"inputs": tmpx[1:] ,"outputs": tmpx[0]}]
+        gate_tech[re.sub("_g","",type)]={}
+        gate_tech[re.sub("_g","",type)][type+init]={"inputs": tmpx[1:] ,"outputs": tmpx[0]}
       else:
-        gate_tech[re.sub("_g","",type)].append({"init_name": "gateinit"+init,"inputs": tmpx[1:] ,"outputs": tmpx[0]})
+        gate_tech[re.sub("_g","",type)][type+init]={"inputs": tmpx[1:] ,"outputs": tmpx[0]}
     else:
         L,R=[],[]
         # L,R

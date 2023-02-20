@@ -1,271 +1,629 @@
 strict digraph "" {
-	gateinit_24_	[logic=NOT,
+	NOT_g_072_	[logic=NOT,
 		type=gate];
-	_00_	[port=_00_,
+	_000_	[port=_000_,
 		type=wire];
-	gateinit_24_ -> _00_;
-	gateinit_36_	[logic=AND,
+	NOT_g_072_ -> _000_;
+	AND_g_084_	[logic=AND,
 		type=gate];
-	_00_ -> gateinit_36_;
+	_000_ -> AND_g_084_;
 	"inputs[3]"	[port=inputs,
 		type=input];
-	"inputs[3]" -> gateinit_24_;
-	gateinit_29_	[logic=XNOR,
+	"inputs[3]" -> NOT_g_072_;
+	NOT_g_114_	[logic=NOT,
 		type=gate];
-	"inputs[3]" -> gateinit_29_;
-	"module#c"	[init_name=c,
-		module_name=ckt,
-		type=module];
-	"inputs[3]" -> "module#c";
-	gateinit_25_	[logic=XNOR,
+	"inputs[3]" -> NOT_g_114_;
+	XNOR_g_077_	[logic=XNOR,
 		type=gate];
-	gateinit_25_ -> keywire27;
-	_01_	[port=_01_,
+	"inputs[3]" -> XNOR_g_077_;
+	XNOR_g_119_	[logic=XNOR,
+		type=gate];
+	"inputs[3]" -> XNOR_g_119_;
+	NAND_g_108_	[logic=NAND,
+		type=gate];
+	"inputs[3]" -> NAND_g_108_;
+	NAND_g_150_	[logic=NAND,
+		type=gate];
+	"inputs[3]" -> NAND_g_150_;
+	XOR_g_109_	[logic=XOR,
+		type=gate];
+	"inputs[3]" -> XOR_g_109_;
+	XOR_g_151_	[logic=XOR,
+		type=gate];
+	"inputs[3]" -> XOR_g_151_;
+	_036_	[port=_036_,
 		type=wire];
-	gateinit_27_	[logic=AND,
+	NOT_g_114_ -> _036_;
+	AND_g_126_	[logic=AND,
 		type=gate];
-	_01_ -> gateinit_27_;
+	_036_ -> AND_g_126_;
+	XNOR_g_073_	[logic=XNOR,
+		type=gate];
+	_001_	[port=_001_,
+		type=wire];
+	XNOR_g_073_ -> _001_;
+	AND_g_075_	[logic=AND,
+		type=gate];
+	_001_ -> AND_g_075_;
 	"key[0]"	[port=key,
 		type=input];
-	"key[0]" -> gateinit_25_;
+	"key[0]" -> XNOR_g_073_;
+	XNOR_g_115_	[logic=XNOR,
+		type=gate];
+	"key[0]" -> XNOR_g_115_;
 	"inputs[0]"	[port=inputs,
 		type=input];
-	"inputs[0]" -> gateinit_25_;
-	"inputs[0]" -> gateinit_36_;
-	"inputs[0]" -> "module#c";
-	gateinit_26_	[logic=XNOR,
+	"inputs[0]" -> XNOR_g_073_;
+	"inputs[0]" -> XNOR_g_115_;
+	"inputs[0]" -> AND_g_084_;
+	AND_g_097_	[logic=AND,
 		type=gate];
-	gateinit_26_ -> keywire28;
-	_02_	[port=_02_,
+	"inputs[0]" -> AND_g_097_;
+	"inputs[0]" -> AND_g_126_;
+	AND_g_139_	[logic=AND,
+		type=gate];
+	"inputs[0]" -> AND_g_139_;
+	XOR_g_112_	[logic=XOR,
+		type=gate];
+	"inputs[0]" -> XOR_g_112_;
+	XOR_g_154_	[logic=XOR,
+		type=gate];
+	"inputs[0]" -> XOR_g_154_;
+	XNOR_g_074_	[logic=XNOR,
+		type=gate];
+	_002_	[port=_002_,
 		type=wire];
-	_02_ -> gateinit_27_;
+	XNOR_g_074_ -> _002_;
+	_002_ -> AND_g_075_;
 	"key[7]"	[port=key,
 		type=input];
-	"key[7]" -> gateinit_26_;
+	"key[7]" -> XNOR_g_074_;
+	XNOR_g_116_	[logic=XNOR,
+		type=gate];
+	"key[7]" -> XNOR_g_116_;
 	"inputs[7]"	[port=inputs,
 		type=input];
-	"inputs[7]" -> gateinit_26_;
-	gateinit_33_	[logic=NOR,
+	"inputs[7]" -> XNOR_g_074_;
+	"inputs[7]" -> XNOR_g_116_;
+	NOR_g_081_	[logic=NOR,
 		type=gate];
-	"inputs[7]" -> gateinit_33_;
-	"inputs[7]" -> "module#c";
-	gateinit_28_	[logic=XNOR,
+	"inputs[7]" -> NOR_g_081_;
+	NOR_g_123_	[logic=NOR,
 		type=gate];
-	_04_	[port=_04_,
+	"inputs[7]" -> NOR_g_123_;
+	"inputs[7]" -> NAND_g_108_;
+	"inputs[7]" -> NAND_g_150_;
+	"inputs[7]" -> XOR_g_109_;
+	"inputs[7]" -> XOR_g_151_;
+	XNOR_g_076_	[logic=XNOR,
+		type=gate];
+	_004_	[port=_004_,
 		type=wire];
-	gateinit_28_ -> _04_;
-	gateinit_30_	[logic=AND,
+	XNOR_g_076_ -> _004_;
+	AND_g_078_	[logic=AND,
 		type=gate];
-	_04_ -> gateinit_30_;
+	_004_ -> AND_g_078_;
 	"key[1]"	[port=key,
 		type=input];
-	"key[1]" -> gateinit_28_;
+	"key[1]" -> XNOR_g_076_;
+	XNOR_g_118_	[logic=XNOR,
+		type=gate];
+	"key[1]" -> XNOR_g_118_;
 	"inputs[1]"	[port=inputs,
 		type=input];
-	"inputs[1]" -> gateinit_28_;
-	gateinit_35_	[logic=NOR,
+	"inputs[1]" -> XNOR_g_076_;
+	"inputs[1]" -> XNOR_g_118_;
+	NOR_g_083_	[logic=NOR,
 		type=gate];
-	"inputs[1]" -> gateinit_35_;
-	"inputs[1]" -> "module#c";
-	gateinit_29_ -> keywire25;
-	_05_	[port=_05_,
+	"inputs[1]" -> NOR_g_083_;
+	NOR_g_125_	[logic=NOR,
+		type=gate];
+	"inputs[1]" -> NOR_g_125_;
+	NAND_g_098_	[logic=NAND,
+		type=gate];
+	"inputs[1]" -> NAND_g_098_;
+	NAND_g_140_	[logic=NAND,
+		type=gate];
+	"inputs[1]" -> NAND_g_140_;
+	XOR_g_099_	[logic=XOR,
+		type=gate];
+	"inputs[1]" -> XOR_g_099_;
+	XOR_g_141_	[logic=XOR,
+		type=gate];
+	"inputs[1]" -> XOR_g_141_;
+	_005_	[port=_005_,
 		type=wire];
-	_05_ -> gateinit_30_;
+	XNOR_g_077_ -> _005_;
+	_005_ -> AND_g_078_;
 	"key[3]"	[port=key,
 		type=input];
-	"key[3]" -> gateinit_29_;
-	gateinit_39_	[logic=XNOR,
+	"key[3]" -> XNOR_g_077_;
+	"key[3]" -> XNOR_g_119_;
+	XNOR_g_087_	[logic=XNOR,
 		type=gate];
-	_15_	[port=_15_,
+	_015_	[port=_015_,
 		type=wire];
-	gateinit_39_ -> _15_;
-	gateinit_41_	[logic=AND,
+	XNOR_g_087_ -> _015_;
+	AND_g_089_	[logic=AND,
 		type=gate];
-	_15_ -> gateinit_41_;
+	_015_ -> AND_g_089_;
 	"key[5]"	[port=key,
 		type=input];
-	"key[5]" -> gateinit_39_;
+	"key[5]" -> XNOR_g_087_;
+	XNOR_g_129_	[logic=XNOR,
+		type=gate];
+	"key[5]" -> XNOR_g_129_;
 	"inputs[5]"	[port=inputs,
 		type=input];
-	"inputs[5]" -> gateinit_39_;
-	gateinit_32_	[logic=NOR,
+	"inputs[5]" -> XNOR_g_087_;
+	"inputs[5]" -> XNOR_g_129_;
+	NOR_g_080_	[logic=NOR,
 		type=gate];
-	"inputs[5]" -> gateinit_32_;
-	"inputs[5]" -> "module#c";
-	gateinit_40_	[logic=XNOR,
+	"inputs[5]" -> NOR_g_080_;
+	NOR_g_122_	[logic=NOR,
 		type=gate];
-	_16_	[port=_16_,
+	"inputs[5]" -> NOR_g_122_;
+	"inputs[5]" -> NAND_g_098_;
+	"inputs[5]" -> NAND_g_140_;
+	"inputs[5]" -> XOR_g_099_;
+	"inputs[5]" -> XOR_g_141_;
+	XNOR_g_088_	[logic=XNOR,
+		type=gate];
+	_016_	[port=_016_,
 		type=wire];
-	gateinit_40_ -> _16_;
-	_16_ -> gateinit_41_;
+	XNOR_g_088_ -> _016_;
+	_016_ -> AND_g_089_;
 	"key[2]"	[port=key,
 		type=input];
-	"key[2]" -> gateinit_40_;
+	"key[2]" -> XNOR_g_088_;
+	XNOR_g_130_	[logic=XNOR,
+		type=gate];
+	"key[2]" -> XNOR_g_130_;
 	"inputs[2]"	[port=inputs,
 		type=input];
-	"inputs[2]" -> gateinit_40_;
-	"inputs[2]" -> gateinit_35_;
-	"inputs[2]" -> "module#c";
-	gateinit_42_	[logic=XNOR,
+	"inputs[2]" -> XNOR_g_088_;
+	"inputs[2]" -> XNOR_g_130_;
+	"inputs[2]" -> NOR_g_083_;
+	"inputs[2]" -> NOR_g_125_;
+	NAND_g_103_	[logic=NAND,
 		type=gate];
-	_18_	[port=_18_,
+	"inputs[2]" -> NAND_g_103_;
+	NAND_g_145_	[logic=NAND,
+		type=gate];
+	"inputs[2]" -> NAND_g_145_;
+	XOR_g_104_	[logic=XOR,
+		type=gate];
+	"inputs[2]" -> XOR_g_104_;
+	XOR_g_146_	[logic=XOR,
+		type=gate];
+	"inputs[2]" -> XOR_g_146_;
+	XNOR_g_090_	[logic=XNOR,
+		type=gate];
+	_018_	[port=_018_,
 		type=wire];
-	gateinit_42_ -> _18_;
-	gateinit_44_	[logic=AND,
+	XNOR_g_090_ -> _018_;
+	AND_g_092_	[logic=AND,
 		type=gate];
-	_18_ -> gateinit_44_;
+	_018_ -> AND_g_092_;
 	"key[6]"	[port=key,
 		type=input];
-	"key[6]" -> gateinit_42_;
+	"key[6]" -> XNOR_g_090_;
+	XNOR_g_132_	[logic=XNOR,
+		type=gate];
+	"key[6]" -> XNOR_g_132_;
 	"inputs[6]"	[port=inputs,
 		type=input];
-	"inputs[6]" -> gateinit_42_;
-	"inputs[6]" -> gateinit_32_;
-	"inputs[6]" -> "module#c";
-	gateinit_43_	[logic=XNOR,
+	"inputs[6]" -> XNOR_g_090_;
+	"inputs[6]" -> XNOR_g_132_;
+	"inputs[6]" -> NOR_g_080_;
+	"inputs[6]" -> NOR_g_122_;
+	"inputs[6]" -> NAND_g_103_;
+	"inputs[6]" -> NAND_g_145_;
+	"inputs[6]" -> XOR_g_104_;
+	"inputs[6]" -> XOR_g_146_;
+	XNOR_g_091_	[logic=XNOR,
 		type=gate];
-	_19_	[port=_19_,
+	_019_	[port=_019_,
 		type=wire];
-	gateinit_43_ -> _19_;
-	_19_ -> gateinit_44_;
+	XNOR_g_091_ -> _019_;
+	_019_ -> AND_g_092_;
 	"key[4]"	[port=key,
 		type=input];
-	"key[4]" -> gateinit_43_;
+	"key[4]" -> XNOR_g_091_;
+	XNOR_g_133_	[logic=XNOR,
+		type=gate];
+	"key[4]" -> XNOR_g_133_;
 	"inputs[4]"	[port=inputs,
 		type=input];
-	"inputs[4]" -> gateinit_43_;
-	"inputs[4]" -> gateinit_33_;
-	"inputs[4]" -> "module#c";
-	gateinit_48_	[logic=XNOR,
+	"inputs[4]" -> XNOR_g_091_;
+	"inputs[4]" -> XNOR_g_133_;
+	"inputs[4]" -> AND_g_097_;
+	"inputs[4]" -> AND_g_139_;
+	"inputs[4]" -> NOR_g_081_;
+	"inputs[4]" -> NOR_g_123_;
+	"inputs[4]" -> XOR_g_112_;
+	"inputs[4]" -> XOR_g_154_;
+	XNOR_g_096_	[logic=XNOR,
 		type=gate];
-	lock_out	[type=output];
-	gateinit_48_ -> lock_out;
-	"module#sarlock"	[type=module];
-	lock_out -> "module#sarlock";
-	_23_	[port=_23_,
+	"out[0]"	[type=output];
+	XNOR_g_096_ -> "out[0]";
+	"module#locked"	[type=module];
+	"out[0]" -> "module#locked";
+	_023_	[port=_023_,
 		type=wire];
-	_23_ -> gateinit_48_;
-	"ckt_out[0]"	[port=ckt_out,
+	_023_ -> XNOR_g_096_;
+	"s.c.c[0]"	[port="s.c.c",
 		type=wire];
-	"ckt_out[0]" -> gateinit_48_;
-	_03_	[port=_03_,
+	"s.c.c[0]" -> XNOR_g_096_;
+	_037_	[port=_037_,
 		type=wire];
-	gateinit_27_ -> _03_;
-	gateinit_31_	[logic=AND,
+	XNOR_g_115_ -> _037_;
+	AND_g_117_	[logic=AND,
 		type=gate];
-	_03_ -> gateinit_31_;
-	_06_	[port=_06_,
+	_037_ -> AND_g_117_;
+	_038_	[port=_038_,
 		type=wire];
-	gateinit_30_ -> _06_;
-	_06_ -> gateinit_31_;
-	_07_	[port=_07_,
+	XNOR_g_116_ -> _038_;
+	_038_ -> AND_g_117_;
+	_040_	[port=_040_,
 		type=wire];
-	gateinit_31_ -> _07_;
-	gateinit_47_	[logic=NAND,
+	XNOR_g_118_ -> _040_;
+	AND_g_120_	[logic=AND,
 		type=gate];
-	_07_ -> gateinit_47_;
-	gateinit_34_	[logic=AND,
+	_040_ -> AND_g_120_;
+	_041_	[port=_041_,
+		type=wire];
+	XNOR_g_119_ -> _041_;
+	_041_ -> AND_g_120_;
+	_051_	[port=_051_,
+		type=wire];
+	XNOR_g_129_ -> _051_;
+	AND_g_131_	[logic=AND,
 		type=gate];
-	_10_	[port=_10_,
+	_051_ -> AND_g_131_;
+	_052_	[port=_052_,
 		type=wire];
-	gateinit_34_ -> _10_;
-	gateinit_38_	[logic=NAND,
+	XNOR_g_130_ -> _052_;
+	_052_ -> AND_g_131_;
+	_054_	[port=_054_,
+		type=wire];
+	XNOR_g_132_ -> _054_;
+	AND_g_134_	[logic=AND,
 		type=gate];
-	_10_ -> gateinit_38_;
-	_09_	[port=_09_,
+	_054_ -> AND_g_134_;
+	_055_	[port=_055_,
 		type=wire];
-	_09_ -> gateinit_34_;
-	_08_	[port=_08_,
-		type=wire];
-	_08_ -> gateinit_34_;
-	_12_	[port=_12_,
-		type=wire];
-	gateinit_36_ -> _12_;
-	gateinit_37_	[logic=AND,
+	XNOR_g_133_ -> _055_;
+	_055_ -> AND_g_134_;
+	XNOR_g_138_	[logic=XNOR,
 		type=gate];
-	_12_ -> gateinit_37_;
-	_13_	[port=_13_,
+	"out[1]"	[type=output];
+	XNOR_g_138_ -> "out[1]";
+	"out[1]" -> "module#locked";
+	_059_	[port=_059_,
 		type=wire];
-	gateinit_37_ -> _13_;
-	_13_ -> gateinit_38_;
-	_11_	[port=_11_,
+	_059_ -> XNOR_g_138_;
+	"s1.c.c[0]"	[port="s1.c.c",
 		type=wire];
-	_11_ -> gateinit_37_;
-	_17_	[port=_17_,
+	"s1.c.c[0]" -> XNOR_g_138_;
+	_003_	[port=_003_,
 		type=wire];
-	gateinit_41_ -> _17_;
-	gateinit_45_	[logic=AND,
+	AND_g_075_ -> _003_;
+	AND_g_079_	[logic=AND,
 		type=gate];
-	_17_ -> gateinit_45_;
-	gateinit_44_ -> keywire26;
-	_20_	[port=_20_,
+	_003_ -> AND_g_079_;
+	_006_	[port=_006_,
 		type=wire];
-	_20_ -> gateinit_45_;
-	_21_	[port=_21_,
+	AND_g_078_ -> _006_;
+	_006_ -> AND_g_079_;
+	_007_	[port=_007_,
 		type=wire];
-	gateinit_45_ -> _21_;
-	gateinit_46_	[logic=AND,
+	AND_g_079_ -> _007_;
+	NAND_g_095_	[logic=NAND,
 		type=gate];
-	_21_ -> gateinit_46_;
-	_22_	[port=_22_,
+	_007_ -> NAND_g_095_;
+	AND_g_082_	[logic=AND,
+		type=gate];
+	_010_	[port=_010_,
 		type=wire];
-	gateinit_46_ -> _22_;
-	_22_ -> gateinit_47_;
-	_14_	[port=_14_,
+	AND_g_082_ -> _010_;
+	NAND_g_086_	[logic=NAND,
+		type=gate];
+	_010_ -> NAND_g_086_;
+	_009_	[port=_009_,
 		type=wire];
-	_14_ -> gateinit_46_;
-	gateinit_32_ -> _08_;
-	gateinit_33_ -> _09_;
-	gateinit_35_ -> _11_;
-	gateinit_38_ -> _14_;
-	gateinit_47_ -> _23_;
-	"module#sarlock" -> "inputs[3]";
-	"module#sarlock" -> "key[0]";
-	"module#sarlock" -> "inputs[0]";
-	"module#sarlock" -> "key[7]";
-	"module#sarlock" -> "inputs[7]";
-	"module#sarlock" -> "key[1]";
-	"module#sarlock" -> "inputs[1]";
-	"module#sarlock" -> "key[3]";
-	"module#sarlock" -> "key[5]";
-	"module#sarlock" -> "inputs[5]";
-	"module#sarlock" -> "key[2]";
-	"module#sarlock" -> "inputs[2]";
-	"module#sarlock" -> "key[6]";
-	"module#sarlock" -> "inputs[6]";
-	"module#sarlock" -> "key[4]";
-	"module#sarlock" -> "inputs[4]";
-	"module#sarlock" -> lockingkeyinput0;
-	"module#sarlock" -> lockingkeyinput1;
-	"module#sarlock" -> lockingkeyinput2;
-	"module#sarlock" -> lockingkeyinput3;
-	"module#sarlock" -> lockingkeyinput4;
-	"module#c" -> "ckt_out[0]";
-	"ckt_out[1]"	[port=ckt_out,
+	_009_ -> AND_g_082_;
+	_008_	[port=_008_,
 		type=wire];
-	"module#c" -> "ckt_out[1]";
-	"ckt_out[2]"	[port=ckt_out,
+	_008_ -> AND_g_082_;
+	_012_	[port=_012_,
 		type=wire];
-	"module#c" -> "ckt_out[2]";
-	"ckt_out[3]"	[port=ckt_out,
+	AND_g_084_ -> _012_;
+	AND_g_085_	[logic=AND,
+		type=gate];
+	_012_ -> AND_g_085_;
+	_013_	[port=_013_,
 		type=wire];
-	"module#c" -> "ckt_out[3]";
-	"ckt_out[4]"	[port=ckt_out,
+	AND_g_085_ -> _013_;
+	_013_ -> NAND_g_086_;
+	_011_	[port=_011_,
 		type=wire];
-	"module#c" -> "ckt_out[4]";
-	keywire25 -> keygate_XOR_0;
-	keygate_XOR_0 -> keywire29;
-	lockingkeyinput0 -> keygate_XOR_0;
-	keywire26 -> keygate_XOR_1;
-	keygate_XOR_1 -> _20_;
-	lockingkeyinput1 -> keygate_XOR_1;
-	keywire27 -> keygate_XOR_2;
-	keygate_XOR_2 -> _01_;
-	lockingkeyinput2 -> keygate_XOR_2;
-	keywire28 -> keygate_XNOR_3;
-	keygate_XNOR_3 -> _02_;
-	lockingkeyinput3 -> keygate_XNOR_3;
-	keywire29 -> keygate_XOR_4;
-	keygate_XOR_4 -> _05_;
-	lockingkeyinput4 -> keygate_XOR_4;
+	_011_ -> AND_g_085_;
+	_017_	[port=_017_,
+		type=wire];
+	AND_g_089_ -> _017_;
+	AND_g_093_	[logic=AND,
+		type=gate];
+	_017_ -> AND_g_093_;
+	_020_	[port=_020_,
+		type=wire];
+	AND_g_092_ -> _020_;
+	_020_ -> AND_g_093_;
+	_021_	[port=_021_,
+		type=wire];
+	AND_g_093_ -> _021_;
+	AND_g_094_	[logic=AND,
+		type=gate];
+	_021_ -> AND_g_094_;
+	_022_	[port=_022_,
+		type=wire];
+	AND_g_094_ -> _022_;
+	_022_ -> NAND_g_095_;
+	_014_	[port=_014_,
+		type=wire];
+	_014_ -> AND_g_094_;
+	_024_	[port=_024_,
+		type=wire];
+	AND_g_097_ -> _024_;
+	NAND_g_100_	[logic=NAND,
+		type=gate];
+	_024_ -> NAND_g_100_;
+	XOR_g_101_	[logic=XOR,
+		type=gate];
+	_024_ -> XOR_g_101_;
+	_039_	[port=_039_,
+		type=wire];
+	AND_g_117_ -> _039_;
+	AND_g_121_	[logic=AND,
+		type=gate];
+	_039_ -> AND_g_121_;
+	_042_	[port=_042_,
+		type=wire];
+	AND_g_120_ -> _042_;
+	_042_ -> AND_g_121_;
+	_043_	[port=_043_,
+		type=wire];
+	AND_g_121_ -> _043_;
+	NAND_g_137_	[logic=NAND,
+		type=gate];
+	_043_ -> NAND_g_137_;
+	AND_g_124_	[logic=AND,
+		type=gate];
+	_046_	[port=_046_,
+		type=wire];
+	AND_g_124_ -> _046_;
+	NAND_g_128_	[logic=NAND,
+		type=gate];
+	_046_ -> NAND_g_128_;
+	_045_	[port=_045_,
+		type=wire];
+	_045_ -> AND_g_124_;
+	_044_	[port=_044_,
+		type=wire];
+	_044_ -> AND_g_124_;
+	_048_	[port=_048_,
+		type=wire];
+	AND_g_126_ -> _048_;
+	AND_g_127_	[logic=AND,
+		type=gate];
+	_048_ -> AND_g_127_;
+	_049_	[port=_049_,
+		type=wire];
+	AND_g_127_ -> _049_;
+	_049_ -> NAND_g_128_;
+	_047_	[port=_047_,
+		type=wire];
+	_047_ -> AND_g_127_;
+	_053_	[port=_053_,
+		type=wire];
+	AND_g_131_ -> _053_;
+	AND_g_135_	[logic=AND,
+		type=gate];
+	_053_ -> AND_g_135_;
+	_056_	[port=_056_,
+		type=wire];
+	AND_g_134_ -> _056_;
+	_056_ -> AND_g_135_;
+	_057_	[port=_057_,
+		type=wire];
+	AND_g_135_ -> _057_;
+	AND_g_136_	[logic=AND,
+		type=gate];
+	_057_ -> AND_g_136_;
+	_058_	[port=_058_,
+		type=wire];
+	AND_g_136_ -> _058_;
+	_058_ -> NAND_g_137_;
+	_050_	[port=_050_,
+		type=wire];
+	_050_ -> AND_g_136_;
+	_060_	[port=_060_,
+		type=wire];
+	AND_g_139_ -> _060_;
+	NAND_g_142_	[logic=NAND,
+		type=gate];
+	_060_ -> NAND_g_142_;
+	XOR_g_143_	[logic=XOR,
+		type=gate];
+	_060_ -> XOR_g_143_;
+	NOR_g_080_ -> _008_;
+	NOR_g_081_ -> _009_;
+	NOR_g_083_ -> _011_;
+	NOR_g_122_ -> _044_;
+	NOR_g_123_ -> _045_;
+	NOR_g_125_ -> _047_;
+	NAND_g_086_ -> _014_;
+	NAND_g_095_ -> _023_;
+	_025_	[port=_025_,
+		type=wire];
+	NAND_g_098_ -> _025_;
+	NAND_g_102_	[logic=NAND,
+		type=gate];
+	_025_ -> NAND_g_102_;
+	_027_	[port=_027_,
+		type=wire];
+	NAND_g_100_ -> _027_;
+	_027_ -> NAND_g_102_;
+	_026_	[port=_026_,
+		type=wire];
+	_026_ -> NAND_g_100_;
+	_026_ -> XOR_g_101_;
+	_028_	[port=_028_,
+		type=wire];
+	NAND_g_102_ -> _028_;
+	NAND_g_105_	[logic=NAND,
+		type=gate];
+	_028_ -> NAND_g_105_;
+	XOR_g_106_	[logic=XOR,
+		type=gate];
+	_028_ -> XOR_g_106_;
+	_029_	[port=_029_,
+		type=wire];
+	NAND_g_103_ -> _029_;
+	NAND_g_107_	[logic=NAND,
+		type=gate];
+	_029_ -> NAND_g_107_;
+	_031_	[port=_031_,
+		type=wire];
+	NAND_g_105_ -> _031_;
+	_031_ -> NAND_g_107_;
+	_030_	[port=_030_,
+		type=wire];
+	_030_ -> NAND_g_105_;
+	_030_ -> XOR_g_106_;
+	_032_	[port=_032_,
+		type=wire];
+	NAND_g_107_ -> _032_;
+	NAND_g_110_	[logic=NAND,
+		type=gate];
+	_032_ -> NAND_g_110_;
+	XOR_g_111_	[logic=XOR,
+		type=gate];
+	_032_ -> XOR_g_111_;
+	_033_	[port=_033_,
+		type=wire];
+	NAND_g_108_ -> _033_;
+	NAND_g_113_	[logic=NAND,
+		type=gate];
+	_033_ -> NAND_g_113_;
+	_035_	[port=_035_,
+		type=wire];
+	NAND_g_110_ -> _035_;
+	_035_ -> NAND_g_113_;
+	_034_	[port=_034_,
+		type=wire];
+	_034_ -> NAND_g_110_;
+	_034_ -> XOR_g_111_;
+	"s.c.c[4]"	[type=wire];
+	NAND_g_113_ -> "s.c.c[4]";
+	NAND_g_128_ -> _050_;
+	NAND_g_137_ -> _059_;
+	_061_	[port=_061_,
+		type=wire];
+	NAND_g_140_ -> _061_;
+	NAND_g_144_	[logic=NAND,
+		type=gate];
+	_061_ -> NAND_g_144_;
+	_063_	[port=_063_,
+		type=wire];
+	NAND_g_142_ -> _063_;
+	_063_ -> NAND_g_144_;
+	_062_	[port=_062_,
+		type=wire];
+	_062_ -> NAND_g_142_;
+	_062_ -> XOR_g_143_;
+	_064_	[port=_064_,
+		type=wire];
+	NAND_g_144_ -> _064_;
+	NAND_g_147_	[logic=NAND,
+		type=gate];
+	_064_ -> NAND_g_147_;
+	XOR_g_148_	[logic=XOR,
+		type=gate];
+	_064_ -> XOR_g_148_;
+	_065_	[port=_065_,
+		type=wire];
+	NAND_g_145_ -> _065_;
+	NAND_g_149_	[logic=NAND,
+		type=gate];
+	_065_ -> NAND_g_149_;
+	_067_	[port=_067_,
+		type=wire];
+	NAND_g_147_ -> _067_;
+	_067_ -> NAND_g_149_;
+	_066_	[port=_066_,
+		type=wire];
+	_066_ -> NAND_g_147_;
+	_066_ -> XOR_g_148_;
+	_068_	[port=_068_,
+		type=wire];
+	NAND_g_149_ -> _068_;
+	NAND_g_152_	[logic=NAND,
+		type=gate];
+	_068_ -> NAND_g_152_;
+	XOR_g_153_	[logic=XOR,
+		type=gate];
+	_068_ -> XOR_g_153_;
+	_069_	[port=_069_,
+		type=wire];
+	NAND_g_150_ -> _069_;
+	NAND_g_155_	[logic=NAND,
+		type=gate];
+	_069_ -> NAND_g_155_;
+	_071_	[port=_071_,
+		type=wire];
+	NAND_g_152_ -> _071_;
+	_071_ -> NAND_g_155_;
+	_070_	[port=_070_,
+		type=wire];
+	_070_ -> NAND_g_152_;
+	_070_ -> XOR_g_153_;
+	"s1.c.c[4]"	[type=wire];
+	NAND_g_155_ -> "s1.c.c[4]";
+	XOR_g_099_ -> _026_;
+	"s.c.c[1]"	[type=wire];
+	XOR_g_101_ -> "s.c.c[1]";
+	XOR_g_104_ -> _030_;
+	"s.c.c[2]"	[type=wire];
+	XOR_g_106_ -> "s.c.c[2]";
+	XOR_g_109_ -> _034_;
+	"s.c.c[3]"	[type=wire];
+	XOR_g_111_ -> "s.c.c[3]";
+	XOR_g_112_ -> "s.c.c[0]";
+	XOR_g_141_ -> _062_;
+	"s1.c.c[1]"	[type=wire];
+	XOR_g_143_ -> "s1.c.c[1]";
+	XOR_g_146_ -> _066_;
+	"s1.c.c[2]"	[type=wire];
+	XOR_g_148_ -> "s1.c.c[2]";
+	XOR_g_151_ -> _070_;
+	"s1.c.c[3]"	[type=wire];
+	XOR_g_153_ -> "s1.c.c[3]";
+	XOR_g_154_ -> "s1.c.c[0]";
+	"module#locked" -> "inputs[3]";
+	"module#locked" -> "key[0]";
+	"module#locked" -> "inputs[0]";
+	"module#locked" -> "key[7]";
+	"module#locked" -> "inputs[7]";
+	"module#locked" -> "key[1]";
+	"module#locked" -> "inputs[1]";
+	"module#locked" -> "key[3]";
+	"module#locked" -> "key[5]";
+	"module#locked" -> "inputs[5]";
+	"module#locked" -> "key[2]";
+	"module#locked" -> "inputs[2]";
+	"module#locked" -> "key[6]";
+	"module#locked" -> "inputs[6]";
+	"module#locked" -> "key[4]";
+	"module#locked" -> "inputs[4]";
 }

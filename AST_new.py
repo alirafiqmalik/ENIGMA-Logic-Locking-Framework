@@ -1,128 +1,43 @@
+import src.utils as utils
+import src.verification as ver
 from src.AST import AST
 from src.PreSAT import LogicLocking
+import networkx as nx
 
 
 
-# obj=AST(file_path="./input_files/tmporg.v",rw="w",flag="v",top="locked",filename="locked_new")
+obj=AST(file_path="./input_files/tmporg.v",rw="w",flag="v",top="locked",filename="locked_new")
 obj = AST(file_path="./output_files/locked_new.json",rw='r',top="locked",filename="locked") # r for read from file
 # obj.save_module_connections()
 
 
-# LL=LogicLocking(obj.modules['sarlock'])
+LL=LogicLocking(obj.top_module)
 
-# LL.RLL(6,8)
+LL.set_key(10,323)
+LL.SLL()
 
-# obj.modules['sarlock']
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# for i in obj.modules['sarlock'].circuitgraph.nodes:
-#   print(i,obj.modules['sarlock'].circuitgraph.nodes[i])
-
-
-obj.modules['sarlock'].save_graph()
-
-
+obj.top_module.save_graph()
 obj.writeLLFile()
 
 
 
+cir,testbench=ver.gen_miterCircuit(obj.gate_level_flattened,obj.LLverilog)
 
-# import random
+with open("./tmp/top.v","w") as f:
+  f.write(cir)
 
-# rndx=list(obj.module_connections.nodes())
-# rndi=random.randint(0,len(rndx)-1)
+with open("./tmp/testbench.v","w") as f:
+  f.write(testbench)
 
-
-
-
-# print(rndx[rndi])
-# # rnd=
-
-
-# # for i in obj.module_connections:
-# #   print(i)
+with open("/home/alira/FYP_FINAL/tmpll.v","w") as f:
+  f.write(cir)
 
 
 
-# # print(i,j['module_name'],module_connections[i][j['module_name']])  
+path="/home/alira/FYP_FINAL/tmpll.v"
+top="top"
 
-
-
-
-
-
-
-# module=obj.modules["locked"]
-# for i in obj.modules:
-#   tmpi=obj.modules[i]
-#   print(i)
-#   for j in tmpi.linkages:
-#     print(j["module_name"],j["init_name"])
-#   print("#####################")
-
-
-
-# for i in obj.modules:
-#   tmpi=obj.modules[i]
-#   print(i)
-#   for j in tmpi.linkages:
-#     tmpi.io["inputs"]["lockingkey"]=connector(4,3,0)
-#     print(obj.modules[i].io["inputs"])
-    
-#     # print(i,j['module_name'],j['init_name'])
-#     j['L'].append("key")
-#     j['R'].append("lockingkey[0]")
-
-
-
-
-# for i in obj.modules:
-#   tmpi=obj.modules[i]
-#   # print(i)
-#   # tmpi.bin_graph()
-#   for j in tmpi.linkages:
-#     # print(i,j['module_name'],j['init_name'])
-#     port=""
-#     for L,R in zip(j['L'],j['R']):
-#       # print(L,R)
-#       port+=f".{L}({R}), "
-#       # pass
-#     # for k in j['links']:
-#     #   port+=f".{k[0]}({k[1]}), "
-#     #   # print(f".{k[0]}({k[1]}), ",end="")
-#     print(port[:-2])
-
-
-
-# obj.writeLLFile()
-# obj.update_LLverilog()
-
-# obj.top_module.save_graph()
-
-# def t(self):
-#   LLverilog=""
-#   LLverilog+=self.top_module.gate_level_verilog+"\n"
-#   for i in self.modules:
-#     LLverilog+=self.modules[i].gate_level_verilog+"\n"
-#   return LLverilog
-
-
-# LLverilog=t(obj)
-# # print(LLverilog) 
+utils.verify_verilog(path,top)
 
 
 
@@ -131,7 +46,31 @@ obj.writeLLFile()
 
 
 
+# ~/FYP/linux/yosys/build/yosys -q -p'
+# read_verilog /home/alira/FYP_FINAL/tmpll.v
+# hierarchy -check -top locked
+# '
 
+
+
+
+# while(LL.keycount!=0):
+  # tmp=update()
+  # print(tmp)
+  # LL.LayerTraversal([tmp],mode="f")
+  # print(LL.keycount)
+  # tmp=update()
+  # LL.LayerTraversal([tmp],mode="r")
+#   print(LL.keycount)
+#   # if(LL.keycount==0):
+#   #   break
+#   # LL.LayerTraversal([tmp[tp]],mode="r")
+
+
+# G=obj.modules['sarlock'].circuitgraph
+# LayerTraversal(G,["lock_out"],mode='f')
+# print("\n$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$\n")
+# LayerTraversal(G,["lock_out"])
 
 
 
