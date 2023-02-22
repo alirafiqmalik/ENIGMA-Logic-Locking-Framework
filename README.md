@@ -1,8 +1,8 @@
 # Baisc Setup before running
 Change yosys path in src/path_var.py to your path for yosys
-***if yosys is in build dir, give path to yosys bin file e.g ***
+ ## if yosys is in build dir, give path to yosys bin file e.g 
 yosys_path="~/FYP/linux/yosys/build/yosys"
-*** if yosys is installed using apt, write yosys e.g***
+ ## if yosys is installed using apt, write yosys e.g
 yosys_path="yosys"
 
 
