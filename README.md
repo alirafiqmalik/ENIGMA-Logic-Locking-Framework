@@ -30,9 +30,12 @@ This reads in the json file generated for original circuit
 To save any changes, use obj.writeLLFile() which writes to a new json file filename="locked"
 
 
-# Example Run of code after Initialing function
+# Example Run of code after Initialing function in python
 
 ```
+from src.AST import AST
+from src.PreSAT import PreSAT
+
 obj = AST(file_path="./output_files/locked_new.json",rw='r',filename="locked")
 
 
@@ -48,6 +51,47 @@ obj.writeLLFile() # saves locked circuit to a new json file filename="locked"
 
 ```
 
+
+# Example Run of code For RLL Locking
+```
+from src.AST import AST
+from src.PreSAT import PreSAT
+
+obj = AST(file_path="./output_files/locked_new.json",rw='r',filename="locked")
+LL=PreSAT(obj.top_module)
+LL.set_key(256,key=123121341221213213) # setting key for locking operation
+# key integer val= key
+LL.RLL()
+obj.writeLLFile() # saves locked circuit to a new json file filename="locked"
+
+```
+
+
+# Example Run of code For SLL Locking
+```
+from src.AST import AST
+from src.PreSAT import PreSAT
+
+obj = AST(file_path="./output_files/locked_new.json",rw='r',filename="locked")
+LL=PreSAT(obj.top_module)
+LL.set_key(256,key=123121341221213213) # setting key for locking operation
+# key integer val= key
+LL.SLL()
+obj.writeLLFile() # saves locked circuit to a new json file filename="locked"
+
+```
+
+
+# Example Run of code For TRLL Locking
+```
+from src.AST import AST
+from src.PreSAT import PreSAT
+
+obj = AST(file_path="./output_files/locked_new.json",rw='r',filename="locked")
+LL=PreSAT(obj.top_module)
+# key integer val= key
+LL.TRLL_plus()
+obj.writeLLFile() # saves locked circuit to a new json file filename="locked"
 
 
 

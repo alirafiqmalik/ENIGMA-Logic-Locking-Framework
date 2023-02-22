@@ -305,6 +305,21 @@ def extract_gates_b(bench):
 
 ####################################################################################################################################
 ####################################################################################################################################
+
+def invert_gate(operator):
+    operator_map = {
+        'AND': 'NAND',
+        'OR': 'NOR',
+        'XOR': 'XNOR',
+        'NAND': 'AND',
+        'NOR': 'OR',
+        'XNOR': 'XOR'
+    }
+    return operator_map.get(operator, operator)
+
+
+####################################################################################################################################
+####################################################################################################################################
 ##AST help functions
 
 def extract_module_name(verilog):
@@ -427,11 +442,12 @@ def gates_module_extraction(verilog):
     if(type in gates):
       tmpx=re.findall(r'\.\S+\(([^\(\),]+)\)',extra)
       tmpx.reverse()
-      if re.sub("_g","",type) not in gate_tech:
-        gate_tech[re.sub("_g","",type)]={}
-        gate_tech[re.sub("_g","",type)][type+init]={"inputs": tmpx[1:] ,"outputs": tmpx[0]}
+      type_port=re.sub("_g","",type)
+      if type_port not in gate_tech:
+        gate_tech[type_port]={}
+        gate_tech[type_port][type_port+init]={"inputs": tmpx[1:] ,"outputs": tmpx[0]}
       else:
-        gate_tech[re.sub("_g","",type)][type+init]={"inputs": tmpx[1:] ,"outputs": tmpx[0]}
+        gate_tech[type_port][type_port+init]={"inputs": tmpx[1:] ,"outputs": tmpx[0]}
     else:
         L,R=[],[]
         # L,R

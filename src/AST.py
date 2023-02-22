@@ -92,6 +92,7 @@ class module:
     def save_graph(self):
         save_graph(self.circuitgraph)
     
+    
     def node_to_txt(self,mode="input"):
         txt=""
         iodict=self.io[mode+"s"]

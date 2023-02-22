@@ -6,28 +6,119 @@ import networkx as nx
 
 
 
-# obj=AST(file_path="./input_files/Benchmarks/ISCAS85/c3540/c3540.v",rw="w",flag="v",top="c3540",filename="c3540org")
-obj = AST(file_path="./output_files/c3540org.json",rw='r',filename="c3540locked") # r for read from file
+# obj=AST(file_path="./input_files/Benchmarks/ISCAS85/c17/c17.v",rw="w",flag="v",top="c17",filename="c17org")
+obj = AST(file_path="./output_files/c17org.json",rw='r',filename="c17locked") # r for read from file
 # obj.save_module_connections()
 
 
 LL=PreSAT(obj.top_module)
 
 
-LL.set_key(256,key=8792394377)
+# LL.set_key(256,key=8792394377)
 # LL.RLL()
-LL.SLL()
+# LL.SLL()
+import random
+
+
+
+
+
+# gio=obj.top_module.gates
+
+
+
+def get_gates(gates):
+  # AllGates ← all_gates(C)
+  noninvlist=list(gates.keys()).copy()
+  # InvList ← get_inverters(AllGates)
+  # N onInvList ← get_noninverters(AllGates)
+  if("NOT" in gates.keys()):
+    noninvlist.remove("NOT")
+    invlist=gates['NOT']
+  else:
+    gates["NOT"]={}
+    invlist=gates["NOT"]
+
+  return invlist,noninvlist
+
+
+def TRLL_plus():
+  gatecount=0
+  for i in obj.top_module.gates:
+    gatecount+=len(obj.top_module.gates[i])
+  
+  # split ← RANDOM % K
+  split=random.randint(0,gatecount-1)
+  
+  invlist,noninvlist,=get_gates(obj.top_module.gates)
+  # print(noninvlist)
+
+  # num inv ← num(InvList)
+  invgatecount=len(invlist)
+
+  # if num inv < split then
+  #   ProduceInverters(C,N onInvList,split-num_inv)
+  
+  if(invgatecount<split):
+    # print(invgatecount,split)
+    LL.InsertInverters(noninvlist,invlist,split-invgatecount)
+  
+  
+  invlist,noninvlist,=get_gates(obj.top_module.gates)
+  # print(noninvlist)
+  # print(obj.top_module.gates.keys())
+
+
+TRLL_plus()
+
+tmp=list(LL.module.gates["NOT"].keys())
+# print(tmp)
+# print(LL.module.gates["NOT"][tmp[0]])
+LL.ReplaceInverter(inverter="NOT_inserted_0_")
+  
+# procedure Locking(C,K,split,InvList,NonInvList):
+
+#   for k in {0,split - 1} do
+#     gate ← choose_rand_gate(InvList)
+#     InvList ← InvList - {gate}
+#     if (RANDOM % 2) then
+#     replace_gate(gate,{XNOR},C)
+#     Key[k] ← 0
+#     else
+#     replace_gate(gate,{XOR},C)
+#     Key[k] ← 1
+  
+#   for k in {split,K - 1} do
+#     gate ← choose_rand_gate(N onInvList)
+#     N onInvList ← N onInvList - {gate}
+#     if (RANDOM % 2) then
+#     insert_gate(gate,{XNOR},C)
+#     Key[k] ← 1
+#     else
+#     insert_gate(gate,{XOR},C)
+#     Key[k] ← 0
+#   return Key, C
+
+
+
+
+
+
+
+# def replace_gate(new_gatetype,gate):
+#   if(new_gatetype not in gio):
+#     gio[new_gatetype]={}  
+#   gio[new_gatetype][gate]=gio[gatetype].pop(gate)
+
+
+
 
 print("Done")
 
-# obj.top_module.save_graph()
+obj.top_module.save_graph()
 obj.writeLLFile()
 
-
-
-
-
-# obj.gen_verification_files()
+obj.gen_verification_files()
 
 
 
