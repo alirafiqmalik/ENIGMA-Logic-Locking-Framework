@@ -345,7 +345,7 @@ def synthesize_verilog(verilog, top,flag = "flatten"):
         cmd = """
             {yosys_path} -q -p'
             read_verilog ./tmp/tmp_syn1.v
-            hierarchy -check -top {}
+            hierarchy -check -top {module_name}
             proc; opt; fsm; opt; memory; opt;
             techmap; opt
             dfflibmap -liberty ./vlib/mycells.lib
@@ -360,7 +360,7 @@ def synthesize_verilog(verilog, top,flag = "flatten"):
         cmd = """
             {yosys_path} -q -p'
             read_verilog ./tmp/tmp_syn1.v
-            hierarchy -check -top {}
+            hierarchy -check -top {module_name}
             proc; opt; fsm; opt; memory; opt;
             techmap; opt
             dfflibmap -liberty ./vlib/mycells.lib
@@ -374,7 +374,7 @@ def synthesize_verilog(verilog, top,flag = "flatten"):
     # Run the command and capture the output
     module_name = top
     
-    result=subprocess.run(cmd.format(yosys_path=yosys_path,module_name), shell=True)
+    result=subprocess.run(cmd.format(yosys_path=yosys_path,module_name=top), shell=True)
 
     if(result.returncode==1):
         raise Exception("Error code 1\nVerilog Code Syntax Error or yosys Path not found")
