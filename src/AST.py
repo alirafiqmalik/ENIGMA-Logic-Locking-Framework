@@ -1,5 +1,6 @@
 from src.utils import *
 from src.conv import *
+from src.verification import *
 import networkx as nx
 import pickle
 import base64
@@ -351,8 +352,6 @@ class AST:
     def update_LLverilog(self):
         for i in self.modules:
             self.modules[i].gen_LL_verilog()
-
-
         self.LLverilog=""
         self.LLverilog+=self.top_module.module_LLverilog+"\n"
         for i in self.modules:
@@ -360,6 +359,22 @@ class AST:
                 self.LLverilog+=self.modules[i].module_LLverilog+"\n"
         
         # self.LLverilog+=self.gate_lib
+
+    def gen_verification_files(self):
+        self.update_LLverilog()
+        cir,testbench=gen_miterCircuit(self.gate_level_flattened,self.LLverilog)
+
+        with open("./tmp/top.v","w") as f:
+            f.write(cir)
+
+        with open("./tmp/testbench.v","w") as f:
+            f.write(testbench)
+
+
+        path="./tmp/top.v"
+        verify_verilog(path,'top')
+        print("Verification Done Without Error")
+
 
 
 

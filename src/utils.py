@@ -164,6 +164,10 @@ def format_verilog(verilog,remove_wire=False,remove_assign=False):
 
     assign_nodes=re.findall(r"assign (\\?.*) = (\\?.*) ?;\n",verilog)
 
+    
+
+    verilog=re.sub(r"(\w)\.",r"\1",verilog)
+
     verilog=re.sub(r"assign (\\?.*) = (\\?.*) ?;\n","",verilog) #BUF_g node\1_ ( .A(\2), .Y(\1) );\n
 
     verilog_withoutwire=re.sub(r"wire .*;\n","",verilog)
@@ -221,9 +225,10 @@ def connector(bits,startbit,endbit) -> None:
 def extract_io_v(verilog,mode="input"):
   nodes={}
   port=""
-  tmp=re.findall(mode.lower()+r"[\s\[](.*);",verilog)
+  tmp=re.findall("\n"+mode.lower()+r"[\s\[](.*);",verilog)
   for i in tmp:
     if("[" in i):
+        # print(i)
         ei,si,tmpi=re.findall(r"\[(\d+):(\d+)\] ?(.*)",i)[0]
         ei,si=int(ei),int(si)
         if("," in tmpi):
@@ -321,11 +326,12 @@ def verify_verilog(path,top):
   """
   result = subprocess.run(cmd.format(path=path,top=top), shell=True)
   if(result.returncode==1):
-    print("Error")
+    raise Exception("Error code 1\nVerilog Code Syntax Error")
   elif(result.returncode==0):
-    print("Wokrng")
+    pass
+    # print("Verilog Code Working Without Error")
   else:
-    print(f"Unknown Error Code {result.returncode}")
+    raise Exception(f"Unknown Error Code {result.returncode}")
 
 
 
@@ -366,6 +372,7 @@ def synthesize_verilog(verilog, top,flag = "flatten"):
         Exception("Enter either 'flatten' or 'don't flatten' ")
     # Run the command and capture the output
     module_name = top
+    
     subprocess.run(cmd.format(module_name), shell=True)
     synthesized_verilog = open(f"./tmp/tmp_syn2{flag}.v", "r").read()
     synthesized_verilog = format_verilog(synthesized_verilog,remove_wire=False,remove_assign=True)

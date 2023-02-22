@@ -1,9 +1,9 @@
 strict digraph "" {
 	NOT_g_072_	[logic=NOT,
 		type=gate];
+	NOT_g_072_ -> keywire182;
 	_000_	[port=_000_,
 		type=wire];
-	NOT_g_072_ -> _000_;
 	AND_g_084_	[logic=AND,
 		type=gate];
 	_000_ -> AND_g_084_;
@@ -31,17 +31,17 @@ strict digraph "" {
 	XOR_g_151_	[logic=XOR,
 		type=gate];
 	"inputs[3]" -> XOR_g_151_;
+	NOT_g_114_ -> keywire99;
 	_036_	[port=_036_,
 		type=wire];
-	NOT_g_114_ -> _036_;
 	AND_g_126_	[logic=AND,
 		type=gate];
 	_036_ -> AND_g_126_;
 	XNOR_g_073_	[logic=XNOR,
 		type=gate];
+	XNOR_g_073_ -> keywire192;
 	_001_	[port=_001_,
 		type=wire];
-	XNOR_g_073_ -> _001_;
 	AND_g_075_	[logic=AND,
 		type=gate];
 	_001_ -> AND_g_075_;
@@ -71,9 +71,9 @@ strict digraph "" {
 	"inputs[0]" -> XOR_g_154_;
 	XNOR_g_074_	[logic=XNOR,
 		type=gate];
+	XNOR_g_074_ -> keywire191;
 	_002_	[port=_002_,
 		type=wire];
-	XNOR_g_074_ -> _002_;
 	_002_ -> AND_g_075_;
 	"key[7]"	[port=key,
 		type=input];
@@ -97,9 +97,9 @@ strict digraph "" {
 	"inputs[7]" -> XOR_g_151_;
 	XNOR_g_076_	[logic=XNOR,
 		type=gate];
+	XNOR_g_076_ -> keywire190;
 	_004_	[port=_004_,
 		type=wire];
-	XNOR_g_076_ -> _004_;
 	AND_g_078_	[logic=AND,
 		type=gate];
 	_004_ -> AND_g_078_;
@@ -131,9 +131,9 @@ strict digraph "" {
 	XOR_g_141_	[logic=XOR,
 		type=gate];
 	"inputs[1]" -> XOR_g_141_;
+	XNOR_g_077_ -> keywire189;
 	_005_	[port=_005_,
 		type=wire];
-	XNOR_g_077_ -> _005_;
 	_005_ -> AND_g_078_;
 	"key[3]"	[port=key,
 		type=input];
@@ -141,9 +141,9 @@ strict digraph "" {
 	"key[3]" -> XNOR_g_119_;
 	XNOR_g_087_	[logic=XNOR,
 		type=gate];
+	XNOR_g_087_ -> keywire174;
 	_015_	[port=_015_,
 		type=wire];
-	XNOR_g_087_ -> _015_;
 	AND_g_089_	[logic=AND,
 		type=gate];
 	_015_ -> AND_g_089_;
@@ -169,9 +169,9 @@ strict digraph "" {
 	"inputs[5]" -> XOR_g_141_;
 	XNOR_g_088_	[logic=XNOR,
 		type=gate];
+	XNOR_g_088_ -> keywire173;
 	_016_	[port=_016_,
 		type=wire];
-	XNOR_g_088_ -> _016_;
 	_016_ -> AND_g_089_;
 	"key[2]"	[port=key,
 		type=input];
@@ -199,9 +199,9 @@ strict digraph "" {
 	"inputs[2]" -> XOR_g_146_;
 	XNOR_g_090_	[logic=XNOR,
 		type=gate];
+	XNOR_g_090_ -> keywire172;
 	_018_	[port=_018_,
 		type=wire];
-	XNOR_g_090_ -> _018_;
 	AND_g_092_	[logic=AND,
 		type=gate];
 	_018_ -> AND_g_092_;
@@ -223,9 +223,9 @@ strict digraph "" {
 	"inputs[6]" -> XOR_g_146_;
 	XNOR_g_091_	[logic=XNOR,
 		type=gate];
+	XNOR_g_091_ -> keywire171;
 	_019_	[port=_019_,
 		type=wire];
-	XNOR_g_091_ -> _019_;
 	_019_ -> AND_g_092_;
 	"key[4]"	[port=key,
 		type=input];
@@ -245,88 +245,88 @@ strict digraph "" {
 	"inputs[4]" -> XOR_g_154_;
 	XNOR_g_096_	[logic=XNOR,
 		type=gate];
+	XNOR_g_096_ -> keywire161;
 	"out[0]"	[type=output];
-	XNOR_g_096_ -> "out[0]";
 	"module#locked"	[type=module];
 	"out[0]" -> "module#locked";
 	_023_	[port=_023_,
 		type=wire];
 	_023_ -> XNOR_g_096_;
-	"s.c.c[0]"	[port="s.c.c",
+	"scc[0]"	[port=scc,
 		type=wire];
-	"s.c.c[0]" -> XNOR_g_096_;
+	"scc[0]" -> XNOR_g_096_;
+	XNOR_g_115_ -> keywire200;
 	_037_	[port=_037_,
 		type=wire];
-	XNOR_g_115_ -> _037_;
 	AND_g_117_	[logic=AND,
 		type=gate];
 	_037_ -> AND_g_117_;
+	XNOR_g_116_ -> keywire199;
 	_038_	[port=_038_,
 		type=wire];
-	XNOR_g_116_ -> _038_;
 	_038_ -> AND_g_117_;
+	XNOR_g_118_ -> keywire198;
 	_040_	[port=_040_,
 		type=wire];
-	XNOR_g_118_ -> _040_;
 	AND_g_120_	[logic=AND,
 		type=gate];
 	_040_ -> AND_g_120_;
+	XNOR_g_119_ -> keywire197;
 	_041_	[port=_041_,
 		type=wire];
-	XNOR_g_119_ -> _041_;
 	_041_ -> AND_g_120_;
+	XNOR_g_129_ -> keywire111;
 	_051_	[port=_051_,
 		type=wire];
-	XNOR_g_129_ -> _051_;
 	AND_g_131_	[logic=AND,
 		type=gate];
 	_051_ -> AND_g_131_;
+	XNOR_g_130_ -> keywire93;
 	_052_	[port=_052_,
 		type=wire];
-	XNOR_g_130_ -> _052_;
 	_052_ -> AND_g_131_;
+	XNOR_g_132_ -> keywire115;
 	_054_	[port=_054_,
 		type=wire];
-	XNOR_g_132_ -> _054_;
 	AND_g_134_	[logic=AND,
 		type=gate];
 	_054_ -> AND_g_134_;
+	XNOR_g_133_ -> keywire201;
 	_055_	[port=_055_,
 		type=wire];
-	XNOR_g_133_ -> _055_;
 	_055_ -> AND_g_134_;
 	XNOR_g_138_	[logic=XNOR,
 		type=gate];
+	XNOR_g_138_ -> keywire162;
 	"out[1]"	[type=output];
-	XNOR_g_138_ -> "out[1]";
 	"out[1]" -> "module#locked";
 	_059_	[port=_059_,
 		type=wire];
 	_059_ -> XNOR_g_138_;
-	"s1.c.c[0]"	[port="s1.c.c",
+	"s1cc[0]"	[port=s1cc,
 		type=wire];
-	"s1.c.c[0]" -> XNOR_g_138_;
+	"s1cc[0]" -> XNOR_g_138_;
+	AND_g_075_ -> keywire184;
 	_003_	[port=_003_,
 		type=wire];
-	AND_g_075_ -> _003_;
 	AND_g_079_	[logic=AND,
 		type=gate];
 	_003_ -> AND_g_079_;
+	AND_g_078_ -> keywire183;
 	_006_	[port=_006_,
 		type=wire];
-	AND_g_078_ -> _006_;
 	_006_ -> AND_g_079_;
+	AND_g_079_ -> keywire179;
 	_007_	[port=_007_,
 		type=wire];
-	AND_g_079_ -> _007_;
 	NAND_g_095_	[logic=NAND,
 		type=gate];
 	_007_ -> NAND_g_095_;
 	AND_g_082_	[logic=AND,
 		type=gate];
+	AND_g_082_ -> keywire166;
 	_010_	[port=_010_,
 		type=wire];
-	AND_g_082_ -> _010_;
 	NAND_g_086_	[logic=NAND,
 		type=gate];
 	_010_ -> NAND_g_086_;
@@ -336,72 +336,72 @@ strict digraph "" {
 	_008_	[port=_008_,
 		type=wire];
 	_008_ -> AND_g_082_;
+	AND_g_084_ -> keywire175;
 	_012_	[port=_012_,
 		type=wire];
-	AND_g_084_ -> _012_;
 	AND_g_085_	[logic=AND,
 		type=gate];
 	_012_ -> AND_g_085_;
+	AND_g_085_ -> keywire165;
 	_013_	[port=_013_,
 		type=wire];
-	AND_g_085_ -> _013_;
 	_013_ -> NAND_g_086_;
 	_011_	[port=_011_,
 		type=wire];
 	_011_ -> AND_g_085_;
+	AND_g_089_ -> keywire164;
 	_017_	[port=_017_,
 		type=wire];
-	AND_g_089_ -> _017_;
 	AND_g_093_	[logic=AND,
 		type=gate];
 	_017_ -> AND_g_093_;
+	AND_g_092_ -> keywire163;
 	_020_	[port=_020_,
 		type=wire];
-	AND_g_092_ -> _020_;
 	_020_ -> AND_g_093_;
+	AND_g_093_ -> keywire159;
 	_021_	[port=_021_,
 		type=wire];
-	AND_g_093_ -> _021_;
 	AND_g_094_	[logic=AND,
 		type=gate];
 	_021_ -> AND_g_094_;
+	AND_g_094_ -> keywire158;
 	_022_	[port=_022_,
 		type=wire];
-	AND_g_094_ -> _022_;
 	_022_ -> NAND_g_095_;
 	_014_	[port=_014_,
 		type=wire];
 	_014_ -> AND_g_094_;
+	AND_g_097_ -> keywire79;
 	_024_	[port=_024_,
 		type=wire];
-	AND_g_097_ -> _024_;
 	NAND_g_100_	[logic=NAND,
 		type=gate];
 	_024_ -> NAND_g_100_;
 	XOR_g_101_	[logic=XOR,
 		type=gate];
 	_024_ -> XOR_g_101_;
+	AND_g_117_ -> keywire188;
 	_039_	[port=_039_,
 		type=wire];
-	AND_g_117_ -> _039_;
 	AND_g_121_	[logic=AND,
 		type=gate];
 	_039_ -> AND_g_121_;
+	AND_g_120_ -> keywire187;
 	_042_	[port=_042_,
 		type=wire];
-	AND_g_120_ -> _042_;
 	_042_ -> AND_g_121_;
+	AND_g_121_ -> keywire181;
 	_043_	[port=_043_,
 		type=wire];
-	AND_g_121_ -> _043_;
 	NAND_g_137_	[logic=NAND,
 		type=gate];
 	_043_ -> NAND_g_137_;
 	AND_g_124_	[logic=AND,
 		type=gate];
+	AND_g_124_ -> keywire196;
 	_046_	[port=_046_,
 		type=wire];
-	AND_g_124_ -> _046_;
 	NAND_g_128_	[logic=NAND,
 		type=gate];
 	_046_ -> NAND_g_128_;
@@ -411,205 +411,205 @@ strict digraph "" {
 	_044_	[port=_044_,
 		type=wire];
 	_044_ -> AND_g_124_;
+	AND_g_126_ -> keywire80;
 	_048_	[port=_048_,
 		type=wire];
-	AND_g_126_ -> _048_;
 	AND_g_127_	[logic=AND,
 		type=gate];
 	_048_ -> AND_g_127_;
+	AND_g_127_ -> keywire195;
 	_049_	[port=_049_,
 		type=wire];
-	AND_g_127_ -> _049_;
 	_049_ -> NAND_g_128_;
 	_047_	[port=_047_,
 		type=wire];
 	_047_ -> AND_g_127_;
+	AND_g_131_ -> keywire194;
 	_053_	[port=_053_,
 		type=wire];
-	AND_g_131_ -> _053_;
 	AND_g_135_	[logic=AND,
 		type=gate];
 	_053_ -> AND_g_135_;
+	AND_g_134_ -> keywire193;
 	_056_	[port=_056_,
 		type=wire];
-	AND_g_134_ -> _056_;
 	_056_ -> AND_g_135_;
+	AND_g_135_ -> keywire185;
 	_057_	[port=_057_,
 		type=wire];
-	AND_g_135_ -> _057_;
 	AND_g_136_	[logic=AND,
 		type=gate];
 	_057_ -> AND_g_136_;
+	AND_g_136_ -> keywire180;
 	_058_	[port=_058_,
 		type=wire];
-	AND_g_136_ -> _058_;
 	_058_ -> NAND_g_137_;
 	_050_	[port=_050_,
 		type=wire];
 	_050_ -> AND_g_136_;
+	AND_g_139_ -> keywire81;
 	_060_	[port=_060_,
 		type=wire];
-	AND_g_139_ -> _060_;
 	NAND_g_142_	[logic=NAND,
 		type=gate];
 	_060_ -> NAND_g_142_;
 	XOR_g_143_	[logic=XOR,
 		type=gate];
 	_060_ -> XOR_g_143_;
-	NOR_g_080_ -> _008_;
-	NOR_g_081_ -> _009_;
-	NOR_g_083_ -> _011_;
-	NOR_g_122_ -> _044_;
-	NOR_g_123_ -> _045_;
-	NOR_g_125_ -> _047_;
-	NAND_g_086_ -> _014_;
-	NAND_g_095_ -> _023_;
+	NOR_g_080_ -> keywire178;
+	NOR_g_081_ -> keywire177;
+	NOR_g_083_ -> keywire176;
+	NOR_g_122_ -> keywire113;
+	NOR_g_123_ -> keywire109;
+	NOR_g_125_ -> keywire87;
+	NAND_g_086_ -> keywire160;
+	NAND_g_095_ -> keywire167;
+	NAND_g_098_ -> keywire88;
 	_025_	[port=_025_,
 		type=wire];
-	NAND_g_098_ -> _025_;
 	NAND_g_102_	[logic=NAND,
 		type=gate];
 	_025_ -> NAND_g_102_;
+	NAND_g_100_ -> keywire121;
 	_027_	[port=_027_,
 		type=wire];
-	NAND_g_100_ -> _027_;
 	_027_ -> NAND_g_102_;
 	_026_	[port=_026_,
 		type=wire];
 	_026_ -> NAND_g_100_;
 	_026_ -> XOR_g_101_;
+	NAND_g_102_ -> keywire129;
 	_028_	[port=_028_,
 		type=wire];
-	NAND_g_102_ -> _028_;
 	NAND_g_105_	[logic=NAND,
 		type=gate];
 	_028_ -> NAND_g_105_;
 	XOR_g_106_	[logic=XOR,
 		type=gate];
 	_028_ -> XOR_g_106_;
+	NAND_g_103_ -> keywire94;
 	_029_	[port=_029_,
 		type=wire];
-	NAND_g_103_ -> _029_;
 	NAND_g_107_	[logic=NAND,
 		type=gate];
 	_029_ -> NAND_g_107_;
+	NAND_g_105_ -> keywire135;
 	_031_	[port=_031_,
 		type=wire];
-	NAND_g_105_ -> _031_;
 	_031_ -> NAND_g_107_;
 	_030_	[port=_030_,
 		type=wire];
 	_030_ -> NAND_g_105_;
 	_030_ -> XOR_g_106_;
+	NAND_g_107_ -> keywire133;
 	_032_	[port=_032_,
 		type=wire];
-	NAND_g_107_ -> _032_;
 	NAND_g_110_	[logic=NAND,
 		type=gate];
 	_032_ -> NAND_g_110_;
 	XOR_g_111_	[logic=XOR,
 		type=gate];
 	_032_ -> XOR_g_111_;
+	NAND_g_108_ -> keywire102;
 	_033_	[port=_033_,
 		type=wire];
-	NAND_g_108_ -> _033_;
 	NAND_g_113_	[logic=NAND,
 		type=gate];
 	_033_ -> NAND_g_113_;
+	NAND_g_110_ -> keywire141;
 	_035_	[port=_035_,
 		type=wire];
-	NAND_g_110_ -> _035_;
 	_035_ -> NAND_g_113_;
 	_034_	[port=_034_,
 		type=wire];
 	_034_ -> NAND_g_110_;
 	_034_ -> XOR_g_111_;
-	"s.c.c[4]"	[type=wire];
-	NAND_g_113_ -> "s.c.c[4]";
-	NAND_g_128_ -> _050_;
-	NAND_g_137_ -> _059_;
+	NAND_g_113_ -> keywire139;
+	"scc[4]"	[type=wire];
+	NAND_g_128_ -> keywire186;
+	NAND_g_137_ -> keywire169;
+	NAND_g_140_ -> keywire89;
 	_061_	[port=_061_,
 		type=wire];
-	NAND_g_140_ -> _061_;
 	NAND_g_144_	[logic=NAND,
 		type=gate];
 	_061_ -> NAND_g_144_;
+	NAND_g_142_ -> keywire124;
 	_063_	[port=_063_,
 		type=wire];
-	NAND_g_142_ -> _063_;
 	_063_ -> NAND_g_144_;
 	_062_	[port=_062_,
 		type=wire];
 	_062_ -> NAND_g_142_;
 	_062_ -> XOR_g_143_;
+	NAND_g_144_ -> keywire130;
 	_064_	[port=_064_,
 		type=wire];
-	NAND_g_144_ -> _064_;
 	NAND_g_147_	[logic=NAND,
 		type=gate];
 	_064_ -> NAND_g_147_;
 	XOR_g_148_	[logic=XOR,
 		type=gate];
 	_064_ -> XOR_g_148_;
+	NAND_g_145_ -> keywire95;
 	_065_	[port=_065_,
 		type=wire];
-	NAND_g_145_ -> _065_;
 	NAND_g_149_	[logic=NAND,
 		type=gate];
 	_065_ -> NAND_g_149_;
+	NAND_g_147_ -> keywire137;
 	_067_	[port=_067_,
 		type=wire];
-	NAND_g_147_ -> _067_;
 	_067_ -> NAND_g_149_;
 	_066_	[port=_066_,
 		type=wire];
 	_066_ -> NAND_g_147_;
 	_066_ -> XOR_g_148_;
+	NAND_g_149_ -> keywire134;
 	_068_	[port=_068_,
 		type=wire];
-	NAND_g_149_ -> _068_;
 	NAND_g_152_	[logic=NAND,
 		type=gate];
 	_068_ -> NAND_g_152_;
 	XOR_g_153_	[logic=XOR,
 		type=gate];
 	_068_ -> XOR_g_153_;
+	NAND_g_150_ -> keywire103;
 	_069_	[port=_069_,
 		type=wire];
-	NAND_g_150_ -> _069_;
 	NAND_g_155_	[logic=NAND,
 		type=gate];
 	_069_ -> NAND_g_155_;
+	NAND_g_152_ -> keywire143;
 	_071_	[port=_071_,
 		type=wire];
-	NAND_g_152_ -> _071_;
 	_071_ -> NAND_g_155_;
 	_070_	[port=_070_,
 		type=wire];
 	_070_ -> NAND_g_152_;
 	_070_ -> XOR_g_153_;
-	"s1.c.c[4]"	[type=wire];
-	NAND_g_155_ -> "s1.c.c[4]";
-	XOR_g_099_ -> _026_;
-	"s.c.c[1]"	[type=wire];
-	XOR_g_101_ -> "s.c.c[1]";
-	XOR_g_104_ -> _030_;
-	"s.c.c[2]"	[type=wire];
-	XOR_g_106_ -> "s.c.c[2]";
-	XOR_g_109_ -> _034_;
-	"s.c.c[3]"	[type=wire];
-	XOR_g_111_ -> "s.c.c[3]";
-	XOR_g_112_ -> "s.c.c[0]";
-	XOR_g_141_ -> _062_;
-	"s1.c.c[1]"	[type=wire];
-	XOR_g_143_ -> "s1.c.c[1]";
-	XOR_g_146_ -> _066_;
-	"s1.c.c[2]"	[type=wire];
-	XOR_g_148_ -> "s1.c.c[2]";
-	XOR_g_151_ -> _070_;
-	"s1.c.c[3]"	[type=wire];
-	XOR_g_153_ -> "s1.c.c[3]";
-	XOR_g_154_ -> "s1.c.c[0]";
+	NAND_g_155_ -> keywire140;
+	"s1cc[4]"	[type=wire];
+	XOR_g_099_ -> keywire90;
+	XOR_g_101_ -> keywire122;
+	"scc[1]"	[type=wire];
+	XOR_g_104_ -> keywire96;
+	XOR_g_106_ -> keywire136;
+	"scc[2]"	[type=wire];
+	XOR_g_109_ -> keywire104;
+	XOR_g_111_ -> keywire142;
+	"scc[3]"	[type=wire];
+	XOR_g_112_ -> keywire168;
+	XOR_g_141_ -> keywire91;
+	XOR_g_143_ -> keywire125;
+	"s1cc[1]"	[type=wire];
+	XOR_g_146_ -> keywire97;
+	XOR_g_148_ -> keywire138;
+	"s1cc[2]"	[type=wire];
+	XOR_g_151_ -> keywire105;
+	XOR_g_153_ -> keywire144;
+	"s1cc[3]"	[type=wire];
+	XOR_g_154_ -> keywire170;
 	"module#locked" -> "inputs[3]";
 	"module#locked" -> "key[0]";
 	"module#locked" -> "inputs[0]";
@@ -626,4 +626,516 @@ strict digraph "" {
 	"module#locked" -> "inputs[6]";
 	"module#locked" -> "key[4]";
 	"module#locked" -> "inputs[4]";
+	"module#locked" -> lockingkeyinput0;
+	"module#locked" -> lockingkeyinput1;
+	"module#locked" -> lockingkeyinput2;
+	"module#locked" -> lockingkeyinput3;
+	"module#locked" -> lockingkeyinput4;
+	"module#locked" -> lockingkeyinput5;
+	"module#locked" -> lockingkeyinput6;
+	"module#locked" -> lockingkeyinput7;
+	"module#locked" -> lockingkeyinput8;
+	"module#locked" -> lockingkeyinput9;
+	"module#locked" -> lockingkeyinput10;
+	"module#locked" -> lockingkeyinput11;
+	"module#locked" -> lockingkeyinput12;
+	"module#locked" -> lockingkeyinput13;
+	"module#locked" -> lockingkeyinput14;
+	"module#locked" -> lockingkeyinput15;
+	"module#locked" -> lockingkeyinput16;
+	"module#locked" -> lockingkeyinput17;
+	"module#locked" -> lockingkeyinput18;
+	"module#locked" -> lockingkeyinput19;
+	"module#locked" -> lockingkeyinput20;
+	"module#locked" -> lockingkeyinput21;
+	"module#locked" -> lockingkeyinput22;
+	"module#locked" -> lockingkeyinput23;
+	"module#locked" -> lockingkeyinput24;
+	"module#locked" -> lockingkeyinput25;
+	"module#locked" -> lockingkeyinput26;
+	"module#locked" -> lockingkeyinput27;
+	"module#locked" -> lockingkeyinput28;
+	"module#locked" -> lockingkeyinput29;
+	"module#locked" -> lockingkeyinput30;
+	"module#locked" -> lockingkeyinput31;
+	"module#locked" -> lockingkeyinput32;
+	"module#locked" -> lockingkeyinput33;
+	"module#locked" -> lockingkeyinput34;
+	"module#locked" -> lockingkeyinput35;
+	"module#locked" -> lockingkeyinput36;
+	"module#locked" -> lockingkeyinput37;
+	"module#locked" -> lockingkeyinput38;
+	"module#locked" -> lockingkeyinput39;
+	"module#locked" -> lockingkeyinput40;
+	"module#locked" -> lockingkeyinput41;
+	"module#locked" -> lockingkeyinput42;
+	"module#locked" -> lockingkeyinput43;
+	"module#locked" -> lockingkeyinput44;
+	"module#locked" -> lockingkeyinput45;
+	"module#locked" -> lockingkeyinput46;
+	"module#locked" -> lockingkeyinput47;
+	"module#locked" -> lockingkeyinput48;
+	"module#locked" -> lockingkeyinput49;
+	"module#locked" -> lockingkeyinput50;
+	"module#locked" -> lockingkeyinput51;
+	"module#locked" -> lockingkeyinput52;
+	"module#locked" -> lockingkeyinput53;
+	"module#locked" -> lockingkeyinput54;
+	"module#locked" -> lockingkeyinput55;
+	"module#locked" -> lockingkeyinput56;
+	"module#locked" -> lockingkeyinput57;
+	"module#locked" -> lockingkeyinput58;
+	"module#locked" -> lockingkeyinput59;
+	"module#locked" -> lockingkeyinput60;
+	"module#locked" -> lockingkeyinput61;
+	"module#locked" -> lockingkeyinput62;
+	"module#locked" -> lockingkeyinput63;
+	"module#locked" -> lockingkeyinput64;
+	"module#locked" -> lockingkeyinput65;
+	"module#locked" -> lockingkeyinput66;
+	"module#locked" -> lockingkeyinput67;
+	"module#locked" -> lockingkeyinput68;
+	"module#locked" -> lockingkeyinput69;
+	"module#locked" -> lockingkeyinput70;
+	"module#locked" -> lockingkeyinput71;
+	"module#locked" -> lockingkeyinput72;
+	"module#locked" -> lockingkeyinput73;
+	"module#locked" -> lockingkeyinput74;
+	"module#locked" -> lockingkeyinput75;
+	"module#locked" -> lockingkeyinput76;
+	"module#locked" -> lockingkeyinput77;
+	"module#locked" -> lockingkeyinput78;
+	"module#locked" -> lockingkeyinput79;
+	"module#locked" -> lockingkeyinput80;
+	"module#locked" -> lockingkeyinput81;
+	"module#locked" -> lockingkeyinput82;
+	"module#locked" -> lockingkeyinput83;
+	"module#locked" -> lockingkeyinput84;
+	"module#locked" -> lockingkeyinput85;
+	"module#locked" -> lockingkeyinput86;
+	"module#locked" -> lockingkeyinput87;
+	"module#locked" -> lockingkeyinput88;
+	"module#locked" -> lockingkeyinput89;
+	"module#locked" -> lockingkeyinput90;
+	"module#locked" -> lockingkeyinput91;
+	"module#locked" -> lockingkeyinput92;
+	"module#locked" -> lockingkeyinput93;
+	"module#locked" -> lockingkeyinput94;
+	"module#locked" -> lockingkeyinput95;
+	"module#locked" -> lockingkeyinput96;
+	"module#locked" -> lockingkeyinput97;
+	"module#locked" -> lockingkeyinput98;
+	"module#locked" -> lockingkeyinput99;
+	"module#locked" -> lockingkeyinput100;
+	"module#locked" -> lockingkeyinput101;
+	"module#locked" -> lockingkeyinput102;
+	"module#locked" -> lockingkeyinput103;
+	"module#locked" -> lockingkeyinput104;
+	"module#locked" -> lockingkeyinput105;
+	"module#locked" -> lockingkeyinput106;
+	"module#locked" -> lockingkeyinput107;
+	"module#locked" -> lockingkeyinput108;
+	"module#locked" -> lockingkeyinput109;
+	"module#locked" -> lockingkeyinput110;
+	"module#locked" -> lockingkeyinput111;
+	"module#locked" -> lockingkeyinput112;
+	"module#locked" -> lockingkeyinput113;
+	"module#locked" -> lockingkeyinput114;
+	"module#locked" -> lockingkeyinput115;
+	"module#locked" -> lockingkeyinput116;
+	"module#locked" -> lockingkeyinput117;
+	"module#locked" -> lockingkeyinput118;
+	"module#locked" -> lockingkeyinput119;
+	"module#locked" -> lockingkeyinput120;
+	"module#locked" -> lockingkeyinput121;
+	"module#locked" -> lockingkeyinput122;
+	"module#locked" -> lockingkeyinput123;
+	"module#locked" -> lockingkeyinput124;
+	"module#locked" -> lockingkeyinput125;
+	"module#locked" -> lockingkeyinput126;
+	"module#locked" -> lockingkeyinput127;
+	keywire74 -> keygate_XOR_0;
+	keygate_XOR_0 -> _023_;
+	lockingkeyinput0 -> keygate_XOR_0;
+	keywire75 -> keygate_XOR_1;
+	keygate_XOR_1 -> "out[0]";
+	lockingkeyinput1 -> keygate_XOR_1;
+	keywire76 -> keygate_XNOR_2;
+	keygate_XNOR_2 -> _001_;
+	lockingkeyinput2 -> keygate_XNOR_2;
+	keywire77 -> keygate_XOR_3;
+	keygate_XOR_3 -> _037_;
+	lockingkeyinput3 -> keygate_XOR_3;
+	keywire78 -> keygate_XNOR_4;
+	keygate_XNOR_4 -> _012_;
+	lockingkeyinput4 -> keygate_XNOR_4;
+	keywire79 -> keygate_XNOR_5;
+	keygate_XNOR_5 -> _024_;
+	lockingkeyinput5 -> keygate_XNOR_5;
+	keywire80 -> keygate_XNOR_6;
+	keygate_XNOR_6 -> _048_;
+	lockingkeyinput6 -> keygate_XNOR_6;
+	keywire81 -> keygate_XOR_7;
+	keygate_XOR_7 -> _060_;
+	lockingkeyinput7 -> keygate_XOR_7;
+	keywire82 -> keygate_XNOR_8;
+	keygate_XNOR_8 -> "scc[0]";
+	lockingkeyinput8 -> keygate_XNOR_8;
+	keywire83 -> keygate_XOR_9;
+	keygate_XOR_9 -> "s1cc[0]";
+	lockingkeyinput9 -> keygate_XOR_9;
+	keywire84 -> keygate_XNOR_10;
+	keygate_XNOR_10 -> _004_;
+	lockingkeyinput10 -> keygate_XNOR_10;
+	keywire85 -> keygate_XNOR_11;
+	keygate_XNOR_11 -> _040_;
+	lockingkeyinput11 -> keygate_XNOR_11;
+	keywire86 -> keygate_XOR_12;
+	keygate_XOR_12 -> _011_;
+	lockingkeyinput12 -> keygate_XOR_12;
+	keywire87 -> keygate_XNOR_13;
+	keygate_XNOR_13 -> _047_;
+	lockingkeyinput13 -> keygate_XNOR_13;
+	keywire88 -> keygate_XNOR_14;
+	keygate_XNOR_14 -> _025_;
+	lockingkeyinput14 -> keygate_XNOR_14;
+	keywire89 -> keygate_XNOR_15;
+	keygate_XNOR_15 -> _061_;
+	lockingkeyinput15 -> keygate_XNOR_15;
+	keywire90 -> keygate_XOR_16;
+	keygate_XOR_16 -> _026_;
+	lockingkeyinput16 -> keygate_XOR_16;
+	keywire91 -> keygate_XOR_17;
+	keygate_XOR_17 -> _062_;
+	lockingkeyinput17 -> keygate_XOR_17;
+	keywire92 -> keygate_XNOR_18;
+	keygate_XNOR_18 -> _016_;
+	lockingkeyinput18 -> keygate_XNOR_18;
+	keywire93 -> keygate_XOR_19;
+	keygate_XOR_19 -> _052_;
+	lockingkeyinput19 -> keygate_XOR_19;
+	keywire94 -> keygate_XNOR_20;
+	keygate_XNOR_20 -> _029_;
+	lockingkeyinput20 -> keygate_XNOR_20;
+	keywire95 -> keygate_XNOR_21;
+	keygate_XNOR_21 -> _065_;
+	lockingkeyinput21 -> keygate_XNOR_21;
+	keywire96 -> keygate_XNOR_22;
+	keygate_XNOR_22 -> _030_;
+	lockingkeyinput22 -> keygate_XNOR_22;
+	keywire97 -> keygate_XOR_23;
+	keygate_XOR_23 -> _066_;
+	lockingkeyinput23 -> keygate_XOR_23;
+	keywire98 -> keygate_XOR_24;
+	keygate_XOR_24 -> _000_;
+	lockingkeyinput24 -> keygate_XOR_24;
+	keywire99 -> keygate_XOR_25;
+	keygate_XOR_25 -> _036_;
+	lockingkeyinput25 -> keygate_XOR_25;
+	keywire100 -> keygate_XNOR_26;
+	keygate_XNOR_26 -> _005_;
+	lockingkeyinput26 -> keygate_XNOR_26;
+	keywire101 -> keygate_XNOR_27;
+	keygate_XNOR_27 -> _041_;
+	lockingkeyinput27 -> keygate_XNOR_27;
+	keywire102 -> keygate_XOR_28;
+	keygate_XOR_28 -> _033_;
+	lockingkeyinput28 -> keygate_XOR_28;
+	keywire103 -> keygate_XOR_29;
+	keygate_XOR_29 -> _069_;
+	lockingkeyinput29 -> keygate_XOR_29;
+	keywire104 -> keygate_XNOR_30;
+	keygate_XNOR_30 -> _034_;
+	lockingkeyinput30 -> keygate_XNOR_30;
+	keywire105 -> keygate_XNOR_31;
+	keygate_XNOR_31 -> _070_;
+	lockingkeyinput31 -> keygate_XNOR_31;
+	keywire106 -> keygate_XOR_32;
+	keygate_XOR_32 -> _019_;
+	lockingkeyinput32 -> keygate_XOR_32;
+	keywire107 -> keygate_XNOR_33;
+	keygate_XNOR_33 -> _055_;
+	lockingkeyinput33 -> keygate_XNOR_33;
+	keywire108 -> keygate_XNOR_34;
+	keygate_XNOR_34 -> _009_;
+	lockingkeyinput34 -> keygate_XNOR_34;
+	keywire109 -> keygate_XNOR_35;
+	keygate_XNOR_35 -> _045_;
+	lockingkeyinput35 -> keygate_XNOR_35;
+	keywire110 -> keygate_XOR_36;
+	keygate_XOR_36 -> _015_;
+	lockingkeyinput36 -> keygate_XOR_36;
+	keywire111 -> keygate_XNOR_37;
+	keygate_XNOR_37 -> _051_;
+	lockingkeyinput37 -> keygate_XNOR_37;
+	keywire112 -> keygate_XNOR_38;
+	keygate_XNOR_38 -> _008_;
+	lockingkeyinput38 -> keygate_XNOR_38;
+	keywire113 -> keygate_XOR_39;
+	keygate_XOR_39 -> _044_;
+	lockingkeyinput39 -> keygate_XOR_39;
+	keywire114 -> keygate_XOR_40;
+	keygate_XOR_40 -> _018_;
+	lockingkeyinput40 -> keygate_XOR_40;
+	keywire115 -> keygate_XNOR_41;
+	keygate_XNOR_41 -> _054_;
+	lockingkeyinput41 -> keygate_XNOR_41;
+	keywire116 -> keygate_XNOR_42;
+	keygate_XNOR_42 -> _002_;
+	lockingkeyinput42 -> keygate_XNOR_42;
+	keywire117 -> keygate_XNOR_43;
+	keygate_XNOR_43 -> _038_;
+	lockingkeyinput43 -> keygate_XNOR_43;
+	keywire118 -> keygate_XNOR_44;
+	keygate_XNOR_44 -> _003_;
+	lockingkeyinput44 -> keygate_XNOR_44;
+	keywire119 -> keygate_XOR_45;
+	keygate_XOR_45 -> _039_;
+	lockingkeyinput45 -> keygate_XOR_45;
+	keywire120 -> keygate_XNOR_46;
+	keygate_XNOR_46 -> _013_;
+	lockingkeyinput46 -> keygate_XNOR_46;
+	keywire121 -> keygate_XNOR_47;
+	keygate_XNOR_47 -> _027_;
+	lockingkeyinput47 -> keygate_XNOR_47;
+	keywire122 -> keygate_XOR_48;
+	keygate_XOR_48 -> "scc[1]";
+	lockingkeyinput48 -> keygate_XOR_48;
+	keywire123 -> keygate_XOR_49;
+	keygate_XOR_49 -> _049_;
+	lockingkeyinput49 -> keygate_XOR_49;
+	keywire124 -> keygate_XNOR_50;
+	keygate_XNOR_50 -> _063_;
+	lockingkeyinput50 -> keygate_XNOR_50;
+	keywire125 -> keygate_XOR_51;
+	keygate_XOR_51 -> "s1cc[1]";
+	lockingkeyinput51 -> keygate_XOR_51;
+	keywire126 -> keygate_XNOR_52;
+	keygate_XNOR_52 -> "out[1]";
+	lockingkeyinput52 -> keygate_XNOR_52;
+	keywire127 -> keygate_XNOR_53;
+	keygate_XNOR_53 -> _006_;
+	lockingkeyinput53 -> keygate_XNOR_53;
+	keywire128 -> keygate_XNOR_54;
+	keygate_XNOR_54 -> _042_;
+	lockingkeyinput54 -> keygate_XNOR_54;
+	keywire129 -> keygate_XOR_55;
+	keygate_XOR_55 -> _028_;
+	lockingkeyinput55 -> keygate_XOR_55;
+	keywire130 -> keygate_XNOR_56;
+	keygate_XNOR_56 -> _064_;
+	lockingkeyinput56 -> keygate_XNOR_56;
+	keywire131 -> keygate_XNOR_57;
+	keygate_XNOR_57 -> _017_;
+	lockingkeyinput57 -> keygate_XNOR_57;
+	keywire132 -> keygate_XOR_58;
+	keygate_XOR_58 -> _053_;
+	lockingkeyinput58 -> keygate_XOR_58;
+	keywire133 -> keygate_XNOR_59;
+	keygate_XNOR_59 -> _032_;
+	lockingkeyinput59 -> keygate_XNOR_59;
+	keywire134 -> keygate_XOR_60;
+	keygate_XOR_60 -> _068_;
+	lockingkeyinput60 -> keygate_XOR_60;
+	keywire135 -> keygate_XNOR_61;
+	keygate_XNOR_61 -> _031_;
+	lockingkeyinput61 -> keygate_XNOR_61;
+	keywire136 -> keygate_XOR_62;
+	keygate_XOR_62 -> "scc[2]";
+	lockingkeyinput62 -> keygate_XOR_62;
+	keywire137 -> keygate_XNOR_63;
+	keygate_XNOR_63 -> _067_;
+	lockingkeyinput63 -> keygate_XNOR_63;
+	keywire138 -> keygate_XNOR_64;
+	keygate_XNOR_64 -> "s1cc[2]";
+	lockingkeyinput64 -> keygate_XNOR_64;
+	keywire139 -> keygate_XOR_65;
+	keygate_XOR_65 -> "scc[4]";
+	lockingkeyinput65 -> keygate_XOR_65;
+	keywire140 -> keygate_XNOR_66;
+	keygate_XNOR_66 -> "s1cc[4]";
+	lockingkeyinput66 -> keygate_XNOR_66;
+	keywire141 -> keygate_XOR_67;
+	keygate_XOR_67 -> _035_;
+	lockingkeyinput67 -> keygate_XOR_67;
+	keywire142 -> keygate_XNOR_68;
+	keygate_XNOR_68 -> "scc[3]";
+	lockingkeyinput68 -> keygate_XNOR_68;
+	keywire143 -> keygate_XNOR_69;
+	keygate_XNOR_69 -> _071_;
+	lockingkeyinput69 -> keygate_XNOR_69;
+	keywire144 -> keygate_XOR_70;
+	keygate_XOR_70 -> "s1cc[3]";
+	lockingkeyinput70 -> keygate_XOR_70;
+	keywire145 -> keygate_XNOR_71;
+	keygate_XNOR_71 -> _020_;
+	lockingkeyinput71 -> keygate_XNOR_71;
+	keywire146 -> keygate_XNOR_72;
+	keygate_XNOR_72 -> _056_;
+	lockingkeyinput72 -> keygate_XNOR_72;
+	keywire147 -> keygate_XOR_73;
+	keygate_XOR_73 -> _010_;
+	lockingkeyinput73 -> keygate_XOR_73;
+	keywire148 -> keygate_XOR_74;
+	keygate_XOR_74 -> _046_;
+	lockingkeyinput74 -> keygate_XOR_74;
+	keywire149 -> keygate_XOR_75;
+	keygate_XOR_75 -> _007_;
+	lockingkeyinput75 -> keygate_XOR_75;
+	keywire150 -> keygate_XNOR_76;
+	keygate_XNOR_76 -> _043_;
+	lockingkeyinput76 -> keygate_XNOR_76;
+	keywire151 -> keygate_XNOR_77;
+	keygate_XNOR_77 -> _014_;
+	lockingkeyinput77 -> keygate_XNOR_77;
+	keywire152 -> keygate_XNOR_78;
+	keygate_XNOR_78 -> _050_;
+	lockingkeyinput78 -> keygate_XNOR_78;
+	keywire153 -> keygate_XOR_79;
+	keygate_XOR_79 -> _021_;
+	lockingkeyinput79 -> keygate_XOR_79;
+	keywire154 -> keygate_XOR_80;
+	keygate_XOR_80 -> _057_;
+	lockingkeyinput80 -> keygate_XOR_80;
+	keywire155 -> keygate_XOR_81;
+	keygate_XOR_81 -> _059_;
+	lockingkeyinput81 -> keygate_XOR_81;
+	keywire156 -> keygate_XNOR_82;
+	keygate_XNOR_82 -> _022_;
+	lockingkeyinput82 -> keygate_XNOR_82;
+	keywire157 -> keygate_XOR_83;
+	keygate_XOR_83 -> _058_;
+	lockingkeyinput83 -> keygate_XOR_83;
+	keywire158 -> keygate_XNOR_84;
+	keygate_XNOR_84 -> keywire156;
+	lockingkeyinput84 -> keygate_XNOR_84;
+	keywire159 -> keygate_XOR_85;
+	keygate_XOR_85 -> keywire153;
+	lockingkeyinput85 -> keygate_XOR_85;
+	keywire160 -> keygate_XNOR_86;
+	keygate_XNOR_86 -> keywire151;
+	lockingkeyinput86 -> keygate_XNOR_86;
+	keywire161 -> keygate_XOR_87;
+	keygate_XOR_87 -> keywire75;
+	lockingkeyinput87 -> keygate_XOR_87;
+	keywire162 -> keygate_XOR_88;
+	keygate_XOR_88 -> keywire126;
+	lockingkeyinput88 -> keygate_XOR_88;
+	keywire163 -> keygate_XNOR_89;
+	keygate_XNOR_89 -> keywire145;
+	lockingkeyinput89 -> keygate_XNOR_89;
+	keywire164 -> keygate_XOR_90;
+	keygate_XOR_90 -> keywire131;
+	lockingkeyinput90 -> keygate_XOR_90;
+	keywire165 -> keygate_XNOR_91;
+	keygate_XNOR_91 -> keywire120;
+	lockingkeyinput91 -> keygate_XNOR_91;
+	keywire166 -> keygate_XNOR_92;
+	keygate_XNOR_92 -> keywire147;
+	lockingkeyinput92 -> keygate_XNOR_92;
+	keywire167 -> keygate_XOR_93;
+	keygate_XOR_93 -> keywire74;
+	lockingkeyinput93 -> keygate_XOR_93;
+	keywire168 -> keygate_XOR_94;
+	keygate_XOR_94 -> keywire82;
+	lockingkeyinput94 -> keygate_XOR_94;
+	keywire169 -> keygate_XOR_95;
+	keygate_XOR_95 -> keywire155;
+	lockingkeyinput95 -> keygate_XOR_95;
+	keywire170 -> keygate_XNOR_96;
+	keygate_XNOR_96 -> keywire83;
+	lockingkeyinput96 -> keygate_XNOR_96;
+	keywire171 -> keygate_XOR_97;
+	keygate_XOR_97 -> keywire106;
+	lockingkeyinput97 -> keygate_XOR_97;
+	keywire172 -> keygate_XNOR_98;
+	keygate_XNOR_98 -> keywire114;
+	lockingkeyinput98 -> keygate_XNOR_98;
+	keywire173 -> keygate_XNOR_99;
+	keygate_XNOR_99 -> keywire92;
+	lockingkeyinput99 -> keygate_XNOR_99;
+	keywire174 -> keygate_XNOR_100;
+	keygate_XNOR_100 -> keywire110;
+	lockingkeyinput100 -> keygate_XNOR_100;
+	keywire175 -> keygate_XNOR_101;
+	keygate_XNOR_101 -> keywire78;
+	lockingkeyinput101 -> keygate_XNOR_101;
+	keywire176 -> keygate_XOR_102;
+	keygate_XOR_102 -> keywire86;
+	lockingkeyinput102 -> keygate_XOR_102;
+	keywire177 -> keygate_XNOR_103;
+	keygate_XNOR_103 -> keywire108;
+	lockingkeyinput103 -> keygate_XNOR_103;
+	keywire178 -> keygate_XNOR_104;
+	keygate_XNOR_104 -> keywire112;
+	lockingkeyinput104 -> keygate_XNOR_104;
+	keywire179 -> keygate_XNOR_105;
+	keygate_XNOR_105 -> keywire149;
+	lockingkeyinput105 -> keygate_XNOR_105;
+	keywire180 -> keygate_XOR_106;
+	keygate_XOR_106 -> keywire157;
+	lockingkeyinput106 -> keygate_XOR_106;
+	keywire181 -> keygate_XOR_107;
+	keygate_XOR_107 -> keywire150;
+	lockingkeyinput107 -> keygate_XOR_107;
+	keywire182 -> keygate_XOR_108;
+	keygate_XOR_108 -> keywire98;
+	lockingkeyinput108 -> keygate_XOR_108;
+	keywire183 -> keygate_XNOR_109;
+	keygate_XNOR_109 -> keywire127;
+	lockingkeyinput109 -> keygate_XNOR_109;
+	keywire184 -> keygate_XOR_110;
+	keygate_XOR_110 -> keywire118;
+	lockingkeyinput110 -> keygate_XOR_110;
+	keywire185 -> keygate_XOR_111;
+	keygate_XOR_111 -> keywire154;
+	lockingkeyinput111 -> keygate_XOR_111;
+	keywire186 -> keygate_XOR_112;
+	keygate_XOR_112 -> keywire152;
+	lockingkeyinput112 -> keygate_XOR_112;
+	keywire187 -> keygate_XOR_113;
+	keygate_XOR_113 -> keywire128;
+	lockingkeyinput113 -> keygate_XOR_113;
+	keywire188 -> keygate_XNOR_114;
+	keygate_XNOR_114 -> keywire119;
+	lockingkeyinput114 -> keygate_XNOR_114;
+	keywire189 -> keygate_XNOR_115;
+	keygate_XNOR_115 -> keywire100;
+	lockingkeyinput115 -> keygate_XNOR_115;
+	keywire190 -> keygate_XNOR_116;
+	keygate_XNOR_116 -> keywire84;
+	lockingkeyinput116 -> keygate_XNOR_116;
+	keywire191 -> keygate_XNOR_117;
+	keygate_XNOR_117 -> keywire116;
+	lockingkeyinput117 -> keygate_XNOR_117;
+	keywire192 -> keygate_XOR_118;
+	keygate_XOR_118 -> keywire76;
+	lockingkeyinput118 -> keygate_XOR_118;
+	keywire193 -> keygate_XOR_119;
+	keygate_XOR_119 -> keywire146;
+	lockingkeyinput119 -> keygate_XOR_119;
+	keywire194 -> keygate_XNOR_120;
+	keygate_XNOR_120 -> keywire132;
+	lockingkeyinput120 -> keygate_XNOR_120;
+	keywire195 -> keygate_XNOR_121;
+	keygate_XNOR_121 -> keywire123;
+	lockingkeyinput121 -> keygate_XNOR_121;
+	keywire196 -> keygate_XOR_122;
+	keygate_XOR_122 -> keywire148;
+	lockingkeyinput122 -> keygate_XOR_122;
+	keywire197 -> keygate_XNOR_123;
+	keygate_XNOR_123 -> keywire101;
+	lockingkeyinput123 -> keygate_XNOR_123;
+	keywire198 -> keygate_XNOR_124;
+	keygate_XNOR_124 -> keywire85;
+	lockingkeyinput124 -> keygate_XNOR_124;
+	keywire199 -> keygate_XNOR_125;
+	keygate_XNOR_125 -> keywire117;
+	lockingkeyinput125 -> keygate_XNOR_125;
+	keywire200 -> keygate_XOR_126;
+	keygate_XOR_126 -> keywire77;
+	lockingkeyinput126 -> keygate_XOR_126;
+	keywire201 -> keygate_XNOR_127;
+	keygate_XNOR_127 -> keywire107;
+	lockingkeyinput127 -> keygate_XNOR_127;
 }

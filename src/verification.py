@@ -34,7 +34,7 @@ def gen_miter_testbench(key_inputs_p,
 
 def gen_miterCircuit(verilog,verilogLL):
     LLinp,LLport_i=extract_io_v(verilogLL)
-    # print(LLport_i)
+    # print("here  ",LLport_i,LLinp)
     LLout,LLport_o=extract_io_v(verilogLL,mode="output")
     Uinp,Uport_i=extract_io_v(verilog)
 
@@ -55,7 +55,7 @@ def gen_miterCircuit(verilog,verilogLL):
     # print(LLinp,"\n\n",Uinp)
     keyinputs=get_difference_abs(LLinp,Uinp)
     # print(keyinputs)
-    keyinputs.sort(key=lambda x:re.findall(r"\d+",x)[0],reverse=True)
+    # keyinputs.sort(key=lambda x:re.findall(r"\d+",x)[0],reverse=True)
     keyporti=""
     keyports=""
     for i in keyinputs:

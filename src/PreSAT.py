@@ -6,23 +6,28 @@ class LogicLocking:
       self.circuitgraph=module.circuitgraph
 
     
-    def set_key(self,n: int, key: int):
+    def set_key(self,n , key=None):
       self.nbits=n
-      self.keyint=key
-      self.bitkey = format(key, "b")
-      print(2**n, "<----->", key, "<----->", (2**n) >= key)
+      if(key==None):
+        self.keyint,self.bitkey=randKey(self.nbits)
+      else:  
+        self.keyint=key
+        self.bitkey = format(key, "b")
+
+      # print(2**n, "<----->", self.keyint, "<----->", (2**n) >= self.keyint)
       if (n > len(self.bitkey)):
-          self.bitkey = format(key, "0"+str(n)+"b")
+          self.bitkey = format(self.keyint, "0"+str(n)+"b")
       elif (n < len(self.bitkey)):
           print("ERROR")
           print("Number of Gates < Number of Key-Bits")
           return None
       # else:
-      print("n == Bits")
+      # print("n == Bits")
 
-      print("######################################", end="\n          ")
-      print(key, " ----------> ", self.bitkey)
-      print("######################################")
+      # print("######################################", end="\n          ")
+      # print(self.keyint, " ----------> ", self.bitkey)
+      print(self.bitkey)
+      # print("######################################")
 
     
     
@@ -40,7 +45,9 @@ class LogicLocking:
       self.circuitgraph.add_edge(keywire_name, keygate_name)
       self.circuitgraph.add_edge(keygate_name, NodeB)
 
-      keygate_input_name="lockingkeyinput"+str(len(self.module.lockingdata["inputs"]))
+      bitval=len(self.module.lockingdata['inputs'])
+      # print(bitval)
+      keygate_input_name=f"lockingkeyinput[{bitval}]"
       self.circuitgraph.add_edge(keygate_input_name, keygate_name)
 
       self.circuitgraph.add_edge("module#"+self.module.module_name,keygate_input_name)
@@ -48,16 +55,24 @@ class LogicLocking:
 
 
       self.module.lockingdata["gates"].append(keygate_name)
-      self.module.lockingdata["inputs"].append((keygate_input_name,"0" if gatetype=="XOR" else "1"))
+      bit="0" if gatetype=="XOR" else "1"
+      self.module.lockingdata["inputs"].append((keygate_input_name,bit))
       self.module.lockingdata["wires"].append(keywire_name)
 
       self.module.io['wires'][keywire_name]=connector(1,0,0)
-      self.module.io['inputs'][keygate_input_name]=connector(1,0,0)
-      self.module.io["input_ports"]+=f"{keygate_input_name},"
+      
+      if("lockingkeyinput" not in self.module.io['inputs']):
+        self.module.io['inputs']["lockingkeyinput"]=connector(1,0,0)
+        self.module.io["input_ports"]+="lockingkeyinput,"
+      else:
+        # bits=self.module.io['inputs'][keygate_input_name]["bits"]
+        self.module.io['inputs']["lockingkeyinput"]=connector(bitval+1,0,bitval)
+        # self.module.io["input_ports"]+=f"{keygate_input_name},"
+
 
       # print(NodeA)
       Na=self.circuitgraph.nodes[NodeA]
-      Nb=self.circuitgraph.nodes[NodeB]
+      # Nb=self.circuitgraph.nodes[NodeB]
       if(Na['type']=='gate'):
         self.module.gates[Na['logic']][NodeA]['outputs']=keywire_name
         # self.module.gates[Na['logic']][NodeA]=keywire_name
@@ -68,8 +83,6 @@ class LogicLocking:
       #   self.module.gates[Na['logic']]['output']=keywire_name
       # else:
       #   raise Exception("NOT A GATE WHYYYYYY")
-
-
 
       # print(NodeA,self.circuitgraph.nodes[NodeA])
       # print(NodeB,self.circuitgraph.nodes[NodeB])
@@ -122,12 +135,15 @@ class LogicLocking:
       else:
         raise Exception("ERROR INVALID MODE, SET mode to 'f' or 'b' ")
 
-      current_layer = list(sources)
+      if(type(sources)==list):
+        current_layer = sources
+      else:
+        current_layer=[sources]
       visited = set(sources)
 
       for source in current_layer:
-          if source not in G:
-              raise nx.NetworkXError(f"The node {source} is not in the graph.")   
+        if source not in G:
+            raise nx.NetworkXError(f"The node {source} is not in the graph.")   
       count=1
       while current_layer:
           next_layer = list()
@@ -146,7 +162,7 @@ class LogicLocking:
                   break 
               
                 out=list(G.successors(i))[0]
-                print(i,out,end="\n")
+                # print(i,out,end="\n")
                 # print(out in self.module.lockingdata["wires"],self.module.lockingdata["wires"])
                 if(i in self.module.lockingdata["gates"]):
                   pass
@@ -160,11 +176,26 @@ class LogicLocking:
                     self.keycount-=1
           current_layer = next_layer
           count+=1
+          # 
 
 
     def SLL(self):
       self.keycount=self.nbits
-      
-      # if()
-      # self.LayerTraversal(["lock_out"],mode="f")
-      # self.LayerTraversal()
+      tx=self.module.io['wires']
+
+      while(1):
+        random_key = random.choice(list(tx.keys()))
+        tp = tx[random_key]
+        if(tp['bits']==1):
+          break
+
+      self.keycount=self.nbits
+      while(1):
+        self.LayerTraversal(random_key,mode="f")
+        if(self.keycount==0):
+          break
+        self.LayerTraversal(random_key,mode="r")
+        # print(self.keycount)
+        if(self.keycount==0):
+          break
+
