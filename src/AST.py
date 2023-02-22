@@ -56,6 +56,9 @@ class module:
                     if(tmptxt in self.io["inputs"]):
                         self.circuitgraph.add_node(i, type="input",port=tmptxt)
                         self.circuitgraph.add_edge(i,node_name)
+                    elif(tmptxt in self.io["outputs"]):
+                        self.circuitgraph.add_node(i, type="output",port=tmptxt)
+                        self.circuitgraph.add_edge(node_name,i)
                     elif(tmptxt in self.io["wires"]):
                         self.circuitgraph.add_node(i, type="wire",port=tmptxt)
                         self.circuitgraph.add_edge(i,node_name)
@@ -76,7 +79,7 @@ class module:
         for i in self.io["inputs"]:
             tmpi=self.io["inputs"][i]
             if(tmpi['bits']==1):
-                self.circuitgraph.add_edge("module#"+self.module_name,"input#"+i)
+                self.circuitgraph.add_edge("module#"+self.module_name,i)
             else:
                 for k in range(tmpi['startbit'],tmpi["endbit"]+1):
                     self.circuitgraph.add_edge("module#"+self.module_name,i+f"[{k}]")
@@ -150,7 +153,7 @@ class module:
 
 
 class AST:
-    def __init__(self,file_path,top, rw = 'w', flag = 'v',filename=None,vlibpath="vlib/mycells.v"):
+    def __init__(self,file_path,top=None, rw = 'w', flag = 'v',filename=None,vlibpath="vlib/mycells.v"):
         self.LLverilog = ""
         if(filename==None):
             self.filename=top
@@ -215,7 +218,11 @@ class AST:
             outputs, output_ports = extract_io_v(self.modules[key].org_code_verilog, "output")
             wire, _ = extract_io_v(self.modules[key].gate_level_verilog, "wire")
             wire={key:wire[key]  for key in get_difference_abs(wire.keys(),inputs.keys(),outputs.keys())}
-            # print(wire)
+            # print("N4944" in  wire.keys())
+            # print(get_diference(wire.keys(),outputs.keys()))
+            
+            # print("N1947" in outputs.keys())
+            # print(self.modules[key].gates)
             self.modules[key].io = dict({'wires':wire,'inputs':inputs,'outputs':outputs,'input_ports':input_ports,'output_ports':output_ports})
             self.modules[key].gen_graph()
         self.top_module=self.modules[self.top_module_name]

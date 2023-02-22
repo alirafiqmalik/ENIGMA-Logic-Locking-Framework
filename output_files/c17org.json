@@ -1,0 +1,115 @@
+{
+    "AST": {
+        "orginal_code": "module c17 (N1,N2,N3,N6,N7,N22,N23);\ninput N1,N2,N3,N6,N7;\noutput N22,N23;\nwire N10,N11,N16,N19;\nnand NAND2_1 (N10, N1, N3);\nnand NAND2_2 (N11, N3, N6);\nnand NAND2_3 (N16, N2, N11);\nnand NAND2_4 (N19, N11, N7);\nnand NAND2_5 (N22, N10, N16);\nnand NAND2_6 (N23, N16, N19);\nendmodule\n",
+        "gate_lib": "module BUF_g(A, Y);\ninput A;\noutput Y;\nassign Y=A;\nendmodule\n\n \nmodule NOT_g(A, Y);\ninput A;\noutput Y;\nassign Y=~A;\nendmodule\n\nmodule AND_g(A, B, Y);\ninput A, B;\noutput Y;\nassign Y=(A & B);\nendmodule\n\nmodule OR_g(A, B, Y);\ninput A, B;\noutput Y;\nassign Y= (A | B);\nendmodule\n\nmodule NAND_g(A, B, Y);\ninput A, B;\noutput Y;\nassign Y= ~(A & B);\n\nendmodule\n\nmodule NOR_g(A, B, Y);\ninput A, B;\noutput Y;\nassign Y = ~(A | B);\nendmodule\n\n\nmodule XOR_g(A, B, Y);\ninput A, B;\noutput Y;\nassign Y = (A ^ B);\nendmodule\n\nmodule XNOR_g(A, B, Y);\ninput A, B;\noutput Y;\nassign Y = ~(A ^ B);\nendmodule\n\nmodule DFFcell(C, D, Q);\ninput C, D;\noutput reg Q;\nalways @(posedge C)\n\tQ <= D;\nendmodule\n\n\nmodule DFFRcell(C, D, Q, R);\ninput C, D, R;\noutput reg Q;\nalways @(posedge C, negedge R)\n\tif (!R)\n\t\tQ <= 1'b0;\n\telse\n\t\tQ <= D;\nendmodule\n",
+        "gate_level_flattened": "module c17(N1, N2, N3, N6, N7, N22, N23);\nwire _0_;\nwire _1_;\nwire _2_;\nwire _3_;\ninput N1;\nwire N1;\ninput N2;\nwire N2;\noutput N22;\nwire N22;\noutput N23;\nwire N23;\ninput N3;\nwire N3;\ninput N6;\nwire N6;\ninput N7;\nwire N7;\nNAND_g _4_ ( .A(N3), .B(N6), .Y(_2_) );\nNAND_g _5_ ( .A(N2), .B(_2_), .Y(_3_) );\nNAND_g _6_ ( .A(N7), .B(_2_), .Y(_0_) );\nNAND_g _7_ ( .A(_3_), .B(_0_), .Y(N23) );\nNAND_g _8_ ( .A(N1), .B(N3), .Y(_1_) );\nNAND_g _9_ ( .A(_3_), .B(_1_), .Y(N22) );\nendmodule\n",
+        "Bench_format_flattened": "INPUT(N1)\nINPUT(N2)\nINPUT(N3)\nINPUT(N6)\nINPUT(N7)\nOUTPUT(N22)\nOUTPUT(N23)\n_2_ = NAND(N3,N6)\n_3_ = NAND(N2,_2_)\n_0_ = NAND(N7,_2_)\nN23 = NAND(_3_,_0_)\n_1_ = NAND(N1,N3)\nN22 = NAND(_3_,_1_)\n",
+        "gate_level_not_flattened": "module c17(N1, N2, N3, N6, N7, N22, N23);\nwire _0_;\nwire _1_;\nwire _2_;\nwire _3_;\ninput N1;\nwire N1;\ninput N2;\nwire N2;\noutput N22;\nwire N22;\noutput N23;\nwire N23;\ninput N3;\nwire N3;\ninput N6;\nwire N6;\ninput N7;\nwire N7;\nNAND_g _4_ ( .A(N3), .B(N6), .Y(_2_) );\nNAND_g _5_ ( .A(N2), .B(_2_), .Y(_3_) );\nNAND_g _6_ ( .A(N7), .B(_2_), .Y(_0_) );\nNAND_g _7_ ( .A(_3_), .B(_0_), .Y(N23) );\nNAND_g _8_ ( .A(N1), .B(N3), .Y(_1_) );\nNAND_g _9_ ( .A(_3_), .B(_1_), .Y(N22) );\nendmodule\n",
+        "top_module_name": "c17",
+        "Total_number_of_modules": 1,
+        "LL_gatelevel_verilog": "module c17(N1,N2,N3,N6,N7,N22,N23);\ninput N1;\ninput N2;\ninput N3;\ninput N6;\ninput N7;\noutput N22;\noutput N23;\nwire _0_;\nwire _1_;\nwire _2_;\nwire _3_;\nNAND_g NAND_g_4_(.A(N6), .B(N3), .Y(_2_));\nNAND_g NAND_g_5_(.A(_2_), .B(N2), .Y(_3_));\nNAND_g NAND_g_6_(.A(_2_), .B(N7), .Y(_0_));\nNAND_g NAND_g_7_(.A(_0_), .B(_3_), .Y(N23));\nNAND_g NAND_g_8_(.A(N3), .B(N1), .Y(_1_));\nNAND_g NAND_g_9_(.A(_1_), .B(_3_), .Y(N22));\nendmodule\n\n",
+        "bitkey": ""
+    },
+    "modules": {
+        "c17": {
+            "Verilog": "module c17(N1, N2, N3, N6, N7, N22, N23);\nwire _0_;\nwire _1_;\nwire _2_;\nwire _3_;\ninput N1;\nwire N1;\ninput N2;\nwire N2;\noutput N22;\nwire N22;\noutput N23;\nwire N23;\ninput N3;\nwire N3;\ninput N6;\nwire N6;\ninput N7;\nwire N7;\nNAND_g _4_ ( .A(N3), .B(N6), .Y(_2_) );\nNAND_g _5_ ( .A(N2), .B(_2_), .Y(_3_) );\nNAND_g _6_ ( .A(N7), .B(_2_), .Y(_0_) );\nNAND_g _7_ ( .A(_3_), .B(_0_), .Y(N23) );\nNAND_g _8_ ( .A(N1), .B(N3), .Y(_1_) );\nNAND_g _9_ ( .A(_3_), .B(_1_), .Y(N22) );\nendmodule",
+            "Synthesized_verilog": "module c17(N1, N2, N3, N6, N7, N22, N23);\nwire _0_;\nwire _1_;\nwire _2_;\nwire _3_;\ninput N1;\nwire N1;\ninput N2;\nwire N2;\noutput N22;\nwire N22;\noutput N23;\nwire N23;\ninput N3;\nwire N3;\ninput N6;\nwire N6;\ninput N7;\nwire N7;\nNAND_g _4_ ( .A(N3), .B(N6), .Y(_2_) );\nNAND_g _5_ ( .A(N2), .B(_2_), .Y(_3_) );\nNAND_g _6_ ( .A(N7), .B(_2_), .Y(_0_) );\nNAND_g _7_ ( .A(_3_), .B(_0_), .Y(N23) );\nNAND_g _8_ ( .A(N1), .B(N3), .Y(_1_) );\nNAND_g _9_ ( .A(_3_), .B(_1_), .Y(N22) );\nendmodule",
+            "lockingdata": {
+                "wires": [],
+                "gates": [],
+                "inputs": []
+            },
+            "DiGraph": "gASV+wMAAAAAAACMGG5ldHdvcmt4LmNsYXNzZXMuZGlncmFwaJSMB0RpR3JhcGiUk5QpgZR9lCiMBWdyYXBolH2UjAVfbm9kZZR9lCiMCU5BTkRfZ180X5R9lCiMBHR5cGWUjARnYXRllIwFbG9naWOUjAROQU5ElHWMA18yX5R9lChoC4wEd2lyZZSMBHBvcnSUjANfMl+UdYwCTjaUfZQoaAuMBWlucHV0lGgSaBR1jAJOM5R9lChoC2gWaBKMAk4zlHWMCU5BTkRfZ181X5R9lChoC2gMaA1oDnWMA18zX5R9lChoC2gRaBKMA18zX5R1jAJOMpR9lChoC2gWaBJoH3WMCU5BTkRfZ182X5R9lChoC2gMaA1oDnWMA18wX5R9lChoC2gRaBKMA18wX5R1jAJON5R9lChoC2gWaBJoJnWMCU5BTkRfZ183X5R9lChoC2gMaA1oDnWMA04yM5R9lGgLjAZvdXRwdXSUc4wJTkFORF9nXzhflH2UKGgLaAxoDWgOdYwDXzFflH2UKGgLaBFoEowDXzFflHWMAk4xlH2UKGgLaBZoEmgydYwJTkFORF9nXzlflH2UKGgLaAxoDWgOdYwDTjIylH2UaAtoLHOMCm1vZHVsZSNjMTeUfZRoC4wGbW9kdWxllHN1jARfYWRqlH2UKGgJfZRoD32Uc2gPfZQoaBp9lGghfZR1aBR9lGgJfZRzaBd9lChoCX2UaC19lHVoGn2UaBx9lHNoHH2UKGgofZRoNH2UdWgffZRoGn2Uc2ghfZRoI32Uc2gjfZRoKH2Uc2gmfZRoIX2Uc2gofZRoKn2Uc2gqfZSMCm1vZHVsZSNjMTeUfZRzaC19lGgvfZRzaC99lGg0fZRzaDJ9lGgtfZRzaDR9lGg2fZRzaDZ9lIwKbW9kdWxlI2MxN5R9lHNoOH2UKIwCTjGUfZSMAk4ylH2UjAJOM5R9lIwCTjaUfZSMAk43lH2UdXWMBV9zdWNjlGg8jAVfcHJlZJR9lChoCX2UKGgUaENoF2hFdWgPfZRoCWg+c2gUfZSMCm1vZHVsZSNjMTeUaGxzaBd9lIwKbW9kdWxlI2MxN5RoanNoGn2UKIwDXzJflGhAaB9oTXVoHH2UaBpoSHNoH32UjAptb2R1bGUjYzE3lGhoc2ghfZQoaBNoQWgmaFN1aCN9lGghaE9zaCZ9lIwKbW9kdWxlI2MxN5RobnNoKH2UKGglaFGMA18zX5RoSnVoKn2UaChoVXNoLX2UKGgZaEZoMmhedWgvfZRoLWhac2gyfZSMCm1vZHVsZSNjMTeUaGZzaDR9lChoMWhcaB5oS3VoNn2UaDRoYHNoOH2UKIwDTjIylGhjjANOMjOUaFh1dXViLg==",
+            "io": {
+                "wires": {
+                    "_0_": {
+                        "bits": 1
+                    },
+                    "_1_": {
+                        "bits": 1
+                    },
+                    "_2_": {
+                        "bits": 1
+                    },
+                    "_3_": {
+                        "bits": 1
+                    }
+                },
+                "inputs": {
+                    "N1": {
+                        "bits": 1
+                    },
+                    "N2": {
+                        "bits": 1
+                    },
+                    "N3": {
+                        "bits": 1
+                    },
+                    "N6": {
+                        "bits": 1
+                    },
+                    "N7": {
+                        "bits": 1
+                    }
+                },
+                "outputs": {
+                    "N22": {
+                        "bits": 1
+                    },
+                    "N23": {
+                        "bits": 1
+                    }
+                },
+                "input_ports": "N1,N2,N3,N6,N7,",
+                "output_ports": "N22,N23,"
+            },
+            "gates": {
+                "NAND": {
+                    "NAND_g_4_": {
+                        "inputs": [
+                            "N6",
+                            "N3"
+                        ],
+                        "outputs": "_2_"
+                    },
+                    "NAND_g_5_": {
+                        "inputs": [
+                            "_2_",
+                            "N2"
+                        ],
+                        "outputs": "_3_"
+                    },
+                    "NAND_g_6_": {
+                        "inputs": [
+                            "_2_",
+                            "N7"
+                        ],
+                        "outputs": "_0_"
+                    },
+                    "NAND_g_7_": {
+                        "inputs": [
+                            "_0_",
+                            "_3_"
+                        ],
+                        "outputs": "N23"
+                    },
+                    "NAND_g_8_": {
+                        "inputs": [
+                            "N3",
+                            "N1"
+                        ],
+                        "outputs": "_1_"
+                    },
+                    "NAND_g_9_": {
+                        "inputs": [
+                            "_1_",
+                            "_3_"
+                        ],
+                        "outputs": "N22"
+                    }
+                }
+            },
+            "links": {}
+        }
+    }
+}

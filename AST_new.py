@@ -1,23 +1,24 @@
 import src.utils as utils
 import src.verification as ver
 from src.AST import AST
-from src.PreSAT import LogicLocking
+from src.PreSAT import PreSAT
 import networkx as nx
 
 
 
-obj=AST(file_path="./input_files/tmporg.v",rw="w",flag="v",top="locked",filename="locked_new")
-obj = AST(file_path="./output_files/locked_new.json",rw='r',top="locked",filename="locked") # r for read from file
+obj=AST(file_path="./input_files/Benchmarks/ISCAS85/c3540/c3540.v",rw="w",flag="v",top="c3540",filename="c3540org")
+obj = AST(file_path="./output_files/c3540org.json",rw='r',filename="c3540locked") # r for read from file
 # obj.save_module_connections()
 
 
-LL=LogicLocking(obj.top_module)
+LL=PreSAT(obj.top_module)
 
 
-LL.set_key(256)
+LL.set_key(256,key=8792394377)
 # LL.RLL()
 LL.SLL()
 
+print("Done")
 
 # obj.top_module.save_graph()
 obj.writeLLFile()

@@ -1,6 +1,6 @@
 from src.AST import *
 
-class LogicLocking:
+class PreSAT:
     def __init__(self, module) -> None:
       self.module=module
       self.circuitgraph=module.circuitgraph
@@ -70,7 +70,6 @@ class LogicLocking:
         self.module.io['inputs']["lockingkeyinput"]=connector(bitval+1,0,bitval)
         # self.module.io["input_ports"]+=f"{keygate_input_name},"
 
-
       # print(NodeA)
       Na=self.circuitgraph.nodes[NodeA]
       # Nb=self.circuitgraph.nodes[NodeB]
@@ -78,7 +77,7 @@ class LogicLocking:
         self.module.gates[Na['logic']][NodeA]['outputs']=keywire_name
         # self.module.gates[Na['logic']][NodeA]=keywire_name
       else:
-        raise Exception("NOT A GATE WHYYYYYY")
+        raise Exception("NOT A GATE WHYYYYYY???????????")
       
       # if(Nb['type']=='wire'):
       #   self.module.gates[Na['logic']]['output']=keywire_name
@@ -169,11 +168,11 @@ class LogicLocking:
                   pass
                 elif(self.bitkey[self.keycount-1]=='1'):
                     self.InsertKeyGate(i, out, 'XNOR')
-                    # print(i,out,end="\n")
+                    print(self.bitkey[self.keycount-1],i,out,end="\n")
                     self.keycount-=1
                 else:
                     self.InsertKeyGate(i, out, 'XOR')
-                    # print(i,out,end="\n")
+                    print(self.bitkey[self.keycount-1],i,out,end="\n")
                     self.keycount-=1
           current_layer = next_layer
           count+=1
@@ -184,19 +183,23 @@ class LogicLocking:
       self.keycount=self.nbits
       tx=self.module.io['wires']
 
+      locked=[]
+
       while(1):
         random_key = random.choice(list(tx.keys()))
         tp = tx[random_key]
-        if(tp['bits']==1):
+        if((tp['bits']==1) and random_key not in locked ):
           break
 
       self.keycount=self.nbits
       while(1):
         self.LayerTraversal(random_key,mode="f")
         if(self.keycount==0):
+          locked.append(random_key)
           break
         self.LayerTraversal(random_key,mode="r")
         # print(self.keycount)
         if(self.keycount==0):
+          locked.append(random_key)
           break
 

@@ -372,7 +372,6 @@ def synthesize_verilog(verilog, top,flag = "flatten"):
     else:
         Exception("Enter either 'flatten' or 'don't flatten' ")
     # Run the command and capture the output
-    module_name = top
     
     result=subprocess.run(cmd.format(yosys_path=yosys_path,module_name=top), shell=True)
 
@@ -385,8 +384,6 @@ def synthesize_verilog(verilog, top,flag = "flatten"):
         raise Exception(f"Unknown Error Code {result.returncode}")
     
     synthesized_verilog = open(f"./tmp/tmp_syn2{flag}.v", "r").read()
-    
-    
     synthesized_verilog = format_verilog(synthesized_verilog,remove_wire=False,remove_assign=True)
     
     with open(f"./tmp/tmp_syn2{flag}.v","w") as f:

@@ -1,8 +1,11 @@
 `include "topv" `timescale 1ns/10ps module testbench();
 integer count;
-reg [7:0] inputs;
-reg [7:0] key;
-reg [255:0] lockingkeyinput;
+reg N1;
+reg N2;
+reg N3;
+reg N6;
+reg N7;
+reg [1:0] lockingkeyinput;
 reg clk;
 wire [1:0] Q;
 wire Z;
@@ -21,17 +24,17 @@ $fwrite(file, "iterationn");
 $fwrite(file, "keyinputs,Inputs,Q,Zn");
 count=0;
 repeat (100) begin
- {inputs,key} =$random;
+ {N1,N2,N3,N6,N7} =$random;
 #10;
 if(Z==0) begin
  count=count+1;
 end
-$fwrite(file, "%b,%b,%b,%bn", {lockingkeyinput}, {inputs,key}, Q, Z);
+$fwrite(file, "%b,%b,%b,%bn", {lockingkeyinput}, {N1,N2,N3,N6,N7}, Q, Z);
 end
 $fwrite(file, "OER:, %fn",count*100/100);
 end
 $finish;
 $fclose(file);
 end
-top dut (.Q(Q),.Z(Z),.inputs(inputs),.key(key),.lockingkeyinput(lockingkeyinput));
+top dut (.Q(Q),.Z(Z),.N1(N1),.N2(N2),.N3(N3),.N6(N6),.N7(N7),.lockingkeyinput(lockingkeyinput));
 endmodule

@@ -79,9 +79,10 @@ def gen_miterCircuit(verilog,verilogLL):
             compare_o+="assign {}={}=={};\n".format("Q[{}]".format(count),i+"_enc",i+"_org")
             compare_Z+="Q[{}]&".format(count)
             count+=1
+            miter_circuit+=f"wire {i}_enc, {i}_org;\n"
         else:
             miter_circuit+=f"wire [{tmpi['endbit']}:{tmpi['startbit']}] {i}_enc, {i}_org;\n"
-            
+            print(f"wire [{tmpi['endbit']}:{tmpi['startbit']}] {i}_enc, {i}_org;\n")
             for j in range(tmpi['startbit'],tmpi['endbit']+1):
                 compare_o+="assign {}={}=={};\n".format("Q[{}]".format(count),f"{i}_enc[{j}]",f"{i}_org[{j}]")
                 compare_Z+="Q[{}]&".format(count)

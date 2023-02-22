@@ -1,21 +1,11 @@
-module locked(inputs, key, out);
-input [7:0] inputs;
-input [7:0] key;
-output [1:0]out;
-sarlock s(.inputs(inputs), .key(key), .lock_out(out[0]));
-sarlock s1(.inputs(inputs), .key(key), .lock_out(out[1]));
-endmodule
-module ckt(a,b,c);
-input [3:0] a,b;
-output [4:0] c;
-assign c = a + b;
-endmodule
-module sarlock (inputs, key, lock_out);
-input [7:0] inputs;
-input [7:0] key;
-output lock_out;
-wire [4:0]ckt_out;
-reg keyx = 8'b01101101;
-assign lock_out =ckt_out[0]^( (inputs == key) & (inputs != keyx));
-ckt c(.a(inputs[3:0]), .b(inputs[7:4]), .c(ckt_out));
+module c17 (N1,N2,N3,N6,N7,N22,N23);
+input N1,N2,N3,N6,N7;
+output N22,N23;
+wire N10,N11,N16,N19;
+nand NAND2_1 (N10, N1, N3);
+nand NAND2_2 (N11, N3, N6);
+nand NAND2_3 (N16, N2, N11);
+nand NAND2_4 (N19, N11, N7);
+nand NAND2_5 (N22, N10, N16);
+nand NAND2_6 (N23, N16, N19);
 endmodule
