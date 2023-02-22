@@ -1,16 +1,17 @@
 # Setup before running
 Change yosys path in src/path_var.py to your path for yosys
-** if yosys is in build dir, give path to yosys bin file: **
+ **if yosys is in build dir, give path to yosys bin file:**
 
 yosys_path="~/FYP/linux/yosys/build/yosys"
-** if yosys is installed using apt, write yosys: **
+
+ **if yosys is installed using apt, write yosys:**
 
 yosys_path="yosys"
 
 
 # Example Run
 
-** To Create New Netlist File for Locking use: **
+**To Create New Netlist File for Locking use:**
 ```
 obj=AST(file_path="./input_files/tmporg.v",rw="w",flag="v",top="locked",filename="locked_new")
 ```
@@ -18,7 +19,8 @@ obj=AST(file_path="./input_files/tmporg.v",rw="w",flag="v",top="locked",filename
 This reads verilog code from file "./input_files/tmporg.v" and creates a json file in output_files with name "locked_new" with top module "locked"
 
 
-** Run this command once at start only , then using the following command afterwards: **
+**Run this command once at start only , then using the following command afterwards:**
+
 ```
 obj = AST(file_path="./output_files/locked_new.json",rw='r',top="locked",filename="locked") # r for read from file
 ```
