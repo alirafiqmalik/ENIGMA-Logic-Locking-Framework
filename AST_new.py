@@ -6,7 +6,7 @@ import networkx as nx
 
 
 
-obj=AST(file_path="./input_files/Benchmarks/ISCAS85/c3540/c3540.v",rw="w",flag="v",top="c3540",filename="c3540org")
+# obj=AST(file_path="./input_files/Benchmarks/ISCAS85/c3540/c3540.v",rw="w",flag="v",top="c3540",filename="c3540org")
 obj = AST(file_path="./output_files/c3540org.json",rw='r',filename="c3540locked") # r for read from file
 # obj.save_module_connections()
 

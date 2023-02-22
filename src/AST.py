@@ -91,9 +91,6 @@ class module:
 
     def save_graph(self):
         save_graph(self.circuitgraph)
-        # nx.drawing.nx_agraph.write_dot(self.circuitgraph, "./tmp/tmp.dot")
-        # import subprocess
-        # subprocess.run("dot -Tsvg ./tmp/tmp.dot > ./tmp/tmp.svg", shell=True)
     
     def node_to_txt(self,mode="input"):
         txt=""
@@ -102,10 +99,8 @@ class module:
             tmpi=iodict[i]
             if(tmpi["bits"]==1):
                 txt+=f"{mode} {i};\n"
-            # print(f"{mode} {i};")
             else:
                 txt+=f"{mode} [{tmpi['endbit']}:{tmpi['startbit']}] {i};\n"
-            # print(f"{mode} [{tmpi['endbit']}:{tmpi['startbit']}] {i};")
         return txt
 
     def gates_to_txt(self):
