@@ -22,6 +22,7 @@ class module:
         self.circuitgraph=None
         self.module_LLverilog=""
         self.lockingdata={"wires":[],"gates":[],"inputs":[]}
+        self.bitkey=""
         # self.module_LLverilog=None
         # self.module_LLcircuitgraph=None
     
@@ -222,7 +223,7 @@ class AST:
 
     def writeLLFile(self):
         self.update_LLverilog()
-        ast_dict = dict({"orginal_code" : self.verilog, "gate_lib":self.gate_lib,"gate_level_flattened" : self.gate_level_flattened,"Bench_format_flattened" : self.flatten_bench, "gate_level_not_flattened" : self.synthesized_verilog, "top_module_name" : self.top_module_name,"Total_number_of_modules":self.no_of_modules,"LL_gatelevel_verilog":self.LLverilog})
+        ast_dict = dict({"orginal_code" : self.verilog, "gate_lib":self.gate_lib,"gate_level_flattened" : self.gate_level_flattened,"Bench_format_flattened" : self.flatten_bench, "gate_level_not_flattened" : self.synthesized_verilog, "top_module_name" : self.top_module_name,"Total_number_of_modules":self.no_of_modules,"LL_gatelevel_verilog":self.LLverilog,"bitkey":self.top_module.bitkey})
         # top_dict = dict({"Verilog": self.top_module.org_code_verilog, "Synthesized_verilog" : self.top_module.gate_level_verilog, "Total_number_of_modules":self.no_of_modules, "io":self.top_module.io, "gates": self.top_module.gates, "links" : self.top_module.linkages, "DiGraph":self.top_module.base64_data})
         # top_dict = dict({"Total_number_of_modules":self.no_of_modules, "io":self.top_module.io, "gates": self.top_module.gates, "links" : self.top_module.linkages, "DiGraph":self.top_module.base64_data})
 
@@ -307,7 +308,6 @@ class AST:
         self.flatten_bench=verilog_ast["AST"]["Bench_format_flattened"]
         self.gate_lib=verilog_ast["AST"]["gate_lib"]
 
-
         keys = list((verilog_ast["modules"]).keys())
         for i in keys:
             self.modules[i]=module()
@@ -323,6 +323,7 @@ class AST:
             self.modules[i].base64_data = verilog_ast["modules"][i]["DiGraph"]
             self.modules[i].circuitgraph = pickle.loads(base64.b64decode(self.modules[i].base64_data.encode('utf-8')))
         self.top_module=self.modules[self.top_module_name]
+        self.top_module.bitkey=verilog_ast["AST"]["bitkey"]
     
     
     def gen_module_connections(self):

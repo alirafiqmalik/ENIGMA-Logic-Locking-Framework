@@ -1,6 +1,8 @@
 import re
 import random
 import subprocess
+from src.path_var import *
+
 
 
 #gates=['INVX1', 'AND2X1', 'OR2X1', 'NAND2X1', 'NOR2X1']
@@ -319,12 +321,12 @@ def extract_module_name(verilog):
 
 def verify_verilog(path,top):
   cmd = """
-      ~/FYP/linux/yosys/build/yosys -q -p'
+     {yosys_path} -q -p'
       read_verilog {path}
       hierarchy -check -top {top}
       '
   """
-  result = subprocess.run(cmd.format(path=path,top=top), shell=True)
+  result = subprocess.run(cmd.format(yosys_path=yosys_path,path=path,top=top), shell=True)
   if(result.returncode==1):
     raise Exception("Error code 1\nVerilog Code Syntax Error")
   elif(result.returncode==0):
@@ -341,7 +343,7 @@ def synthesize_verilog(verilog, top,flag = "flatten"):
 
     if flag == "flatten":
         cmd = """
-             ~/FYP/linux/yosys/build/yosys -q -p'
+            {yosys_path} -q -p'
             read_verilog ./tmp/tmp_syn1.v
             hierarchy -check -top {}
             proc; opt; fsm; opt; memory; opt;
@@ -353,11 +355,10 @@ def synthesize_verilog(verilog, top,flag = "flatten"):
             write_verilog -noattr ./tmp/tmp_syn2flatten.v
             '
         """
-
         
     elif flag == "dont_flatten":
         cmd = """
-             ~/FYP/linux/yosys/build/yosys -q -p'
+            {yosys_path} -q -p'
             read_verilog ./tmp/tmp_syn1.v
             hierarchy -check -top {}
             proc; opt; fsm; opt; memory; opt;
@@ -373,9 +374,21 @@ def synthesize_verilog(verilog, top,flag = "flatten"):
     # Run the command and capture the output
     module_name = top
     
-    subprocess.run(cmd.format(module_name), shell=True)
+    result=subprocess.run(cmd.format(yosys_path=yosys_path,module_name), shell=True)
+
+    if(result.returncode==1):
+        raise Exception("Error code 1\nVerilog Code Syntax Error or yosys Path not found")
+    elif(result.returncode==0):
+        pass
+        # print("Verilog Code Working Without Error")
+    else:
+        raise Exception(f"Unknown Error Code {result.returncode}")
+    
     synthesized_verilog = open(f"./tmp/tmp_syn2{flag}.v", "r").read()
+    
+    
     synthesized_verilog = format_verilog(synthesized_verilog,remove_wire=False,remove_assign=True)
+    
     with open(f"./tmp/tmp_syn2{flag}.v","w") as f:
         f.write(synthesized_verilog)    
     #os.remove("./tmp/tmp_syn1.v")

@@ -27,6 +27,7 @@ class LogicLocking:
       # print("######################################", end="\n          ")
       # print(self.keyint, " ----------> ", self.bitkey)
       print(self.bitkey)
+      self.module.bitkey=self.bitkey
       # print("######################################")
 
     
