@@ -40,7 +40,7 @@ class PreSAT:
 
       keywire_name="keywire"+str(len(self.module.io["wires"]))
       
-      # self.circuitgraph.add_node(keywire_name,)
+      self.circuitgraph.add_node(keygate_name,type="gate",logic=gatetype)
       self.circuitgraph.add_node(keywire_name,type="wire",port=keywire_name)
       
       self.circuitgraph.add_edge(NodeA, keywire_name)
@@ -76,6 +76,7 @@ class PreSAT:
       # print(NodeA)
       Na=self.circuitgraph.nodes[NodeA]
       # Nb=self.circuitgraph.nodes[NodeB]
+      # print(NodeA,Na)
       if(Na['type']=='gate'):
         self.module.gates[Na['logic']][NodeA]['outputs']=keywire_name
         # self.module.gates[Na['logic']][NodeA]=keywire_name
@@ -249,9 +250,6 @@ class PreSAT:
         
 
 
-
-
-
     def ReplaceInverter(self,inverter,new_gatetype="XOR"):
       bitval=len(self.module.lockingdata['inputs'])
       keygate_input_name=f"lockingkeyinput[{bitval}]"
@@ -275,58 +273,11 @@ class PreSAT:
       self.module.bitkey=bit+self.module.bitkey
       self.module.lockingdata["inputs"].append((keygate_input_name,bit))
       
-
-      
       if("lockingkeyinput" not in self.module.io['inputs']):
         self.module.io['inputs']["lockingkeyinput"]=connector(1,0,0)
         self.module.io["input_ports"]+="lockingkeyinput,"
       else:
         self.module.io['inputs']["lockingkeyinput"]=connector(bitval+1,0,bitval)
-
-
-
-
-
-
-
-      # print(self.module.gates.keys())
-
-      # print(inverter,gateio)
-      
-      # self.circuitgraph.remove_node(inverter)
-
-      
-      # self.circuitgraph.add_edge(inverter, gateio['outputs'])
-
-      # self.circuitgraph.remove_node(inverter)
-
-
-
-      new_gatetype="XOR"
-
-
-      # self.circuitgraph.add_node(gate,type="gate",logic=new_gatetype)
-      # self.circuitgraph.add_node(wire_name,type="wire",port=wire_name)
-      # self.circuitgraph.add_node(invgate,type="gate",logic="NOT")
-      
-      
-      
-      # self.circuitgraph.add_edge(gate, wire_name)
-      # self.circuitgraph.add_edge(wire_name,invgate)
-      # self.circuitgraph.add_edge(invgate,gateio['outputs'])
-      
-
-
-      
-      # if(new_gatetype not in gio):
-      #   gio[new_gatetype]={}  
-      # gio[new_gatetype][gate]=gio[gatetype].pop(gate)
-
-      
-      # gio["NOT"][invgate]={'inputs':[wire_name],"outputs":gateio['outputs']}
-      # self.module.io['wires'][wire_name]=connector(1,0,0)
-      # gateio['outputs']=wire_name
-
 
 
     def get_gates(self):# AllGates ← all_gates(C)
