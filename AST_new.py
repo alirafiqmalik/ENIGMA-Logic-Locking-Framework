@@ -27,55 +27,17 @@ import random
 
 
 
-def get_gates(gates):
-  # AllGates ← all_gates(C)
-  noninvlist=list(gates.keys()).copy()
-  # InvList ← get_inverters(AllGates)
-  # N onInvList ← get_noninverters(AllGates)
-  if("NOT" in gates.keys()):
-    noninvlist.remove("NOT")
-    invlist=gates['NOT']
-  else:
-    gates["NOT"]={}
-    invlist=gates["NOT"]
-
-  return invlist,noninvlist
-
-
-def TRLL_plus():
-  gatecount=0
-  for i in obj.top_module.gates:
-    gatecount+=len(obj.top_module.gates[i])
   
-  # split ← RANDOM % K
-  split=random.randint(0,gatecount-1)
-  
-  invlist,noninvlist,=get_gates(obj.top_module.gates)
-  # print(noninvlist)
 
-  # num inv ← num(InvList)
-  invgatecount=len(invlist)
-
-  # if num inv < split then
-  #   ProduceInverters(C,N onInvList,split-num_inv)
-  
-  if(invgatecount<split):
-    # print(invgatecount,split)
-    LL.InsertInverters(noninvlist,invlist,split-invgatecount)
-  
-  
-  invlist,noninvlist,=get_gates(obj.top_module.gates)
-  # print(noninvlist)
-  # print(obj.top_module.gates.keys())
+LL.TRLL_plus()
 
 
-TRLL_plus()
 
-tmp=list(LL.module.gates["NOT"].keys())
-# print(tmp)
-# print(LL.module.gates["NOT"][tmp[0]])
-LL.ReplaceInverter(inverter="NOT_inserted_0_")
-  
+
+
+ 
+
+
 # procedure Locking(C,K,split,InvList,NonInvList):
 
 #   for k in {0,split - 1} do

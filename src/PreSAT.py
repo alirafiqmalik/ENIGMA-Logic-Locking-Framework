@@ -210,7 +210,7 @@ class PreSAT:
     def InsertInverters(self,noninvlist,invlist,s):
       for _ in range(s):
         gio=self.module.gates
-        gatetype=random.choice(noninvlist)
+        gatetype=random.choice(list(noninvlist.keys()))
         # print(gatetype,gates[gatetype])
         gates=gio[gatetype]
 
@@ -256,13 +256,15 @@ class PreSAT:
     def ReplaceInverter(self,inverter,new_gatetype="XOR"):
       bitval=len(self.module.lockingdata['inputs'])
       keygate_input_name=f"lockingkeyinput[{bitval}]"
-      print(self.circuitgraph.node[inverter])
+      # print(self.circuitgraph.nodes[inverter])
+      
+      self.circuitgraph.add_node(inverter,type="gate",logic=new_gatetype)
       self.circuitgraph.add_node(keygate_input_name,type="input",port="lockingkeyinput")
 
       self.circuitgraph.add_edge(keygate_input_name,inverter)
-      self.circuitgraph[inverter]['type']=new_gatetype
+      self.circuitgraph.add_edge("module#"+self.module.module_name,keygate_input_name)
 
-      print(self.circuitgraph.node[inverter])
+      # print(self.circuitgraph.nodes[inverter])
 
       gio=self.module.gates
       if(new_gatetype not in gio):
@@ -271,6 +273,7 @@ class PreSAT:
       gio[new_gatetype][inverter]["inputs"].append(keygate_input_name)
 
       bit="0" if new_gatetype=="XOR" else "1"
+      self.module.bitkey=bit+self.module.bitkey
       self.module.lockingdata["inputs"].append((keygate_input_name,bit))
       
 
@@ -324,4 +327,75 @@ class PreSAT:
       # gio["NOT"][invgate]={'inputs':[wire_name],"outputs":gateio['outputs']}
       # self.module.io['wires'][wire_name]=connector(1,0,0)
       # gateio['outputs']=wire_name
+
+
+
+    def get_gates(self):# AllGates ← all_gates(C)
+      # N onInvList ← get_noninverters(AllGates)
+      gates=self.module.gates
+      noninvlist={i:gates[i] for i in gates.keys() if i!="NOT"}
+      # InvList ← get_inverters(AllGates)
+      if("NOT" in gates.keys()):
+        invlist=gates['NOT']
+      else:
+        gates["NOT"]={}
+        invlist=gates["NOT"]
+
+      return invlist,noninvlist
+
+
+
+    def TRLL_Locking(self,split,keycount,invlist,noninvlist):
+      for _ in range(0,split):
+        rnd=random.randint(0,1)
+        # print(rnd,invlist)
+        gate=random.choice(list(invlist.keys()))
+        print("HERE  ",gate)
+        
+        if(rnd):
+          self.ReplaceInverter(inverter=gate,new_gatetype="XNOR")
+        else:
+          self.ReplaceInverter(inverter=gate,new_gatetype="XOR")
+
+      for _ in range(split,keycount):
+        rnd=random.randint(0,1)
+        gate_type=random.choice(list(noninvlist.keys()))
+        gates=noninvlist[gate_type]
+        gate=random.choice(list(gates.keys()))
+        gate_o=gates[gate]['outputs']
+        # print("HERE  ",gate)
+        
+        if(rnd):
+          self.InsertKeyGate(gate,gate_o,gatetype="XNOR")
+          # self.ReplaceInverter(inverter=gate,new_gatetype="XNOR")
+        else:
+          self.InsertKeyGate(gate,gate_o,gatetype="XOR")
+          # self.ReplaceInverter(inverter=gate,new_gatetype="XOR")
+
+
+
+    def TRLL_plus(self,keycount=5):
+      gatecount=0
+      for i in self.module.gates:
+        gatecount+=len(self.module.gates[i])
+      
+      # split ← RANDOM % K
+      split=random.randint(0,keycount-1)
+      
+      invlist,noninvlist,=self.get_gates()
+      # print(noninvlist)
+
+      # num inv ← num(InvList)
+      invgatecount=len(invlist)
+      print(invgatecount,split)
+
+      # if num inv < split then
+      #   ProduceInverters(C,N onInvList,split-num_inv)
+      
+      if(invgatecount<split):
+        # print(invgatecount,split)
+        self.InsertInverters(noninvlist,invlist,split-invgatecount)
+      
+      # invlist,noninvlist,=get_gates(obj.top_module.gates)
+      self.TRLL_Locking(split,keycount,invlist,noninvlist)
 

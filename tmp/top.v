@@ -1,13 +1,14 @@
-module top(N1,N2,N3,N6,N7,Q,Z);
+module top(N1,N2,N3,N6,N7,lockingkeyinput,Q,Z);
 input N1;
 input N2;
 input N3;
 input N6;
 input N7;
+input [4:0] lockingkeyinput;
 wire N22_enc, N22_org;
 wire N23_enc, N23_org;
 orgcir org(.N1(N1),.N2(N2),.N3(N3),.N6(N6),.N7(N7),.N22(N22_org),.N23(N23_org));
-enccir enc(.N1(N1),.N2(N2),.N3(N3),.N6(N6),.N7(N7),.N22(N22_enc),.N23(N23_enc));
+enccir enc(.N1(N1),.N2(N2),.N3(N3),.N6(N6),.N7(N7),.lockingkeyinput(lockingkeyinput),.N22(N22_enc),.N23(N23_enc));
 output Z;
 output [1:0]Q;
 assign Q[0]=N22_enc==N22_org;
@@ -17,12 +18,13 @@ endmodule
 
 
 
-module enccir(N1,N2,N3,N6,N7,N22,N23);
+module enccir(N1,N2,N3,N6,N7,lockingkeyinput,N22,N23);
 input N1;
 input N2;
 input N3;
 input N6;
 input N7;
+input [4:0] lockingkeyinput;
 output N22;
 output N23;
 wire _1_;
@@ -31,14 +33,20 @@ wire _0_;
 wire _3_;
 wire new_inverter_wire4;
 wire new_inverter_wire5;
-NAND_g NAND_5_(.A(_2_), .B(N2), .Y(_3_));
-NAND_g NAND_6_(.A(_2_), .B(N7), .Y(_0_));
-NAND_g NAND_7_(.A(_0_), .B(_3_), .Y(N23));
+wire new_inverter_wire6;
+wire new_inverter_wire7;
+wire keywire8;
+NAND_g NAND_5_(.A(_2_), .B(N2), .Y(keywire8));
 NAND_g NAND_9_(.A(_1_), .B(_3_), .Y(N22));
-NOT_g NOT_inserted_0_(.A(new_inverter_wire4), .Y(_1_));
-NOT_g NOT_inserted_1_(.A(new_inverter_wire5), .Y(_2_));
 AND_g NAND_8_(.A(N3), .B(N1), .Y(new_inverter_wire4));
-AND_g NAND_4_(.A(N6), .B(N3), .Y(new_inverter_wire5));
+AND_g NAND_6_(.A(_2_), .B(N7), .Y(new_inverter_wire5));
+AND_g NAND_4_(.A(N6), .B(N3), .Y(new_inverter_wire6));
+AND_g NAND_7_(.A(_0_), .B(_3_), .Y(new_inverter_wire7));
+XOR_g NOT_inserted_0_(.A(new_inverter_wire4), .B(lockingkeyinput[0]), .Y(_1_));
+XOR_g NOT_inserted_3_(.A(new_inverter_wire7), .B(lockingkeyinput[2]), .Y(N23));
+XNOR_g NOT_inserted_1_(.A(new_inverter_wire5), .B(lockingkeyinput[1]), .Y(_0_));
+XNOR_g NOT_inserted_2_(.A(new_inverter_wire6), .B(lockingkeyinput[3]), .Y(_2_));
+XNOR_g keygate_XNOR_0(.A(keywire8), .B(lockingkeyinput[4]), .Y(_3_));
 endmodule
 
 
