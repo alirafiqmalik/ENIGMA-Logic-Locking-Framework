@@ -1,12 +1,12 @@
 strict digraph "" {
 	NAND_4_	[logic=AND,
 		type=gate];
-	new_inverter_wire6	[port=new_inverter_wire6,
+	new_inverter_wire7	[port=new_inverter_wire7,
 		type=wire];
-	NAND_4_ -> new_inverter_wire6;
+	NAND_4_ -> new_inverter_wire7;
 	_2_	[port=_2_,
 		type=wire];
-	NAND_5_	[logic=NAND,
+	NAND_5_	[logic=AND,
 		type=gate];
 	_2_ -> NAND_5_;
 	NAND_6_	[logic=AND,
@@ -18,49 +18,49 @@ strict digraph "" {
 	N3	[port=N3,
 		type=input];
 	N3 -> NAND_4_;
-	NAND_8_	[logic=AND,
+	NAND_8_	[logic=NAND,
 		type=gate];
 	N3 -> NAND_8_;
-	keywire8	[port=keywire8,
+	new_inverter_wire5	[port=new_inverter_wire5,
 		type=wire];
-	NAND_5_ -> keywire8;
+	NAND_5_ -> new_inverter_wire5;
 	_3_	[port=_3_,
 		type=wire];
-	NAND_7_	[logic=AND,
+	NAND_7_	[logic=NAND,
 		type=gate];
 	_3_ -> NAND_7_;
-	NAND_9_	[logic=NAND,
+	NAND_9_	[logic=AND,
 		type=gate];
 	_3_ -> NAND_9_;
 	N2	[port=N2,
 		type=input];
 	N2 -> NAND_5_;
-	new_inverter_wire5	[port=new_inverter_wire5,
+	new_inverter_wire4	[port=new_inverter_wire4,
 		type=wire];
-	NAND_6_ -> new_inverter_wire5;
+	NAND_6_ -> new_inverter_wire4;
 	_0_	[port=_0_,
 		type=wire];
 	_0_ -> NAND_7_;
 	N7	[port=N7,
 		type=input];
 	N7 -> NAND_6_;
-	new_inverter_wire7	[port=new_inverter_wire7,
+	keywire9	[port=keywire9,
 		type=wire];
-	NAND_7_ -> new_inverter_wire7;
+	NAND_7_ -> keywire9;
 	N23	[type=output];
 	"module#c17"	[type=module];
 	N23 -> "module#c17";
-	new_inverter_wire4	[port=new_inverter_wire4,
-		type=wire];
-	NAND_8_ -> new_inverter_wire4;
 	_1_	[port=_1_,
 		type=wire];
+	NAND_8_ -> _1_;
 	_1_ -> NAND_9_;
 	N1	[port=N1,
 		type=input];
 	N1 -> NAND_8_;
+	new_inverter_wire6	[port=new_inverter_wire6,
+		type=wire];
+	NAND_9_ -> new_inverter_wire6;
 	N22	[type=output];
-	NAND_9_ -> N22;
 	N22 -> "module#c17";
 	"module#c17" -> N6;
 	"module#c17" -> N3;
@@ -82,27 +82,35 @@ strict digraph "" {
 	"lockingkeyinput[4]"	[port=lockingkeyinput,
 		type=input];
 	"module#c17" -> "lockingkeyinput[4]";
+	"lockingkeyinput[5]"	[port=lockingkeyinput,
+		type=input];
+	"module#c17" -> "lockingkeyinput[5]";
 	NOT_inserted_0_	[logic=XOR,
 		type=gate];
 	new_inverter_wire4 -> NOT_inserted_0_;
-	NOT_inserted_0_ -> _1_;
-	NOT_inserted_1_	[logic=XNOR,
+	NOT_inserted_0_ -> _0_;
+	NOT_inserted_1_	[logic=XOR,
 		type=gate];
 	new_inverter_wire5 -> NOT_inserted_1_;
-	NOT_inserted_1_ -> _0_;
+	NOT_inserted_1_ -> _3_;
 	NOT_inserted_2_	[logic=XNOR,
 		type=gate];
 	new_inverter_wire6 -> NOT_inserted_2_;
-	NOT_inserted_2_ -> _2_;
-	NOT_inserted_3_	[logic=XOR,
+	NOT_inserted_2_ -> N22;
+	NOT_inserted_3_	[logic=XNOR,
 		type=gate];
 	new_inverter_wire7 -> NOT_inserted_3_;
-	NOT_inserted_3_ -> N23;
-	"lockingkeyinput[0]" -> NOT_inserted_0_;
-	"lockingkeyinput[1]" -> NOT_inserted_1_;
-	"lockingkeyinput[2]" -> NOT_inserted_3_;
-	"lockingkeyinput[3]" -> NOT_inserted_2_;
+	NOT_inserted_3_ -> _2_;
+	"lockingkeyinput[0]" -> NOT_inserted_3_;
+	"lockingkeyinput[1]" -> NOT_inserted_0_;
+	"lockingkeyinput[2]" -> NOT_inserted_2_;
+	"lockingkeyinput[3]" -> NOT_inserted_1_;
+	keywire8	[port=keywire8,
+		type=wire];
 	keywire8 -> keygate_XNOR_0;
-	keygate_XNOR_0 -> _3_;
+	keygate_XNOR_0 -> N23;
 	"lockingkeyinput[4]" -> keygate_XNOR_0;
+	keywire9 -> keygate_XNOR_1;
+	keygate_XNOR_1 -> keywire8;
+	"lockingkeyinput[5]" -> keygate_XNOR_1;
 }

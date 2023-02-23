@@ -5,7 +5,7 @@ reg N2;
 reg N3;
 reg N6;
 reg N7;
-reg [4:0] lockingkeyinput;
+reg [5:0] lockingkeyinput;
 reg clk;
 wire [1:0] Q;
 wire Z;

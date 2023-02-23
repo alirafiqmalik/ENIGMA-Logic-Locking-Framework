@@ -89,6 +89,7 @@ from src.PreSAT import PreSAT
 
 obj = AST(file_path="./output_files/locked_new.json",rw='r',filename="locked")
 LL=PreSAT(obj.top_module)
+LL.set_key(6) # for TRLL, keycount<=Total No of original gates
 # key integer val= key
 LL.TRLL_plus()
 obj.writeLLFile() # saves locked circuit to a new json file filename="locked"

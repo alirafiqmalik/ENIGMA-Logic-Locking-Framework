@@ -7,8 +7,8 @@
         "gate_level_not_flattened": "module c17(N1, N2, N3, N6, N7, N22, N23);\nwire _0_;\nwire _1_;\nwire _2_;\nwire _3_;\ninput N1;\nwire N1;\ninput N2;\nwire N2;\noutput N22;\nwire N22;\noutput N23;\nwire N23;\ninput N3;\nwire N3;\ninput N6;\nwire N6;\ninput N7;\nwire N7;\nNAND_g _4_ ( .A(N3), .B(N6), .Y(_2_) );\nNAND_g _5_ ( .A(N2), .B(_2_), .Y(_3_) );\nNAND_g _6_ ( .A(N7), .B(_2_), .Y(_0_) );\nNAND_g _7_ ( .A(_3_), .B(_0_), .Y(N23) );\nNAND_g _8_ ( .A(N1), .B(N3), .Y(_1_) );\nNAND_g _9_ ( .A(_3_), .B(_1_), .Y(N22) );\nendmodule\n",
         "top_module_name": "c17",
         "Total_number_of_modules": 1,
-        "LL_gatelevel_verilog": "module c17(N1,N2,N3,N6,N7,lockingkeyinput,N22,N23);\ninput N1;\ninput N2;\ninput N3;\ninput N6;\ninput N7;\ninput [4:0] lockingkeyinput;\noutput N22;\noutput N23;\nwire _1_;\nwire _2_;\nwire _0_;\nwire _3_;\nwire new_inverter_wire4;\nwire new_inverter_wire5;\nwire new_inverter_wire6;\nwire new_inverter_wire7;\nwire keywire8;\nNAND_g NAND_5_(.A(_2_), .B(N2), .Y(keywire8));\nNAND_g NAND_9_(.A(_1_), .B(_3_), .Y(N22));\nAND_g NAND_8_(.A(N3), .B(N1), .Y(new_inverter_wire4));\nAND_g NAND_6_(.A(_2_), .B(N7), .Y(new_inverter_wire5));\nAND_g NAND_4_(.A(N6), .B(N3), .Y(new_inverter_wire6));\nAND_g NAND_7_(.A(_0_), .B(_3_), .Y(new_inverter_wire7));\nXOR_g NOT_inserted_0_(.A(new_inverter_wire4), .B(lockingkeyinput[0]), .Y(_1_));\nXOR_g NOT_inserted_3_(.A(new_inverter_wire7), .B(lockingkeyinput[2]), .Y(N23));\nXNOR_g NOT_inserted_1_(.A(new_inverter_wire5), .B(lockingkeyinput[1]), .Y(_0_));\nXNOR_g NOT_inserted_2_(.A(new_inverter_wire6), .B(lockingkeyinput[3]), .Y(_2_));\nXNOR_g keygate_XNOR_0(.A(keywire8), .B(lockingkeyinput[4]), .Y(_3_));\nendmodule\n\n",
-        "bitkey": "1010"
+        "LL_gatelevel_verilog": "module c17(N1,N2,N3,N6,N7,lockingkeyinput,N22,N23);\ninput N1;\ninput N2;\ninput N3;\ninput N6;\ninput N7;\ninput [5:0] lockingkeyinput;\noutput N22;\noutput N23;\nwire _1_;\nwire _2_;\nwire _0_;\nwire _3_;\nwire new_inverter_wire4;\nwire new_inverter_wire5;\nwire new_inverter_wire6;\nwire new_inverter_wire7;\nwire keywire8;\nwire keywire9;\nNAND_g NAND_7_(.A(_0_), .B(_3_), .Y(keywire9));\nNAND_g NAND_8_(.A(N3), .B(N1), .Y(_1_));\nAND_g NAND_6_(.A(_2_), .B(N7), .Y(new_inverter_wire4));\nAND_g NAND_5_(.A(_2_), .B(N2), .Y(new_inverter_wire5));\nAND_g NAND_9_(.A(_1_), .B(_3_), .Y(new_inverter_wire6));\nAND_g NAND_4_(.A(N6), .B(N3), .Y(new_inverter_wire7));\nXNOR_g NOT_inserted_3_(.A(new_inverter_wire7), .B(lockingkeyinput[0]), .Y(_2_));\nXNOR_g NOT_inserted_2_(.A(new_inverter_wire6), .B(lockingkeyinput[2]), .Y(N22));\nXNOR_g keygate_XNOR_0(.A(keywire8), .B(lockingkeyinput[4]), .Y(N23));\nXNOR_g keygate_XNOR_1(.A(keywire9), .B(lockingkeyinput[5]), .Y(keywire8));\nXOR_g NOT_inserted_0_(.A(new_inverter_wire4), .B(lockingkeyinput[1]), .Y(_0_));\nXOR_g NOT_inserted_1_(.A(new_inverter_wire5), .B(lockingkeyinput[3]), .Y(_3_));\nendmodule\n\n",
+        "bitkey": "0101110101"
     },
     "modules": {
         "c17": {
@@ -16,35 +16,41 @@
             "Synthesized_verilog": "module c17(N1, N2, N3, N6, N7, N22, N23);\nwire _0_;\nwire _1_;\nwire _2_;\nwire _3_;\ninput N1;\nwire N1;\ninput N2;\nwire N2;\noutput N22;\nwire N22;\noutput N23;\nwire N23;\ninput N3;\nwire N3;\ninput N6;\nwire N6;\ninput N7;\nwire N7;\nNAND_g _4_ ( .A(N3), .B(N6), .Y(_2_) );\nNAND_g _5_ ( .A(N2), .B(_2_), .Y(_3_) );\nNAND_g _6_ ( .A(N7), .B(_2_), .Y(_0_) );\nNAND_g _7_ ( .A(_3_), .B(_0_), .Y(N23) );\nNAND_g _8_ ( .A(N1), .B(N3), .Y(_1_) );\nNAND_g _9_ ( .A(_3_), .B(_1_), .Y(N22) );\nendmodule",
             "lockingdata": {
                 "wires": [
-                    "keywire8"
+                    "keywire8",
+                    "keywire9"
                 ],
                 "gates": [
-                    "keygate_XNOR_0"
+                    "keygate_XNOR_0",
+                    "keygate_XNOR_1"
                 ],
                 "inputs": [
                     [
                         "lockingkeyinput[0]",
-                        "0"
+                        "1"
                     ],
                     [
                         "lockingkeyinput[1]",
-                        "1"
-                    ],
-                    [
-                        "lockingkeyinput[2]",
                         "0"
                     ],
                     [
-                        "lockingkeyinput[3]",
+                        "lockingkeyinput[2]",
                         "1"
+                    ],
+                    [
+                        "lockingkeyinput[3]",
+                        "0"
                     ],
                     [
                         "lockingkeyinput[4]",
                         "1"
+                    ],
+                    [
+                        "lockingkeyinput[5]",
+                        "1"
                     ]
                 ]
             },
-            "DiGraph": "gASVhggAAAAAAACMGG5ldHdvcmt4LmNsYXNzZXMuZGlncmFwaJSMB0RpR3JhcGiUk5QpgZR9lCiMBWdyYXBolH2UjAVfbm9kZZR9lCiMB05BTkRfNF+UfZQojAR0eXBllIwEZ2F0ZZSMBWxvZ2ljlIwDQU5ElHWMA18yX5R9lChoC4wEd2lyZZSMBHBvcnSUjANfMl+UdYwCTjaUfZQoaAuMBWlucHV0lGgSaBR1jAJOM5R9lChoC2gWaBKMAk4zlHWMB05BTkRfNV+UfZQoaAuMBGdhdGWUaA2MBE5BTkSUdYwDXzNflH2UKGgLaBFoEowDXzNflHWMAk4ylH2UKGgLaBZoEmghdYwHTkFORF82X5R9lChoC2gMaA1oDnWMA18wX5R9lChoC2gRaBKMA18wX5R1jAJON5R9lChoC2gWaBJoKHWMB05BTkRfN1+UfZQoaAtoDGgNaA51jANOMjOUfZRoC4wGb3V0cHV0lHOMB05BTkRfOF+UfZQoaAtoDGgNaA51jANfMV+UfZQoaAtoEWgSjANfMV+UdYwCTjGUfZQoaAtoFmgSaDR1jAdOQU5EXzlflH2UKGgLaBxoDWgddYwDTjIylH2UaAtoLnOMCm1vZHVsZSNjMTeUfZRoC4wGbW9kdWxllHOMEm5ld19pbnZlcnRlcl93aXJlNJR9lCiMBHR5cGWUjAR3aXJllIwEcG9ydJRoPXWMD05PVF9pbnNlcnRlZF8wX5R9lChoP2gMjAVsb2dpY5SMA1hPUpR1jBJuZXdfaW52ZXJ0ZXJfd2lyZTWUfZQoaD9oQGhBaEZ1jA9OT1RfaW5zZXJ0ZWRfMV+UfZQoaD9oDGhEjARYTk9SlHWMEm5ld19pbnZlcnRlcl93aXJlNpR9lChoP2hAaEFoS3WMD05PVF9pbnNlcnRlZF8yX5R9lChoP2gMaERoSnWMEm5ld19pbnZlcnRlcl93aXJlN5R9lChoP2hAaEFoT3WMD05PVF9pbnNlcnRlZF8zX5R9lChoP2gMaERoRXWMEmxvY2tpbmdrZXlpbnB1dFswXZR9lChoP4wFaW5wdXSUaEGMD2xvY2tpbmdrZXlpbnB1dJR1jBJsb2NraW5na2V5aW5wdXRbMV2UfZQoaD9oVWhBaFZ1jBJsb2NraW5na2V5aW5wdXRbMl2UfZQoaD9oVWhBaFZ1jBJsb2NraW5na2V5aW5wdXRbM12UfZQoaD9oVWhBaFZ1jAhrZXl3aXJlOJR9lChoP2hAaEFoXXWMDmtleWdhdGVfWE5PUl8wlH2UjBJsb2NraW5na2V5aW5wdXRbNF2UfZQoaD9oVWhBaFZ1dYwEX2FkapR9lChoCX2UaEt9lHNoD32UKGgafZRoI32UdWgUfZRoCX2Uc2gXfZQoaAl9lGgvfZR1aBp9lGhdfZRzaB59lChoKn2UaDZ9lHVoIX2UaBp9lHNoI32UaEZ9lHNoJX2UaCp9lHNoKH2UaCN9lHNoKn2UaE99lHNoLH2UjAptb2R1bGUjYzE3lH2Uc2gvfZRoPX2Uc2gxfZRoNn2Uc2g0fZRoL32Uc2g2fZRoOH2Uc2g4fZSMCm1vZHVsZSNjMTeUfZRzaDp9lCiMAk4xlH2UjAJOMpR9lIwCTjOUfZSMAk42lH2UjAJON5R9lGhTfZRoV32UaFl9lGhbfZRoYX2UdWg9fZRoQn2Uc2hCfZSMA18xX5R9lHNoRn2UaEh9lHNoSH2UjANfMF+UfZRzaEt9lGhNfZRzaE19lIwDXzJflH2Uc2hPfZRoUX2Uc2hRfZSMA04yM5R9lHNoU32UaEJ9lHNoV32UaEh9lHNoWX2UaFF9lHNoW32UaE19lHNoXX2UaF99lHNoX32UjANfM1+UfZRzaGF9lGhffZRzdYwFX3N1Y2OUaGSMBV9wcmVklH2UKGgJfZQoaBRoa2gXaG11aA99lGhNaKpzaBR9lIwKbW9kdWxlI2MxN5RolHNoF32UjAptb2R1bGUjYzE3lGiSc2gafZQojANfMl+UaGhoIWh1dWgefZRoX2i8c2ghfZSMCm1vZHVsZSNjMTeUaJBzaCN9lChoE2hpaChoe3VoJX2UaEhopXNoKH2UjAptb2R1bGUjYzE3lGiWc2gqfZQoaCdoeYwDXzNflGhydWgsfZRoUWivc2gvfZQoaBlobmg0aIZ1aDF9lGhCaKBzaDR9lIwKbW9kdWxlI2MxN5RojnNoNn2UKGgzaIRoIGhzdWg4fZRoNmiIc2g6fZQojANOMjKUaIuMA04yM5RogHVoPX2UjAdOQU5EXzhflGiCc2hCfZQoaD1onWhTaLF1aEZ9lIwHTkFORF82X5Rod3NoSH2UKGhGaKJoV2izdWhLfZSMB05BTkRfNF+UaGZzaE19lChoS2inaFtot3VoT32UjAdOQU5EXzdflGh9c2hRfZQoaE9orGhZaLV1aFN9lIwKbW9kdWxlI2MxN5Rol3NoV32UjAptb2R1bGUjYzE3lGiYc2hZfZSMCm1vZHVsZSNjMTeUaJlzaFt9lIwKbW9kdWxlI2MxN5RomnNoXX2UjAdOQU5EXzVflGhwc2hffZQoaF1ouWhhaL51aGF9lIwKbW9kdWxlI2MxN5Rom3N1jAVub2Rlc5SMHG5ldHdvcmt4LmNsYXNzZXMucmVwb3J0dmlld3OUjAhOb2RlVmlld5STlCmBlH2UjAZfbm9kZXOUaAhzYowDYWRqlIwabmV0d29ya3guY2xhc3Nlcy5jb3Jldmlld3OUjA1BZGphY2VuY3lWaWV3lJOUKYGUfZSMBl9hdGxhc5RoZHNijARzdWNjlGoAAQAAKYGUfZRqAwEAAGhkc2KMBWVkZ2VzlGj3jAtPdXRFZGdlVmlld5STlCmBlH2UKIwGX2dyYXBolGgDjAhfYWRqZGljdJRoZHVidWIu",
+            "DiGraph": "gASVHgkAAAAAAACMGG5ldHdvcmt4LmNsYXNzZXMuZGlncmFwaJSMB0RpR3JhcGiUk5QpgZR9lCiMBWdyYXBolH2UjAVfbm9kZZR9lCiMB05BTkRfNF+UfZQojAR0eXBllIwEZ2F0ZZSMBWxvZ2ljlIwDQU5ElHWMA18yX5R9lChoC4wEd2lyZZSMBHBvcnSUjANfMl+UdYwCTjaUfZQoaAuMBWlucHV0lGgSaBR1jAJOM5R9lChoC2gWaBKMAk4zlHWMB05BTkRfNV+UfZQoaAtoDGgNaA51jANfM1+UfZQoaAtoEWgSjANfM1+UdYwCTjKUfZQoaAtoFmgSaB91jAdOQU5EXzZflH2UKGgLaAxoDWgOdYwDXzBflH2UKGgLaBFoEowDXzBflHWMAk43lH2UKGgLaBZoEmgmdYwHTkFORF83X5R9lChoC4wEZ2F0ZZRoDYwETkFORJR1jANOMjOUfZRoC4wGb3V0cHV0lHOMB05BTkRfOF+UfZQoaAtoKmgNaCt1jANfMV+UfZQoaAtoEWgSjANfMV+UdYwCTjGUfZQoaAtoFmgSaDR1jAdOQU5EXzlflH2UKGgLaAxoDWgOdYwDTjIylH2UaAtoLnOMCm1vZHVsZSNjMTeUfZRoC4wGbW9kdWxllHOMEm5ld19pbnZlcnRlcl93aXJlNJR9lCiMBHR5cGWUjAR3aXJllIwEcG9ydJRoPXWMD05PVF9pbnNlcnRlZF8wX5R9lChoP2gMjAVsb2dpY5SMA1hPUpR1jBJuZXdfaW52ZXJ0ZXJfd2lyZTWUfZQoaD9oQGhBaEZ1jA9OT1RfaW5zZXJ0ZWRfMV+UfZQoaD9oDGhEaEV1jBJuZXdfaW52ZXJ0ZXJfd2lyZTaUfZQoaD9oQGhBaEp1jA9OT1RfaW5zZXJ0ZWRfMl+UfZQoaD9oDGhEjARYTk9SlHWMEm5ld19pbnZlcnRlcl93aXJlN5R9lChoP2hAaEFoT3WMD05PVF9pbnNlcnRlZF8zX5R9lChoP2gMaERoTnWMEmxvY2tpbmdrZXlpbnB1dFswXZR9lChoP4wFaW5wdXSUaEGMD2xvY2tpbmdrZXlpbnB1dJR1jBJsb2NraW5na2V5aW5wdXRbMV2UfZQoaD9oVWhBaFZ1jBJsb2NraW5na2V5aW5wdXRbMl2UfZQoaD9oVWhBaFZ1jBJsb2NraW5na2V5aW5wdXRbM12UfZQoaD9oVWhBaFZ1jAhrZXl3aXJlOJR9lChoP2hAaEFoXXWMDmtleWdhdGVfWE5PUl8wlH2UjBJsb2NraW5na2V5aW5wdXRbNF2UfZQoaD9oVWhBaFZ1jAhrZXl3aXJlOZR9lChoP2hAaEFoY3WMDmtleWdhdGVfWE5PUl8xlH2UjBJsb2NraW5na2V5aW5wdXRbNV2UfZQoaD9oVWhBaFZ1dYwEX2FkapR9lChoCX2UaE99lHNoD32UKGgafZRoIX2UdWgUfZRoCX2Uc2gXfZQoaAl9lGgvfZR1aBp9lGhGfZRzaBx9lChoKH2UaDZ9lHVoH32UaBp9lHNoIX2UaD19lHNoI32UaCh9lHNoJn2UaCF9lHNoKH2UaGN9lHNoLH2UjAptb2R1bGUjYzE3lH2Uc2gvfZRoMX2Uc2gxfZRoNn2Uc2g0fZRoL32Uc2g2fZRoSn2Uc2g4fZSMCm1vZHVsZSNjMTeUfZRzaDp9lCiMAk4xlH2UjAJOMpR9lIwCTjOUfZSMAk42lH2UjAJON5R9lGhTfZRoV32UaFl9lGhbfZRoYX2UaGd9lHVoPX2UaEJ9lHNoQn2UjANfMF+UfZRzaEZ9lGhIfZRzaEh9lIwDXzNflH2Uc2hKfZRoTH2Uc2hMfZSMA04yMpR9lHNoT32UaFF9lHNoUX2UjANfMl+UfZRzaFN9lGhRfZRzaFd9lGhCfZRzaFl9lGhMfZRzaFt9lGhIfZRzaF19lGhffZRzaF99lIwDTjIzlH2Uc2hhfZRoX32Uc2hjfZRoZX2Uc2hlfZRoXX2Uc2hnfZRoZX2Uc3WMBV9zdWNjlGhqjAVfcHJlZJR9lChoCX2UKGgUaHFoF2hzdWgPfZRoUWi2c2gUfZSMCm1vZHVsZSNjMTeUaJpzaBd9lIwKbW9kdWxlI2MxN5RomHNoGn2UKIwDXzJflGhuaB9oe3VoHH2UaEhorHNoH32UjAptb2R1bGUjYzE3lGiWc2ghfZQoaBNob2gmaIF1aCN9lGhCaKdzaCZ9lIwKbW9kdWxlI2MxN5RonHNoKH2UKGglaH+MA18zX5RoeHVoLH2UaF9ow3NoL32UKGgZaHRoNGiMdWgxfZRoL2iIc2g0fZSMCm1vZHVsZSNjMTeUaJRzaDZ9lChoM2iKaB5oeXVoOH2UaExosXNoOn2UKIwDTjIylGiRjANOMjOUaIZ1aD19lIwHTkFORF82X5RofXNoQn2UKGg9aKRoV2i6dWhGfZSMB05BTkRfNV+UaHZzaEh9lChoRmipaFtovnVoSn2UjAdOQU5EXzlflGiOc2hMfZQoaEpormhZaLx1aE99lIwHTkFORF80X5RobHNoUX2UKGhPaLNoU2i4dWhTfZSMCm1vZHVsZSNjMTeUaJ1zaFd9lIwKbW9kdWxlI2MxN5RonnNoWX2UjAptb2R1bGUjYzE3lGifc2hbfZSMCm1vZHVsZSNjMTeUaKBzaF19lGhlaMlzaF99lChoXWjAaGFoxXVoYX2UjAptb2R1bGUjYzE3lGihc2hjfZSMB05BTkRfN1+UaINzaGV9lChoY2jHaGdoy3VoZ32UjAptb2R1bGUjYzE3lGiic3WMBW5vZGVzlIwcbmV0d29ya3guY2xhc3Nlcy5yZXBvcnR2aWV3c5SMCE5vZGVWaWV3lJOUKYGUfZSMBl9ub2Rlc5RoCHNijANhZGqUjBpuZXR3b3JreC5jbGFzc2VzLmNvcmV2aWV3c5SMDUFkamFjZW5jeVZpZXeUk5QpgZR9lIwGX2F0bGFzlGhqc2KMBHN1Y2OUahEBAAApgZR9lGoUAQAAaGpzYowFZWRnZXOUaggBAACMC091dEVkZ2VWaWV3lJOUKYGUfZQojAZfZ3JhcGiUaAOMCF9hZGpkaWN0lGhqdWJ1Yi4=",
             "io": {
                 "wires": {
                     "_1_": {
@@ -73,6 +79,9 @@
                     },
                     "keywire8": {
                         "bits": 1
+                    },
+                    "keywire9": {
+                        "bits": 1
                     }
                 },
                 "inputs": {
@@ -92,9 +101,9 @@
                         "bits": 1
                     },
                     "lockingkeyinput": {
-                        "bits": 5,
+                        "bits": 6,
                         "startbit": 0,
-                        "endbit": 4
+                        "endbit": 5
                     }
                 },
                 "outputs": {
@@ -110,87 +119,94 @@
             },
             "gates": {
                 "NAND": {
+                    "NAND_7_": {
+                        "inputs": [
+                            "_0_",
+                            "_3_"
+                        ],
+                        "outputs": "keywire9"
+                    },
+                    "NAND_8_": {
+                        "inputs": [
+                            "N3",
+                            "N1"
+                        ],
+                        "outputs": "_1_"
+                    }
+                },
+                "NOT": {},
+                "AND": {
+                    "NAND_6_": {
+                        "inputs": [
+                            "_2_",
+                            "N7"
+                        ],
+                        "outputs": "new_inverter_wire4"
+                    },
                     "NAND_5_": {
                         "inputs": [
                             "_2_",
                             "N2"
                         ],
-                        "outputs": "keywire8"
+                        "outputs": "new_inverter_wire5"
                     },
                     "NAND_9_": {
                         "inputs": [
                             "_1_",
                             "_3_"
                         ],
-                        "outputs": "N22"
-                    }
-                },
-                "NOT": {},
-                "AND": {
-                    "NAND_8_": {
-                        "inputs": [
-                            "N3",
-                            "N1"
-                        ],
-                        "outputs": "new_inverter_wire4"
-                    },
-                    "NAND_6_": {
-                        "inputs": [
-                            "_2_",
-                            "N7"
-                        ],
-                        "outputs": "new_inverter_wire5"
+                        "outputs": "new_inverter_wire6"
                     },
                     "NAND_4_": {
                         "inputs": [
                             "N6",
                             "N3"
                         ],
-                        "outputs": "new_inverter_wire6"
-                    },
-                    "NAND_7_": {
-                        "inputs": [
-                            "_0_",
-                            "_3_"
-                        ],
                         "outputs": "new_inverter_wire7"
+                    }
+                },
+                "XNOR": {
+                    "NOT_inserted_3_": {
+                        "inputs": [
+                            "new_inverter_wire7",
+                            "lockingkeyinput[0]"
+                        ],
+                        "outputs": "_2_"
+                    },
+                    "NOT_inserted_2_": {
+                        "inputs": [
+                            "new_inverter_wire6",
+                            "lockingkeyinput[2]"
+                        ],
+                        "outputs": "N22"
+                    },
+                    "keygate_XNOR_0": {
+                        "inputs": [
+                            "keywire8",
+                            "lockingkeyinput[4]"
+                        ],
+                        "outputs": "N23"
+                    },
+                    "keygate_XNOR_1": {
+                        "inputs": [
+                            "keywire9",
+                            "lockingkeyinput[5]"
+                        ],
+                        "outputs": "keywire8"
                     }
                 },
                 "XOR": {
                     "NOT_inserted_0_": {
                         "inputs": [
                             "new_inverter_wire4",
-                            "lockingkeyinput[0]"
-                        ],
-                        "outputs": "_1_"
-                    },
-                    "NOT_inserted_3_": {
-                        "inputs": [
-                            "new_inverter_wire7",
-                            "lockingkeyinput[2]"
-                        ],
-                        "outputs": "N23"
-                    }
-                },
-                "XNOR": {
-                    "NOT_inserted_1_": {
-                        "inputs": [
-                            "new_inverter_wire5",
                             "lockingkeyinput[1]"
                         ],
                         "outputs": "_0_"
                     },
-                    "NOT_inserted_2_": {
+                    "NOT_inserted_1_": {
                         "inputs": [
-                            "new_inverter_wire6",
+                            "new_inverter_wire5",
                             "lockingkeyinput[3]"
-                        ],
-                        "outputs": "_2_"
-                    },
-                    "keygate_XNOR_0": {
-                        "inputs": [
-                            "keywire8",
-                            "lockingkeyinput[4]"
                         ],
                         "outputs": "_3_"
                     }

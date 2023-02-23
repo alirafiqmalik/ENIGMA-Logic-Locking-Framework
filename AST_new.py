@@ -14,68 +14,11 @@ obj = AST(file_path="./output_files/c17org.json",rw='r',filename="c17locked") # 
 LL=PreSAT(obj.top_module)
 
 
-# LL.set_key(256,key=8792394377)
+LL.set_key(6) # for TRLL, keycount<=Total No of original gates
 # LL.RLL()
 # LL.SLL()
-import random
-
-
-
-
-
-# gio=obj.top_module.gates
-
-
-
-  
-
 LL.TRLL_plus()
 
-
-
-
-
- 
-
-
-# procedure Locking(C,K,split,InvList,NonInvList):
-
-#   for k in {0,split - 1} do
-#     gate ← choose_rand_gate(InvList)
-#     InvList ← InvList - {gate}
-#     if (RANDOM % 2) then
-#     replace_gate(gate,{XNOR},C)
-#     Key[k] ← 0
-#     else
-#     replace_gate(gate,{XOR},C)
-#     Key[k] ← 1
-  
-#   for k in {split,K - 1} do
-#     gate ← choose_rand_gate(N onInvList)
-#     N onInvList ← N onInvList - {gate}
-#     if (RANDOM % 2) then
-#     insert_gate(gate,{XNOR},C)
-#     Key[k] ← 1
-#     else
-#     insert_gate(gate,{XOR},C)
-#     Key[k] ← 0
-#   return Key, C
-
-
-
-
-
-
-
-# def replace_gate(new_gatetype,gate):
-#   if(new_gatetype not in gio):
-#     gio[new_gatetype]={}  
-#   gio[new_gatetype][gate]=gio[gatetype].pop(gate)
-
-
-
-
-print("Done")
 
 obj.top_module.save_graph()
 obj.writeLLFile()

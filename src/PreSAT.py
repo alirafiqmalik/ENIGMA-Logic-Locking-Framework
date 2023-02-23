@@ -7,9 +7,9 @@ class PreSAT:
 
     
     def set_key(self,n , key=None):
-      self.nbits=n
+      self.keycount=n
       if(key==None):
-        self.keyint,self.bitkey=randKey(self.nbits)
+        self.keyint,self.bitkey=randKey(self.keycount)
       else:  
         self.keyint=key
         self.bitkey = format(key, "b")
@@ -111,7 +111,7 @@ class PreSAT:
       random.seed(10)
       i=-1
       while(1):
-          if(i==(self.nbits-1)):
+          if(i==(self.keycount-1)):
               break  
           tmp=list(self.module.io['wires'].keys())
           tp = random.randint(0, len(tmp)-1)
@@ -183,7 +183,7 @@ class PreSAT:
 
 
     def SLL(self):
-      self.keycount=self.nbits
+      self.keycount=self.keycount
       tx=self.module.io['wires']
 
       locked=[]
@@ -194,7 +194,7 @@ class PreSAT:
         if((tp['bits']==1) and random_key not in locked ):
           break
 
-      self.keycount=self.nbits
+      self.keycount=self.keycount
       while(1):
         self.LayerTraversal(random_key,mode="f")
         if(self.keycount==0):
@@ -213,7 +213,6 @@ class PreSAT:
         gatetype=random.choice(list(noninvlist.keys()))
         # print(gatetype,gates[gatetype])
         gates=gio[gatetype]
-
 
         gate=random.choice(list(gates.keys()))
         gateio=gates[gate]
@@ -345,27 +344,51 @@ class PreSAT:
 
 
 
-    def TRLL_Locking(self,split,keycount,invlist,noninvlist):
-      for _ in range(0,split):
-        rnd=random.randint(0,1)
-        # print(rnd,invlist)
-        gate=random.choice(list(invlist.keys()))
-        print("HERE  ",gate)
+    def TRLL_Locking(self,split,invlist,noninvlist):
+      # procedure Locking(C,K,split,InvList,NonInvList):
+
+      #   for k in {0,split - 1} do
+      #     gate ← choose_rand_gate(InvList)
+      #     InvList ← InvList - {gate}
+      #     if (RANDOM % 2) then
+      #     replace_gate(gate,{XNOR},C)
+      #     Key[k] ← 0
+      #     else
+      #     replace_gate(gate,{XOR},C)
+      #     Key[k] ← 1
         
-        if(rnd):
+      #   for k in {split,K - 1} do
+      #     gate ← choose_rand_gate(N onInvList)
+      #     N onInvList ← N onInvList - {gate}
+      #     if (RANDOM % 2) then
+      #     insert_gate(gate,{XNOR},C)
+      #     Key[k] ← 1
+      #     else
+      #     insert_gate(gate,{XOR},C)
+      #     Key[k] ← 0
+      #   return Key, C
+
+      for i in range(0,split):
+        rnd=self.bitkey[self.keycount-i-1]
+        # rnd=random.randint(0,1)
+        gate=random.choice(list(invlist.keys()))
+        # print("HERE  ",gate)
+        
+        if(rnd=="1"):
           self.ReplaceInverter(inverter=gate,new_gatetype="XNOR")
         else:
           self.ReplaceInverter(inverter=gate,new_gatetype="XOR")
 
-      for _ in range(split,keycount):
-        rnd=random.randint(0,1)
+      for i in range(split,self.keycount):
+        rnd=self.bitkey[self.keycount-i-1]
+        # rnd=random.randint(0,1)
         gate_type=random.choice(list(noninvlist.keys()))
         gates=noninvlist[gate_type]
         gate=random.choice(list(gates.keys()))
         gate_o=gates[gate]['outputs']
         # print("HERE  ",gate)
         
-        if(rnd):
+        if(rnd=="1"):
           self.InsertKeyGate(gate,gate_o,gatetype="XNOR")
           # self.ReplaceInverter(inverter=gate,new_gatetype="XNOR")
         else:
@@ -374,28 +397,28 @@ class PreSAT:
 
 
 
-    def TRLL_plus(self,keycount=5):
+    def TRLL_plus(self):
       gatecount=0
       for i in self.module.gates:
         gatecount+=len(self.module.gates[i])
       
       # split ← RANDOM % K
-      split=random.randint(0,keycount-1)
+      split=random.randint(0,self.keycount-1)
       
       invlist,noninvlist,=self.get_gates()
       # print(noninvlist)
 
       # num inv ← num(InvList)
       invgatecount=len(invlist)
-      print(invgatecount,split)
+      # print(invgatecount,split)
 
       # if num inv < split then
       #   ProduceInverters(C,N onInvList,split-num_inv)
-      
       if(invgatecount<split):
         # print(invgatecount,split)
         self.InsertInverters(noninvlist,invlist,split-invgatecount)
       
       # invlist,noninvlist,=get_gates(obj.top_module.gates)
-      self.TRLL_Locking(split,keycount,invlist,noninvlist)
+      
+      self.TRLL_Locking(split,invlist,noninvlist)
 
