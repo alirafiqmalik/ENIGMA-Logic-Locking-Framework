@@ -1,21 +1,24 @@
-module locked(inputs, key, out);
-input [7:0] inputs;
-input [7:0] key;
-output [1:0]out;
-sarlock s(.inputs(inputs), .key(key), .lock_out(out[0]));
-sarlock s1(.inputs(inputs), .key(key), .lock_out(out[1]));
+module {name} ({portnodes},KEY,Q);
+{nodes}
+input [2*{ic}-1:0] KEY;
+output Q;
+wire [{ic-1}:0]A;
+assign A={portnodes};
+wire Q1,Q2;
+g_block g(A,KEY[{ic}-1:0],Q1);
+g_block gc(A,KEY[2*{ic}-1:n],Q2);
+assign Q = Q1 & (~Q2);
 endmodule
-module ckt(a,b,c);
-input [3:0] a,b;
-output [4:0] c;
-assign c = a + b;
-endmodule
-module sarlock (inputs, key, lock_out);
-input [7:0] inputs;
-input [7:0] key;
-output lock_out;
-wire [4:0]ckt_out;
-reg keyx = 8'b01101101;
-assign lock_out =ckt_out[0]^( (inputs == key) & (inputs != keyx));
-ckt c(.a(inputs[3:0]), .b(inputs[7:4]), .c(ckt_out));
-endmodule
+
+
+module {module_name}({portnodes},KEY,Q);
+{nodes}
+input [{ic-1}:0]KEY;
+wire [{ic-1}:0]A;
+assign A={portnodes};
+output reg Q;
+always@(*)begin if(A==KEY)Q=1;
+else Q=0;
+end endmodule"
+
+            

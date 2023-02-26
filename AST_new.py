@@ -1,29 +1,277 @@
 import src.utils as utils
 import src.verification as ver
 from src.AST import AST
+import src.AST as ASTf
 from src.PreSAT import PreSAT
+import src.PostSAT as PostSAT
 import networkx as nx
+import re
 
 
-
-# obj=AST(file_path="./input_files/Benchmarks/ISCAS85/c3540/c3540.v",rw="w",flag="v",top="c3540",filename="c3540org")
-obj = AST(file_path="./output_files/c3540org.json",rw='r',filename="c3540locked") # r for read from file
+obj=AST(file_path="./input_files/Benchmarks/ISCAS85/c17/c17.v",rw="w",flag="v",top="c17",filename="c17org")
+obj = AST(file_path="./output_files/c17org.json",rw='r',filename="c17locked") # r for read from file
 # obj.save_module_connections()
 
 
+
+
 LL=PreSAT(obj.top_module)
-
-
-LL.set_key(50) # for TRLL, keycount<=Total No of original gates
-# LL.RLL()
-# LL.SLL()
+LL.set_key(3) # for TRLL, keycount<=Total No of original gates
+# # # LL.RLL()
+# # # LL.SLL()
 LL.TRLL_plus()
+# print(obj.linkages[obj.top_module_name])
+
+modulename="anitsat"
 
 
-# obj.top_module.save_graph()
+inputs=obj.top_module.io["inputs"].copy()
+if("lockingkeyinput" in inputs):
+  inputs.pop("lockingkeyinput")
+
+t,c=ASTf.node_to_txt(inputs,mode="input",return_bits=True)
+ic=c
+nodes=t
+
+initname=f"{modulename}_{len(obj.modules)+1}"
+
+portnodes=obj.top_module.io["input_ports"]
+portnodes=re.sub(",lockingkeyinput,","",portnodes)
+
+tmp=f"module {modulename}({portnodes},KEY,Q);\n{nodes}input [{ic-1}:0]KEY;\nwire [{ic-1}:0]A;\nassign A={{{portnodes}}};\noutput reg Q;\nalways@(*)begin \nif(A==KEY)Q=1;\nelse Q=0;\nend \nendmodule"
+links=[]
+port=""
+for i in inputs:
+  links.append((i,i,"I"))
+  port+=f".{i}({i}), "
+
+
+a=len(obj.top_module.lockingdata["inputs"])+1+ic
+b=len(obj.top_module.lockingdata["inputs"])+1
+# print("KEY",f"lockingkeyinput[{b}:{a}]")
+# print("Q","Q_int")
+port+=f".KEY(lockingkeyinput[{b}:{a}])"
+port+=".Q(Q_int)"
+links.append(("KEY",f"lockingkeyinput[{b}:{a}]","I"))
+links.append(("Q","Q_int","O"))
+
+obj.top_module.io['wires']["Q_int"]=utils.connector(1,0,0)
+
+obj.top_module.linkages={}
+obj.top_module.linkages[initname]={"module_name": "antisat","links":links,"port":port,"code":tmp}
+
+# print(links)
+# print(port)
+# print(tmp)
+# print(obj.linkages)
+if("lockingkeyinput" not in obj.top_module.io['inputs']):
+  obj.top_module.io['inputs']["lockingkeyinput"]=utils.connector(1,0,0)
+  obj.top_module.io["input_ports"]+="lockingkeyinput,"
+else:
+  obj.top_module.io['inputs']["lockingkeyinput"]=utils.connector(a+1,0,a)
+
+# print(obj.top_module.io['inputs'])
+
+# print(obj.linkages)
+# tmp=obj.linkages
+# for i in tmp:
+#   for j in tmp[i]:
+#     # print(i,j,tmp[i][j]["port"])
+#     tmpj=tmp[i][j].get("code")
+#     if(tmpj==None):
+#       break
+
+
+
+
+
+
+
+
+
+
+
+
+obj.gen_graph_links()
+
+obj.top_module.save_graph(svg=True)
+
+
 obj.writeLLFile()
 
 obj.gen_verification_files()
+
+
+
+# utils.verify_verilog(path="tmp/top.v",top='top')
+
+
+
+
+
+
+
+
+
+
+# modulename="anitsat"
+# L=list(inputs.keys()).copy()
+# R=list(inputs.keys()).copy()
+
+# initname=f"{modulename}_{len(postsat_blocks)}"
+# # print(initname)
+
+# portnodes=obj.top_module.io["input_ports"]
+# portnodes=re.sub(",lockingkeyinput,","",portnodes)
+# t,c=ASTf.node_to_txt(inputs,mode="input",return_bits=True)
+# # print(re.sub("(^|\n)input","wire",t))
+# ic=c
+# nodes=t
+# # print(inputs)
+# port=modulename+"{initname} ({portnodes}, {KEY}, {Q});"
+# tmp=f"module {modulename}({portnodes},KEY,Q);\n{nodes}input [{ic-1}:0]KEY;\nwire [{ic-1}:0]A;\nassign A={{{portnodes}}};\noutput reg Q;\nalways@(*)begin \nif(A==KEY)Q=1;\nelse Q=0;\nend \nendmodule"
+# # print(tmp)
+# a=len(obj.top_module.lockingdata["inputs"])+1+ic
+# b=len(obj.top_module.lockingdata["inputs"])+1
+# R.append(f"lockingkeyinput[{b}:{a}]")
+# R.append("Q_int")
+# L.append("KEY")
+# L.append("Q")
+# print(L)
+# print(R)
+
+
+# if("lockingkeyinput" not in obj.top_module.io['inputs']):
+#   obj.top_module.io['inputs']["lockingkeyinput"]=utils.connector(1,0,0)
+#   obj.top_module.io["input_ports"]+="lockingkeyinput,"
+# else:
+#   obj.top_module.io['inputs']["lockingkeyinput"]=utils.connector(a+1,0,a)
+
+
+
+
+
+# obj.top_module.postSAT_modules["sarlock_init_1"]={"module_name": modulename,"L":L,"R":R,"code":""}
+
+
+# obj.top_module.gen_graph()
+# obj.gen_graph_links(obj.top_module)
+
+# a,b,c =PostSAT.gencc(modulename, inputs, key=10)
+# # a,c=PostSAT.gencc_SarLock(modulename=modulename, inputs=inputs,key=10)
+# print(a+'\n')
+# print(b+'\n')
+# print(c+'\n')
+
+
+
+
+
+# print(tmp)
+
+# obj.top_module.save_graph(svg=True)
+# obj.writeLLFile()
+
+
+
+# obj.gen_verification_files()
+
+
+
+
+
+
+
+# # tmpx=""
+# nodes=obj.top_module.io["inputs"]
+# for i in nodes:
+#   node=nodes[i]
+#   if(node['bits']!=1):
+#     print(f"wire [{node['endbit']}:{node['startbit']}] {i}_org;")
+#     for k in range(node['startbit'],node['endbit']+1):
+#       print(f"assign {i}[{k}] = {i}[{k}]_org ^ FC;")
+#       # print(f"assign {i}[{k}] = {i}[{k}]_org ^ FC;")
+#   else:
+#     print(f"wire {i}_org")
+#     print(f"assign {i} = {i}_org ^ FC;") 
+  
+
+# def gen_refport(lista,listb=None):
+#   if(listb==None):
+#     listb=lista
+#   tmp=""
+#   for i,j in zip(lista,listb):
+#     tmp+=f".{i}({j}), "
+#   return tmp
+
+# tmp=""
+# tmp+=gen_refport(obj.top_module.io["outputs"])
+# tmp+=gen_refport(obj.top_module.io["inputs"])
+# print(tmp)
+
+
+
+# inputs=list(obj.top_module.io["inputs"].keys())
+# # inputs.remove("lockingkeyinput")
+
+# a,c=PostSAT.gencc_SarLock(modulename="anitsat", inputs=inputs,key=10)
+# print(a+'\n')
+# print(c+'\n')
+
+
+
+# obj.writeLLFile()
+
+
+# t=PostSAT.PostSAT_LL(netlist=obj.top_module.module_LLverilog)
+# a,c=t.SarLock()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# a,c=PostSAT.gencc_SarLock(modulename="sarlock", inputs=list(obj.top_module.io["inputs"].keys()),key=443)
+# print(a+'\n')
+# print(c+'\n')
+
+
+# tmpx=""
+# for i in obj.top_module.io["outputs"]:
+#     tmpx+="assign {} = {} ^ FC;\n".format(i,i)
+#     print(f".{i}({i}), ",end="")
+# print()
+# for i in obj.top_module.io["inputs"]:
+#     print(f".{i}({i})",end="")
+
+# print("\n\n\n"+tmpx)
+
+
+# top="module top({topbus});\n{topio}\n{CRwire}\n{orgmodule}\n{CRmodule}\n{Xornet}\nendmodule"
+
+
+# top=top.format(
+#                 topbus=iportnodes+","+oportnodes+","+keyport,
+#                 topio="input {};\n{}\n{}\n".format(keyport,inputnodes,outputnodes),
+#                 CRwire=orgoutputwires+"wire {};\n".format("FC"),
+#                 orgmodule="\norg o1({});".format(tmporgport),
+#                 CRmodule=pc.format(init="to",portnodes="{%s}"%portnodes_antisat,KEY="{%s}"%keyport,Q="FC"),
+#                 Xornet=tmpx
+#                 )
+
+# return top+"\n\n{}\n\n{}".format(corrupt,self.netlist)
+
+
+
 
 
 

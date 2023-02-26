@@ -7,6 +7,57 @@ import base64
 import json
 
 
+def node_to_txt(iodict,mode="input",return_bits=False):
+    txt=""
+    total_bits=0
+    for i in iodict:
+        tmpi=iodict[i]
+        if(tmpi["bits"]==1):
+            total_bits+=1
+            txt+=f"{mode} {i};\n"
+        else:
+            total_bits+=tmpi["bits"]
+            txt+=f"{mode} [{tmpi['endbit']}:{tmpi['startbit']}] {i};\n"
+
+    if(return_bits):
+        return txt,total_bits
+    else:
+        return txt
+        
+
+def gates_to_txt(gates):
+    txt=""
+    for i in gates:
+        # print(i)
+        if(i=="NOT" or i=="BUF"):
+            fn =lambda inputs,outputs,initname: f"{i}_g {initname}(.A({inputs[0]}), .Y({outputs}));"
+        else:
+            fn=lambda inputs,outputs,initname: f"{i}_g {initname}(.A({inputs[0]}), .B({inputs[1]}), .Y({outputs}));"
+        
+        # print(gates[i])
+        for jj in gates[i]:
+            j=gates[i][jj]
+            # print(jj,j)
+            # print(j,gates[i][j])
+            txt+=fn(j['inputs'],j['outputs'],jj)+"\n";
+        # print(fn(j['inputs'],j['outputs']))
+    return txt
+
+
+def module_to_txt(linkages):
+    txt=""
+    for i in linkages:
+        tmpi=linkages[i]
+        # print(i,tmpi)
+        port=""
+        for L,R in zip(tmpi["L"],tmpi["R"]):
+            port+=f".{L}({R}), "
+        txt+=f"{tmpi['module_name']} {i}({port[:-2]});\n"
+            # print(f"{tmpi['module_name']} {i}({port[:-2]});")
+    return txt
+
+
+
 
 
 
@@ -18,7 +69,8 @@ class module:
         self.module_name = None
         self.gates = None
         self.io = None
-        self.linkages = None
+        # self.linkages = None
+        # self.postSAT_modules={}
         self.circuitgraph=None
         self.module_LLverilog=""
         self.lockingdata={"wires":[],"gates":[],"inputs":[]}
@@ -89,63 +141,20 @@ class module:
         # Encode the graph object to a binary string using pickle and encode the binary string to a base64 string
         self.base64_data = base64.b64encode(pickle.dumps(self.circuitgraph)).decode('utf-8')
 
-    def save_graph(self):
-        save_graph(self.circuitgraph)
-    
-    
-    def node_to_txt(self,mode="input"):
-        txt=""
-        iodict=self.io[mode+"s"]
-        for i in iodict:
-            tmpi=iodict[i]
-            if(tmpi["bits"]==1):
-                txt+=f"{mode} {i};\n"
-            else:
-                txt+=f"{mode} [{tmpi['endbit']}:{tmpi['startbit']}] {i};\n"
-        return txt
-
-    def gates_to_txt(self):
-        txt=""
-        for i in self.gates:
-            # print(i)
-            if(i=="NOT" or i=="BUF"):
-                fn =lambda inputs,outputs,initname: f"{i}_g {initname}(.A({inputs[0]}), .Y({outputs}));"
-            else:
-                fn=lambda inputs,outputs,initname: f"{i}_g {initname}(.A({inputs[0]}), .B({inputs[1]}), .Y({outputs}));"
-            
-            # print(self.gates[i])
-            for jj in self.gates[i]:
-                j=self.gates[i][jj]
-                # print(jj,j)
-                # print(j,self.gates[i][j])
-                txt+=fn(j['inputs'],j['outputs'],jj)+"\n";
-            # print(fn(j['inputs'],j['outputs']))
-        return txt
-
-
-    def module_to_txt(self):
-        txt=""
-        for i in self.linkages:
-            tmpi=self.linkages[i]
-            # print(i,tmpi)
-            port=""
-            for L,R in zip(tmpi["L"],tmpi["R"]):
-                port+=f".{L}({R}), "
-            txt+=f"{tmpi['module_name']} {i}({port[:-2]});\n"
-                # print(f"{tmpi['module_name']} {i}({port[:-2]});")
-        return txt
-
-    
+    def save_graph(self,svg=False):
+        save_graph(self.circuitgraph,svg)
+     
     
     def gen_LL_verilog(self):
         self.module_LLverilog=f"module {self.module_name}({self.io['input_ports']}{self.io['output_ports'][:-1]});\n"
-        self.module_LLverilog+=self.node_to_txt(mode="input")
-        self.module_LLverilog+=self.node_to_txt(mode="output")
-        self.module_LLverilog+=self.node_to_txt(mode="wire")
-        self.module_LLverilog+=self.gates_to_txt()
-        self.module_LLverilog+=self.module_to_txt()
+        self.module_LLverilog+=node_to_txt(self.io['inputs'],mode="input")
+        self.module_LLverilog+=node_to_txt(self.io['outputs'],mode="output")
+        self.module_LLverilog+=node_to_txt(self.io['wires'],mode="wire")
+        self.module_LLverilog+=gates_to_txt(self.gates)
+        # self.module_LLverilog+=module_to_txt(self.linkages)
         self.module_LLverilog+="endmodule\n"
-
+        # if(self.postSAT_modules!={}):
+        #     self.module_LLverilog+=module_to_txt(self.postSAT_modules)
 
 
 class AST:
@@ -162,6 +171,7 @@ class AST:
         elif rw == 'w':
             if flag == 'v':
                 self.verilog = open(file_path).read()
+                verify_verilog(file_path,top)
                 # self.verilog=re.sub(r"//.*\n","",self.verilog)
                 # self.verilog=re.sub(r"/\*.*?\*/", "", self.verilog, flags=re.DOTALL)
                 self.verilog=format_verilog_org(self.verilog)
@@ -175,17 +185,14 @@ class AST:
             self.extracted_modules = None
             self.top_module = module()
             self.modules = {}
+            # self.linkages={}
             self.top_module_name=top
             self.gate_lib=open(vlibpath).read()
-            
             self.gen_LLFile()
             self.writeLLFile() 
         else:
             Exception("Enter either 'r' (for read) or 'w' (for write)")
         
-
-        
-
     def gen_LLFile(self):
         self.synthesized_verilog = synthesize_verilog(self.verilog,top=self.top_module_name)#,flag="dont_flatten"
         self.gate_level_flattened = synthesize_verilog(self.verilog,top=self.top_module_name)
@@ -196,12 +203,11 @@ class AST:
         self.no_of_modules = len(self.extracted_modules)
 
         self.sub_modules_data()
-        for i in self.modules:
-            self.gen_graph_links(self.modules[i])
+        # for i in self.modules:
+        #     self.gen_graph_links(self.modules[i])
             # self.modules[i].bin_graph()
         
-        self.gen_module_connections()
-            
+        # self.gen_module_connections()        
         
     def sub_modules_data(self):
         for key in self.extracted_modules:
@@ -210,6 +216,7 @@ class AST:
             self.modules[key].org_code_verilog = self.extracted_modules[key]
             self.modules[key].gate_level_verilog = self.modules_techmap[key]
             self.modules[key].gates,self.modules[key].linkages = gates_module_extraction(self.modules[key].gate_level_verilog)
+            # self.linkages[key]=linkages
             inputs, input_ports = extract_io_v(self.modules[key].org_code_verilog)
             outputs, output_ports = extract_io_v(self.modules[key].org_code_verilog, "output")
             wire, _ = extract_io_v(self.modules[key].gate_level_verilog, "wire")
@@ -223,7 +230,6 @@ class AST:
             self.modules[key].gen_graph()
         self.top_module=self.modules[self.top_module_name]
             
-
     def writeLLFile(self):
         self.update_LLverilog()
         ast_dict = dict({"orginal_code" : self.verilog, "gate_lib":self.gate_lib,"gate_level_flattened" : self.gate_level_flattened,"Bench_format_flattened" : self.flatten_bench, "gate_level_not_flattened" : self.synthesized_verilog, "top_module_name" : self.top_module_name,"Total_number_of_modules":self.no_of_modules,"LL_gatelevel_verilog":self.LLverilog,"bitkey":self.top_module.bitkey})
@@ -233,18 +239,17 @@ class AST:
         sub_dict = {}
         for key in list(self.modules.keys()):
             self.modules[key].bin_graph()
-            sub_dict[key] = dict({"Verilog": self.modules[key].org_code_verilog, "Synthesized_verilog" : self.modules[key].gate_level_verilog,"lockingdata":self.modules[key].lockingdata,"DiGraph":self.modules[key].base64_data, "io":self.modules[key].io, "gates": self.modules[key].gates, "links" : self.modules[key].linkages})
+            sub_dict[key] = dict({"Verilog": self.modules[key].org_code_verilog, "Synthesized_verilog" : self.modules[key].gate_level_verilog,"lockingdata":self.modules[key].lockingdata,"DiGraph":self.modules[key].base64_data, "io":self.modules[key].io, "gates": self.modules[key].gates,"links" : self.modules[key].linkages})#"postSAT_modules" : self.modules[key].postSAT_modules, "links" : self.modules[key].linkages
 
 
-        ast = dict({"AST":ast_dict, "modules": sub_dict})
+        ast = dict({"AST":ast_dict,"modules": sub_dict})
 
         json_file = json.dumps(ast, indent = 4)
         with open(self.filepath, "w") as verilog_ast:
             verilog_ast.write(json_file)
 
-
-    def gen_graph_links(self,module):
-        def process_node(R):
+    def gen_graph_links(self):
+        def process_node(R,module):
             if(":" in R):
                 node,endbit,startbit=re.findall("(.*)\[(\d+):?(\d*)\]",R)[0]
                 endbit,startbit=int(endbit),int(startbit)
@@ -270,33 +275,69 @@ class AST:
                 raise Exception("NODE NOT FOUND")
 
             if(endbit==None):
-                endbit=Node['endbit']
-                startbit=Node['startbit']
-
+                # print(Node)
+                if(Node['bits']==1):
+                    endbit=0
+                    startbit=0
+                else:
+                    endbit=Node['endbit']
+                    startbit=Node['startbit']
+                    
             return node,type,endbit,startbit
 
-        for ii in module.linkages:
-            i=module.linkages[ii]
-            module_node_name="module#"+ii
-            module.circuitgraph.add_node(module_node_name, type="module",module_name=i['module_name'],init_name=ii)
+        def process_links(module):
+            links=module.linkages
+            # for modulei in links:
+            #     init=links[modulei]
+            #     module=self.modules[modulei]
+            #     for ii in init:
+            #         # print(ii)
+            #         i=init[ii]
+            #         # print(i)
+            #         module_node_name="module#"+ii
+            #         module.circuitgraph.add_node(module_node_name, type="module",module_name=i['module_name'],init_name=ii)
 
-            for L,R in zip(i['L'],i['R']):
-                # L,R=j
-                # print(L,R)
-                node,type,endbit,startbit=process_node(R)
-                # node="wire#"+node if type=="wire" else node
-                if(L in self.modules[i['module_name']].io['inputs']):
-                    for k in range(startbit,endbit+1):
-                        module.circuitgraph.add_node(node+f"[{k}]",type=type,port=node)
-                        module.circuitgraph.add_edge(node+f"[{k}]",module_node_name)
-                elif(L in self.modules[i['module_name']].io['outputs']):
-                    for k in range(startbit,endbit+1):
-                        module.circuitgraph.add_node(node+f"[{k}]",type=type,port=node)
-                        module.circuitgraph.add_edge(module_node_name,node+f"[{k}]")
-                else:
-                    raise Exception("NODE NOT FOUND")
-            
-    
+            #         for x in i['links']:
+            #             L,R,T=x
+            #             # print("\n",L,R,T)
+            #             node,type,endbit,startbit=process_node(R,module)
+            #             if(T=="I"):
+            #                 if(endbit==0):
+            #                     module.circuitgraph.add_node(node,type=type,port=node)
+            #                     module.circuitgraph.add_edge(node,module_node_name)
+            #                 else:
+            #                     for k in range(startbit,endbit+1):
+            #                         module.circuitgraph.add_node(node+f"[{k}]",type=type,port=node)
+            #                         module.circuitgraph.add_edge(node+f"[{k}]",module_node_name)
+            #             elif(T=="O"):
+            #                 if(endbit==0):
+            #                     module.circuitgraph.add_node(node,type=type,port=node)
+            #                     module.circuitgraph.add_edge(module_node_name,node)
+            #                 else:
+            #                     for k in range(startbit,endbit+1):
+            #                         module.circuitgraph.add_node(node+f"[{k}]",type=type,port=node)
+            #                         module.circuitgraph.add_edge(module_node_name,node+f"[{k}]")
+            #             else:
+            #                 raise Exception("NODE NOT FOUND")
+
+                        
+                        # if(L in self.modules[i['module_name']].io['inputs']):
+                        #     for k in range(startbit,endbit+1):
+                        #         module.circuitgraph.add_node(node+f"[{k}]",type=type,port=node)
+                        #         module.circuitgraph.add_edge(node+f"[{k}]",module_node_name)
+                        # elif(L in self.modules[i['module_name']].io['outputs']):
+                        #     for k in range(startbit,endbit+1):
+                        #         module.circuitgraph.add_node(node+f"[{k}]",type=type,port=node)
+                        #         module.circuitgraph.add_edge(module_node_name,node+f"[{k}]")
+                        # else:
+                        #     raise Exception("NODE NOT FOUND")
+        
+        print(self.top_module.linkages)
+        process_links(self.top_module)
+    #     if(module.postSAT_modules!={}):
+    #         print(module.postSAT_modules)
+    #         process_links(module.postSAT_modules)
+
     def read_LLFile(self, file_path):
         with open(file_path) as json_file:
             verilog_ast = json.load(json_file)
@@ -310,6 +351,7 @@ class AST:
         self.no_of_modules = verilog_ast["AST"]["Total_number_of_modules"]
         self.flatten_bench=verilog_ast["AST"]["Bench_format_flattened"]
         self.gate_lib=verilog_ast["AST"]["gate_lib"]
+        # self.linkages=verilog_ast["linkages"]
 
         keys = list((verilog_ast["modules"]).keys())
         for i in keys:
@@ -320,6 +362,7 @@ class AST:
             self.modules[i].io = verilog_ast["modules"][i]["io"]
             self.modules[i].gates = verilog_ast["modules"][i]["gates"]
             self.modules[i].linkages = verilog_ast["modules"][i]["links"]
+            # self.modules[i].postSAT_modules = verilog_ast["modules"][i]["postSAT_modules"]
             self.modules[i].lockingdata=verilog_ast["modules"][i]["lockingdata"]
             #Decode the base64 string back to binary
             # Decode the binary string back to a graph object
@@ -329,44 +372,59 @@ class AST:
         self.top_module.bitkey=verilog_ast["AST"]["bitkey"]
     
     
-    def gen_module_connections(self):
-        self.module_connections = nx.DiGraph()
-        for i in self.modules:
-            tmpi=self.modules[i]
-            for jj in tmpi.linkages:
-                j=tmpi.linkages[jj]
-                module_name = j['module_name']
-                init_name = jj  
-                # Check if an edge already exists in the graph
-                if self.module_connections.has_edge(i, module_name):
-                    # If an edge already exists, update its attributes without overwriting
-                    # existing ones
-                    tmp=[self.module_connections[i][module_name]['init_name']]
-                    tmp.append(init_name)
-                    # print(tmp)
-                    self.module_connections[i][module_name].update({'init_name': tmp})
-                else:
-                    # If no edge exists, add a new edge with the specified attributes
-                    self.module_connections.add_edge(i, module_name, init_name=init_name) 
+    # def gen_module_connections(self):
+    #     self.module_connections = nx.DiGraph()
+    #     for i in self.modules:
+    #         tmpi=self.modules[i]
+    #         for jj in tmpi.linkages:
+    #             j=tmpi.linkages[jj]
+    #             module_name = j['module_name']
+    #             init_name = jj  
+    #             # Check if an edge already exists in the graph
+    #             if self.module_connections.has_edge(i, module_name):
+    #                 # If an edge already exists, update its attributes without overwriting
+    #                 # existing ones
+    #                 tmp=[self.module_connections[i][module_name]['init_name']]
+    #                 tmp.append(init_name)
+    #                 # print(tmp)
+    #                 self.module_connections[i][module_name].update({'init_name': tmp})
+    #             else:
+    #                 # If no edge exists, add a new edge with the specified attributes
+    #                 self.module_connections.add_edge(i, module_name, init_name=init_name) 
 
     
-    def save_module_connections(self):
-        save_graph(self.module_connections)
+    # def save_module_connections(self):
+    #     save_graph(self.module_connections)
     
+
     def update_LLverilog(self):
-        for i in self.modules:
-            self.modules[i].gen_LL_verilog()
-        self.LLverilog=""
-        self.LLverilog+=self.top_module.module_LLverilog+"\n"
-        for i in self.modules:
-            if(i!=self.top_module_name):
-                self.LLverilog+=self.modules[i].module_LLverilog+"\n"
+        if("lockingkeyinput" in self.top_module.io["inputs"]):
+            for i in self.modules:
+                self.modules[i].gen_LL_verilog()
+            self.LLverilog=""
+            self.LLverilog+=self.top_module.module_LLverilog+"\n"
+            for i in self.modules:
+                if(i!=self.top_module_name):
+                    self.LLverilog+=self.modules[i].module_LLverilog+"\n"
+            
+            self.postsat_lib=""
+            # for i in self.linkages:
+            #     for j in self.linkages[i]:
+                    # print(i,j,tmp[i][j]["port"])
+                    # tmpj=self.linkages[i][j].get("code")
+                    # if(tmpj==None):
+                    #     break
+                    # self.postsat_lib+="\n"+tmpj+"\n"
+            
+            # for i in self.linkages:
+            #     if(self.linkages[i].get)
+
         
         # self.LLverilog+=self.gate_lib
 
     def gen_verification_files(self):
         self.update_LLverilog()
-        cir,testbench=gen_miterCircuit(self.gate_level_flattened,self.LLverilog)
+        cir,testbench=gen_miterCircuit(self.gate_level_flattened,self.LLverilog,self.gate_lib+self.postsat_lib)
 
         with open("./tmp/top.v","w") as f:
             f.write(cir)

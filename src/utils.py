@@ -76,11 +76,11 @@ def io_port(inputs, mode="input"):
         portnodes = portnodes+i+","
         if (tmpdict[i] != 0):
             #print("["+str(tmpdict[i])+":0] "+i)
-            inputnodes = inputnodes+mode+" ["+str(tmpdict[i])+":0] "+i+"; "
+            inputnodes = inputnodes+mode+" ["+str(tmpdict[i])+":0] "+i+";"
             replace_.append(i)
         else:
             # replace_.remove(i)
-            inputnodes = inputnodes+mode+" "+i+"; "
+            inputnodes = inputnodes+mode+" "+i+";"
 
     # inputnodes=inputnodes[:]
     portnodes = portnodes[:-1]
@@ -207,6 +207,16 @@ def format_bench(netlist):
   return netlist
 
 
+####################################################################################################################################
+####################################################################################################################################
+
+def gen_busport(node,size:int):
+    port=""
+    if(type(node)==str):
+        for i in range(size):
+            port+=node+format(str(size-i-1),"")+", "
+        port=port[:-2]
+    return port
 ####################################################################################################################################
 ####################################################################################################################################
 
@@ -449,15 +459,13 @@ def gates_module_extraction(verilog):
       else:
         gate_tech[type_port][type_port+init]={"inputs": tmpx[1:] ,"outputs": tmpx[0]}
     else:
-        L,R=[],[]
-        # L,R
+        links=[]
         for i in extra.split(","):
             Li,Ri=re.findall("\.(.*)\((.*)\)",i)[0]
-            L.append(Li)
-            R.append(Ri) 
+            links.append((Li,Ri,None))
+
         # links=[re.findall("\.(.*)\((.*)\)",i)[0] for i in extra.split(",")]
-        
-        sub_module[init]={"module_name": type,"L":L,"R":R}#"links":[],
+        sub_module[init]={"module_name": type,"links":links,"port":extra}
 
   for i in re.findall(r"(\w+) (\w+) \((.*)\);",verilog):
     process_chunk(i)
@@ -482,11 +490,12 @@ def submodules_info(sub):
 
 ####################################################################################################################################
 ####################################################################################################################################
-def save_graph(G):
+def save_graph(G,svg=False):
     import networkx as nx
     nx.drawing.nx_agraph.write_dot(G, "./tmp/tmp.dot")
     import subprocess
-    subprocess.run("dot -Tsvg ./tmp/tmp.dot > ./tmp/tmp.svg", shell=True)
+    if(svg):
+        subprocess.run("dot -Tsvg ./tmp/tmp.dot > ./tmp/tmp.svg", shell=True)
 
 ####################################################################################################################################
 ####################################################################################################################################

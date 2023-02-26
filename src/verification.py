@@ -32,7 +32,7 @@ def gen_miter_testbench(key_inputs_p,
                             outerloop=32
                             )
 
-def gen_miterCircuit(verilog,verilogLL):
+def gen_miterCircuit(verilog,verilogLL,gatemodules):
     LLinp,LLport_i=extract_io_v(verilogLL)
     # print("here  ",LLport_i,LLinp)
     LLout,LLport_o=extract_io_v(verilogLL,mode="output")
@@ -106,7 +106,7 @@ def gen_miterCircuit(verilog,verilogLL):
     miter_circuit+=re.sub(r"module .*\(","module orgcir(",verilog)
 
 
-    gatemodules=open("./vlib/mycells.v").read()
+    # gatemodules=open("./vlib/mycells.v").read()
 
     miter_circuit+=gatemodules
 

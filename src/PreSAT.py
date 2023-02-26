@@ -212,10 +212,14 @@ class PreSAT:
       for _ in range(s):
         gio=self.module.gates
         gatetype=random.choice(list(noninvlist.keys()))
-        # print(gatetype,gates[gatetype])
         gates=gio[gatetype]
+        gates_keys=list(gates.keys())
+        # print(gates_keys)
 
-        gate=random.choice(list(gates.keys()))
+        if(len(gates_keys)==0):
+          raise Exception("Can Not Perform TRLL for this Circuit \n Keybits larger than number of gates") 
+
+        gate=random.choice(gates_keys)
         gateio=gates[gate]
         invgatecount=len(invlist)
 
@@ -322,9 +326,12 @@ class PreSAT:
       for i in range(0,split):
         rnd=self.bitkey[self.keycount-i-1]
         # rnd=random.randint(0,1)
-        gate=random.choice(list(invlist.keys()))
-        # print("HERE  ",gate)
+        inv_keys=list(invlist.keys())
         
+        if(len(inv_keys)==0):
+          raise Exception("Can Not Perform TRLL for this Circuit \n Keybits larger than number of gates") 
+        
+        gate=random.choice(inv_keys)
         if(rnd=="1"):
           self.ReplaceInverter(inverter=gate,new_gatetype="XNOR")
         else:
