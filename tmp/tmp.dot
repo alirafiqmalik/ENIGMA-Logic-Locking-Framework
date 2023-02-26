@@ -13,12 +13,17 @@ strict digraph "" {
 	N6	[port=N6,
 		type=input];
 	N6 -> NAND_4_;
+	"module#anitsat_2"	[init_name=anitsat_2,
+		module_name=antisat,
+		type=module];
+	N6 -> "module#anitsat_2";
 	N3	[port=N3,
 		type=input];
 	N3 -> NAND_4_;
 	NAND_8_	[logic=NAND,
 		type=gate];
 	N3 -> NAND_8_;
+	N3 -> "module#anitsat_2";
 	_3_	[port=_3_,
 		type=wire];
 	NAND_5_ -> _3_;
@@ -31,60 +36,36 @@ strict digraph "" {
 	"tin[1]"	[port=tin,
 		type=input];
 	"tin[1]" -> NAND_5_;
-	keywire5	[port=keywire5,
-		type=wire];
-	NAND_6_ -> keywire5;
+	"tin[1]" -> "module#anitsat_2";
 	_0_	[port=_0_,
 		type=wire];
+	NAND_6_ -> _0_;
 	_0_ -> NAND_7_;
 	N7	[port=N7,
 		type=input];
 	N7 -> NAND_6_;
+	N7 -> "module#anitsat_2";
 	N23	[type=output];
 	NAND_7_ -> N23;
 	"module#c17"	[type=module];
 	N23 -> "module#c17";
-	keywire6	[port=keywire6,
-		type=wire];
-	NAND_8_ -> keywire6;
 	_1_	[port=_1_,
 		type=wire];
+	NAND_8_ -> _1_;
 	_1_ -> NAND_9_;
 	"tin[0]"	[port=tin,
 		type=input];
 	"tin[0]" -> NAND_8_;
-	keywire4	[port=keywire4,
-		type=wire];
-	NAND_9_ -> keywire4;
+	"tin[0]" -> "module#anitsat_2";
 	N22	[type=output];
+	NAND_9_ -> N22;
 	N22 -> "module#c17";
 	"module#c17" -> N6;
 	"module#c17" -> N3;
 	"module#c17" -> "tin[1]";
 	"module#c17" -> N7;
 	"module#c17" -> "tin[0]";
-	"lockingkeyinput[0]"	[port=lockingkeyinput,
-		type=input];
-	"module#c17" -> "lockingkeyinput[0]";
-	"lockingkeyinput[1]"	[port=lockingkeyinput,
-		type=input];
-	"module#c17" -> "lockingkeyinput[1]";
-	"lockingkeyinput[2]"	[port=lockingkeyinput,
-		type=input];
-	"module#c17" -> "lockingkeyinput[2]";
-	keygate_XNOR_0	[logic=XNOR,
-		type=gate];
-	keygate_XNOR_0 -> N22;
-	keywire4 -> keygate_XNOR_0;
-	"lockingkeyinput[0]" -> keygate_XNOR_0;
-	keygate_XNOR_1	[logic=XNOR,
-		type=gate];
-	keygate_XNOR_1 -> _0_;
-	keywire5 -> keygate_XNOR_1;
-	"lockingkeyinput[1]" -> keygate_XNOR_1;
-	keygate_XNOR_2	[logic=XNOR,
-		type=gate];
-	keygate_XNOR_2 -> _1_;
-	keywire6 -> keygate_XNOR_2;
-	"lockingkeyinput[2]" -> keygate_XNOR_2;
+	Q_int	[port=Q_int,
+		type=wire];
+	"module#anitsat_2" -> Q_int;
 }

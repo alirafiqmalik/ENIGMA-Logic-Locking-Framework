@@ -7,43 +7,22 @@
         "gate_level_not_flattened": "module c17(tin, N3, N6, N7, N22, N23);\nwire _0_;\nwire _1_;\nwire _2_;\nwire _3_;\noutput N22;\nwire N22;\noutput N23;\nwire N23;\ninput N3;\nwire N3;\ninput N6;\nwire N6;\ninput N7;\nwire N7;\ninput [1:0] tin;\nwire [1:0] tin;\nNAND_g _4_ ( .A(N3), .B(N6), .Y(_2_) );\nNAND_g _5_ ( .A(tin[1]), .B(_2_), .Y(_3_) );\nNAND_g _6_ ( .A(N7), .B(_2_), .Y(_0_) );\nNAND_g _7_ ( .A(_3_), .B(_0_), .Y(N23) );\nNAND_g _8_ ( .A(tin[0]), .B(N3), .Y(_1_) );\nNAND_g _9_ ( .A(_3_), .B(_1_), .Y(N22) );\nendmodule\n",
         "top_module_name": "c17",
         "Total_number_of_modules": 1,
-        "LL_gatelevel_verilog": "module c17(N3,N6,N7,tin,lockingkeyinput,N22,N23);\ninput N3;\ninput N6;\ninput N7;\ninput [1:0] tin;\ninput [9:0] lockingkeyinput;\noutput N22;\noutput N23;\nwire _1_;\nwire _3_;\nwire _2_;\nwire _0_;\nwire keywire4;\nwire keywire5;\nwire keywire6;\nwire Q_int;\nNAND_g NAND_4_(.A(N6), .B(N3), .Y(_2_));\nNAND_g NAND_5_(.A(_2_), .B(tin[1]), .Y(_3_));\nNAND_g NAND_6_(.A(_2_), .B(N7), .Y(keywire5));\nNAND_g NAND_7_(.A(_0_), .B(_3_), .Y(N23));\nNAND_g NAND_8_(.A(N3), .B(tin[0]), .Y(keywire6));\nNAND_g NAND_9_(.A(_1_), .B(_3_), .Y(keywire4));\nXNOR_g keygate_XNOR_0(.A(keywire4), .B(lockingkeyinput[0]), .Y(N22));\nXNOR_g keygate_XNOR_1(.A(keywire5), .B(lockingkeyinput[1]), .Y(_0_));\nXNOR_g keygate_XNOR_2(.A(keywire6), .B(lockingkeyinput[2]), .Y(_1_));\nendmodule\n\n",
-        "bitkey": "111"
+        "LL_gatelevel_verilog": "module c17(N3,N6,N7,tin,lockingkeyinput,N22,N23);\ninput N3;\ninput N6;\ninput N7;\ninput [1:0] tin;\ninput lockingkeyinput;\noutput N22;\noutput N23;\nwire _0_;\nwire _3_;\nwire _2_;\nwire _1_;\nwire Q_int;\nNAND_g NAND_4_(.A(N6), .B(N3), .Y(_2_));\nNAND_g NAND_5_(.A(_2_), .B(tin[1]), .Y(_3_));\nNAND_g NAND_6_(.A(_2_), .B(N7), .Y(_0_));\nNAND_g NAND_7_(.A(_0_), .B(_3_), .Y(N23));\nNAND_g NAND_8_(.A(N3), .B(tin[0]), .Y(_1_));\nNAND_g NAND_9_(.A(_1_), .B(_3_), .Y(N22));\nendmodule\n\n",
+        "bitkey": ""
     },
     "modules": {
         "c17": {
             "Verilog": "module c17(tin, N3, N6, N7, N22, N23);\nwire _0_;\nwire _1_;\nwire _2_;\nwire _3_;\noutput N22;\nwire N22;\noutput N23;\nwire N23;\ninput N3;\nwire N3;\ninput N6;\nwire N6;\ninput N7;\nwire N7;\ninput [1:0] tin;\nwire [1:0] tin;\nNAND_g _4_ ( .A(N3), .B(N6), .Y(_2_) );\nNAND_g _5_ ( .A(tin[1]), .B(_2_), .Y(_3_) );\nNAND_g _6_ ( .A(N7), .B(_2_), .Y(_0_) );\nNAND_g _7_ ( .A(_3_), .B(_0_), .Y(N23) );\nNAND_g _8_ ( .A(tin[0]), .B(N3), .Y(_1_) );\nNAND_g _9_ ( .A(_3_), .B(_1_), .Y(N22) );\nendmodule",
             "Synthesized_verilog": "module c17(tin, N3, N6, N7, N22, N23);\nwire _0_;\nwire _1_;\nwire _2_;\nwire _3_;\noutput N22;\nwire N22;\noutput N23;\nwire N23;\ninput N3;\nwire N3;\ninput N6;\nwire N6;\ninput N7;\nwire N7;\ninput [1:0] tin;\nwire [1:0] tin;\nNAND_g _4_ ( .A(N3), .B(N6), .Y(_2_) );\nNAND_g _5_ ( .A(tin[1]), .B(_2_), .Y(_3_) );\nNAND_g _6_ ( .A(N7), .B(_2_), .Y(_0_) );\nNAND_g _7_ ( .A(_3_), .B(_0_), .Y(N23) );\nNAND_g _8_ ( .A(tin[0]), .B(N3), .Y(_1_) );\nNAND_g _9_ ( .A(_3_), .B(_1_), .Y(N22) );\nendmodule",
             "lockingdata": {
-                "wires": [
-                    "keywire4",
-                    "keywire5",
-                    "keywire6"
-                ],
-                "gates": [
-                    "keygate_XNOR_0",
-                    "keygate_XNOR_1",
-                    "keygate_XNOR_2"
-                ],
-                "inputs": [
-                    [
-                        "lockingkeyinput[0]",
-                        "1"
-                    ],
-                    [
-                        "lockingkeyinput[1]",
-                        "1"
-                    ],
-                    [
-                        "lockingkeyinput[2]",
-                        "1"
-                    ]
-                ]
+                "wires": [],
+                "gates": [],
+                "inputs": []
             },
-            "DiGraph": "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",
+            "DiGraph": "gASVsgUAAAAAAACMGG5ldHdvcmt4LmNsYXNzZXMuZGlncmFwaJSMB0RpR3JhcGiUk5QpgZR9lCiMBWdyYXBolH2UjAVfbm9kZZR9lCiMB05BTkRfNF+UfZQojAR0eXBllIwEZ2F0ZZSMBWxvZ2ljlIwETkFORJR1jANfMl+UfZQoaAuMBHdpcmWUjARwb3J0lIwDXzJflHWMAk42lH2UKGgLjAVpbnB1dJRoEowCTjaUdYwCTjOUfZQoaAtoFmgSjAJOM5R1jAdOQU5EXzVflH2UKGgLaAxoDWgOdYwDXzNflH2UKGgLaBFoEowDXzNflHWMBnRpblsxXZR9lChoC2gWaBKMA3RpbpR1jAdOQU5EXzZflH2UKGgLaAxoDWgOdYwDXzBflH2UKGgLaBFoEowDXzBflHWMAk43lH2UKGgLaBZoEowCTjeUdYwHTkFORF83X5R9lChoC2gMaA1oDnWMA04yM5R9lGgLjAZvdXRwdXSUc4wHTkFORF84X5R9lChoC2gMaA1oDnWMA18xX5R9lChoC2gRaBKMA18xX5R1jAZ0aW5bMF2UfZQoaAtoFmgSaCJ1jAdOQU5EXzlflH2UKGgLaAxoDWgOdYwDTjIylH2UaAtoL3OMCm1vZHVsZSNjMTeUfZRoC4wGbW9kdWxllHOMEG1vZHVsZSNhbml0c2F0XzKUfZQojAR0eXBllIwGbW9kdWxllIwLbW9kdWxlX25hbWWUjAdhbnRpc2F0lIwJaW5pdF9uYW1llIwJYW5pdHNhdF8ylHWMBVFfaW50lH2UKGhAjAR3aXJllIwEcG9ydJRoRnV1jARfYWRqlH2UKGgJfZRoD32Uc2gPfZQoaBt9lGgjfZR1aBR9lChoCX2UaD59lHVoGH2UKGgJfZRoMH2UaD59lHVoG32UaB19lHNoHX2UKGgrfZRoN32UdWggfZQoaBt9lGg+fZR1aCN9lGglfZRzaCV9lGgrfZRzaCh9lChoI32UaD59lHVoK32UaC19lHNoLX2UjAptb2R1bGUjYzE3lH2Uc2gwfZRoMn2Uc2gyfZRoN32Uc2g1fZQoaDB9lGg+fZR1aDd9lGg5fZRzaDl9lIwKbW9kdWxlI2MxN5R9lHNoO32UKIwCTjOUfZSMAk42lH2UjAJON5R9lIwGdGluWzBdlH2UjAZ0aW5bMV2UfZR1aD59lGhGfZRzaEZ9lHWMBV9zdWNjlGhLjAVfcHJlZJR9lChoCX2UKGgUaFJoGGhVdWgPfZRoCWhNc2gUfZSMCm1vZHVsZSNjMTeUaHxzaBh9lIwKbW9kdWxlI2MxN5RoenNoG32UKIwDXzJflGhPaCBoXnVoHX2UaBtoWXNoIH2UjAptb2R1bGUjYzE3lGiCc2gjfZQoaBNoUGgoaGV1aCV9lGgjaGFzaCh9lIwKbW9kdWxlI2MxN5RofnNoK32UKGgnaGOMA18zX5RoW3VoLX2UaCtoaHNoMH2UKIwCTjOUaFZoNWhxdWgyfZRoMGhtc2g1fZSMCm1vZHVsZSNjMTeUaIBzaDd9lChoNGhvaB9oXHVoOX2UaDdodHNoO32UKIwDTjIylGh3jANOMjOUaGt1aD59lChoGmhXaBdoU2gqaGaMBnRpblswXZRocowGdGluWzFdlGhfdWhGfZRoPmiEc3WMA2FkapSMGm5ldHdvcmt4LmNsYXNzZXMuY29yZXZpZXdzlIwNQWRqYWNlbmN5Vmlld5STlCmBlH2UjAZfYXRsYXOUaEtzYowFbm9kZXOUjBxuZXR3b3JreC5jbGFzc2VzLnJlcG9ydHZpZXdzlIwITm9kZVZpZXeUk5QpgZR9lIwGX25vZGVzlGgIc2KMBHN1Y2OUaKwpgZR9lGivaEtzYowFZWRnZXOUaLGMC091dEVkZ2VWaWV3lJOUKYGUfZQojAZfZ3JhcGiUaAOMCF9hZGpkaWN0lGhLdWJ1Yi4=",
             "io": {
                 "wires": {
-                    "_1_": {
+                    "_0_": {
                         "bits": 1
                     },
                     "_3_": {
@@ -52,16 +31,7 @@
                     "_2_": {
                         "bits": 1
                     },
-                    "_0_": {
-                        "bits": 1
-                    },
-                    "keywire4": {
-                        "bits": 1
-                    },
-                    "keywire5": {
-                        "bits": 1
-                    },
-                    "keywire6": {
+                    "_1_": {
                         "bits": 1
                     },
                     "Q_int": {
@@ -84,9 +54,7 @@
                         "endbit": 1
                     },
                     "lockingkeyinput": {
-                        "bits": 10,
-                        "startbit": 0,
-                        "endbit": 9
+                        "bits": 1
                     }
                 },
                 "outputs": {
@@ -121,7 +89,7 @@
                             "_2_",
                             "N7"
                         ],
-                        "outputs": "keywire5"
+                        "outputs": "_0_"
                     },
                     "NAND_7_": {
                         "inputs": [
@@ -135,38 +103,14 @@
                             "N3",
                             "tin[0]"
                         ],
-                        "outputs": "keywire6"
+                        "outputs": "_1_"
                     },
                     "NAND_9_": {
                         "inputs": [
                             "_1_",
                             "_3_"
                         ],
-                        "outputs": "keywire4"
-                    }
-                },
-                "NOT": {},
-                "XNOR": {
-                    "keygate_XNOR_0": {
-                        "inputs": [
-                            "keywire4",
-                            "lockingkeyinput[0]"
-                        ],
                         "outputs": "N22"
-                    },
-                    "keygate_XNOR_1": {
-                        "inputs": [
-                            "keywire5",
-                            "lockingkeyinput[1]"
-                        ],
-                        "outputs": "_0_"
-                    },
-                    "keygate_XNOR_2": {
-                        "inputs": [
-                            "keywire6",
-                            "lockingkeyinput[2]"
-                        ],
-                        "outputs": "_1_"
                     }
                 }
             },
@@ -196,7 +140,7 @@
                         ],
                         [
                             "KEY",
-                            "lockingkeyinput[4:9]",
+                            "lockingkeyinput[1:6]",
                             "I"
                         ],
                         [
@@ -205,8 +149,8 @@
                             "O"
                         ]
                     ],
-                    "port": ".N3(N3), .N6(N6), .N7(N7), .tin(tin), .KEY(lockingkeyinput[4:9]).Q(Q_int)",
-                    "code": "module anitsat(N3,N6,N7,tin,KEY,Q);\ninput N3;\ninput N6;\ninput N7;\ninput [1:0] tin;\ninput [4:0]KEY;\nwire [4:0]A;\nassign A={N3,N6,N7,tin};\noutput reg Q;\nalways@(*)begin \nif(A==KEY)Q=1;\nelse Q=0;\nend \nendmodule"
+                    "port": ".N3(N3), .N6(N6), .N7(N7), .tin(tin), .KEY(lockingkeyinput[1:6]).Q(Q_int)",
+                    "code": "module anitsat(N3,N6,N7,tin,KEY,Q);\ninput N3;\ninput N6;\ninput N7;\ninput [1:0] tin;\ninput [4:0] KEY;\nwire [4:0] A;\nassign A={N3,N6,N7,tin};\noutput reg Q;\nalways@(*)begin \nif(A==KEY)Q=1;\nelse Q=0;\nend \nendmodule"
                 }
             }
         }

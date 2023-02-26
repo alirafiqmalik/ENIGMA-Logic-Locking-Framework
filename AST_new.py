@@ -8,97 +8,78 @@ import networkx as nx
 import re
 
 
-obj=AST(file_path="./input_files/Benchmarks/ISCAS85/c17/c17.v",rw="w",flag="v",top="c17",filename="c17org")
+# obj=AST(file_path="./input_files/Benchmarks/ISCAS85/c17/c17.v",rw="w",flag="v",top="c17",filename="c17org")
 obj = AST(file_path="./output_files/c17org.json",rw='r',filename="c17locked") # r for read from file
 # obj.save_module_connections()
 
 
 
 
-LL=PreSAT(obj.top_module)
-LL.set_key(3) # for TRLL, keycount<=Total No of original gates
+# LL=PreSAT(obj.top_module)
+# LL.set_key(3) # for TRLL, keycount<=Total No of original gates
 # # # LL.RLL()
 # # # LL.SLL()
-LL.TRLL_plus()
+# LL.TRLL_plus()
 # print(obj.linkages[obj.top_module_name])
+def AntiSAT():
+  modulename="anitsat"
+  inputs=obj.top_module.io["inputs"].copy()
+  if("lockingkeyinput" in inputs):
+    inputs.pop("lockingkeyinput")
 
-modulename="anitsat"
+  nodes,ic=ASTf.node_to_txt(inputs,mode="input",return_bits=True)
+  initname=f"{modulename}_{len(obj.modules)+1}"
 
+  portnodes=obj.top_module.io["input_ports"]
+  portnodes=re.sub("lockingkeyinput,","",portnodes)
+  portnodes=portnodes[:-1]
 
-inputs=obj.top_module.io["inputs"].copy()
-if("lockingkeyinput" in inputs):
-  inputs.pop("lockingkeyinput")
+  tmp=f"module {modulename}({portnodes},KEY,Q);\n{nodes}input [{ic-1}:0] KEY;\nwire [{ic-1}:0] A;\nassign A={{{portnodes}}};\noutput reg Q;\nalways@(*)begin \nif(A==KEY)Q=1;\nelse Q=0;\nend \nendmodule"
 
-t,c=ASTf.node_to_txt(inputs,mode="input",return_bits=True)
-ic=c
-nodes=t
+  a=len(obj.top_module.lockingdata["inputs"])+1+ic
+  b=len(obj.top_module.lockingdata["inputs"])+1
 
-initname=f"{modulename}_{len(obj.modules)+1}"
+  links=[]
+  port=""
+  for i in inputs:
+    links.append((i,i,"I"))
+    port+=f".{i}({i}), "
+  port+=f".KEY(lockingkeyinput[{b}:{a}])"
+  port+=".Q(Q_int)"
 
-portnodes=obj.top_module.io["input_ports"]
-portnodes=re.sub(",lockingkeyinput,","",portnodes)
+  links.append(("KEY",f"lockingkeyinput[{b}:{a}]","I"))
+  links.append(("Q","Q_int","O"))
 
-tmp=f"module {modulename}({portnodes},KEY,Q);\n{nodes}input [{ic-1}:0]KEY;\nwire [{ic-1}:0]A;\nassign A={{{portnodes}}};\noutput reg Q;\nalways@(*)begin \nif(A==KEY)Q=1;\nelse Q=0;\nend \nendmodule"
-links=[]
-port=""
-for i in inputs:
-  links.append((i,i,"I"))
-  port+=f".{i}({i}), "
+  obj.top_module.io['wires']["Q_int"]=utils.connector(1,0,0)
 
+  obj.top_module.linkages={}
+  obj.top_module.linkages[initname]={"module_name": "antisat","links":links,"port":port,"code":tmp}
 
-a=len(obj.top_module.lockingdata["inputs"])+1+ic
-b=len(obj.top_module.lockingdata["inputs"])+1
-# print("KEY",f"lockingkeyinput[{b}:{a}]")
-# print("Q","Q_int")
-port+=f".KEY(lockingkeyinput[{b}:{a}])"
-port+=".Q(Q_int)"
-links.append(("KEY",f"lockingkeyinput[{b}:{a}]","I"))
-links.append(("Q","Q_int","O"))
-
-obj.top_module.io['wires']["Q_int"]=utils.connector(1,0,0)
-
-obj.top_module.linkages={}
-obj.top_module.linkages[initname]={"module_name": "antisat","links":links,"port":port,"code":tmp}
-
-# print(links)
-# print(port)
-# print(tmp)
-# print(obj.linkages)
-if("lockingkeyinput" not in obj.top_module.io['inputs']):
-  obj.top_module.io['inputs']["lockingkeyinput"]=utils.connector(1,0,0)
-  obj.top_module.io["input_ports"]+="lockingkeyinput,"
-else:
-  obj.top_module.io['inputs']["lockingkeyinput"]=utils.connector(a+1,0,a)
-
-# print(obj.top_module.io['inputs'])
-
-# print(obj.linkages)
-# tmp=obj.linkages
-# for i in tmp:
-#   for j in tmp[i]:
-#     # print(i,j,tmp[i][j]["port"])
-#     tmpj=tmp[i][j].get("code")
-#     if(tmpj==None):
-#       break
+  if("lockingkeyinput" not in obj.top_module.io['inputs']):
+    obj.top_module.io['inputs']["lockingkeyinput"]=utils.connector(1,0,0)
+    obj.top_module.io["input_ports"]+="lockingkeyinput,"
+  else:
+    obj.top_module.io['inputs']["lockingkeyinput"]=utils.connector(a+1,0,a)
 
 
 
+AntiSAT()
 
-
-
-
-
-
-
+for i in obj.modules:
+  tmpi=obj.modules[i]
+  for j in tmpi.linkages:
+    tmpj=tmpi.linkages[j]
+    module_name=tmpi.linkages[j]['module_name']
+    code=tmpi.linkages[j]['code']
+    links=tmpi.linkages[j]['links']
+    # print(j,tmpj['module_name'],tmpj['links'],tmpj['code'])
+    for L,R,D in links:
+      print(L,R,D)
 
 
 obj.gen_graph_links()
-
 obj.top_module.save_graph(svg=True)
-
-
 obj.writeLLFile()
-
 obj.gen_verification_files()
 
 

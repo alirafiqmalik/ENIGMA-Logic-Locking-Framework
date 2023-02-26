@@ -287,56 +287,46 @@ class AST:
 
         def process_links(module):
             links=module.linkages
-            # for modulei in links:
-            #     init=links[modulei]
-            #     module=self.modules[modulei]
-            #     for ii in init:
-            #         # print(ii)
-            #         i=init[ii]
-            #         # print(i)
-            #         module_node_name="module#"+ii
-            #         module.circuitgraph.add_node(module_node_name, type="module",module_name=i['module_name'],init_name=ii)
+            for ii in links:
+                i=links[ii]
+                module_node_name="module#"+ii
+                module.circuitgraph.add_node(module_node_name, type="module",module_name=i['module_name'],init_name=ii)
 
-            #         for x in i['links']:
-            #             L,R,T=x
-            #             # print("\n",L,R,T)
-            #             node,type,endbit,startbit=process_node(R,module)
-            #             if(T=="I"):
-            #                 if(endbit==0):
-            #                     module.circuitgraph.add_node(node,type=type,port=node)
-            #                     module.circuitgraph.add_edge(node,module_node_name)
-            #                 else:
-            #                     for k in range(startbit,endbit+1):
-            #                         module.circuitgraph.add_node(node+f"[{k}]",type=type,port=node)
-            #                         module.circuitgraph.add_edge(node+f"[{k}]",module_node_name)
-            #             elif(T=="O"):
-            #                 if(endbit==0):
-            #                     module.circuitgraph.add_node(node,type=type,port=node)
-            #                     module.circuitgraph.add_edge(module_node_name,node)
-            #                 else:
-            #                     for k in range(startbit,endbit+1):
-            #                         module.circuitgraph.add_node(node+f"[{k}]",type=type,port=node)
-            #                         module.circuitgraph.add_edge(module_node_name,node+f"[{k}]")
-            #             else:
-            #                 raise Exception("NODE NOT FOUND")
-
-                        
-                        # if(L in self.modules[i['module_name']].io['inputs']):
-                        #     for k in range(startbit,endbit+1):
-                        #         module.circuitgraph.add_node(node+f"[{k}]",type=type,port=node)
-                        #         module.circuitgraph.add_edge(node+f"[{k}]",module_node_name)
-                        # elif(L in self.modules[i['module_name']].io['outputs']):
-                        #     for k in range(startbit,endbit+1):
-                        #         module.circuitgraph.add_node(node+f"[{k}]",type=type,port=node)
-                        #         module.circuitgraph.add_edge(module_node_name,node+f"[{k}]")
-                        # else:
-                        #     raise Exception("NODE NOT FOUND")
+                for x in i['links']:
+                    L,R,T=x
+                    node,type,endbit,startbit=process_node(R,module)
+                    if(T=="I"):
+                        if(endbit==0):
+                            module.circuitgraph.add_node(node,type=type,port=node)
+                            module.circuitgraph.add_edge(node,module_node_name)
+                        else:
+                            for k in range(startbit,endbit+1):
+                                module.circuitgraph.add_node(node+f"[{k}]",type=type,port=node)
+                                module.circuitgraph.add_edge(node+f"[{k}]",module_node_name)
+                    elif(T=="O"):
+                        if(endbit==0):
+                            module.circuitgraph.add_node(node,type=type,port=node)
+                            module.circuitgraph.add_edge(module_node_name,node)
+                        else:
+                            for k in range(startbit,endbit+1):
+                                module.circuitgraph.add_node(node+f"[{k}]",type=type,port=node)
+                                module.circuitgraph.add_edge(module_node_name,node+f"[{k}]")
+                    else:
+                        raise Exception("NODE NOT FOUND")
+   
+                # if(L in self.modules[i['module_name']].io['inputs']):
+                #     for k in range(startbit,endbit+1):
+                #         module.circuitgraph.add_node(node+f"[{k}]",type=type,port=node)
+                #         module.circuitgraph.add_edge(node+f"[{k}]",module_node_name)
+                # elif(L in self.modules[i['module_name']].io['outputs']):
+                #     for k in range(startbit,endbit+1):
+                #         module.circuitgraph.add_node(node+f"[{k}]",type=type,port=node)
+                #         module.circuitgraph.add_edge(module_node_name,node+f"[{k}]")
+                # else:
+                #     raise Exception("NODE NOT FOUND")
         
-        print(self.top_module.linkages)
-        process_links(self.top_module)
-    #     if(module.postSAT_modules!={}):
-    #         print(module.postSAT_modules)
-    #         process_links(module.postSAT_modules)
+        for i in self.modules:
+            process_links(self.modules[i])
 
     def read_LLFile(self, file_path):
         with open(file_path) as json_file:
@@ -408,19 +398,10 @@ class AST:
                     self.LLverilog+=self.modules[i].module_LLverilog+"\n"
             
             self.postsat_lib=""
-            # for i in self.linkages:
-            #     for j in self.linkages[i]:
-                    # print(i,j,tmp[i][j]["port"])
-                    # tmpj=self.linkages[i][j].get("code")
-                    # if(tmpj==None):
-                    #     break
-                    # self.postsat_lib+="\n"+tmpj+"\n"
-            
-            # for i in self.linkages:
-            #     if(self.linkages[i].get)
-
-        
-        # self.LLverilog+=self.gate_lib
+            for i in self.modules:
+                tmpi=self.modules[i]
+                for j in tmpi.linkages:
+                    self.postsat_lib+="\n"+tmpi.linkages[j]['code']+"\n"
 
     def gen_verification_files(self):
         self.update_LLverilog()

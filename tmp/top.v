@@ -3,7 +3,7 @@ input N3;
 input N6;
 input N7;
 input [1:0] tin;
-input [9:0] lockingkeyinput;
+input lockingkeyinput;
 wire N22_enc, N22_org;
 wire N23_enc, N23_org;
 orgcir org(.N3(N3),.N6(N6),.N7(N7),.tin(tin),.N22(N22_org),.N23(N23_org));
@@ -22,26 +22,20 @@ input N3;
 input N6;
 input N7;
 input [1:0] tin;
-input [9:0] lockingkeyinput;
+input lockingkeyinput;
 output N22;
 output N23;
-wire _1_;
+wire _0_;
 wire _3_;
 wire _2_;
-wire _0_;
-wire keywire4;
-wire keywire5;
-wire keywire6;
+wire _1_;
 wire Q_int;
 NAND_g NAND_4_(.A(N6), .B(N3), .Y(_2_));
 NAND_g NAND_5_(.A(_2_), .B(tin[1]), .Y(_3_));
-NAND_g NAND_6_(.A(_2_), .B(N7), .Y(keywire5));
+NAND_g NAND_6_(.A(_2_), .B(N7), .Y(_0_));
 NAND_g NAND_7_(.A(_0_), .B(_3_), .Y(N23));
-NAND_g NAND_8_(.A(N3), .B(tin[0]), .Y(keywire6));
-NAND_g NAND_9_(.A(_1_), .B(_3_), .Y(keywire4));
-XNOR_g keygate_XNOR_0(.A(keywire4), .B(lockingkeyinput[0]), .Y(N22));
-XNOR_g keygate_XNOR_1(.A(keywire5), .B(lockingkeyinput[1]), .Y(_0_));
-XNOR_g keygate_XNOR_2(.A(keywire6), .B(lockingkeyinput[2]), .Y(_1_));
+NAND_g NAND_8_(.A(N3), .B(tin[0]), .Y(_1_));
+NAND_g NAND_9_(.A(_1_), .B(_3_), .Y(N22));
 endmodule
 
 
@@ -139,4 +133,19 @@ always @(posedge C, negedge R)
 		Q <= 1'b0;
 	else
 		Q <= D;
+endmodule
+
+module anitsat(N3,N6,N7,tin,KEY,Q);
+input N3;
+input N6;
+input N7;
+input [1:0] tin;
+input [4:0] KEY;
+wire [4:0] A;
+assign A={N3,N6,N7,tin};
+output reg Q;
+always@(*)begin 
+if(A==KEY)Q=1;
+else Q=0;
+end 
 endmodule
