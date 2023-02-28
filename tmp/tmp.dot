@@ -1,71 +1,7928 @@
 strict digraph "" {
-	NAND_4_	[logic=NAND,
+	NOT_1038_	[logic=NOT,
 		type=gate];
-	_2_	[port=_2_,
+	_0011_	[port=_0011_,
 		type=wire];
-	NAND_4_ -> _2_;
-	NAND_5_	[logic=NAND,
+	NOT_1038_ -> _0011_;
+	NAND_1040_	[logic=NAND,
 		type=gate];
-	_2_ -> NAND_5_;
-	NAND_6_	[logic=NAND,
+	_0011_ -> NAND_1040_;
+	NAND_1043_	[logic=NAND,
 		type=gate];
-	_2_ -> NAND_6_;
-	N6	[port=N6,
-		type=input];
-	N6 -> NAND_4_;
-	"module#anitsat_2"	[init_name=anitsat_2,
-		module_name=antisat,
-		type=module];
-	N6 -> "module#anitsat_2";
-	N3	[port=N3,
-		type=input];
-	N3 -> NAND_4_;
-	NAND_8_	[logic=NAND,
+	_0011_ -> NAND_1043_;
+	NAND_1046_	[logic=NAND,
 		type=gate];
-	N3 -> NAND_8_;
-	N3 -> "module#anitsat_2";
-	_3_	[port=_3_,
+	_0011_ -> NAND_1046_;
+	NAND_1049_	[logic=NAND,
+		type=gate];
+	_0011_ -> NAND_1049_;
+	NAND_1052_	[logic=NAND,
+		type=gate];
+	_0011_ -> NAND_1052_;
+	NAND_1055_	[logic=NAND,
+		type=gate];
+	_0011_ -> NAND_1055_;
+	NAND_1058_	[logic=NAND,
+		type=gate];
+	_0011_ -> NAND_1058_;
+	NAND_1061_	[logic=NAND,
+		type=gate];
+	_0011_ -> NAND_1061_;
+	NAND_1064_	[logic=NAND,
+		type=gate];
+	_0011_ -> NAND_1064_;
+	NAND_1067_	[logic=NAND,
+		type=gate];
+	_0011_ -> NAND_1067_;
+	NAND_1070_	[logic=NAND,
+		type=gate];
+	_0011_ -> NAND_1070_;
+	NAND_1073_	[logic=NAND,
+		type=gate];
+	_0011_ -> NAND_1073_;
+	NAND_1076_	[logic=NAND,
+		type=gate];
+	_0011_ -> NAND_1076_;
+	NAND_1079_	[logic=NAND,
+		type=gate];
+	_0011_ -> NAND_1079_;
+	NAND_1082_	[logic=NAND,
+		type=gate];
+	_0011_ -> NAND_1082_;
+	NAND_1085_	[logic=NAND,
+		type=gate];
+	_0011_ -> NAND_1085_;
+	NAND_1088_	[logic=NAND,
+		type=gate];
+	_0011_ -> NAND_1088_;
+	NAND_1091_	[logic=NAND,
+		type=gate];
+	_0011_ -> NAND_1091_;
+	NAND_1094_	[logic=NAND,
+		type=gate];
+	_0011_ -> NAND_1094_;
+	T2Done	[port=T2Done,
 		type=wire];
-	NAND_5_ -> _3_;
-	NAND_7_	[logic=NAND,
+	T2Done -> NOT_1038_;
+	NAND_1039_	[logic=NAND,
 		type=gate];
-	_3_ -> NAND_7_;
-	NAND_9_	[logic=NAND,
+	T2Done -> NAND_1039_;
+	NAND_1042_	[logic=NAND,
 		type=gate];
-	_3_ -> NAND_9_;
-	"tin[1]"	[port=tin,
-		type=input];
-	"tin[1]" -> NAND_5_;
-	"tin[1]" -> "module#anitsat_2";
-	_0_	[port=_0_,
+	T2Done -> NAND_1042_;
+	NAND_1045_	[logic=NAND,
+		type=gate];
+	T2Done -> NAND_1045_;
+	NAND_1048_	[logic=NAND,
+		type=gate];
+	T2Done -> NAND_1048_;
+	NAND_1051_	[logic=NAND,
+		type=gate];
+	T2Done -> NAND_1051_;
+	NAND_1054_	[logic=NAND,
+		type=gate];
+	T2Done -> NAND_1054_;
+	NAND_1057_	[logic=NAND,
+		type=gate];
+	T2Done -> NAND_1057_;
+	NAND_1060_	[logic=NAND,
+		type=gate];
+	T2Done -> NAND_1060_;
+	NAND_1063_	[logic=NAND,
+		type=gate];
+	T2Done -> NAND_1063_;
+	NAND_1066_	[logic=NAND,
+		type=gate];
+	T2Done -> NAND_1066_;
+	NAND_1069_	[logic=NAND,
+		type=gate];
+	T2Done -> NAND_1069_;
+	NAND_1072_	[logic=NAND,
+		type=gate];
+	T2Done -> NAND_1072_;
+	NAND_1075_	[logic=NAND,
+		type=gate];
+	T2Done -> NAND_1075_;
+	NAND_1078_	[logic=NAND,
+		type=gate];
+	T2Done -> NAND_1078_;
+	NAND_1081_	[logic=NAND,
+		type=gate];
+	T2Done -> NAND_1081_;
+	NAND_1084_	[logic=NAND,
+		type=gate];
+	T2Done -> NAND_1084_;
+	NAND_1087_	[logic=NAND,
+		type=gate];
+	T2Done -> NAND_1087_;
+	NAND_1090_	[logic=NAND,
+		type=gate];
+	T2Done -> NAND_1090_;
+	NAND_1093_	[logic=NAND,
+		type=gate];
+	T2Done -> NAND_1093_;
+	NAND_1259_	[logic=NAND,
+		type=gate];
+	T2Done -> NAND_1259_;
+	AND_1258_	[logic=AND,
+		type=gate];
+	T2Done -> AND_1258_;
+	AND_1289_	[logic=AND,
+		type=gate];
+	T2Done -> AND_1289_;
+	NOR_1274_	[logic=NOR,
+		type=gate];
+	T2Done -> NOR_1274_;
+	NOT_1096_	[logic=NOT,
+		type=gate];
+	_0113_	[port=_0113_,
 		type=wire];
-	NAND_6_ -> _0_;
-	_0_ -> NAND_7_;
-	N7	[port=N7,
-		type=input];
-	N7 -> NAND_6_;
-	N7 -> "module#anitsat_2";
-	N23	[type=output];
-	NAND_7_ -> N23;
-	"module#c17"	[type=module];
-	N23 -> "module#c17";
-	_1_	[port=_1_,
+	NOT_1096_ -> _0113_;
+	NAND_1152_	[logic=NAND,
+		type=gate];
+	_0113_ -> NAND_1152_;
+	"T2y[0]"	[port=T2y,
 		type=wire];
-	NAND_8_ -> _1_;
-	_1_ -> NAND_9_;
-	"tin[0]"	[port=tin,
-		type=input];
-	"tin[0]" -> NAND_8_;
-	"tin[0]" -> "module#anitsat_2";
-	N22	[type=output];
-	NAND_9_ -> N22;
-	N22 -> "module#c17";
-	"module#c17" -> N6;
-	"module#c17" -> N3;
-	"module#c17" -> "tin[1]";
-	"module#c17" -> N7;
-	"module#c17" -> "tin[0]";
-	Q_int	[port=Q_int,
+	"T2y[0]" -> NOT_1096_;
+	"T2y[0]" -> NAND_1052_;
+	NAND_1153_	[logic=NAND,
+		type=gate];
+	"T2y[0]" -> NAND_1153_;
+	NAND_1179_	[logic=NAND,
+		type=gate];
+	"T2y[0]" -> NAND_1179_;
+	AND_1109_	[logic=AND,
+		type=gate];
+	"T2y[0]" -> AND_1109_;
+	XOR_1149_	[logic=XOR,
+		type=gate];
+	"T2y[0]" -> XOR_1149_;
+	NOT_1097_	[logic=NOT,
+		type=gate];
+	T2plot	[port=T2plot,
 		type=wire];
-	"module#anitsat_2" -> Q_int;
+	NOT_1097_ -> T2plot;
+	T2plot -> NAND_1049_;
+	NAND_1116_	[logic=NAND,
+		type=gate];
+	T2plot -> NAND_1116_;
+	_0039_	[port=_0039_,
+		type=wire];
+	_0039_ -> NOT_1097_;
+	BUF_1206_	[logic=BUF,
+		type=gate];
+	_0039_ -> BUF_1206_;
+	NOT_1098_	[logic=NOT,
+		type=gate];
+	_0114_	[port=_0114_,
+		type=wire];
+	NOT_1098_ -> _0114_;
+	NAND_1158_	[logic=NAND,
+		type=gate];
+	_0114_ -> NAND_1158_;
+	"T2x[7]"	[port=T2x,
+		type=wire];
+	"T2x[7]" -> NOT_1098_;
+	"T2x[7]" -> NAND_1094_;
+	NAND_1126_	[logic=NAND,
+		type=gate];
+	"T2x[7]" -> NAND_1126_;
+	AND_1106_	[logic=AND,
+		type=gate];
+	"T2x[7]" -> AND_1106_;
+	AND_1125_	[logic=AND,
+		type=gate];
+	"T2x[7]" -> AND_1125_;
+	NOR_1162_	[logic=NOR,
+		type=gate];
+	"T2x[7]" -> NOR_1162_;
+	NOT_1099_	[logic=NOT,
+		type=gate];
+	_0115_	[port=_0115_,
+		type=wire];
+	NOT_1099_ -> _0115_;
+	NAND_1124_	[logic=NAND,
+		type=gate];
+	_0115_ -> NAND_1124_;
+	"T2x[6]"	[port=T2x,
+		type=wire];
+	"T2x[6]" -> NOT_1099_;
+	"T2x[6]" -> NAND_1091_;
+	NAND_1157_	[logic=NAND,
+		type=gate];
+	"T2x[6]" -> NAND_1157_;
+	NOR_1105_	[logic=NOR,
+		type=gate];
+	"T2x[6]" -> NOR_1105_;
+	NOR_1160_	[logic=NOR,
+		type=gate];
+	"T2x[6]" -> NOR_1160_;
+	NOT_1100_	[logic=NOT,
+		type=gate];
+	_0040_	[type=input];
+	NOT_1100_ -> _0040_;
+	DFF__1207_	[clock=CLOCK_50,
+		reset=_0040_,
+		type=FF];
+	_0040_ -> DFF__1207_;
+	"KEY_N[3]"	[port=KEY_N,
+		type=input];
+	"KEY_N[3]" -> NOT_1100_;
+	NOT_1191_	[logic=NOT,
+		type=gate];
+	"KEY_N[3]" -> NOT_1191_;
+	NOT_1192_	[logic=NOT,
+		type=gate];
+	"KEY_N[3]" -> NOT_1192_;
+	NOT_1193_	[logic=NOT,
+		type=gate];
+	"KEY_N[3]" -> NOT_1193_;
+	NOT_1194_	[logic=NOT,
+		type=gate];
+	"KEY_N[3]" -> NOT_1194_;
+	NOT_1195_	[logic=NOT,
+		type=gate];
+	"KEY_N[3]" -> NOT_1195_;
+	NOT_1196_	[logic=NOT,
+		type=gate];
+	"KEY_N[3]" -> NOT_1196_;
+	NOT_1197_	[logic=NOT,
+		type=gate];
+	"KEY_N[3]" -> NOT_1197_;
+	NOT_1198_	[logic=NOT,
+		type=gate];
+	"KEY_N[3]" -> NOT_1198_;
+	NOT_1199_	[logic=NOT,
+		type=gate];
+	"KEY_N[3]" -> NOT_1199_;
+	NOT_1200_	[logic=NOT,
+		type=gate];
+	"KEY_N[3]" -> NOT_1200_;
+	NOT_1201_	[logic=NOT,
+		type=gate];
+	"KEY_N[3]" -> NOT_1201_;
+	NOT_1202_	[logic=NOT,
+		type=gate];
+	"KEY_N[3]" -> NOT_1202_;
+	NOT_1203_	[logic=NOT,
+		type=gate];
+	"KEY_N[3]" -> NOT_1203_;
+	NOT_1204_	[logic=NOT,
+		type=gate];
+	"KEY_N[3]" -> NOT_1204_;
+	NOT_1205_	[logic=NOT,
+		type=gate];
+	"KEY_N[3]" -> NOT_1205_;
+	NOT_1229_	[logic=NOT,
+		type=gate];
+	"KEY_N[3]" -> NOT_1229_;
+	NOT_2113_	[logic=NOT,
+		type=gate];
+	"KEY_N[3]" -> NOT_2113_;
+	NOT_2114_	[logic=NOT,
+		type=gate];
+	"KEY_N[3]" -> NOT_2114_;
+	NOT_2115_	[logic=NOT,
+		type=gate];
+	"KEY_N[3]" -> NOT_2115_;
+	AND_1178_	[logic=AND,
+		type=gate];
+	"KEY_N[3]" -> AND_1178_;
+	NOT_1156_	[logic=NOT,
+		type=gate];
+	_0089_	[port=_0089_,
+		type=wire];
+	NOT_1156_ -> _0089_;
+	AND_1163_	[logic=AND,
+		type=gate];
+	_0089_ -> AND_1163_;
+	_0088_	[port=_0088_,
+		type=wire];
+	_0088_ -> NOT_1156_;
+	_0088_ -> NAND_1157_;
+	_0088_ -> NOR_1160_;
+	_0041_	[type=input];
+	NOT_1191_ -> _0041_;
+	DFF__1208_	[clock=CLOCK_50,
+		reset=_0041_,
+		type=FF];
+	_0041_ -> DFF__1208_;
+	_0042_	[type=input];
+	NOT_1192_ -> _0042_;
+	DFF__1209_	[clock=CLOCK_50,
+		reset=_0042_,
+		type=FF];
+	_0042_ -> DFF__1209_;
+	_0043_	[type=input];
+	NOT_1193_ -> _0043_;
+	DFF__1210_	[clock=CLOCK_50,
+		reset=_0043_,
+		type=FF];
+	_0043_ -> DFF__1210_;
+	_0044_	[type=input];
+	NOT_1194_ -> _0044_;
+	DFF__1211_	[clock=CLOCK_50,
+		reset=_0044_,
+		type=FF];
+	_0044_ -> DFF__1211_;
+	_0045_	[type=input];
+	NOT_1195_ -> _0045_;
+	DFF__1212_	[clock=CLOCK_50,
+		reset=_0045_,
+		type=FF];
+	_0045_ -> DFF__1212_;
+	_0046_	[type=input];
+	NOT_1196_ -> _0046_;
+	DFF__1213_	[clock=CLOCK_50,
+		reset=_0046_,
+		type=FF];
+	_0046_ -> DFF__1213_;
+	_0047_	[type=input];
+	NOT_1197_ -> _0047_;
+	DFF__1214_	[clock=CLOCK_50,
+		reset=_0047_,
+		type=FF];
+	_0047_ -> DFF__1214_;
+	_0048_	[type=input];
+	NOT_1198_ -> _0048_;
+	DFF__1215_	[clock=CLOCK_50,
+		reset=_0048_,
+		type=FF];
+	_0048_ -> DFF__1215_;
+	_0049_	[type=input];
+	NOT_1199_ -> _0049_;
+	DFF__1216_	[clock=CLOCK_50,
+		reset=_0049_,
+		type=FF];
+	_0049_ -> DFF__1216_;
+	_0050_	[type=input];
+	NOT_1200_ -> _0050_;
+	DFF__1217_	[clock=CLOCK_50,
+		reset=_0050_,
+		type=FF];
+	_0050_ -> DFF__1217_;
+	_0051_	[type=input];
+	NOT_1201_ -> _0051_;
+	DFF__1218_	[clock=CLOCK_50,
+		reset=_0051_,
+		type=FF];
+	_0051_ -> DFF__1218_;
+	_0052_	[type=input];
+	NOT_1202_ -> _0052_;
+	DFF__1219_	[clock=CLOCK_50,
+		reset=_0052_,
+		type=FF];
+	_0052_ -> DFF__1219_;
+	_0053_	[type=input];
+	NOT_1203_ -> _0053_;
+	DFF__1220_	[clock=CLOCK_50,
+		reset=_0053_,
+		type=FF];
+	_0053_ -> DFF__1220_;
+	_0054_	[type=input];
+	NOT_1204_ -> _0054_;
+	DFF__1221_	[clock=CLOCK_50,
+		reset=_0054_,
+		type=FF];
+	_0054_ -> DFF__1221_;
+	_0055_	[type=input];
+	NOT_1205_ -> _0055_;
+	DFF__1222_	[clock=CLOCK_50,
+		reset=_0055_,
+		type=FF];
+	_0055_ -> DFF__1222_;
+	NOT_1226_	[logic=NOT,
+		type=gate];
+	_0210_	[port=_0210_,
+		type=wire];
+	NOT_1226_ -> _0210_;
+	NAND_1290_	[logic=NAND,
+		type=gate];
+	_0210_ -> NAND_1290_;
+	AND_1268_	[logic=AND,
+		type=gate];
+	_0210_ -> AND_1268_;
+	"T3state[3]"	[port=T3state,
+		type=wire];
+	"T3state[3]" -> NOT_1226_;
+	NAND_1257_	[logic=NAND,
+		type=gate];
+	"T3state[3]" -> NAND_1257_;
+	NAND_1316_	[logic=NAND,
+		type=gate];
+	"T3state[3]" -> NAND_1316_;
+	AND_1256_	[logic=AND,
+		type=gate];
+	"T3state[3]" -> AND_1256_;
+	AND_1315_	[logic=AND,
+		type=gate];
+	"T3state[3]" -> AND_1315_;
+	"T3state[3]" -> NOR_1274_;
+	NOR_1277_	[logic=NOR,
+		type=gate];
+	"T3state[3]" -> NOR_1277_;
+	NOT_1227_	[logic=NOT,
+		type=gate];
+	_0211_	[port=_0211_,
+		type=wire];
+	NOT_1227_ -> _0211_;
+	NAND_1255_	[logic=NAND,
+		type=gate];
+	_0211_ -> NAND_1255_;
+	NAND_1285_	[logic=NAND,
+		type=gate];
+	_0211_ -> NAND_1285_;
+	AND_1254_	[logic=AND,
+		type=gate];
+	_0211_ -> AND_1254_;
+	"T3state[2]"	[port=T3state,
+		type=wire];
+	"T3state[2]" -> NOT_1227_;
+	"T3state[2]" -> AND_1268_;
+	"T3state[2]" -> NOR_1277_;
+	NOT_1228_	[logic=NOT,
+		type=gate];
+	_0212_	[port=_0212_,
+		type=wire];
+	NOT_1228_ -> _0212_;
+	AND_1281_	[logic=AND,
+		type=gate];
+	_0212_ -> AND_1281_;
+	"T3state[0]"	[port=T3state,
+		type=wire];
+	"T3state[0]" -> NOT_1228_;
+	NAND_1331_	[logic=NAND,
+		type=gate];
+	"T3state[0]" -> NAND_1331_;
+	AND_1269_	[logic=AND,
+		type=gate];
+	"T3state[0]" -> AND_1269_;
+	AND_1278_	[logic=AND,
+		type=gate];
+	"T3state[0]" -> AND_1278_;
+	NOR_1253_	[logic=NOR,
+		type=gate];
+	"T3state[0]" -> NOR_1253_;
+	XOR_1282_	[logic=XOR,
+		type=gate];
+	"T3state[0]" -> XOR_1282_;
+	_0149_	[type=input];
+	NOT_1229_ -> _0149_;
+	DFF__2116_	[clock=CLOCK_50,
+		reset=_0149_,
+		type=FF];
+	_0149_ -> DFF__2116_;
+	NOT_1230_	[logic=NOT,
+		type=gate];
+	_0213_	[port=_0213_,
+		type=wire];
+	NOT_1230_ -> _0213_;
+	"y[0]"	[port=y,
+		type=output];
+	NOT_1230_ -> "y[0]";
+	NAND_1297_	[logic=NAND,
+		type=gate];
+	_0213_ -> NAND_1297_;
+	AND_1351_	[logic=AND,
+		type=gate];
+	_0213_ -> AND_1351_;
+	"module#top"	[type=module];
+	"y[0]" -> "module#top";
+	NOT_1231_	[logic=NOT,
+		type=gate];
+	_0214_	[port=_0214_,
+		type=wire];
+	NOT_1231_ -> _0214_;
+	"y[1]"	[port=y,
+		type=output];
+	NOT_1231_ -> "y[1]";
+	NAND_1296_	[logic=NAND,
+		type=gate];
+	_0214_ -> NAND_1296_;
+	NAND_1465_	[logic=NAND,
+		type=gate];
+	_0214_ -> NAND_1465_;
+	NAND_1672_	[logic=NAND,
+		type=gate];
+	_0214_ -> NAND_1672_;
+	NAND_1943_	[logic=NAND,
+		type=gate];
+	_0214_ -> NAND_1943_;
+	"y[1]" -> "module#top";
+	NOT_1232_	[logic=NOT,
+		type=gate];
+	_0215_	[port=_0215_,
+		type=wire];
+	NOT_1232_ -> _0215_;
+	"y[2]"	[port=y,
+		type=output];
+	NOT_1232_ -> "y[2]";
+	NAND_1261_	[logic=NAND,
+		type=gate];
+	_0215_ -> NAND_1261_;
+	NAND_1295_	[logic=NAND,
+		type=gate];
+	_0215_ -> NAND_1295_;
+	NAND_1505_	[logic=NAND,
+		type=gate];
+	_0215_ -> NAND_1505_;
+	NAND_1704_	[logic=NAND,
+		type=gate];
+	_0215_ -> NAND_1704_;
+	NAND_1980_	[logic=NAND,
+		type=gate];
+	_0215_ -> NAND_1980_;
+	"y[2]" -> "module#top";
+	NOT_1233_	[logic=NOT,
+		type=gate];
+	_0216_	[port=_0216_,
+		type=wire];
+	NOT_1233_ -> _0216_;
+	"y[3]"	[port=y,
+		type=output];
+	NOT_1233_ -> "y[3]";
+	NAND_1306_	[logic=NAND,
+		type=gate];
+	_0216_ -> NAND_1306_;
+	NAND_1492_	[logic=NAND,
+		type=gate];
+	_0216_ -> NAND_1492_;
+	NAND_1548_	[logic=NAND,
+		type=gate];
+	_0216_ -> NAND_1548_;
+	NAND_1737_	[logic=NAND,
+		type=gate];
+	_0216_ -> NAND_1737_;
+	NAND_1977_	[logic=NAND,
+		type=gate];
+	_0216_ -> NAND_1977_;
+	NAND_2023_	[logic=NAND,
+		type=gate];
+	_0216_ -> NAND_2023_;
+	XNOR_1739_	[logic=XNOR,
+		type=gate];
+	_0216_ -> XNOR_1739_;
+	"y[3]" -> "module#top";
+	NOT_1234_	[logic=NOT,
+		type=gate];
+	_0217_	[port=_0217_,
+		type=wire];
+	NOT_1234_ -> _0217_;
+	"y[4]"	[port=y,
+		type=output];
+	NOT_1234_ -> "y[4]";
+	NAND_1305_	[logic=NAND,
+		type=gate];
+	_0217_ -> NAND_1305_;
+	NAND_1571_	[logic=NAND,
+		type=gate];
+	_0217_ -> NAND_1571_;
+	NAND_1766_	[logic=NAND,
+		type=gate];
+	_0217_ -> NAND_1766_;
+	NAND_2074_	[logic=NAND,
+		type=gate];
+	_0217_ -> NAND_2074_;
+	AND_1264_	[logic=AND,
+		type=gate];
+	_0217_ -> AND_1264_;
+	"y[4]" -> "module#top";
+	NOT_1235_	[logic=NOT,
+		type=gate];
+	_0218_	[port=_0218_,
+		type=wire];
+	NOT_1235_ -> _0218_;
+	"y[5]"	[port=y,
+		type=output];
+	NOT_1235_ -> "y[5]";
+	NAND_1265_	[logic=NAND,
+		type=gate];
+	_0218_ -> NAND_1265_;
+	NAND_1293_	[logic=NAND,
+		type=gate];
+	_0218_ -> NAND_1293_;
+	NAND_1562_	[logic=NAND,
+		type=gate];
+	_0218_ -> NAND_1562_;
+	NAND_1604_	[logic=NAND,
+		type=gate];
+	_0218_ -> NAND_1604_;
+	NAND_1801_	[logic=NAND,
+		type=gate];
+	_0218_ -> NAND_1801_;
+	NAND_2061_	[logic=NAND,
+		type=gate];
+	_0218_ -> NAND_2061_;
+	NAND_2062_	[logic=NAND,
+		type=gate];
+	_0218_ -> NAND_2062_;
+	XNOR_1388_	[logic=XNOR,
+		type=gate];
+	_0218_ -> XNOR_1388_;
+	XNOR_1803_	[logic=XNOR,
+		type=gate];
+	_0218_ -> XNOR_1803_;
+	"y[5]" -> "module#top";
+	NOT_1236_	[logic=NOT,
+		type=gate];
+	_0219_	[port=_0219_,
+		type=wire];
+	NOT_1236_ -> _0219_;
+	"y[6]"	[port=y,
+		type=output];
+	NOT_1236_ -> "y[6]";
+	NAND_1318_	[logic=NAND,
+		type=gate];
+	_0219_ -> NAND_1318_;
+	NAND_1636_	[logic=NAND,
+		type=gate];
+	_0219_ -> NAND_1636_;
+	XNOR_1832_	[logic=XNOR,
+		type=gate];
+	_0219_ -> XNOR_1832_;
+	"y[6]" -> "module#top";
+	NOT_1237_	[logic=NOT,
+		type=gate];
+	_0220_	[port=_0220_,
+		type=wire];
+	NOT_1237_ -> _0220_;
+	NAND_1682_	[logic=NAND,
+		type=gate];
+	_0220_ -> NAND_1682_;
+	AND_1648_	[logic=AND,
+		type=gate];
+	_0220_ -> AND_1648_;
+	"T3d[1]"	[port=T3d,
+		type=wire];
+	"T3d[1]" -> NOT_1237_;
+	NAND_1669_	[logic=NAND,
+		type=gate];
+	"T3d[1]" -> NAND_1669_;
+	AND_1647_	[logic=AND,
+		type=gate];
+	"T3d[1]" -> AND_1647_;
+	AND_1662_	[logic=AND,
+		type=gate];
+	"T3d[1]" -> AND_1662_;
+	AND_1668_	[logic=AND,
+		type=gate];
+	"T3d[1]" -> AND_1668_;
+	NOR_1337_	[logic=NOR,
+		type=gate];
+	"T3d[1]" -> NOR_1337_;
+	NOT_1238_	[logic=NOT,
+		type=gate];
+	_0221_	[port=_0221_,
+		type=wire];
+	NOT_1238_ -> _0221_;
+	"x[0]"	[port=x,
+		type=output];
+	NOT_1238_ -> "x[0]";
+	NAND_1847_	[logic=NAND,
+		type=gate];
+	_0221_ -> NAND_1847_;
+	AND_1655_	[logic=AND,
+		type=gate];
+	_0221_ -> AND_1655_;
+	"x[0]" -> "module#top";
+	NOT_1239_	[logic=NOT,
+		type=gate];
+	_0222_	[port=_0222_,
+		type=wire];
+	NOT_1239_ -> _0222_;
+	"x[1]"	[port=x,
+		type=output];
+	NOT_1239_ -> "x[1]";
+	NAND_1299_	[logic=NAND,
+		type=gate];
+	_0222_ -> NAND_1299_;
+	NAND_1479_	[logic=NAND,
+		type=gate];
+	_0222_ -> NAND_1479_;
+	NAND_1935_	[logic=NAND,
+		type=gate];
+	_0222_ -> NAND_1935_;
+	"x[1]" -> "module#top";
+	NOT_1240_	[logic=NOT,
+		type=gate];
+	_0223_	[port=_0223_,
+		type=wire];
+	NOT_1240_ -> _0223_;
+	"x[2]"	[port=x,
+		type=output];
+	NOT_1240_ -> "x[2]";
+	NAND_1300_	[logic=NAND,
+		type=gate];
+	_0223_ -> NAND_1300_;
+	NAND_1501_	[logic=NAND,
+		type=gate];
+	_0223_ -> NAND_1501_;
+	NAND_1967_	[logic=NAND,
+		type=gate];
+	_0223_ -> NAND_1967_;
+	XNOR_1703_	[logic=XNOR,
+		type=gate];
+	_0223_ -> XNOR_1703_;
+	"x[2]" -> "module#top";
+	NOT_1241_	[logic=NOT,
+		type=gate];
+	_0224_	[port=_0224_,
+		type=wire];
+	NOT_1241_ -> _0224_;
+	"x[3]"	[port=x,
+		type=output];
+	NOT_1241_ -> "x[3]";
+	NAND_1294_	[logic=NAND,
+		type=gate];
+	_0224_ -> NAND_1294_;
+	NAND_1498_	[logic=NAND,
+		type=gate];
+	_0224_ -> NAND_1498_;
+	NAND_1539_	[logic=NAND,
+		type=gate];
+	_0224_ -> NAND_1539_;
+	NAND_1964_	[logic=NAND,
+		type=gate];
+	_0224_ -> NAND_1964_;
+	NAND_2013_	[logic=NAND,
+		type=gate];
+	_0224_ -> NAND_2013_;
+	XNOR_1735_	[logic=XNOR,
+		type=gate];
+	_0224_ -> XNOR_1735_;
+	"x[3]" -> "module#top";
+	NOT_1242_	[logic=NOT,
+		type=gate];
+	_0225_	[port=_0225_,
+		type=wire];
+	NOT_1242_ -> _0225_;
+	"x[4]"	[port=x,
+		type=output];
+	NOT_1242_ -> "x[4]";
+	NAND_1310_	[logic=NAND,
+		type=gate];
+	_0225_ -> NAND_1310_;
+	NAND_1559_	[logic=NAND,
+		type=gate];
+	_0225_ -> NAND_1559_;
+	NAND_2070_	[logic=NAND,
+		type=gate];
+	_0225_ -> NAND_2070_;
+	XNOR_1765_	[logic=XNOR,
+		type=gate];
+	_0225_ -> XNOR_1765_;
+	"x[4]" -> "module#top";
+	NOT_1243_	[logic=NOT,
+		type=gate];
+	_0226_	[port=_0226_,
+		type=wire];
+	NOT_1243_ -> _0226_;
+	"x[5]"	[port=x,
+		type=output];
+	NOT_1243_ -> "x[5]";
+	NAND_1309_	[logic=NAND,
+		type=gate];
+	_0226_ -> NAND_1309_;
+	NAND_1556_	[logic=NAND,
+		type=gate];
+	_0226_ -> NAND_1556_;
+	NAND_1611_	[logic=NAND,
+		type=gate];
+	_0226_ -> NAND_1611_;
+	NAND_2053_	[logic=NAND,
+		type=gate];
+	_0226_ -> NAND_2053_;
+	NAND_2103_	[logic=NAND,
+		type=gate];
+	_0226_ -> NAND_2103_;
+	XNOR_1799_	[logic=XNOR,
+		type=gate];
+	_0226_ -> XNOR_1799_;
+	"x[5]" -> "module#top";
+	NOT_1244_	[logic=NOT,
+		type=gate];
+	_0227_	[port=_0227_,
+		type=wire];
+	NOT_1244_ -> _0227_;
+	"x[6]"	[port=x,
+		type=output];
+	NOT_1244_ -> "x[6]";
+	NAND_1292_	[logic=NAND,
+		type=gate];
+	_0227_ -> NAND_1292_;
+	NAND_1632_	[logic=NAND,
+		type=gate];
+	_0227_ -> NAND_1632_;
+	XNOR_1830_	[logic=XNOR,
+		type=gate];
+	_0227_ -> XNOR_1830_;
+	"x[6]" -> "module#top";
+	NOT_1245_	[logic=NOT,
+		type=gate];
+	_0228_	[port=_0228_,
+		type=wire];
+	NOT_1245_ -> _0228_;
+	AND_1348_	[logic=AND,
+		type=gate];
+	_0228_ -> AND_1348_;
+	"SW[3]"	[port=SW,
+		type=input];
+	"SW[3]" -> NOT_1245_;
+	NOT_1246_	[logic=NOT,
+		type=gate];
+	_0229_	[port=_0229_,
+		type=wire];
+	NOT_1246_ -> _0229_;
+	NAND_1357_	[logic=NAND,
+		type=gate];
+	_0229_ -> NAND_1357_;
+	"SW[4]"	[port=SW,
+		type=input];
+	"SW[4]" -> NOT_1246_;
+	AND_1696_	[logic=AND,
+		type=gate];
+	"SW[4]" -> AND_1696_;
+	NOT_1247_	[logic=NOT,
+		type=gate];
+	_0230_	[port=_0230_,
+		type=wire];
+	NOT_1247_ -> _0230_;
+	NAND_1416_	[logic=NAND,
+		type=gate];
+	_0230_ -> NAND_1416_;
+	NAND_1427_	[logic=NAND,
+		type=gate];
+	_0230_ -> NAND_1427_;
+	"1'h1"	[type=bit,
+		value=1];
+	"1'h1" -> NOT_1247_;
+	NOT_1248_	[logic=NOT,
+		type=gate];
+	"1'h1" -> NOT_1248_;
+	NOT_1250_	[logic=NOT,
+		type=gate];
+	"1'h1" -> NOT_1250_;
+	NOT_1251_	[logic=NOT,
+		type=gate];
+	"1'h1" -> NOT_1251_;
+	NOT_1252_	[logic=NOT,
+		type=gate];
+	"1'h1" -> NOT_1252_;
+	NAND_1410_	[logic=NAND,
+		type=gate];
+	"1'h1" -> NAND_1410_;
+	NAND_1420_	[logic=NAND,
+		type=gate];
+	"1'h1" -> NAND_1420_;
+	NAND_1424_	[logic=NAND,
+		type=gate];
+	"1'h1" -> NAND_1424_;
+	NAND_1432_	[logic=NAND,
+		type=gate];
+	"1'h1" -> NAND_1432_;
+	NAND_1434_	[logic=NAND,
+		type=gate];
+	"1'h1" -> NAND_1434_;
+	NAND_1441_	[logic=NAND,
+		type=gate];
+	"1'h1" -> NAND_1441_;
+	NAND_1454_	[logic=NAND,
+		type=gate];
+	"1'h1" -> NAND_1454_;
+	NAND_1462_	[logic=NAND,
+		type=gate];
+	"1'h1" -> NAND_1462_;
+	"1'h1" -> NAND_1465_;
+	NAND_1470_	[logic=NAND,
+		type=gate];
+	"1'h1" -> NAND_1470_;
+	"1'h1" -> NAND_1479_;
+	NAND_1490_	[logic=NAND,
+		type=gate];
+	"1'h1" -> NAND_1490_;
+	NAND_1493_	[logic=NAND,
+		type=gate];
+	"1'h1" -> NAND_1493_;
+	NAND_1499_	[logic=NAND,
+		type=gate];
+	"1'h1" -> NAND_1499_;
+	"1'h1" -> NAND_1501_;
+	"1'h1" -> NAND_1505_;
+	"1'h1" -> NAND_1539_;
+	"1'h1" -> NAND_1548_;
+	NAND_1583_	[logic=NAND,
+		type=gate];
+	"1'h1" -> NAND_1583_;
+	NAND_1591_	[logic=NAND,
+		type=gate];
+	"1'h1" -> NAND_1591_;
+	NAND_1594_	[logic=NAND,
+		type=gate];
+	"1'h1" -> NAND_1594_;
+	"1'h1" -> NAND_1632_;
+	"1'h1" -> NAND_1636_;
+	NAND_1887_	[logic=NAND,
+		type=gate];
+	"1'h1" -> NAND_1887_;
+	NAND_1893_	[logic=NAND,
+		type=gate];
+	"1'h1" -> NAND_1893_;
+	NAND_1899_	[logic=NAND,
+		type=gate];
+	"1'h1" -> NAND_1899_;
+	"1'h1" -> NAND_1935_;
+	"1'h1" -> NAND_1943_;
+	NAND_1965_	[logic=NAND,
+		type=gate];
+	"1'h1" -> NAND_1965_;
+	NAND_1978_	[logic=NAND,
+		type=gate];
+	"1'h1" -> NAND_1978_;
+	NAND_2002_	[logic=NAND,
+		type=gate];
+	"1'h1" -> NAND_2002_;
+	NAND_2009_	[logic=NAND,
+		type=gate];
+	"1'h1" -> NAND_2009_;
+	"1'h1" -> NAND_2013_;
+	NAND_2019_	[logic=NAND,
+		type=gate];
+	"1'h1" -> NAND_2019_;
+	"1'h1" -> NAND_2023_;
+	NAND_2054_	[logic=NAND,
+		type=gate];
+	"1'h1" -> NAND_2054_;
+	"1'h1" -> NAND_2061_;
+	NAND_2063_	[logic=NAND,
+		type=gate];
+	"1'h1" -> NAND_2063_;
+	"1'h1" -> NAND_2070_;
+	"1'h1" -> NAND_2074_;
+	"1'h1" -> NAND_2103_;
+	AND_1409_	[logic=AND,
+		type=gate];
+	"1'h1" -> AND_1409_;
+	AND_1440_	[logic=AND,
+		type=gate];
+	"1'h1" -> AND_1440_;
+	AND_1872_	[logic=AND,
+		type=gate];
+	"1'h1" -> AND_1872_;
+	AND_1878_	[logic=AND,
+		type=gate];
+	"1'h1" -> AND_1878_;
+	AND_1882_	[logic=AND,
+		type=gate];
+	"1'h1" -> AND_1882_;
+	AND_1886_	[logic=AND,
+		type=gate];
+	"1'h1" -> AND_1886_;
+	NOR_1881_	[logic=NOR,
+		type=gate];
+	"1'h1" -> NOR_1881_;
+	XOR_1411_	[logic=XOR,
+		type=gate];
+	"1'h1" -> XOR_1411_;
+	XOR_1425_	[logic=XOR,
+		type=gate];
+	"1'h1" -> XOR_1425_;
+	XOR_1435_	[logic=XOR,
+		type=gate];
+	"1'h1" -> XOR_1435_;
+	XOR_1455_	[logic=XOR,
+		type=gate];
+	"1'h1" -> XOR_1455_;
+	XOR_1471_	[logic=XOR,
+		type=gate];
+	"1'h1" -> XOR_1471_;
+	XOR_1494_	[logic=XOR,
+		type=gate];
+	"1'h1" -> XOR_1494_;
+	XOR_1584_	[logic=XOR,
+		type=gate];
+	"1'h1" -> XOR_1584_;
+	XOR_1595_	[logic=XOR,
+		type=gate];
+	"1'h1" -> XOR_1595_;
+	XOR_1879_	[logic=XOR,
+		type=gate];
+	"1'h1" -> XOR_1879_;
+	XOR_1894_	[logic=XOR,
+		type=gate];
+	"1'h1" -> XOR_1894_;
+	XOR_1900_	[logic=XOR,
+		type=gate];
+	"1'h1" -> XOR_1900_;
+	XOR_1966_	[logic=XOR,
+		type=gate];
+	"1'h1" -> XOR_1966_;
+	XOR_1979_	[logic=XOR,
+		type=gate];
+	"1'h1" -> XOR_1979_;
+	XOR_2010_	[logic=XOR,
+		type=gate];
+	"1'h1" -> XOR_2010_;
+	XOR_2020_	[logic=XOR,
+		type=gate];
+	"1'h1" -> XOR_2020_;
+	XOR_2055_	[logic=XOR,
+		type=gate];
+	"1'h1" -> XOR_2055_;
+	XOR_2064_	[logic=XOR,
+		type=gate];
+	"1'h1" -> XOR_2064_;
+	XNOR_1417_	[logic=XNOR,
+		type=gate];
+	"1'h1" -> XNOR_1417_;
+	XNOR_1426_	[logic=XNOR,
+		type=gate];
+	"1'h1" -> XNOR_1426_;
+	XNOR_1436_	[logic=XNOR,
+		type=gate];
+	"1'h1" -> XNOR_1436_;
+	XNOR_1456_	[logic=XNOR,
+		type=gate];
+	"1'h1" -> XNOR_1456_;
+	XNOR_1472_	[logic=XNOR,
+		type=gate];
+	"1'h1" -> XNOR_1472_;
+	XNOR_1500_	[logic=XNOR,
+		type=gate];
+	"1'h1" -> XNOR_1500_;
+	XNOR_1585_	[logic=XNOR,
+		type=gate];
+	"1'h1" -> XNOR_1585_;
+	XNOR_1596_	[logic=XNOR,
+		type=gate];
+	"1'h1" -> XNOR_1596_;
+	XNOR_1874_	[logic=XNOR,
+		type=gate];
+	"1'h1" -> XNOR_1874_;
+	XNOR_1888_	[logic=XNOR,
+		type=gate];
+	"1'h1" -> XNOR_1888_;
+	XNOR_1895_	[logic=XNOR,
+		type=gate];
+	"1'h1" -> XNOR_1895_;
+	XNOR_1901_	[logic=XNOR,
+		type=gate];
+	"1'h1" -> XNOR_1901_;
+	XNOR_2003_	[logic=XNOR,
+		type=gate];
+	"1'h1" -> XNOR_2003_;
+	XNOR_2011_	[logic=XNOR,
+		type=gate];
+	"1'h1" -> XNOR_2011_;
+	XNOR_2021_	[logic=XNOR,
+		type=gate];
+	"1'h1" -> XNOR_2021_;
+	_0231_	[port=_0231_,
+		type=wire];
+	NOT_1248_ -> _0231_;
+	_0231_ -> NAND_1492_;
+	_0231_ -> NAND_1498_;
+	NAND_1538_	[logic=NAND,
+		type=gate];
+	_0231_ -> NAND_1538_;
+	NAND_1547_	[logic=NAND,
+		type=gate];
+	_0231_ -> NAND_1547_;
+	NOT_1249_	[logic=NOT,
+		type=gate];
+	_0232_	[port=_0232_,
+		type=wire];
+	NOT_1249_ -> _0232_;
+	_0232_ -> NAND_1556_;
+	_0232_ -> NAND_1562_;
+	NAND_1605_	[logic=NAND,
+		type=gate];
+	_0232_ -> NAND_1605_;
+	NAND_1612_	[logic=NAND,
+		type=gate];
+	_0232_ -> NAND_1612_;
+	"1'h0"	[type=bit,
+		value=0];
+	"1'h0" -> NOT_1249_;
+	NAND_1516_	[logic=NAND,
+		type=gate];
+	"1'h0" -> NAND_1516_;
+	NAND_1524_	[logic=NAND,
+		type=gate];
+	"1'h0" -> NAND_1524_;
+	NAND_1534_	[logic=NAND,
+		type=gate];
+	"1'h0" -> NAND_1534_;
+	NAND_1557_	[logic=NAND,
+		type=gate];
+	"1'h0" -> NAND_1557_;
+	"1'h0" -> NAND_1559_;
+	NAND_1563_	[logic=NAND,
+		type=gate];
+	"1'h0" -> NAND_1563_;
+	NAND_1569_	[logic=NAND,
+		type=gate];
+	"1'h0" -> NAND_1569_;
+	"1'h0" -> NAND_1571_;
+	"1'h0" -> NAND_1604_;
+	"1'h0" -> NAND_1611_;
+	NAND_1626_	[logic=NAND,
+		type=gate];
+	"1'h0" -> NAND_1626_;
+	NAND_1919_	[logic=NAND,
+		type=gate];
+	"1'h0" -> NAND_1919_;
+	NAND_1924_	[logic=NAND,
+		type=gate];
+	"1'h0" -> NAND_1924_;
+	NAND_1940_	[logic=NAND,
+		type=gate];
+	"1'h0" -> NAND_1940_;
+	"1'h0" -> NAND_1967_;
+	"1'h0" -> NAND_1980_;
+	XOR_1517_	[logic=XOR,
+		type=gate];
+	"1'h0" -> XOR_1517_;
+	XOR_1525_	[logic=XOR,
+		type=gate];
+	"1'h0" -> XOR_1525_;
+	XOR_1558_	[logic=XOR,
+		type=gate];
+	"1'h0" -> XOR_1558_;
+	XOR_1564_	[logic=XOR,
+		type=gate];
+	"1'h0" -> XOR_1564_;
+	XOR_1628_	[logic=XOR,
+		type=gate];
+	"1'h0" -> XOR_1628_;
+	XOR_1925_	[logic=XOR,
+		type=gate];
+	"1'h0" -> XOR_1925_;
+	XOR_1941_	[logic=XOR,
+		type=gate];
+	"1'h0" -> XOR_1941_;
+	XOR_2092_	[logic=XOR,
+		type=gate];
+	"1'h0" -> XOR_2092_;
+	XNOR_1518_	[logic=XNOR,
+		type=gate];
+	"1'h0" -> XNOR_1518_;
+	XNOR_1526_	[logic=XNOR,
+		type=gate];
+	"1'h0" -> XNOR_1526_;
+	XNOR_1623_	[logic=XNOR,
+		type=gate];
+	"1'h0" -> XNOR_1623_;
+	XNOR_1638_	[logic=XNOR,
+		type=gate];
+	"1'h0" -> XNOR_1638_;
+	XNOR_1920_	[logic=XNOR,
+		type=gate];
+	"1'h0" -> XNOR_1920_;
+	XNOR_1926_	[logic=XNOR,
+		type=gate];
+	"1'h0" -> XNOR_1926_;
+	XNOR_1942_	[logic=XNOR,
+		type=gate];
+	"1'h0" -> XNOR_1942_;
+	XNOR_2083_	[logic=XNOR,
+		type=gate];
+	"1'h0" -> XNOR_2083_;
+	XNOR_2087_	[logic=XNOR,
+		type=gate];
+	"1'h0" -> XNOR_2087_;
+	_0233_	[port=_0233_,
+		type=wire];
+	NOT_1250_ -> _0233_;
+	NAND_1873_	[logic=NAND,
+		type=gate];
+	_0233_ -> NAND_1873_;
+	NAND_1909_	[logic=NAND,
+		type=gate];
+	_0233_ -> NAND_1909_;
+	_0234_	[port=_0234_,
+		type=wire];
+	NOT_1251_ -> _0234_;
+	_0234_ -> NAND_1964_;
+	_0234_ -> NAND_1977_;
+	NAND_2012_	[logic=NAND,
+		type=gate];
+	_0234_ -> NAND_2012_;
+	NAND_2022_	[logic=NAND,
+		type=gate];
+	_0234_ -> NAND_2022_;
+	AND_1960_	[logic=AND,
+		type=gate];
+	_0234_ -> AND_1960_;
+	NOR_1959_	[logic=NOR,
+		type=gate];
+	_0234_ -> NOR_1959_;
+	XNOR_1961_	[logic=XNOR,
+		type=gate];
+	_0234_ -> XNOR_1961_;
+	_0235_	[port=_0235_,
+		type=wire];
+	NOT_1252_ -> _0235_;
+	NAND_2049_	[logic=NAND,
+		type=gate];
+	_0235_ -> NAND_2049_;
+	_0235_ -> NAND_2053_;
+	NAND_2060_	[logic=NAND,
+		type=gate];
+	_0235_ -> NAND_2060_;
+	_0235_ -> NAND_2062_;
+	NAND_2104_	[logic=NAND,
+		type=gate];
+	_0235_ -> NAND_2104_;
+	NOR_2048_	[logic=NOR,
+		type=gate];
+	_0235_ -> NOR_2048_;
+	XNOR_2050_	[logic=XNOR,
+		type=gate];
+	_0235_ -> XNOR_2050_;
+	NOT_1262_	[logic=NOT,
+		type=gate];
+	_0245_	[port=_0245_,
+		type=wire];
+	NOT_1262_ -> _0245_;
+	NAND_1368_	[logic=NAND,
+		type=gate];
+	_0245_ -> NAND_1368_;
+	NAND_1371_	[logic=NAND,
+		type=gate];
+	_0245_ -> NAND_1371_;
+	_0244_	[port=_0244_,
+		type=wire];
+	_0244_ -> NOT_1262_;
+	NOR_1263_	[logic=NOR,
+		type=gate];
+	_0244_ -> NOR_1263_;
+	NOT_1266_	[logic=NOT,
+		type=gate];
+	_0249_	[port=_0249_,
+		type=wire];
+	NOT_1266_ -> _0249_;
+	NAND_1393_	[logic=NAND,
+		type=gate];
+	_0249_ -> NAND_1393_;
+	_0248_	[port=_0248_,
+		type=wire];
+	_0248_ -> NOT_1266_;
+	NOR_1267_	[logic=NOR,
+		type=gate];
+	_0248_ -> NOR_1267_;
+	NOT_1270_	[logic=NOT,
+		type=gate];
+	_0253_	[port=_0253_,
+		type=wire];
+	NOT_1270_ -> _0253_;
+	NAND_1408_	[logic=NAND,
+		type=gate];
+	_0253_ -> NAND_1408_;
+	_0252_	[port=_0252_,
+		type=wire];
+	_0252_ -> NOT_1270_;
+	NAND_1271_	[logic=NAND,
+		type=gate];
+	_0252_ -> NAND_1271_;
+	NAND_1460_	[logic=NAND,
+		type=gate];
+	_0252_ -> NAND_1460_;
+	NAND_1497_	[logic=NAND,
+		type=gate];
+	_0252_ -> NAND_1497_;
+	NAND_1523_	[logic=NAND,
+		type=gate];
+	_0252_ -> NAND_1523_;
+	NAND_1567_	[logic=NAND,
+		type=gate];
+	_0252_ -> NAND_1567_;
+	NAND_1601_	[logic=NAND,
+		type=gate];
+	_0252_ -> NAND_1601_;
+	NAND_1624_	[logic=NAND,
+		type=gate];
+	_0252_ -> NAND_1624_;
+	AND_1448_	[logic=AND,
+		type=gate];
+	_0252_ -> AND_1448_;
+	NOT_1322_	[logic=NOT,
+		type=gate];
+	T3plot	[port=T3plot,
+		type=wire];
+	NOT_1322_ -> T3plot;
+	T3plot -> NAND_1048_;
+	NAND_1398_	[logic=NAND,
+		type=gate];
+	T3plot -> NAND_1398_;
+	NAND_1401_	[logic=NAND,
+		type=gate];
+	T3plot -> NAND_1401_;
+	NAND_1404_	[logic=NAND,
+		type=gate];
+	T3plot -> NAND_1404_;
+	AND_1363_	[logic=AND,
+		type=gate];
+	T3plot -> AND_1363_;
+	AND_1372_	[logic=AND,
+		type=gate];
+	T3plot -> AND_1372_;
+	AND_1379_	[logic=AND,
+		type=gate];
+	T3plot -> AND_1379_;
+	AND_1394_	[logic=AND,
+		type=gate];
+	T3plot -> AND_1394_;
+	AND_1869_	[logic=AND,
+		type=gate];
+	T3plot -> AND_1869_;
+	NOR_1323_	[logic=NOR,
+		type=gate];
+	T3plot -> NOR_1323_;
+	NOR_1349_	[logic=NOR,
+		type=gate];
+	T3plot -> NOR_1349_;
+	_0301_	[port=_0301_,
+		type=wire];
+	_0301_ -> NOT_1322_;
+	NAND_1358_	[logic=NAND,
+		type=gate];
+	_0301_ -> NAND_1358_;
+	NAND_1374_	[logic=NAND,
+		type=gate];
+	_0301_ -> NAND_1374_;
+	NAND_1382_	[logic=NAND,
+		type=gate];
+	_0301_ -> NAND_1382_;
+	NAND_1386_	[logic=NAND,
+		type=gate];
+	_0301_ -> NAND_1386_;
+	NAND_1397_	[logic=NAND,
+		type=gate];
+	_0301_ -> NAND_1397_;
+	NAND_1400_	[logic=NAND,
+		type=gate];
+	_0301_ -> NAND_1400_;
+	NAND_1403_	[logic=NAND,
+		type=gate];
+	_0301_ -> NAND_1403_;
+	_0301_ -> NAND_1420_;
+	_0301_ -> NAND_1432_;
+	_0301_ -> NAND_1462_;
+	_0301_ -> NAND_1490_;
+	_0301_ -> NAND_1534_;
+	_0301_ -> NAND_1569_;
+	_0301_ -> NAND_1591_;
+	_0301_ -> NAND_1626_;
+	NAND_1646_	[logic=NAND,
+		type=gate];
+	_0301_ -> NAND_1646_;
+	NAND_1891_	[logic=NAND,
+		type=gate];
+	_0301_ -> NAND_1891_;
+	NAND_1923_	[logic=NAND,
+		type=gate];
+	_0301_ -> NAND_1923_;
+	NAND_1963_	[logic=NAND,
+		type=gate];
+	_0301_ -> NAND_1963_;
+	NAND_2008_	[logic=NAND,
+		type=gate];
+	_0301_ -> NAND_2008_;
+	NAND_2052_	[logic=NAND,
+		type=gate];
+	_0301_ -> NAND_2052_;
+	NAND_2084_	[logic=NAND,
+		type=gate];
+	_0301_ -> NAND_2084_;
+	AND_1365_	[logic=AND,
+		type=gate];
+	_0301_ -> AND_1365_;
+	AND_1381_	[logic=AND,
+		type=gate];
+	_0301_ -> AND_1381_;
+	NOR_1343_	[logic=NOR,
+		type=gate];
+	_0301_ -> NOR_1343_;
+	NOR_1644_	[logic=NOR,
+		type=gate];
+	_0301_ -> NOR_1644_;
+	NOT_1341_	[logic=NOT,
+		type=gate];
+	_0319_	[port=_0319_,
+		type=wire];
+	NOT_1341_ -> _0319_;
+	NAND_1657_	[logic=NAND,
+		type=gate];
+	_0319_ -> NAND_1657_;
+	NAND_1755_	[logic=NAND,
+		type=gate];
+	_0319_ -> NAND_1755_;
+	NAND_1840_	[logic=NAND,
+		type=gate];
+	_0319_ -> NAND_1840_;
+	_0318_	[port=_0318_,
+		type=wire];
+	_0318_ -> NOT_1341_;
+	NAND_1658_	[logic=NAND,
+		type=gate];
+	_0318_ -> NAND_1658_;
+	NAND_1714_	[logic=NAND,
+		type=gate];
+	_0318_ -> NAND_1714_;
+	NAND_1747_	[logic=NAND,
+		type=gate];
+	_0318_ -> NAND_1747_;
+	NAND_1778_	[logic=NAND,
+		type=gate];
+	_0318_ -> NAND_1778_;
+	NAND_1811_	[logic=NAND,
+		type=gate];
+	_0318_ -> NAND_1811_;
+	NAND_1836_	[logic=NAND,
+		type=gate];
+	_0318_ -> NAND_1836_;
+	AND_1342_	[logic=AND,
+		type=gate];
+	_0318_ -> AND_1342_;
+	AND_1350_	[logic=AND,
+		type=gate];
+	_0318_ -> AND_1350_;
+	AND_1691_	[logic=AND,
+		type=gate];
+	_0318_ -> AND_1691_;
+	NOR_1689_	[logic=NOR,
+		type=gate];
+	_0318_ -> NOR_1689_;
+	NOR_1723_	[logic=NOR,
+		type=gate];
+	_0318_ -> NOR_1723_;
+	NOR_1787_	[logic=NOR,
+		type=gate];
+	_0318_ -> NOR_1787_;
+	NOR_1819_	[logic=NOR,
+		type=gate];
+	_0318_ -> NOR_1819_;
+	NOT_1359_	[logic=NOT,
+		type=gate];
+	_0336_	[port=_0336_,
+		type=wire];
+	NOT_1359_ -> _0336_;
+	_0336_ -> NAND_1887_;
+	_0335_	[port=_0335_,
+		type=wire];
+	_0335_ -> NOT_1359_;
+	AND_1360_	[logic=AND,
+		type=gate];
+	_0335_ -> AND_1360_;
+	AND_1665_	[logic=AND,
+		type=gate];
+	_0335_ -> AND_1665_;
+	AND_1695_	[logic=AND,
+		type=gate];
+	_0335_ -> AND_1695_;
+	_0335_ -> XNOR_1888_;
+	NOT_1407_	[logic=NOT,
+		type=gate];
+	_0375_	[port=_0375_,
+		type=wire];
+	NOT_1407_ -> _0375_;
+	_0375_ -> NAND_1408_;
+	_0374_	[port=_0374_,
+		type=wire];
+	_0374_ -> NOT_1407_;
+	NAND_1430_	[logic=NAND,
+		type=gate];
+	_0374_ -> NAND_1430_;
+	NAND_1469_	[logic=NAND,
+		type=gate];
+	_0374_ -> NAND_1469_;
+	NAND_1508_	[logic=NAND,
+		type=gate];
+	_0374_ -> NAND_1508_;
+	NAND_1553_	[logic=NAND,
+		type=gate];
+	_0374_ -> NAND_1553_;
+	NAND_1574_	[logic=NAND,
+		type=gate];
+	_0374_ -> NAND_1574_;
+	NAND_1610_	[logic=NAND,
+		type=gate];
+	_0374_ -> NAND_1610_;
+	NAND_1639_	[logic=NAND,
+		type=gate];
+	_0374_ -> NAND_1639_;
+	NOT_1645_	[logic=NOT,
+		type=gate];
+	_0175_	[port=_0175_,
+		type=wire];
+	NOT_1645_ -> _0175_;
+	DFF__2138_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0175_ -> DFF__2138_;
+	_0604_	[port=_0604_,
+		type=wire];
+	_0604_ -> NOT_1645_;
+	NOT_1721_	[logic=NOT,
+		type=gate];
+	_0677_	[port=_0677_,
+		type=wire];
+	NOT_1721_ -> _0677_;
+	NAND_1724_	[logic=NAND,
+		type=gate];
+	_0677_ -> NAND_1724_;
+	XNOR_1754_	[logic=XNOR,
+		type=gate];
+	_0677_ -> XNOR_1754_;
+	_0676_	[port=_0676_,
+		type=wire];
+	_0676_ -> NOT_1721_;
+	AND_1753_	[logic=AND,
+		type=gate];
+	_0676_ -> AND_1753_;
+	NOT_1785_	[logic=NOT,
+		type=gate];
+	_0739_	[port=_0739_,
+		type=wire];
+	NOT_1785_ -> _0739_;
+	NAND_1788_	[logic=NAND,
+		type=gate];
+	_0739_ -> NAND_1788_;
+	_0738_	[port=_0738_,
+		type=wire];
+	_0738_ -> NOT_1785_;
+	NAND_1818_	[logic=NAND,
+		type=gate];
+	_0738_ -> NAND_1818_;
+	NOR_1817_	[logic=NOR,
+		type=gate];
+	_0738_ -> NOR_1817_;
+	NOT_1969_	[logic=NOT,
+		type=gate];
+	_0909_	[port=_0909_,
+		type=wire];
+	NOT_1969_ -> _0909_;
+	NAND_1989_	[logic=NAND,
+		type=gate];
+	_0909_ -> NAND_1989_;
+	_0908_	[port=_0908_,
+		type=wire];
+	_0908_ -> NOT_1969_;
+	NAND_1970_	[logic=NAND,
+		type=gate];
+	_0908_ -> NAND_1970_;
+	NAND_2014_	[logic=NAND,
+		type=gate];
+	_0908_ -> NAND_2014_;
+	NOT_1972_	[logic=NOT,
+		type=gate];
+	_0912_	[port=_0912_,
+		type=wire];
+	NOT_1972_ -> _0912_;
+	NAND_1990_	[logic=NAND,
+		type=gate];
+	_0912_ -> NAND_1990_;
+	_0911_	[port=_0911_,
+		type=wire];
+	_0911_ -> NOT_1972_;
+	NAND_1973_	[logic=NAND,
+		type=gate];
+	_0911_ -> NAND_1973_;
+	NAND_2030_	[logic=NAND,
+		type=gate];
+	_0911_ -> NAND_2030_;
+	NOT_1982_	[logic=NOT,
+		type=gate];
+	_0922_	[port=_0922_,
+		type=wire];
+	NOT_1982_ -> _0922_;
+	NAND_1983_	[logic=NAND,
+		type=gate];
+	_0922_ -> NAND_1983_;
+	_0921_	[port=_0921_,
+		type=wire];
+	_0921_ -> NOT_1982_;
+	NAND_1993_	[logic=NAND,
+		type=gate];
+	_0921_ -> NAND_1993_;
+	NAND_2024_	[logic=NAND,
+		type=gate];
+	_0921_ -> NAND_2024_;
+	NOT_1985_	[logic=NOT,
+		type=gate];
+	_0925_	[port=_0925_,
+		type=wire];
+	NOT_1985_ -> _0925_;
+	NAND_1986_	[logic=NAND,
+		type=gate];
+	_0925_ -> NAND_1986_;
+	_0924_	[port=_0924_,
+		type=wire];
+	_0924_ -> NOT_1985_;
+	NAND_1994_	[logic=NAND,
+		type=gate];
+	_0924_ -> NAND_1994_;
+	NAND_2037_	[logic=NAND,
+		type=gate];
+	_0924_ -> NAND_2037_;
+	_0150_	[type=input];
+	NOT_2113_ -> _0150_;
+	DFF__2117_	[clock=CLOCK_50,
+		reset=_0150_,
+		type=FF];
+	_0150_ -> DFF__2117_;
+	_0151_	[type=input];
+	NOT_2114_ -> _0151_;
+	DFF__2118_	[clock=CLOCK_50,
+		reset=_0151_,
+		type=FF];
+	_0151_ -> DFF__2118_;
+	_0152_	[type=input];
+	NOT_2115_ -> _0152_;
+	DFF__2119_	[clock=CLOCK_50,
+		reset=_0152_,
+		type=FF];
+	_0152_ -> DFF__2119_;
+	_0012_	[port=_0012_,
+		type=wire];
+	NAND_1039_ -> _0012_;
+	NAND_1041_	[logic=NAND,
+		type=gate];
+	_0012_ -> NAND_1041_;
+	"T3colourcircle[0]"	[port=T3colourcircle,
+		type=wire];
+	"T3colourcircle[0]" -> NAND_1039_;
+	"T3colourcircle[0]" -> NAND_1398_;
+	_0013_	[port=_0013_,
+		type=wire];
+	NAND_1040_ -> _0013_;
+	_0013_ -> NAND_1041_;
+	"T2colour[0]"	[port=T2colour,
+		type=wire];
+	"T2colour[0]" -> NAND_1040_;
+	NOR_1181_	[logic=NOR,
+		type=gate];
+	"T2colour[0]" -> NOR_1181_;
+	"vga_colour[0]"	[type=output];
+	NAND_1041_ -> "vga_colour[0]";
+	"vga_colour[0]" -> "module#top";
+	_0014_	[port=_0014_,
+		type=wire];
+	NAND_1042_ -> _0014_;
+	NAND_1044_	[logic=NAND,
+		type=gate];
+	_0014_ -> NAND_1044_;
+	"T3colourcircle[1]"	[port=T3colourcircle,
+		type=wire];
+	"T3colourcircle[1]" -> NAND_1042_;
+	"T3colourcircle[1]" -> NAND_1401_;
+	_0015_	[port=_0015_,
+		type=wire];
+	NAND_1043_ -> _0015_;
+	_0015_ -> NAND_1044_;
+	"T2colour[1]"	[port=T2colour,
+		type=wire];
+	"T2colour[1]" -> NAND_1043_;
+	NOR_1185_	[logic=NOR,
+		type=gate];
+	"T2colour[1]" -> NOR_1185_;
+	"vga_colour[1]"	[type=output];
+	NAND_1044_ -> "vga_colour[1]";
+	"vga_colour[1]" -> "module#top";
+	_0016_	[port=_0016_,
+		type=wire];
+	NAND_1045_ -> _0016_;
+	NAND_1047_	[logic=NAND,
+		type=gate];
+	_0016_ -> NAND_1047_;
+	"T3colourcircle[2]"	[port=T3colourcircle,
+		type=wire];
+	"T3colourcircle[2]" -> NAND_1045_;
+	"T3colourcircle[2]" -> NAND_1404_;
+	_0017_	[port=_0017_,
+		type=wire];
+	NAND_1046_ -> _0017_;
+	_0017_ -> NAND_1047_;
+	"T2colour[2]"	[port=T2colour,
+		type=wire];
+	"T2colour[2]" -> NAND_1046_;
+	NOR_1189_	[logic=NOR,
+		type=gate];
+	"T2colour[2]" -> NOR_1189_;
+	"vga_colour[2]"	[type=output];
+	NAND_1047_ -> "vga_colour[2]";
+	"vga_colour[2]" -> "module#top";
+	_0018_	[port=_0018_,
+		type=wire];
+	NAND_1048_ -> _0018_;
+	NAND_1050_	[logic=NAND,
+		type=gate];
+	_0018_ -> NAND_1050_;
+	_0019_	[port=_0019_,
+		type=wire];
+	NAND_1049_ -> _0019_;
+	_0019_ -> NAND_1050_;
+	vga_plot	[type=output];
+	NAND_1050_ -> vga_plot;
+	vga_plot -> "module#top";
+	_0020_	[port=_0020_,
+		type=wire];
+	NAND_1051_ -> _0020_;
+	NAND_1053_	[logic=NAND,
+		type=gate];
+	_0020_ -> NAND_1053_;
+	"T3yp[0]"	[port=T3yp,
+		type=wire];
+	"T3yp[0]" -> NAND_1051_;
+	AND_1876_	[logic=AND,
+		type=gate];
+	"T3yp[0]" -> AND_1876_;
+	_0021_	[port=_0021_,
+		type=wire];
+	NAND_1052_ -> _0021_;
+	_0021_ -> NAND_1053_;
+	"vga_y[0]"	[type=output];
+	NAND_1053_ -> "vga_y[0]";
+	"vga_y[0]" -> "module#top";
+	_0022_	[port=_0022_,
+		type=wire];
+	NAND_1054_ -> _0022_;
+	NAND_1056_	[logic=NAND,
+		type=gate];
+	_0022_ -> NAND_1056_;
+	"T3yp[1]"	[port=T3yp,
+		type=wire];
+	"T3yp[1]" -> NAND_1054_;
+	NAND_1892_	[logic=NAND,
+		type=gate];
+	"T3yp[1]" -> NAND_1892_;
+	_0023_	[port=_0023_,
+		type=wire];
+	NAND_1055_ -> _0023_;
+	_0023_ -> NAND_1056_;
+	"T2y[1]"	[port=T2y,
+		type=wire];
+	"T2y[1]" -> NAND_1055_;
+	NAND_1148_	[logic=NAND,
+		type=gate];
+	"T2y[1]" -> NAND_1148_;
+	NAND_1183_	[logic=NAND,
+		type=gate];
+	"T2y[1]" -> NAND_1183_;
+	"T2y[1]" -> AND_1109_;
+	"T2y[1]" -> XOR_1149_;
+	"vga_y[1]"	[type=output];
+	NAND_1056_ -> "vga_y[1]";
+	"vga_y[1]" -> "module#top";
+	_0024_	[port=_0024_,
+		type=wire];
+	NAND_1057_ -> _0024_;
+	NAND_1059_	[logic=NAND,
+		type=gate];
+	_0024_ -> NAND_1059_;
+	"T3yp[2]"	[port=T3yp,
+		type=wire];
+	"T3yp[2]" -> NAND_1057_;
+	NAND_1933_	[logic=NAND,
+		type=gate];
+	"T3yp[2]" -> NAND_1933_;
+	_0025_	[port=_0025_,
+		type=wire];
+	NAND_1058_ -> _0025_;
+	_0025_ -> NAND_1059_;
+	"T2y[2]"	[port=T2y,
+		type=wire];
+	"T2y[2]" -> NAND_1058_;
+	NAND_1144_	[logic=NAND,
+		type=gate];
+	"T2y[2]" -> NAND_1144_;
+	NAND_1187_	[logic=NAND,
+		type=gate];
+	"T2y[2]" -> NAND_1187_;
+	AND_1110_	[logic=AND,
+		type=gate];
+	"T2y[2]" -> AND_1110_;
+	XOR_1145_	[logic=XOR,
+		type=gate];
+	"T2y[2]" -> XOR_1145_;
+	"vga_y[2]"	[type=output];
+	NAND_1059_ -> "vga_y[2]";
+	"vga_y[2]" -> "module#top";
+	_0026_	[port=_0026_,
+		type=wire];
+	NAND_1060_ -> _0026_;
+	NAND_1062_	[logic=NAND,
+		type=gate];
+	_0026_ -> NAND_1062_;
+	"T3yp[3]"	[port=T3yp,
+		type=wire];
+	"T3yp[3]" -> NAND_1060_;
+	NAND_1976_	[logic=NAND,
+		type=gate];
+	"T3yp[3]" -> NAND_1976_;
+	_0027_	[port=_0027_,
+		type=wire];
+	NAND_1061_ -> _0027_;
+	_0027_ -> NAND_1062_;
+	"T2y[3]"	[port=T2y,
+		type=wire];
+	"T2y[3]" -> NAND_1061_;
+	NAND_1140_	[logic=NAND,
+		type=gate];
+	"T2y[3]" -> NAND_1140_;
+	AND_1120_	[logic=AND,
+		type=gate];
+	"T2y[3]" -> AND_1120_;
+	NOR_1113_	[logic=NOR,
+		type=gate];
+	"T2y[3]" -> NOR_1113_;
+	NOR_1117_	[logic=NOR,
+		type=gate];
+	"T2y[3]" -> NOR_1117_;
+	XOR_1141_	[logic=XOR,
+		type=gate];
+	"T2y[3]" -> XOR_1141_;
+	"vga_y[3]"	[type=output];
+	NAND_1062_ -> "vga_y[3]";
+	"vga_y[3]" -> "module#top";
+	_0028_	[port=_0028_,
+		type=wire];
+	NAND_1063_ -> _0028_;
+	NAND_1065_	[logic=NAND,
+		type=gate];
+	_0028_ -> NAND_1065_;
+	"T3yp[4]"	[port=T3yp,
+		type=wire];
+	"T3yp[4]" -> NAND_1063_;
+	NAND_2036_	[logic=NAND,
+		type=gate];
+	"T3yp[4]" -> NAND_2036_;
+	_0029_	[port=_0029_,
+		type=wire];
+	NAND_1064_ -> _0029_;
+	_0029_ -> NAND_1065_;
+	"T2y[4]"	[port=T2y,
+		type=wire];
+	"T2y[4]" -> NAND_1064_;
+	NAND_1112_	[logic=NAND,
+		type=gate];
+	"T2y[4]" -> NAND_1112_;
+	NAND_1136_	[logic=NAND,
+		type=gate];
+	"T2y[4]" -> NAND_1136_;
+	AND_1121_	[logic=AND,
+		type=gate];
+	"T2y[4]" -> AND_1121_;
+	XOR_1137_	[logic=XOR,
+		type=gate];
+	"T2y[4]" -> XOR_1137_;
+	"vga_y[4]"	[type=output];
+	NAND_1065_ -> "vga_y[4]";
+	"vga_y[4]" -> "module#top";
+	_0030_	[port=_0030_,
+		type=wire];
+	NAND_1066_ -> _0030_;
+	NAND_1068_	[logic=NAND,
+		type=gate];
+	_0030_ -> NAND_1068_;
+	"T3yp[5]"	[port=T3yp,
+		type=wire];
+	"T3yp[5]" -> NAND_1066_;
+	NAND_2059_	[logic=NAND,
+		type=gate];
+	"T3yp[5]" -> NAND_2059_;
+	_0031_	[port=_0031_,
+		type=wire];
+	NAND_1067_ -> _0031_;
+	_0031_ -> NAND_1068_;
+	"T2y[5]"	[port=T2y,
+		type=wire];
+	"T2y[5]" -> NAND_1067_;
+	NAND_1132_	[logic=NAND,
+		type=gate];
+	"T2y[5]" -> NAND_1132_;
+	AND_1111_	[logic=AND,
+		type=gate];
+	"T2y[5]" -> AND_1111_;
+	AND_1122_	[logic=AND,
+		type=gate];
+	"T2y[5]" -> AND_1122_;
+	XOR_1133_	[logic=XOR,
+		type=gate];
+	"T2y[5]" -> XOR_1133_;
+	"vga_y[5]"	[type=output];
+	NAND_1068_ -> "vga_y[5]";
+	"vga_y[5]" -> "module#top";
+	_0032_	[port=_0032_,
+		type=wire];
+	NAND_1069_ -> _0032_;
+	NAND_1071_	[logic=NAND,
+		type=gate];
+	_0032_ -> NAND_1071_;
+	"T3yp[6]"	[port=T3yp,
+		type=wire];
+	"T3yp[6]" -> NAND_1069_;
+	NAND_2090_	[logic=NAND,
+		type=gate];
+	"T3yp[6]" -> NAND_2090_;
+	_0033_	[port=_0033_,
+		type=wire];
+	NAND_1070_ -> _0033_;
+	_0033_ -> NAND_1071_;
+	"T2y[6]"	[port=T2y,
+		type=wire];
+	"T2y[6]" -> NAND_1070_;
+	"T2y[6]" -> AND_1111_;
+	NOR_1129_	[logic=NOR,
+		type=gate];
+	"T2y[6]" -> NOR_1129_;
+	"vga_y[6]"	[type=output];
+	NAND_1071_ -> "vga_y[6]";
+	"vga_y[6]" -> "module#top";
+	_0034_	[port=_0034_,
+		type=wire];
+	NAND_1072_ -> _0034_;
+	NAND_1074_	[logic=NAND,
+		type=gate];
+	_0034_ -> NAND_1074_;
+	"T3xp[0]"	[port=T3xp,
+		type=wire];
+	"T3xp[0]" -> NAND_1072_;
+	NAND_1419_	[logic=NAND,
+		type=gate];
+	"T3xp[0]" -> NAND_1419_;
+	_0035_	[port=_0035_,
+		type=wire];
+	NAND_1073_ -> _0035_;
+	_0035_ -> NAND_1074_;
+	"T2x[0]"	[port=T2x,
+		type=wire];
+	"T2x[0]" -> NAND_1073_;
+	NAND_1176_	[logic=NAND,
+		type=gate];
+	"T2x[0]" -> NAND_1176_;
+	AND_1101_	[logic=AND,
+		type=gate];
+	"T2x[0]" -> AND_1101_;
+	XOR_1173_	[logic=XOR,
+		type=gate];
+	"T2x[0]" -> XOR_1173_;
+	"vga_x[0]"	[type=output];
+	NAND_1074_ -> "vga_x[0]";
+	"vga_x[0]" -> "module#top";
+	_0036_	[port=_0036_,
+		type=wire];
+	NAND_1075_ -> _0036_;
+	NAND_1077_	[logic=NAND,
+		type=gate];
+	_0036_ -> NAND_1077_;
+	"T3xp[1]"	[port=T3xp,
+		type=wire];
+	"T3xp[1]" -> NAND_1075_;
+	NAND_1431_	[logic=NAND,
+		type=gate];
+	"T3xp[1]" -> NAND_1431_;
+	_0037_	[port=_0037_,
+		type=wire];
+	NAND_1076_ -> _0037_;
+	_0037_ -> NAND_1077_;
+	"T2x[1]"	[port=T2x,
+		type=wire];
+	"T2x[1]" -> NAND_1076_;
+	"T2x[1]" -> AND_1101_;
+	"T2x[1]" -> XOR_1173_;
+	"vga_x[1]"	[type=output];
+	NAND_1077_ -> "vga_x[1]";
+	"vga_x[1]" -> "module#top";
+	_0038_	[port=_0038_,
+		type=wire];
+	NAND_1078_ -> _0038_;
+	NAND_1080_	[logic=NAND,
+		type=gate];
+	_0038_ -> NAND_1080_;
+	"T3xp[2]"	[port=T3xp,
+		type=wire];
+	"T3xp[2]" -> NAND_1078_;
+	NAND_1461_	[logic=NAND,
+		type=gate];
+	"T3xp[2]" -> NAND_1461_;
+	_0000_	[port=_0000_,
+		type=wire];
+	NAND_1079_ -> _0000_;
+	_0000_ -> NAND_1080_;
+	"T2x[2]"	[port=T2x,
+		type=wire];
+	"T2x[2]" -> NAND_1079_;
+	AND_1102_	[logic=AND,
+		type=gate];
+	"T2x[2]" -> AND_1102_;
+	XOR_1170_	[logic=XOR,
+		type=gate];
+	"T2x[2]" -> XOR_1170_;
+	"vga_x[2]"	[type=output];
+	NAND_1080_ -> "vga_x[2]";
+	"vga_x[2]" -> "module#top";
+	_0001_	[port=_0001_,
+		type=wire];
+	NAND_1081_ -> _0001_;
+	NAND_1083_	[logic=NAND,
+		type=gate];
+	_0001_ -> NAND_1083_;
+	"T3xp[3]"	[port=T3xp,
+		type=wire];
+	"T3xp[3]" -> NAND_1081_;
+	NAND_1489_	[logic=NAND,
+		type=gate];
+	"T3xp[3]" -> NAND_1489_;
+	_0002_	[port=_0002_,
+		type=wire];
+	NAND_1082_ -> _0002_;
+	_0002_ -> NAND_1083_;
+	"T2x[3]"	[port=T2x,
+		type=wire];
+	"T2x[3]" -> NAND_1082_;
+	AND_1103_	[logic=AND,
+		type=gate];
+	"T2x[3]" -> AND_1103_;
+	XOR_1167_	[logic=XOR,
+		type=gate];
+	"T2x[3]" -> XOR_1167_;
+	"vga_x[3]"	[type=output];
+	NAND_1083_ -> "vga_x[3]";
+	"vga_x[3]" -> "module#top";
+	_0003_	[port=_0003_,
+		type=wire];
+	NAND_1084_ -> _0003_;
+	NAND_1086_	[logic=NAND,
+		type=gate];
+	_0003_ -> NAND_1086_;
+	"T3xp[4]"	[port=T3xp,
+		type=wire];
+	"T3xp[4]" -> NAND_1084_;
+	NAND_1533_	[logic=NAND,
+		type=gate];
+	"T3xp[4]" -> NAND_1533_;
+	_0004_	[port=_0004_,
+		type=wire];
+	NAND_1085_ -> _0004_;
+	_0004_ -> NAND_1086_;
+	"T2x[4]"	[port=T2x,
+		type=wire];
+	"T2x[4]" -> NAND_1085_;
+	AND_1104_	[logic=AND,
+		type=gate];
+	"T2x[4]" -> AND_1104_;
+	XOR_1164_	[logic=XOR,
+		type=gate];
+	"T2x[4]" -> XOR_1164_;
+	"vga_x[4]"	[type=output];
+	NAND_1086_ -> "vga_x[4]";
+	"vga_x[4]" -> "module#top";
+	_0005_	[port=_0005_,
+		type=wire];
+	NAND_1087_ -> _0005_;
+	NAND_1089_	[logic=NAND,
+		type=gate];
+	_0005_ -> NAND_1089_;
+	"T3xp[5]"	[port=T3xp,
+		type=wire];
+	"T3xp[5]" -> NAND_1087_;
+	NAND_1568_	[logic=NAND,
+		type=gate];
+	"T3xp[5]" -> NAND_1568_;
+	_0006_	[port=_0006_,
+		type=wire];
+	NAND_1088_ -> _0006_;
+	_0006_ -> NAND_1089_;
+	"T2x[5]"	[port=T2x,
+		type=wire];
+	"T2x[5]" -> NAND_1088_;
+	AND_1155_	[logic=AND,
+		type=gate];
+	"T2x[5]" -> AND_1155_;
+	"T2x[5]" -> NOR_1105_;
+	NOR_1123_	[logic=NOR,
+		type=gate];
+	"T2x[5]" -> NOR_1123_;
+	"vga_x[5]"	[type=output];
+	NAND_1089_ -> "vga_x[5]";
+	"vga_x[5]" -> "module#top";
+	_0007_	[port=_0007_,
+		type=wire];
+	NAND_1090_ -> _0007_;
+	NAND_1092_	[logic=NAND,
+		type=gate];
+	_0007_ -> NAND_1092_;
+	"T3xp[6]"	[port=T3xp,
+		type=wire];
+	"T3xp[6]" -> NAND_1090_;
+	NAND_1592_	[logic=NAND,
+		type=gate];
+	"T3xp[6]" -> NAND_1592_;
+	_0008_	[port=_0008_,
+		type=wire];
+	NAND_1091_ -> _0008_;
+	_0008_ -> NAND_1092_;
+	"vga_x[6]"	[type=output];
+	NAND_1092_ -> "vga_x[6]";
+	"vga_x[6]" -> "module#top";
+	_0009_	[port=_0009_,
+		type=wire];
+	NAND_1093_ -> _0009_;
+	NAND_1095_	[logic=NAND,
+		type=gate];
+	_0009_ -> NAND_1095_;
+	"T3xp[7]"	[port=T3xp,
+		type=wire];
+	"T3xp[7]" -> NAND_1093_;
+	NAND_1625_	[logic=NAND,
+		type=gate];
+	"T3xp[7]" -> NAND_1625_;
+	_0010_	[port=_0010_,
+		type=wire];
+	NAND_1094_ -> _0010_;
+	_0010_ -> NAND_1095_;
+	"vga_x[7]"	[type=output];
+	NAND_1095_ -> "vga_x[7]";
+	"vga_x[7]" -> "module#top";
+	NAND_1108_	[logic=NAND,
+		type=gate];
+	_0123_	[port=_0123_,
+		type=wire];
+	NAND_1108_ -> _0123_;
+	NOR_1119_	[logic=NOR,
+		type=gate];
+	_0123_ -> NOR_1119_;
+	_0121_	[port=_0121_,
+		type=wire];
+	_0121_ -> NAND_1108_;
+	AND_1107_	[logic=AND,
+		type=gate];
+	_0121_ -> AND_1107_;
+	_0119_	[port=_0119_,
+		type=wire];
+	_0119_ -> NAND_1108_;
+	_0119_ -> AND_1107_;
+	_0119_ -> AND_1155_;
+	_0119_ -> NOR_1123_;
+	_0127_	[port=_0127_,
+		type=wire];
+	NAND_1112_ -> _0127_;
+	_0127_ -> NOR_1113_;
+	NOR_1118_	[logic=NOR,
+		type=gate];
+	_0127_ -> NOR_1118_;
+	_0126_	[port=_0126_,
+		type=wire];
+	_0126_ -> NAND_1112_;
+	NAND_1115_	[logic=NAND,
+		type=gate];
+	_0130_	[port=_0130_,
+		type=wire];
+	NAND_1115_ -> _0130_;
+	_0130_ -> NAND_1116_;
+	NAND_1127_	[logic=NAND,
+		type=gate];
+	_0130_ -> NAND_1127_;
+	NAND_1166_	[logic=NAND,
+		type=gate];
+	_0130_ -> NAND_1166_;
+	NAND_1169_	[logic=NAND,
+		type=gate];
+	_0130_ -> NAND_1169_;
+	NAND_1172_	[logic=NAND,
+		type=gate];
+	_0130_ -> NAND_1172_;
+	NAND_1175_	[logic=NAND,
+		type=gate];
+	_0130_ -> NAND_1175_;
+	_0130_ -> NAND_1176_;
+	_0129_	[port=_0129_,
+		type=wire];
+	_0129_ -> NAND_1115_;
+	_0122_	[port=_0122_,
+		type=wire];
+	_0122_ -> NAND_1115_;
+	_0071_	[port=_0071_,
+		type=wire];
+	NAND_1116_ -> _0071_;
+	_0071_ -> DFF__1222_;
+	_0138_	[port=_0138_,
+		type=wire];
+	NAND_1124_ -> _0138_;
+	_0138_ -> NAND_1126_;
+	_0138_ -> AND_1125_;
+	_0137_	[port=_0137_,
+		type=wire];
+	_0137_ -> NAND_1124_;
+	_0137_ -> NOR_1162_;
+	_0140_	[port=_0140_,
+		type=wire];
+	NAND_1126_ -> _0140_;
+	_0140_ -> NAND_1140_;
+	NAND_1165_	[logic=NAND,
+		type=gate];
+	_0140_ -> NAND_1165_;
+	NAND_1168_	[logic=NAND,
+		type=gate];
+	_0140_ -> NAND_1168_;
+	NAND_1171_	[logic=NAND,
+		type=gate];
+	_0140_ -> NAND_1171_;
+	NAND_1174_	[logic=NAND,
+		type=gate];
+	_0140_ -> NAND_1174_;
+	_0140_ -> AND_1178_;
+	_0141_	[port=_0141_,
+		type=wire];
+	NAND_1127_ -> _0141_;
+	_0141_ -> NAND_1132_;
+	_0141_ -> NAND_1136_;
+	_0141_ -> NAND_1144_;
+	_0141_ -> NAND_1148_;
+	_0141_ -> NAND_1153_;
+	AND_1159_	[logic=AND,
+		type=gate];
+	_0141_ -> AND_1159_;
+	AND_1177_	[logic=AND,
+		type=gate];
+	_0141_ -> AND_1177_;
+	NOR_1130_	[logic=NOR,
+		type=gate];
+	_0141_ -> NOR_1130_;
+	_0139_	[port=_0139_,
+		type=wire];
+	_0139_ -> NAND_1127_;
+	_0145_	[port=_0145_,
+		type=wire];
+	NAND_1132_ -> _0145_;
+	NAND_1135_	[logic=NAND,
+		type=gate];
+	_0145_ -> NAND_1135_;
+	NAND_1134_	[logic=NAND,
+		type=gate];
+	_0147_	[port=_0147_,
+		type=wire];
+	NAND_1134_ -> _0147_;
+	_0147_ -> NAND_1135_;
+	_0146_	[port=_0146_,
+		type=wire];
+	_0146_ -> NAND_1134_;
+	_0133_	[port=_0133_,
+		type=wire];
+	_0133_ -> NAND_1134_;
+	NAND_1138_	[logic=NAND,
+		type=gate];
+	_0133_ -> NAND_1138_;
+	NAND_1142_	[logic=NAND,
+		type=gate];
+	_0133_ -> NAND_1142_;
+	NAND_1146_	[logic=NAND,
+		type=gate];
+	_0133_ -> NAND_1146_;
+	NAND_1150_	[logic=NAND,
+		type=gate];
+	_0133_ -> NAND_1150_;
+	_0133_ -> NAND_1152_;
+	AND_1128_	[logic=AND,
+		type=gate];
+	_0133_ -> AND_1128_;
+	_0133_ -> NOR_1130_;
+	_0069_	[port=_0069_,
+		type=wire];
+	NAND_1135_ -> _0069_;
+	_0069_ -> DFF__1220_;
+	_0148_	[port=_0148_,
+		type=wire];
+	NAND_1136_ -> _0148_;
+	NAND_1139_	[logic=NAND,
+		type=gate];
+	_0148_ -> NAND_1139_;
+	_0076_	[port=_0076_,
+		type=wire];
+	NAND_1138_ -> _0076_;
+	_0076_ -> NAND_1139_;
+	_0075_	[port=_0075_,
+		type=wire];
+	_0075_ -> NAND_1138_;
+	_0068_	[port=_0068_,
+		type=wire];
+	NAND_1139_ -> _0068_;
+	_0068_ -> DFF__1219_;
+	_0077_	[port=_0077_,
+		type=wire];
+	NAND_1140_ -> _0077_;
+	NAND_1143_	[logic=NAND,
+		type=gate];
+	_0077_ -> NAND_1143_;
+	_0079_	[port=_0079_,
+		type=wire];
+	NAND_1142_ -> _0079_;
+	_0079_ -> NAND_1143_;
+	_0078_	[port=_0078_,
+		type=wire];
+	_0078_ -> NAND_1142_;
+	_0067_	[port=_0067_,
+		type=wire];
+	NAND_1143_ -> _0067_;
+	_0067_ -> DFF__1218_;
+	_0080_	[port=_0080_,
+		type=wire];
+	NAND_1144_ -> _0080_;
+	NAND_1147_	[logic=NAND,
+		type=gate];
+	_0080_ -> NAND_1147_;
+	_0082_	[port=_0082_,
+		type=wire];
+	NAND_1146_ -> _0082_;
+	_0082_ -> NAND_1147_;
+	_0081_	[port=_0081_,
+		type=wire];
+	_0081_ -> NAND_1146_;
+	_0066_	[port=_0066_,
+		type=wire];
+	NAND_1147_ -> _0066_;
+	_0066_ -> DFF__1217_;
+	_0083_	[port=_0083_,
+		type=wire];
+	NAND_1148_ -> _0083_;
+	NAND_1151_	[logic=NAND,
+		type=gate];
+	_0083_ -> NAND_1151_;
+	_0085_	[port=_0085_,
+		type=wire];
+	NAND_1150_ -> _0085_;
+	_0085_ -> NAND_1151_;
+	_0084_	[port=_0084_,
+		type=wire];
+	_0084_ -> NAND_1150_;
+	_0065_	[port=_0065_,
+		type=wire];
+	NAND_1151_ -> _0065_;
+	_0065_ -> DFF__1216_;
+	_0086_	[port=_0086_,
+		type=wire];
+	NAND_1152_ -> _0086_;
+	NAND_1154_	[logic=NAND,
+		type=gate];
+	_0086_ -> NAND_1154_;
+	_0087_	[port=_0087_,
+		type=wire];
+	NAND_1153_ -> _0087_;
+	_0087_ -> NAND_1154_;
+	_0064_	[port=_0064_,
+		type=wire];
+	NAND_1154_ -> _0064_;
+	_0064_ -> DFF__1215_;
+	_0090_	[port=_0090_,
+		type=wire];
+	NAND_1157_ -> _0090_;
+	_0090_ -> NAND_1158_;
+	_0091_	[port=_0091_,
+		type=wire];
+	NAND_1158_ -> _0091_;
+	_0091_ -> AND_1159_;
+	NOR_1161_	[logic=NOR,
+		type=gate];
+	_0091_ -> NOR_1161_;
+	_0095_	[port=_0095_,
+		type=wire];
+	NAND_1165_ -> _0095_;
+	_0095_ -> NAND_1166_;
+	_0094_	[port=_0094_,
+		type=wire];
+	_0094_ -> NAND_1165_;
+	_0060_	[port=_0060_,
+		type=wire];
+	NAND_1166_ -> _0060_;
+	_0060_ -> DFF__1211_;
+	_0097_	[port=_0097_,
+		type=wire];
+	NAND_1168_ -> _0097_;
+	_0097_ -> NAND_1169_;
+	_0096_	[port=_0096_,
+		type=wire];
+	_0096_ -> NAND_1168_;
+	_0059_	[port=_0059_,
+		type=wire];
+	NAND_1169_ -> _0059_;
+	_0059_ -> DFF__1210_;
+	_0099_	[port=_0099_,
+		type=wire];
+	NAND_1171_ -> _0099_;
+	_0099_ -> NAND_1172_;
+	_0098_	[port=_0098_,
+		type=wire];
+	_0098_ -> NAND_1171_;
+	_0058_	[port=_0058_,
+		type=wire];
+	NAND_1172_ -> _0058_;
+	_0058_ -> DFF__1209_;
+	_0101_	[port=_0101_,
+		type=wire];
+	NAND_1174_ -> _0101_;
+	_0101_ -> NAND_1175_;
+	_0100_	[port=_0100_,
+		type=wire];
+	_0100_ -> NAND_1174_;
+	_0057_	[port=_0057_,
+		type=wire];
+	NAND_1175_ -> _0057_;
+	_0057_ -> DFF__1208_;
+	_0102_	[port=_0102_,
+		type=wire];
+	NAND_1176_ -> _0102_;
+	_0102_ -> AND_1177_;
+	_0104_	[port=_0104_,
+		type=wire];
+	NAND_1179_ -> _0104_;
+	AND_1180_	[logic=AND,
+		type=gate];
+	_0104_ -> AND_1180_;
+	"SW[9]"	[port=SW,
+		type=input];
+	"SW[9]" -> NAND_1179_;
+	"SW[9]" -> NAND_1183_;
+	"SW[9]" -> NAND_1187_;
+	_0107_	[port=_0107_,
+		type=wire];
+	NAND_1183_ -> _0107_;
+	AND_1184_	[logic=AND,
+		type=gate];
+	_0107_ -> AND_1184_;
+	_0110_	[port=_0110_,
+		type=wire];
+	NAND_1187_ -> _0110_;
+	AND_1188_	[logic=AND,
+		type=gate];
+	_0110_ -> AND_1188_;
+	_0238_	[port=_0238_,
+		type=wire];
+	NAND_1255_ -> _0238_;
+	_0238_ -> NAND_1257_;
+	NAND_1664_	[logic=NAND,
+		type=gate];
+	_0238_ -> NAND_1664_;
+	NAND_1727_	[logic=NAND,
+		type=gate];
+	_0238_ -> NAND_1727_;
+	NAND_1758_	[logic=NAND,
+		type=gate];
+	_0238_ -> NAND_1758_;
+	NAND_1791_	[logic=NAND,
+		type=gate];
+	_0238_ -> NAND_1791_;
+	NAND_1823_	[logic=NAND,
+		type=gate];
+	_0238_ -> NAND_1823_;
+	NAND_1843_	[logic=NAND,
+		type=gate];
+	_0238_ -> NAND_1843_;
+	NAND_1846_	[logic=NAND,
+		type=gate];
+	_0238_ -> NAND_1846_;
+	NAND_1849_	[logic=NAND,
+		type=gate];
+	_0238_ -> NAND_1849_;
+	NAND_1852_	[logic=NAND,
+		type=gate];
+	_0238_ -> NAND_1852_;
+	NAND_1855_	[logic=NAND,
+		type=gate];
+	_0238_ -> NAND_1855_;
+	NAND_1858_	[logic=NAND,
+		type=gate];
+	_0238_ -> NAND_1858_;
+	NAND_1861_	[logic=NAND,
+		type=gate];
+	_0238_ -> NAND_1861_;
+	NAND_1864_	[logic=NAND,
+		type=gate];
+	_0238_ -> NAND_1864_;
+	_0238_ -> AND_1256_;
+	_0238_ -> AND_1647_;
+	AND_1694_	[logic=AND,
+		type=gate];
+	_0238_ -> AND_1694_;
+	_0236_	[port=_0236_,
+		type=wire];
+	_0236_ -> NAND_1255_;
+	NAND_1276_	[logic=NAND,
+		type=gate];
+	_0236_ -> NAND_1276_;
+	_0236_ -> AND_1254_;
+	AND_1321_	[logic=AND,
+		type=gate];
+	_0236_ -> AND_1321_;
+	_0240_	[port=_0240_,
+		type=wire];
+	NAND_1257_ -> _0240_;
+	_0240_ -> NAND_1259_;
+	_0240_ -> AND_1258_;
+	_0242_	[port=_0242_,
+		type=wire];
+	NAND_1259_ -> _0242_;
+	_0242_ -> NAND_1285_;
+	NAND_1288_	[logic=NAND,
+		type=gate];
+	_0242_ -> NAND_1288_;
+	_0242_ -> NAND_1331_;
+	NOR_1273_	[logic=NOR,
+		type=gate];
+	_0242_ -> NOR_1273_;
+	NAND_1261_ -> _0244_;
+	_0243_	[port=_0243_,
+		type=wire];
+	_0243_ -> NAND_1261_;
+	NAND_1362_	[logic=NAND,
+		type=gate];
+	_0243_ -> NAND_1362_;
+	NAND_1265_ -> _0248_;
+	_0247_	[port=_0247_,
+		type=wire];
+	_0247_ -> NAND_1265_;
+	NAND_1383_	[logic=NAND,
+		type=gate];
+	_0247_ -> NAND_1383_;
+	_0247_ -> XNOR_1388_;
+	_0254_	[port=_0254_,
+		type=wire];
+	NAND_1271_ -> _0254_;
+	NAND_1908_	[logic=NAND,
+		type=gate];
+	_0254_ -> NAND_1908_;
+	NOR_1272_	[logic=NOR,
+		type=gate];
+	_0254_ -> NOR_1272_;
+	"T3state[1]"	[port=T3state,
+		type=wire];
+	"T3state[1]" -> NAND_1271_;
+	NAND_1279_	[logic=NAND,
+		type=gate];
+	"T3state[1]" -> NAND_1279_;
+	"T3state[1]" -> NAND_1288_;
+	"T3state[1]" -> AND_1281_;
+	"T3state[1]" -> NOR_1253_;
+	"T3state[1]" -> XOR_1282_;
+	_0258_	[port=_0258_,
+		type=wire];
+	NAND_1276_ -> _0258_;
+	NAND_1280_	[logic=NAND,
+		type=gate];
+	_0258_ -> NAND_1280_;
+	NAND_1326_	[logic=NAND,
+		type=gate];
+	_0258_ -> NAND_1326_;
+	_0251_	[port=_0251_,
+		type=wire];
+	_0251_ -> NAND_1276_;
+	NAND_1324_	[logic=NAND,
+		type=gate];
+	_0251_ -> NAND_1324_;
+	_0251_ -> AND_1269_;
+	AND_1283_	[logic=AND,
+		type=gate];
+	_0251_ -> AND_1283_;
+	_0261_	[port=_0261_,
+		type=wire];
+	NAND_1279_ -> _0261_;
+	_0261_ -> NAND_1280_;
+	_0260_	[port=_0260_,
+		type=wire];
+	_0260_ -> NAND_1279_;
+	NAND_1511_	[logic=NAND,
+		type=gate];
+	_0260_ -> NAND_1511_;
+	NAND_1531_	[logic=NAND,
+		type=gate];
+	_0260_ -> NAND_1531_;
+	NAND_1577_	[logic=NAND,
+		type=gate];
+	_0260_ -> NAND_1577_;
+	NAND_1590_	[logic=NAND,
+		type=gate];
+	_0260_ -> NAND_1590_;
+	NAND_1631_	[logic=NAND,
+		type=gate];
+	_0260_ -> NAND_1631_;
+	AND_1444_	[logic=AND,
+		type=gate];
+	_0260_ -> AND_1444_;
+	AND_1477_	[logic=AND,
+		type=gate];
+	_0260_ -> AND_1477_;
+	NOR_1415_	[logic=NOR,
+		type=gate];
+	_0260_ -> NOR_1415_;
+	_0262_	[port=_0262_,
+		type=wire];
+	NAND_1280_ -> _0262_;
+	NAND_1907_	[logic=NAND,
+		type=gate];
+	_0262_ -> NAND_1907_;
+	NAND_1947_	[logic=NAND,
+		type=gate];
+	_0262_ -> NAND_1947_;
+	_0262_ -> NAND_1983_;
+	_0262_ -> NAND_1993_;
+	NAND_2028_	[logic=NAND,
+		type=gate];
+	_0262_ -> NAND_2028_;
+	NAND_2077_	[logic=NAND,
+		type=gate];
+	_0262_ -> NAND_2077_;
+	NAND_2102_	[logic=NAND,
+		type=gate];
+	_0262_ -> NAND_2102_;
+	NOR_1284_	[logic=NOR,
+		type=gate];
+	_0262_ -> NOR_1284_;
+	_0267_	[port=_0267_,
+		type=wire];
+	NAND_1285_ -> _0267_;
+	AND_1287_	[logic=AND,
+		type=gate];
+	_0267_ -> AND_1287_;
+	NAND_1286_	[logic=NAND,
+		type=gate];
+	_0268_	[port=_0268_,
+		type=wire];
+	NAND_1286_ -> _0268_;
+	_0268_ -> AND_1287_;
+	_0266_	[port=_0266_,
+		type=wire];
+	_0266_ -> NAND_1286_;
+	_0241_	[port=_0241_,
+		type=wire];
+	_0241_ -> NAND_1286_;
+	NAND_1330_	[logic=NAND,
+		type=gate];
+	_0241_ -> NAND_1330_;
+	_0269_	[port=_0269_,
+		type=wire];
+	NAND_1288_ -> _0269_;
+	NAND_1291_	[logic=NAND,
+		type=gate];
+	_0269_ -> NAND_1291_;
+	_0271_	[port=_0271_,
+		type=wire];
+	NAND_1290_ -> _0271_;
+	_0271_ -> NAND_1291_;
+	_0270_	[port=_0270_,
+		type=wire];
+	_0270_ -> NAND_1290_;
+	_0154_	[port=_0154_,
+		type=wire];
+	NAND_1291_ -> _0154_;
+	_0154_ -> DFF__2117_;
+	NAND_1292_ -> "y[6]";
+	_0272_	[port=_0272_,
+		type=wire];
+	NAND_1292_ -> _0272_;
+	NAND_1314_	[logic=NAND,
+		type=gate];
+	_0272_ -> NAND_1314_;
+	NAND_1293_ -> "x[5]";
+	_0273_	[port=_0273_,
+		type=wire];
+	NAND_1293_ -> _0273_;
+	NAND_1313_	[logic=NAND,
+		type=gate];
+	_0273_ -> NAND_1313_;
+	NAND_1294_ -> "y[3]";
+	_0274_	[port=_0274_,
+		type=wire];
+	NAND_1294_ -> _0274_;
+	NAND_1304_	[logic=NAND,
+		type=gate];
+	_0274_ -> NAND_1304_;
+	NAND_1295_ -> "x[2]";
+	_0275_	[port=_0275_,
+		type=wire];
+	NAND_1295_ -> _0275_;
+	NAND_1303_	[logic=NAND,
+		type=gate];
+	_0275_ -> NAND_1303_;
+	NAND_1296_ -> "x[1]";
+	_0276_	[port=_0276_,
+		type=wire];
+	NAND_1296_ -> _0276_;
+	NAND_1298_	[logic=NAND,
+		type=gate];
+	_0276_ -> NAND_1298_;
+	NAND_1297_ -> "x[0]";
+	_0277_	[port=_0277_,
+		type=wire];
+	NAND_1297_ -> _0277_;
+	_0277_ -> NAND_1298_;
+	_0278_	[port=_0278_,
+		type=wire];
+	NAND_1298_ -> _0278_;
+	NAND_1302_	[logic=NAND,
+		type=gate];
+	_0278_ -> NAND_1302_;
+	NAND_1299_ -> "y[1]";
+	_0279_	[port=_0279_,
+		type=wire];
+	NAND_1299_ -> _0279_;
+	AND_1301_	[logic=AND,
+		type=gate];
+	_0279_ -> AND_1301_;
+	NAND_1300_ -> "y[2]";
+	_0280_	[port=_0280_,
+		type=wire];
+	NAND_1300_ -> _0280_;
+	_0280_ -> AND_1301_;
+	_0282_	[port=_0282_,
+		type=wire];
+	NAND_1302_ -> _0282_;
+	_0282_ -> NAND_1303_;
+	_0281_	[port=_0281_,
+		type=wire];
+	_0281_ -> NAND_1302_;
+	_0283_	[port=_0283_,
+		type=wire];
+	NAND_1303_ -> _0283_;
+	_0283_ -> NAND_1304_;
+	_0284_	[port=_0284_,
+		type=wire];
+	NAND_1304_ -> _0284_;
+	NAND_1308_	[logic=NAND,
+		type=gate];
+	_0284_ -> NAND_1308_;
+	NAND_1305_ -> "x[4]";
+	_0285_	[port=_0285_,
+		type=wire];
+	NAND_1305_ -> _0285_;
+	AND_1307_	[logic=AND,
+		type=gate];
+	_0285_ -> AND_1307_;
+	NAND_1306_ -> "x[3]";
+	_0286_	[port=_0286_,
+		type=wire];
+	NAND_1306_ -> _0286_;
+	_0286_ -> AND_1307_;
+	_0288_	[port=_0288_,
+		type=wire];
+	NAND_1308_ -> _0288_;
+	NAND_1312_	[logic=NAND,
+		type=gate];
+	_0288_ -> NAND_1312_;
+	_0287_	[port=_0287_,
+		type=wire];
+	_0287_ -> NAND_1308_;
+	NAND_1309_ -> "y[5]";
+	_0289_	[port=_0289_,
+		type=wire];
+	NAND_1309_ -> _0289_;
+	AND_1311_	[logic=AND,
+		type=gate];
+	_0289_ -> AND_1311_;
+	NAND_1310_ -> "y[4]";
+	_0290_	[port=_0290_,
+		type=wire];
+	NAND_1310_ -> _0290_;
+	_0290_ -> AND_1311_;
+	_0292_	[port=_0292_,
+		type=wire];
+	NAND_1312_ -> _0292_;
+	_0292_ -> NAND_1313_;
+	_0291_	[port=_0291_,
+		type=wire];
+	_0291_ -> NAND_1312_;
+	_0293_	[port=_0293_,
+		type=wire];
+	NAND_1313_ -> _0293_;
+	_0293_ -> NAND_1314_;
+	_0294_	[port=_0294_,
+		type=wire];
+	NAND_1314_ -> _0294_;
+	NAND_1320_	[logic=NAND,
+		type=gate];
+	_0294_ -> NAND_1320_;
+	_0296_	[port=_0296_,
+		type=wire];
+	NAND_1316_ -> _0296_;
+	NAND_1406_	[logic=NAND,
+		type=gate];
+	_0296_ -> NAND_1406_;
+	_0296_ -> NAND_1908_;
+	NOR_1317_	[logic=NOR,
+		type=gate];
+	_0296_ -> NOR_1317_;
+	NOR_1690_	[logic=NOR,
+		type=gate];
+	_0296_ -> NOR_1690_;
+	_0237_	[port=_0237_,
+		type=wire];
+	_0237_ -> NAND_1316_;
+	NAND_1868_	[logic=NAND,
+		type=gate];
+	_0237_ -> NAND_1868_;
+	_0237_ -> AND_1315_;
+	_0237_ -> AND_1342_;
+	NAND_1318_ -> "x[6]";
+	_0298_	[port=_0298_,
+		type=wire];
+	NAND_1318_ -> _0298_;
+	AND_1319_	[logic=AND,
+		type=gate];
+	_0298_ -> AND_1319_;
+	_0300_	[port=_0300_,
+		type=wire];
+	NAND_1320_ -> _0300_;
+	NAND_1329_	[logic=NAND,
+		type=gate];
+	_0300_ -> NAND_1329_;
+	_0299_	[port=_0299_,
+		type=wire];
+	_0299_ -> NAND_1320_;
+	_0303_	[port=_0303_,
+		type=wire];
+	NAND_1324_ -> _0303_;
+	_0303_ -> NAND_1406_;
+	AND_1328_	[logic=AND,
+		type=gate];
+	_0303_ -> AND_1328_;
+	_0263_	[port=_0263_,
+		type=wire];
+	_0263_ -> NAND_1324_;
+	NAND_1325_	[logic=NAND,
+		type=gate];
+	_0263_ -> NAND_1325_;
+	_0304_	[port=_0304_,
+		type=wire];
+	NAND_1325_ -> _0304_;
+	_0304_ -> NAND_1326_;
+	_0259_	[port=_0259_,
+		type=wire];
+	_0259_ -> NAND_1325_;
+	NAND_1414_	[logic=NAND,
+		type=gate];
+	_0259_ -> NAND_1414_;
+	_0259_ -> AND_1278_;
+	_0259_ -> AND_1321_;
+	AND_1413_	[logic=AND,
+		type=gate];
+	_0259_ -> AND_1413_;
+	_0305_	[port=_0305_,
+		type=wire];
+	NAND_1326_ -> _0305_;
+	NAND_1439_	[logic=NAND,
+		type=gate];
+	_0305_ -> NAND_1439_;
+	NAND_1504_	[logic=NAND,
+		type=gate];
+	_0305_ -> NAND_1504_;
+	NAND_1579_	[logic=NAND,
+		type=gate];
+	_0305_ -> NAND_1579_;
+	NAND_1635_	[logic=NAND,
+		type=gate];
+	_0305_ -> NAND_1635_;
+	AND_1484_	[logic=AND,
+		type=gate];
+	_0305_ -> AND_1484_;
+	AND_1545_	[logic=AND,
+		type=gate];
+	_0305_ -> AND_1545_;
+	AND_1618_	[logic=AND,
+		type=gate];
+	_0305_ -> AND_1618_;
+	NOR_1327_	[logic=NOR,
+		type=gate];
+	_0305_ -> NOR_1327_;
+	_0305_ -> NOR_1415_;
+	_0308_	[port=_0308_,
+		type=wire];
+	NAND_1329_ -> _0308_;
+	_0308_ -> NAND_1330_;
+	_0307_	[port=_0307_,
+		type=wire];
+	_0307_ -> NAND_1329_;
+	_0309_	[port=_0309_,
+		type=wire];
+	NAND_1330_ -> _0309_;
+	NAND_1332_	[logic=NAND,
+		type=gate];
+	_0309_ -> NAND_1332_;
+	_0310_	[port=_0310_,
+		type=wire];
+	NAND_1331_ -> _0310_;
+	_0310_ -> NAND_1332_;
+	_0153_	[port=_0153_,
+		type=wire];
+	NAND_1332_ -> _0153_;
+	_0153_ -> DFF__2116_;
+	NAND_1339_	[logic=NAND,
+		type=gate];
+	_0317_	[port=_0317_,
+		type=wire];
+	NAND_1339_ -> _0317_;
+	NAND_1340_	[logic=NAND,
+		type=gate];
+	_0317_ -> NAND_1340_;
+	_0316_	[port=_0316_,
+		type=wire];
+	_0316_ -> NAND_1339_;
+	_0313_	[port=_0313_,
+		type=wire];
+	_0313_ -> NAND_1339_;
+	NAND_1340_ -> _0318_;
+	"T3d[8]"	[port=T3d,
+		type=wire];
+	"T3d[8]" -> NAND_1340_;
+	"T3d[8]" -> NAND_1843_;
+	XNOR_1831_	[logic=XNOR,
+		type=gate];
+	"T3d[8]" -> XNOR_1831_;
+	NAND_1344_	[logic=NAND,
+		type=gate];
+	NAND_1344_ -> "y[0]";
+	_0322_	[port=_0322_,
+		type=wire];
+	NAND_1344_ -> _0322_;
+	NAND_1353_	[logic=NAND,
+		type=gate];
+	_0322_ -> NAND_1353_;
+	_0321_	[port=_0321_,
+		type=wire];
+	_0321_ -> NAND_1344_;
+	NAND_1354_	[logic=NAND,
+		type=gate];
+	_0321_ -> NAND_1354_;
+	NAND_1387_	[logic=NAND,
+		type=gate];
+	_0321_ -> NAND_1387_;
+	NAND_1347_	[logic=NAND,
+		type=gate];
+	_0325_	[port=_0325_,
+		type=wire];
+	NAND_1347_ -> _0325_;
+	_0325_ -> NAND_1357_;
+	NAND_1367_	[logic=NAND,
+		type=gate];
+	_0325_ -> NAND_1367_;
+	_0325_ -> AND_1348_;
+	AND_1366_	[logic=AND,
+		type=gate];
+	_0325_ -> AND_1366_;
+	_0324_	[port=_0324_,
+		type=wire];
+	_0324_ -> NAND_1347_;
+	_0323_	[port=_0323_,
+		type=wire];
+	_0323_ -> NAND_1347_;
+	_0157_	[port=_0157_,
+		type=wire];
+	NAND_1353_ -> _0157_;
+	DFF__2120_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0157_ -> DFF__2120_;
+	_0330_	[port=_0330_,
+		type=wire];
+	_0330_ -> NAND_1353_;
+	NAND_1354_ -> "y[1]";
+	_0331_	[port=_0331_,
+		type=wire];
+	NAND_1354_ -> _0331_;
+	NAND_1361_	[logic=NAND,
+		type=gate];
+	_0331_ -> NAND_1361_;
+	NAND_1356_	[logic=NAND,
+		type=gate];
+	_0333_	[port=_0333_,
+		type=wire];
+	NAND_1356_ -> _0333_;
+	_0333_ -> AND_1360_;
+	_0332_	[port=_0332_,
+		type=wire];
+	_0332_ -> NAND_1356_;
+	_0328_	[port=_0328_,
+		type=wire];
+	_0328_ -> NAND_1356_;
+	_0328_ -> NAND_1368_;
+	NAND_1375_	[logic=NAND,
+		type=gate];
+	_0328_ -> NAND_1375_;
+	_0328_ -> NAND_1383_;
+	NAND_1389_	[logic=NAND,
+		type=gate];
+	_0328_ -> NAND_1389_;
+	NAND_1392_	[logic=NAND,
+		type=gate];
+	_0328_ -> NAND_1392_;
+	_0328_ -> AND_1351_;
+	_0334_	[port=_0334_,
+		type=wire];
+	NAND_1357_ -> _0334_;
+	_0334_ -> NAND_1358_;
+	NAND_1358_ -> _0335_;
+	_0158_	[port=_0158_,
+		type=wire];
+	NAND_1361_ -> _0158_;
+	DFF__2121_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0158_ -> DFF__2121_;
+	_0337_	[port=_0337_,
+		type=wire];
+	_0337_ -> NAND_1361_;
+	_0338_	[port=_0338_,
+		type=wire];
+	NAND_1362_ -> _0338_;
+	NAND_1364_	[logic=NAND,
+		type=gate];
+	_0338_ -> NAND_1364_;
+	_0320_	[port=_0320_,
+		type=wire];
+	_0320_ -> NAND_1362_;
+	_0320_ -> NAND_1371_;
+	NAND_1378_	[logic=NAND,
+		type=gate];
+	_0320_ -> NAND_1378_;
+	_0320_ -> NAND_1393_;
+	_0320_ -> NOR_1343_;
+	_0340_	[port=_0340_,
+		type=wire];
+	NAND_1364_ -> _0340_;
+	NAND_1370_	[logic=NAND,
+		type=gate];
+	_0340_ -> NAND_1370_;
+	_0339_	[port=_0339_,
+		type=wire];
+	_0339_ -> NAND_1364_;
+	_0343_	[port=_0343_,
+		type=wire];
+	NAND_1367_ -> _0343_;
+	AND_1369_	[logic=AND,
+		type=gate];
+	_0343_ -> AND_1369_;
+	_0343_ -> AND_1695_;
+	_0343_ -> XNOR_1920_;
+	_0341_	[port=_0341_,
+		type=wire];
+	_0341_ -> NAND_1367_;
+	_0341_ -> AND_1366_;
+	_0344_	[port=_0344_,
+		type=wire];
+	NAND_1368_ -> _0344_;
+	_0344_ -> AND_1369_;
+	_0159_	[port=_0159_,
+		type=wire];
+	NAND_1370_ -> _0159_;
+	DFF__2122_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0159_ -> DFF__2122_;
+	_0345_	[port=_0345_,
+		type=wire];
+	_0345_ -> NAND_1370_;
+	_0346_	[port=_0346_,
+		type=wire];
+	NAND_1371_ -> _0346_;
+	NAND_1373_	[logic=NAND,
+		type=gate];
+	_0346_ -> NAND_1373_;
+	_0348_	[port=_0348_,
+		type=wire];
+	NAND_1373_ -> _0348_;
+	NAND_1377_	[logic=NAND,
+		type=gate];
+	_0348_ -> NAND_1377_;
+	_0347_	[port=_0347_,
+		type=wire];
+	_0347_ -> NAND_1373_;
+	_0349_	[port=_0349_,
+		type=wire];
+	NAND_1374_ -> _0349_;
+	AND_1376_	[logic=AND,
+		type=gate];
+	_0349_ -> AND_1376_;
+	AND_1728_	[logic=AND,
+		type=gate];
+	_0349_ -> AND_1728_;
+	_0349_ -> AND_1960_;
+	_0349_ -> NOR_1959_;
+	XNOR_1729_	[logic=XNOR,
+		type=gate];
+	_0349_ -> XNOR_1729_;
+	_0349_ -> XNOR_1961_;
+	"SW[6]"	[port=SW,
+		type=input];
+	"SW[6]" -> NAND_1374_;
+	AND_1345_	[logic=AND,
+		type=gate];
+	"SW[6]" -> AND_1345_;
+	_0350_	[port=_0350_,
+		type=wire];
+	NAND_1375_ -> _0350_;
+	_0350_ -> AND_1376_;
+	_0246_	[port=_0246_,
+		type=wire];
+	_0246_ -> NAND_1375_;
+	_0246_ -> NAND_1378_;
+	_0246_ -> AND_1264_;
+	_0160_	[port=_0160_,
+		type=wire];
+	NAND_1377_ -> _0160_;
+	DFF__2123_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0160_ -> DFF__2123_;
+	_0351_	[port=_0351_,
+		type=wire];
+	_0351_ -> NAND_1377_;
+	_0352_	[port=_0352_,
+		type=wire];
+	NAND_1378_ -> _0352_;
+	NAND_1380_	[logic=NAND,
+		type=gate];
+	_0352_ -> NAND_1380_;
+	_0354_	[port=_0354_,
+		type=wire];
+	NAND_1380_ -> _0354_;
+	NAND_1385_	[logic=NAND,
+		type=gate];
+	_0354_ -> NAND_1385_;
+	_0353_	[port=_0353_,
+		type=wire];
+	_0353_ -> NAND_1380_;
+	_0356_	[port=_0356_,
+		type=wire];
+	NAND_1382_ -> _0356_;
+	AND_1384_	[logic=AND,
+		type=gate];
+	_0356_ -> AND_1384_;
+	AND_1759_	[logic=AND,
+		type=gate];
+	_0356_ -> AND_1759_;
+	XNOR_1760_	[logic=XNOR,
+		type=gate];
+	_0356_ -> XNOR_1760_;
+	_0356_ -> XNOR_2003_;
+	"SW[7]"	[port=SW,
+		type=input];
+	"SW[7]" -> NAND_1382_;
+	AND_1346_	[logic=AND,
+		type=gate];
+	"SW[7]" -> AND_1346_;
+	"SW[7]" -> AND_1381_;
+	_0357_	[port=_0357_,
+		type=wire];
+	NAND_1383_ -> _0357_;
+	_0357_ -> AND_1384_;
+	_0161_	[port=_0161_,
+		type=wire];
+	NAND_1385_ -> _0161_;
+	DFF__2124_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0161_ -> DFF__2124_;
+	_0358_	[port=_0358_,
+		type=wire];
+	_0358_ -> NAND_1385_;
+	_0359_	[port=_0359_,
+		type=wire];
+	NAND_1386_ -> _0359_;
+	_0359_ -> NAND_2049_;
+	AND_1390_	[logic=AND,
+		type=gate];
+	_0359_ -> AND_1390_;
+	AND_1792_	[logic=AND,
+		type=gate];
+	_0359_ -> AND_1792_;
+	_0359_ -> NOR_2048_;
+	XNOR_1793_	[logic=XNOR,
+		type=gate];
+	_0359_ -> XNOR_1793_;
+	_0359_ -> XNOR_2050_;
+	"SW[8]"	[port=SW,
+		type=input];
+	"SW[8]" -> NAND_1386_;
+	"SW[8]" -> AND_1346_;
+	NAND_1387_ -> "y[5]";
+	_0360_	[port=_0360_,
+		type=wire];
+	NAND_1387_ -> _0360_;
+	NAND_1391_	[logic=NAND,
+		type=gate];
+	_0360_ -> NAND_1391_;
+	_0362_	[port=_0362_,
+		type=wire];
+	NAND_1389_ -> _0362_;
+	_0362_ -> AND_1390_;
+	_0361_	[port=_0361_,
+		type=wire];
+	_0361_ -> NAND_1389_;
+	_0162_	[port=_0162_,
+		type=wire];
+	NAND_1391_ -> _0162_;
+	DFF__2125_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0162_ -> DFF__2125_;
+	_0363_	[port=_0363_,
+		type=wire];
+	_0363_ -> NAND_1391_;
+	_0364_	[port=_0364_,
+		type=wire];
+	NAND_1392_ -> _0364_;
+	NAND_1396_	[logic=NAND,
+		type=gate];
+	_0364_ -> NAND_1396_;
+	_0250_	[port=_0250_,
+		type=wire];
+	_0250_ -> NAND_1392_;
+	_0250_ -> NOR_1272_;
+	_0365_	[port=_0365_,
+		type=wire];
+	NAND_1393_ -> _0365_;
+	NAND_1395_	[logic=NAND,
+		type=gate];
+	_0365_ -> NAND_1395_;
+	_0367_	[port=_0367_,
+		type=wire];
+	NAND_1395_ -> _0367_;
+	_0367_ -> NAND_1396_;
+	_0366_	[port=_0366_,
+		type=wire];
+	_0366_ -> NAND_1395_;
+	_0163_	[port=_0163_,
+		type=wire];
+	NAND_1396_ -> _0163_;
+	DFF__2126_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0163_ -> DFF__2126_;
+	_0368_	[port=_0368_,
+		type=wire];
+	NAND_1397_ -> _0368_;
+	NAND_1399_	[logic=NAND,
+		type=gate];
+	_0368_ -> NAND_1399_;
+	"SW[0]"	[port=SW,
+		type=input];
+	"SW[0]" -> NAND_1397_;
+	_0369_	[port=_0369_,
+		type=wire];
+	NAND_1398_ -> _0369_;
+	_0369_ -> NAND_1399_;
+	_0164_	[port=_0164_,
+		type=wire];
+	NAND_1399_ -> _0164_;
+	DFF__2127_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0164_ -> DFF__2127_;
+	_0370_	[port=_0370_,
+		type=wire];
+	NAND_1400_ -> _0370_;
+	NAND_1402_	[logic=NAND,
+		type=gate];
+	_0370_ -> NAND_1402_;
+	"SW[1]"	[port=SW,
+		type=input];
+	"SW[1]" -> NAND_1400_;
+	_0371_	[port=_0371_,
+		type=wire];
+	NAND_1401_ -> _0371_;
+	_0371_ -> NAND_1402_;
+	_0165_	[port=_0165_,
+		type=wire];
+	NAND_1402_ -> _0165_;
+	DFF__2128_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0165_ -> DFF__2128_;
+	_0372_	[port=_0372_,
+		type=wire];
+	NAND_1403_ -> _0372_;
+	NAND_1405_	[logic=NAND,
+		type=gate];
+	_0372_ -> NAND_1405_;
+	"SW[2]"	[port=SW,
+		type=input];
+	"SW[2]" -> NAND_1403_;
+	_0373_	[port=_0373_,
+		type=wire];
+	NAND_1404_ -> _0373_;
+	_0373_ -> NAND_1405_;
+	_0166_	[port=_0166_,
+		type=wire];
+	NAND_1405_ -> _0166_;
+	DFF__2129_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0166_ -> DFF__2129_;
+	NAND_1406_ -> _0374_;
+	_0376_	[port=_0376_,
+		type=wire];
+	NAND_1408_ -> _0376_;
+	NAND_1412_	[logic=NAND,
+		type=gate];
+	_0376_ -> NAND_1412_;
+	AND_1880_	[logic=AND,
+		type=gate];
+	_0376_ -> AND_1880_;
+	NAND_1410_ -> "y[0]";
+	_0378_	[port=_0378_,
+		type=wire];
+	NAND_1410_ -> _0378_;
+	NAND_1446_	[logic=NAND,
+		type=gate];
+	_0378_ -> NAND_1446_;
+	_0380_	[port=_0380_,
+		type=wire];
+	NAND_1412_ -> _0380_;
+	NAND_1423_	[logic=NAND,
+		type=gate];
+	_0380_ -> NAND_1423_;
+	_0379_	[port=_0379_,
+		type=wire];
+	_0379_ -> NAND_1412_;
+	_0382_	[port=_0382_,
+		type=wire];
+	NAND_1414_ -> _0382_;
+	NOR_2041_	[logic=NOR,
+		type=gate];
+	_0382_ -> NOR_2041_;
+	_0264_	[port=_0264_,
+		type=wire];
+	_0264_ -> NAND_1414_;
+	_0264_ -> AND_1283_;
+	_0264_ -> AND_1289_;
+	_0264_ -> AND_1413_;
+	NAND_1416_ -> "x[0]";
+	_0384_	[port=_0384_,
+		type=wire];
+	NAND_1416_ -> _0384_;
+	NAND_1437_	[logic=NAND,
+		type=gate];
+	_0384_ -> NAND_1437_;
+	XNOR_1438_	[logic=XNOR,
+		type=gate];
+	_0384_ -> XNOR_1438_;
+	_0387_	[port=_0387_,
+		type=wire];
+	NAND_1419_ -> _0387_;
+	NAND_1421_	[logic=NAND,
+		type=gate];
+	_0387_ -> NAND_1421_;
+	_0239_	[port=_0239_,
+		type=wire];
+	_0239_ -> NAND_1419_;
+	_0239_ -> NAND_1431_;
+	_0239_ -> NAND_1461_;
+	_0239_ -> NAND_1489_;
+	_0239_ -> NAND_1533_;
+	_0239_ -> NAND_1568_;
+	_0239_ -> NAND_1592_;
+	_0239_ -> NAND_1625_;
+	_0239_ -> NAND_1892_;
+	_0239_ -> NAND_1933_;
+	_0239_ -> NAND_1976_;
+	_0239_ -> NAND_2036_;
+	_0239_ -> NAND_2059_;
+	_0239_ -> NAND_2090_;
+	_0239_ -> AND_1876_;
+	_0388_	[port=_0388_,
+		type=wire];
+	NAND_1420_ -> _0388_;
+	_0388_ -> NAND_1421_;
+	_0389_	[port=_0389_,
+		type=wire];
+	NAND_1421_ -> _0389_;
+	NOR_1422_	[logic=NOR,
+		type=gate];
+	_0389_ -> NOR_1422_;
+	_0167_	[port=_0167_,
+		type=wire];
+	NAND_1423_ -> _0167_;
+	DFF__2130_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0167_ -> DFF__2130_;
+	_0390_	[port=_0390_,
+		type=wire];
+	_0390_ -> NAND_1423_;
+	NAND_1424_ -> "y[1]";
+	_0391_	[port=_0391_,
+		type=wire];
+	NAND_1424_ -> _0391_;
+	NAND_1457_	[logic=NAND,
+		type=gate];
+	_0391_ -> NAND_1457_;
+	NAND_1427_ -> "y[0]";
+	_0394_	[port=_0394_,
+		type=wire];
+	NAND_1427_ -> _0394_;
+	NAND_1428_	[logic=NAND,
+		type=gate];
+	_0394_ -> NAND_1428_;
+	XNOR_1429_	[logic=XNOR,
+		type=gate];
+	_0394_ -> XNOR_1429_;
+	_0395_	[port=_0395_,
+		type=wire];
+	NAND_1428_ -> _0395_;
+	NAND_1466_	[logic=NAND,
+		type=gate];
+	_0395_ -> NAND_1466_;
+	_0393_	[port=_0393_,
+		type=wire];
+	_0393_ -> NAND_1428_;
+	_0393_ -> NAND_1446_;
+	_0397_	[port=_0397_,
+		type=wire];
+	NAND_1430_ -> _0397_;
+	AND_1452_	[logic=AND,
+		type=gate];
+	_0397_ -> AND_1452_;
+	_0396_	[port=_0396_,
+		type=wire];
+	_0396_ -> NAND_1430_;
+	_0398_	[port=_0398_,
+		type=wire];
+	NAND_1431_ -> _0398_;
+	AND_1433_	[logic=AND,
+		type=gate];
+	_0398_ -> AND_1433_;
+	_0399_	[port=_0399_,
+		type=wire];
+	NAND_1432_ -> _0399_;
+	_0399_ -> AND_1433_;
+	NAND_1434_ -> "x[1]";
+	_0401_	[port=_0401_,
+		type=wire];
+	NAND_1434_ -> _0401_;
+	NAND_1474_	[logic=NAND,
+		type=gate];
+	_0401_ -> NAND_1474_;
+	AND_1473_	[logic=AND,
+		type=gate];
+	_0401_ -> AND_1473_;
+	_0404_	[port=_0404_,
+		type=wire];
+	NAND_1437_ -> _0404_;
+	NAND_1481_	[logic=NAND,
+		type=gate];
+	_0404_ -> NAND_1481_;
+	AND_1480_	[logic=AND,
+		type=gate];
+	_0404_ -> AND_1480_;
+	_0403_	[port=_0403_,
+		type=wire];
+	_0403_ -> NAND_1437_;
+	NAND_1442_	[logic=NAND,
+		type=gate];
+	_0403_ -> NAND_1442_;
+	_0406_	[port=_0406_,
+		type=wire];
+	NAND_1439_ -> _0406_;
+	AND_1450_	[logic=AND,
+		type=gate];
+	_0406_ -> AND_1450_;
+	_0405_	[port=_0405_,
+		type=wire];
+	_0405_ -> NAND_1439_;
+	NAND_1441_ -> "x[0]";
+	_0408_	[port=_0408_,
+		type=wire];
+	NAND_1441_ -> _0408_;
+	_0408_ -> NAND_1442_;
+	_0409_	[port=_0409_,
+		type=wire];
+	NAND_1442_ -> _0409_;
+	_0409_ -> AND_1444_;
+	NAND_1443_	[logic=NAND,
+		type=gate];
+	_0410_	[port=_0410_,
+		type=wire];
+	NAND_1443_ -> _0410_;
+	NAND_1445_	[logic=NAND,
+		type=gate];
+	_0410_ -> NAND_1445_;
+	_0410_ -> NAND_1474_;
+	_0410_ -> AND_1473_;
+	_0407_	[port=_0407_,
+		type=wire];
+	_0407_ -> NAND_1443_;
+	_0402_	[port=_0402_,
+		type=wire];
+	_0402_ -> NAND_1443_;
+	_0402_ -> XNOR_1438_;
+	_0412_	[port=_0412_,
+		type=wire];
+	NAND_1445_ -> _0412_;
+	_0412_ -> AND_1450_;
+	_0411_	[port=_0411_,
+		type=wire];
+	_0411_ -> NAND_1445_;
+	_0413_	[port=_0413_,
+		type=wire];
+	NAND_1446_ -> _0413_;
+	_0413_ -> AND_1448_;
+	NAND_1447_	[logic=NAND,
+		type=gate];
+	_0414_	[port=_0414_,
+		type=wire];
+	NAND_1447_ -> _0414_;
+	NAND_1449_	[logic=NAND,
+		type=gate];
+	_0414_ -> NAND_1449_;
+	_0414_ -> NAND_1457_;
+	_0392_	[port=_0392_,
+		type=wire];
+	_0392_ -> NAND_1447_;
+	_0392_ -> XNOR_1429_;
+	_0377_	[port=_0377_,
+		type=wire];
+	_0377_ -> NAND_1447_;
+	_0416_	[port=_0416_,
+		type=wire];
+	NAND_1449_ -> _0416_;
+	AND_1451_	[logic=AND,
+		type=gate];
+	_0416_ -> AND_1451_;
+	_0415_	[port=_0415_,
+		type=wire];
+	_0415_ -> NAND_1449_;
+	NAND_1453_	[logic=NAND,
+		type=gate];
+	_0168_	[port=_0168_,
+		type=wire];
+	NAND_1453_ -> _0168_;
+	DFF__2131_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0168_ -> DFF__2131_;
+	_0419_	[port=_0419_,
+		type=wire];
+	_0419_ -> NAND_1453_;
+	_0417_	[port=_0417_,
+		type=wire];
+	_0417_ -> NAND_1453_;
+	NAND_1454_ -> "y[2]";
+	_0420_	[port=_0420_,
+		type=wire];
+	NAND_1454_ -> _0420_;
+	AND_1495_	[logic=AND,
+		type=gate];
+	_0420_ -> AND_1495_;
+	_0423_	[port=_0423_,
+		type=wire];
+	NAND_1457_ -> _0423_;
+	NAND_1458_	[logic=NAND,
+		type=gate];
+	_0423_ -> NAND_1458_;
+	XNOR_1459_	[logic=XNOR,
+		type=gate];
+	_0423_ -> XNOR_1459_;
+	_0424_	[port=_0424_,
+		type=wire];
+	NAND_1458_ -> _0424_;
+	_0424_ -> AND_1495_;
+	_0421_	[port=_0421_,
+		type=wire];
+	_0421_ -> NAND_1458_;
+	XNOR_1468_	[logic=XNOR,
+		type=gate];
+	_0421_ -> XNOR_1468_;
+	_0426_	[port=_0426_,
+		type=wire];
+	NAND_1460_ -> _0426_;
+	AND_1464_	[logic=AND,
+		type=gate];
+	_0426_ -> AND_1464_;
+	_0425_	[port=_0425_,
+		type=wire];
+	_0425_ -> NAND_1460_;
+	_0427_	[port=_0427_,
+		type=wire];
+	NAND_1461_ -> _0427_;
+	AND_1463_	[logic=AND,
+		type=gate];
+	_0427_ -> AND_1463_;
+	_0428_	[port=_0428_,
+		type=wire];
+	NAND_1462_ -> _0428_;
+	_0428_ -> AND_1463_;
+	_0431_	[port=_0431_,
+		type=wire];
+	NAND_1465_ -> _0431_;
+	_0431_ -> NAND_1466_;
+	_0432_	[port=_0432_,
+		type=wire];
+	NAND_1466_ -> _0432_;
+	NAND_1467_	[logic=NAND,
+		type=gate];
+	_0432_ -> NAND_1467_;
+	_0432_ -> XNOR_1468_;
+	_0433_	[port=_0433_,
+		type=wire];
+	NAND_1467_ -> _0433_;
+	AND_1506_	[logic=AND,
+		type=gate];
+	_0433_ -> AND_1506_;
+	_0422_	[port=_0422_,
+		type=wire];
+	_0422_ -> NAND_1467_;
+	_0422_ -> XNOR_1459_;
+	_0435_	[port=_0435_,
+		type=wire];
+	NAND_1469_ -> _0435_;
+	AND_1486_	[logic=AND,
+		type=gate];
+	_0435_ -> AND_1486_;
+	_0434_	[port=_0434_,
+		type=wire];
+	_0434_ -> NAND_1469_;
+	NAND_1470_ -> "x[2]";
+	_0436_	[port=_0436_,
+		type=wire];
+	NAND_1470_ -> _0436_;
+	AND_1509_	[logic=AND,
+		type=gate];
+	_0436_ -> AND_1509_;
+	_0440_	[port=_0440_,
+		type=wire];
+	NAND_1474_ -> _0440_;
+	NAND_1475_	[logic=NAND,
+		type=gate];
+	_0440_ -> NAND_1475_;
+	_0441_	[port=_0441_,
+		type=wire];
+	NAND_1475_ -> _0441_;
+	NAND_1478_	[logic=NAND,
+		type=gate];
+	_0441_ -> NAND_1478_;
+	_0441_ -> AND_1509_;
+	_0437_	[port=_0437_,
+		type=wire];
+	_0437_ -> NAND_1475_;
+	NAND_1482_	[logic=NAND,
+		type=gate];
+	_0437_ -> NAND_1482_;
+	NAND_1476_	[logic=NAND,
+		type=gate];
+	_0442_	[port=_0442_,
+		type=wire];
+	NAND_1476_ -> _0442_;
+	_0442_ -> AND_1477_;
+	_0439_	[port=_0439_,
+		type=wire];
+	_0439_ -> NAND_1476_;
+	_0438_	[port=_0438_,
+		type=wire];
+	_0438_ -> NAND_1476_;
+	NAND_1483_	[logic=NAND,
+		type=gate];
+	_0438_ -> NAND_1483_;
+	_0444_	[port=_0444_,
+		type=wire];
+	NAND_1478_ -> _0444_;
+	AND_1487_	[logic=AND,
+		type=gate];
+	_0444_ -> AND_1487_;
+	_0443_	[port=_0443_,
+		type=wire];
+	_0443_ -> NAND_1478_;
+	_0445_	[port=_0445_,
+		type=wire];
+	NAND_1479_ -> _0445_;
+	_0445_ -> NAND_1481_;
+	_0445_ -> AND_1480_;
+	_0447_	[port=_0447_,
+		type=wire];
+	NAND_1481_ -> _0447_;
+	_0447_ -> NAND_1483_;
+	_0448_	[port=_0448_,
+		type=wire];
+	NAND_1482_ -> _0448_;
+	NAND_1485_	[logic=NAND,
+		type=gate];
+	_0448_ -> NAND_1485_;
+	_0446_	[port=_0446_,
+		type=wire];
+	_0446_ -> NAND_1482_;
+	_0449_	[port=_0449_,
+		type=wire];
+	NAND_1483_ -> _0449_;
+	NAND_1502_	[logic=NAND,
+		type=gate];
+	_0449_ -> NAND_1502_;
+	_0449_ -> AND_1484_;
+	_0451_	[port=_0451_,
+		type=wire];
+	NAND_1485_ -> _0451_;
+	_0451_ -> AND_1486_;
+	_0450_	[port=_0450_,
+		type=wire];
+	_0450_ -> NAND_1485_;
+	NAND_1488_	[logic=NAND,
+		type=gate];
+	_0169_	[port=_0169_,
+		type=wire];
+	NAND_1488_ -> _0169_;
+	DFF__2132_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0169_ -> DFF__2132_;
+	_0453_	[port=_0453_,
+		type=wire];
+	_0453_ -> NAND_1488_;
+	_0452_	[port=_0452_,
+		type=wire];
+	_0452_ -> NAND_1488_;
+	_0454_	[port=_0454_,
+		type=wire];
+	NAND_1489_ -> _0454_;
+	AND_1491_	[logic=AND,
+		type=gate];
+	_0454_ -> AND_1491_;
+	_0455_	[port=_0455_,
+		type=wire];
+	NAND_1490_ -> _0455_;
+	_0455_ -> AND_1491_;
+	_0457_	[port=_0457_,
+		type=wire];
+	NAND_1492_ -> _0457_;
+	AND_1520_	[logic=AND,
+		type=gate];
+	_0457_ -> AND_1520_;
+	NAND_1493_ -> "y[3]";
+	_0458_	[port=_0458_,
+		type=wire];
+	NAND_1493_ -> _0458_;
+	NAND_1519_	[logic=NAND,
+		type=gate];
+	_0458_ -> NAND_1519_;
+	_0462_	[port=_0462_,
+		type=wire];
+	NAND_1497_ -> _0462_;
+	AND_1513_	[logic=AND,
+		type=gate];
+	_0462_ -> AND_1513_;
+	_0461_	[port=_0461_,
+		type=wire];
+	_0461_ -> NAND_1497_;
+	_0463_	[port=_0463_,
+		type=wire];
+	NAND_1498_ -> _0463_;
+	AND_1528_	[logic=AND,
+		type=gate];
+	_0463_ -> AND_1528_;
+	NAND_1499_ -> "x[3]";
+	_0464_	[port=_0464_,
+		type=wire];
+	NAND_1499_ -> _0464_;
+	NAND_1527_	[logic=NAND,
+		type=gate];
+	_0464_ -> NAND_1527_;
+	_0466_	[port=_0466_,
+		type=wire];
+	NAND_1501_ -> _0466_;
+	_0466_ -> NAND_1502_;
+	_0467_	[port=_0467_,
+		type=wire];
+	NAND_1502_ -> _0467_;
+	NAND_1540_	[logic=NAND,
+		type=gate];
+	_0467_ -> NAND_1540_;
+	XOR_1503_	[logic=XOR,
+		type=gate];
+	_0467_ -> XOR_1503_;
+	_0469_	[port=_0469_,
+		type=wire];
+	NAND_1504_ -> _0469_;
+	_0469_ -> AND_1513_;
+	_0468_	[port=_0468_,
+		type=wire];
+	_0468_ -> NAND_1504_;
+	_0470_	[port=_0470_,
+		type=wire];
+	NAND_1505_ -> _0470_;
+	_0470_ -> AND_1506_;
+	_0473_	[port=_0473_,
+		type=wire];
+	NAND_1508_ -> _0473_;
+	AND_1512_	[logic=AND,
+		type=gate];
+	_0473_ -> AND_1512_;
+	_0472_	[port=_0472_,
+		type=wire];
+	_0472_ -> NAND_1508_;
+	_0476_	[port=_0476_,
+		type=wire];
+	NAND_1511_ -> _0476_;
+	AND_1514_	[logic=AND,
+		type=gate];
+	_0476_ -> AND_1514_;
+	_0475_	[port=_0475_,
+		type=wire];
+	_0475_ -> NAND_1511_;
+	NAND_1515_	[logic=NAND,
+		type=gate];
+	_0170_	[port=_0170_,
+		type=wire];
+	NAND_1515_ -> _0170_;
+	DFF__2133_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0170_ -> DFF__2133_;
+	_0479_	[port=_0479_,
+		type=wire];
+	_0479_ -> NAND_1515_;
+	_0477_	[port=_0477_,
+		type=wire];
+	_0477_ -> NAND_1515_;
+	NAND_1516_ -> "y[4]";
+	_0480_	[port=_0480_,
+		type=wire];
+	NAND_1516_ -> _0480_;
+	AND_1565_	[logic=AND,
+		type=gate];
+	_0480_ -> AND_1565_;
+	_0483_	[port=_0483_,
+		type=wire];
+	NAND_1519_ -> _0483_;
+	_0483_ -> AND_1520_;
+	_0460_	[port=_0460_,
+		type=wire];
+	_0460_ -> NAND_1519_;
+	XNOR_1496_	[logic=XNOR,
+		type=gate];
+	_0460_ -> XNOR_1496_;
+	NAND_1521_	[logic=NAND,
+		type=gate];
+	_0485_	[port=_0485_,
+		type=wire];
+	NAND_1521_ -> _0485_;
+	_0485_ -> AND_1565_;
+	_0484_	[port=_0484_,
+		type=wire];
+	_0484_ -> NAND_1521_;
+	XNOR_1522_	[logic=XNOR,
+		type=gate];
+	_0484_ -> XNOR_1522_;
+	_0481_	[port=_0481_,
+		type=wire];
+	_0481_ -> NAND_1521_;
+	XNOR_1552_	[logic=XNOR,
+		type=gate];
+	_0481_ -> XNOR_1552_;
+	_0487_	[port=_0487_,
+		type=wire];
+	NAND_1523_ -> _0487_;
+	AND_1537_	[logic=AND,
+		type=gate];
+	_0487_ -> AND_1537_;
+	_0486_	[port=_0486_,
+		type=wire];
+	_0486_ -> NAND_1523_;
+	NAND_1524_ -> "x[4]";
+	_0488_	[port=_0488_,
+		type=wire];
+	NAND_1524_ -> _0488_;
+	AND_1561_	[logic=AND,
+		type=gate];
+	_0488_ -> AND_1561_;
+	_0491_	[port=_0491_,
+		type=wire];
+	NAND_1527_ -> _0491_;
+	_0491_ -> AND_1528_;
+	_0474_	[port=_0474_,
+		type=wire];
+	_0474_ -> NAND_1527_;
+	XOR_1510_	[logic=XOR,
+		type=gate];
+	_0474_ -> XOR_1510_;
+	NAND_1530_	[logic=NAND,
+		type=gate];
+	_0494_	[port=_0494_,
+		type=wire];
+	NAND_1530_ -> _0494_;
+	_0494_ -> NAND_1531_;
+	_0494_ -> AND_1561_;
+	_0492_	[port=_0492_,
+		type=wire];
+	_0492_ -> NAND_1530_;
+	NOR_1529_	[logic=NOR,
+		type=gate];
+	_0492_ -> NOR_1529_;
+	_0489_	[port=_0489_,
+		type=wire];
+	_0489_ -> NAND_1530_;
+	NAND_1543_	[logic=NAND,
+		type=gate];
+	_0489_ -> NAND_1543_;
+	_0489_ -> NOR_1529_;
+	_0495_	[port=_0495_,
+		type=wire];
+	NAND_1531_ -> _0495_;
+	NOR_1532_	[logic=NOR,
+		type=gate];
+	_0495_ -> NOR_1532_;
+	_0497_	[port=_0497_,
+		type=wire];
+	NAND_1533_ -> _0497_;
+	NAND_1535_	[logic=NAND,
+		type=gate];
+	_0497_ -> NAND_1535_;
+	_0498_	[port=_0498_,
+		type=wire];
+	NAND_1534_ -> _0498_;
+	_0498_ -> NAND_1535_;
+	_0499_	[port=_0499_,
+		type=wire];
+	NAND_1535_ -> _0499_;
+	NOR_1536_	[logic=NOR,
+		type=gate];
+	_0499_ -> NOR_1536_;
+	NAND_1538_ -> "x[3]";
+	_0502_	[port=_0502_,
+		type=wire];
+	NAND_1538_ -> _0502_;
+	_0502_ -> NAND_1540_;
+	_0503_	[port=_0503_,
+		type=wire];
+	NAND_1539_ -> _0503_;
+	NAND_1541_	[logic=NAND,
+		type=gate];
+	_0503_ -> NAND_1541_;
+	AND_1542_	[logic=AND,
+		type=gate];
+	_0503_ -> AND_1542_;
+	_0504_	[port=_0504_,
+		type=wire];
+	NAND_1540_ -> _0504_;
+	_0504_ -> NAND_1541_;
+	_0504_ -> AND_1542_;
+	_0505_	[port=_0505_,
+		type=wire];
+	NAND_1541_ -> _0505_;
+	NAND_1544_	[logic=NAND,
+		type=gate];
+	_0505_ -> NAND_1544_;
+	_0507_	[port=_0507_,
+		type=wire];
+	NAND_1543_ -> _0507_;
+	NAND_1546_	[logic=NAND,
+		type=gate];
+	_0507_ -> NAND_1546_;
+	_0506_	[port=_0506_,
+		type=wire];
+	_0506_ -> NAND_1543_;
+	_0508_	[port=_0508_,
+		type=wire];
+	NAND_1544_ -> _0508_;
+	NAND_1560_	[logic=NAND,
+		type=gate];
+	_0508_ -> NAND_1560_;
+	_0508_ -> AND_1545_;
+	_0490_	[port=_0490_,
+		type=wire];
+	_0490_ -> NAND_1544_;
+	_0510_	[port=_0510_,
+		type=wire];
+	NAND_1546_ -> _0510_;
+	AND_1554_	[logic=AND,
+		type=gate];
+	_0510_ -> AND_1554_;
+	_0509_	[port=_0509_,
+		type=wire];
+	_0509_ -> NAND_1546_;
+	NAND_1547_ -> "y[3]";
+	_0511_	[port=_0511_,
+		type=wire];
+	NAND_1547_ -> _0511_;
+	AND_1550_	[logic=AND,
+		type=gate];
+	_0511_ -> AND_1550_;
+	_0512_	[port=_0512_,
+		type=wire];
+	NAND_1548_ -> _0512_;
+	NAND_1549_	[logic=NAND,
+		type=gate];
+	_0512_ -> NAND_1549_;
+	_0513_	[port=_0513_,
+		type=wire];
+	NAND_1549_ -> _0513_;
+	_0513_ -> AND_1550_;
+	_0471_	[port=_0471_,
+		type=wire];
+	_0471_ -> NAND_1549_;
+	XOR_1507_	[logic=XOR,
+		type=gate];
+	_0471_ -> XOR_1507_;
+	NAND_1551_	[logic=NAND,
+		type=gate];
+	_0515_	[port=_0515_,
+		type=wire];
+	NAND_1551_ -> _0515_;
+	AND_1572_	[logic=AND,
+		type=gate];
+	_0515_ -> AND_1572_;
+	_0514_	[port=_0514_,
+		type=wire];
+	_0514_ -> NAND_1551_;
+	_0514_ -> XNOR_1552_;
+	_0482_	[port=_0482_,
+		type=wire];
+	_0482_ -> NAND_1551_;
+	_0482_ -> XNOR_1522_;
+	_0517_	[port=_0517_,
+		type=wire];
+	NAND_1553_ -> _0517_;
+	_0517_ -> AND_1554_;
+	_0516_	[port=_0516_,
+		type=wire];
+	_0516_ -> NAND_1553_;
+	NAND_1555_	[logic=NAND,
+		type=gate];
+	_0171_	[port=_0171_,
+		type=wire];
+	NAND_1555_ -> _0171_;
+	DFF__2134_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0171_ -> DFF__2134_;
+	_0518_	[port=_0518_,
+		type=wire];
+	_0518_ -> NAND_1555_;
+	_0501_	[port=_0501_,
+		type=wire];
+	_0501_ -> NAND_1555_;
+	_0519_	[port=_0519_,
+		type=wire];
+	NAND_1556_ -> _0519_;
+	AND_1587_	[logic=AND,
+		type=gate];
+	_0519_ -> AND_1587_;
+	NAND_1557_ -> "x[5]";
+	_0520_	[port=_0520_,
+		type=wire];
+	NAND_1557_ -> _0520_;
+	NAND_1586_	[logic=NAND,
+		type=gate];
+	_0520_ -> NAND_1586_;
+	_0522_	[port=_0522_,
+		type=wire];
+	NAND_1559_ -> _0522_;
+	_0522_ -> NAND_1560_;
+	_0523_	[port=_0523_,
+		type=wire];
+	NAND_1560_ -> _0523_;
+	NAND_1613_	[logic=NAND,
+		type=gate];
+	_0523_ -> NAND_1613_;
+	XNOR_1578_	[logic=XNOR,
+		type=gate];
+	_0523_ -> XNOR_1578_;
+	_0525_	[port=_0525_,
+		type=wire];
+	NAND_1562_ -> _0525_;
+	AND_1598_	[logic=AND,
+		type=gate];
+	_0525_ -> AND_1598_;
+	NAND_1563_ -> "y[5]";
+	_0526_	[port=_0526_,
+		type=wire];
+	NAND_1563_ -> _0526_;
+	NAND_1597_	[logic=NAND,
+		type=gate];
+	_0526_ -> NAND_1597_;
+	_0530_	[port=_0530_,
+		type=wire];
+	NAND_1567_ -> _0530_;
+	AND_1575_	[logic=AND,
+		type=gate];
+	_0530_ -> AND_1575_;
+	_0529_	[port=_0529_,
+		type=wire];
+	_0529_ -> NAND_1567_;
+	_0531_	[port=_0531_,
+		type=wire];
+	NAND_1568_ -> _0531_;
+	AND_1570_	[logic=AND,
+		type=gate];
+	_0531_ -> AND_1570_;
+	_0532_	[port=_0532_,
+		type=wire];
+	NAND_1569_ -> _0532_;
+	_0532_ -> AND_1570_;
+	_0534_	[port=_0534_,
+		type=wire];
+	NAND_1571_ -> _0534_;
+	_0534_ -> AND_1572_;
+	_0537_	[port=_0537_,
+		type=wire];
+	NAND_1574_ -> _0537_;
+	_0537_ -> AND_1575_;
+	_0536_	[port=_0536_,
+		type=wire];
+	_0536_ -> NAND_1574_;
+	_0540_	[port=_0540_,
+		type=wire];
+	NAND_1577_ -> _0540_;
+	AND_1581_	[logic=AND,
+		type=gate];
+	_0540_ -> AND_1581_;
+	_0539_	[port=_0539_,
+		type=wire];
+	_0539_ -> NAND_1577_;
+	_0542_	[port=_0542_,
+		type=wire];
+	NAND_1579_ -> _0542_;
+	AND_1580_	[logic=AND,
+		type=gate];
+	_0542_ -> AND_1580_;
+	_0541_	[port=_0541_,
+		type=wire];
+	_0541_ -> NAND_1579_;
+	NAND_1582_	[logic=NAND,
+		type=gate];
+	_0172_	[port=_0172_,
+		type=wire];
+	NAND_1582_ -> _0172_;
+	DFF__2135_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0172_ -> DFF__2135_;
+	_0544_	[port=_0544_,
+		type=wire];
+	_0544_ -> NAND_1582_;
+	_0538_	[port=_0538_,
+		type=wire];
+	_0538_ -> NAND_1582_;
+	NAND_1583_ -> "x[6]";
+	_0545_	[port=_0545_,
+		type=wire];
+	NAND_1583_ -> _0545_;
+	AND_1629_	[logic=AND,
+		type=gate];
+	_0545_ -> AND_1629_;
+	_0548_	[port=_0548_,
+		type=wire];
+	NAND_1586_ -> _0548_;
+	_0548_ -> AND_1587_;
+	_0524_	[port=_0524_,
+		type=wire];
+	_0524_ -> NAND_1586_;
+	XNOR_1576_	[logic=XNOR,
+		type=gate];
+	_0524_ -> XNOR_1576_;
+	NAND_1588_	[logic=NAND,
+		type=gate];
+	_0550_	[port=_0550_,
+		type=wire];
+	NAND_1588_ -> _0550_;
+	_0550_ -> AND_1629_;
+	_0549_	[port=_0549_,
+		type=wire];
+	_0549_ -> NAND_1588_;
+	XNOR_1589_	[logic=XNOR,
+		type=gate];
+	_0549_ -> XNOR_1589_;
+	_0546_	[port=_0546_,
+		type=wire];
+	_0546_ -> NAND_1588_;
+	NAND_1617_	[logic=NAND,
+		type=gate];
+	_0546_ -> NAND_1617_;
+	_0552_	[port=_0552_,
+		type=wire];
+	NAND_1590_ -> _0552_;
+	AND_1603_	[logic=AND,
+		type=gate];
+	_0552_ -> AND_1603_;
+	_0551_	[port=_0551_,
+		type=wire];
+	_0551_ -> NAND_1590_;
+	_0553_	[port=_0553_,
+		type=wire];
+	NAND_1591_ -> _0553_;
+	AND_1593_	[logic=AND,
+		type=gate];
+	_0553_ -> AND_1593_;
+	_0554_	[port=_0554_,
+		type=wire];
+	NAND_1592_ -> _0554_;
+	_0554_ -> AND_1593_;
+	NAND_1594_ -> "y[6]";
+	_0556_	[port=_0556_,
+		type=wire];
+	NAND_1594_ -> _0556_;
+	AND_1622_	[logic=AND,
+		type=gate];
+	_0556_ -> AND_1622_;
+	_0559_	[port=_0559_,
+		type=wire];
+	NAND_1597_ -> _0559_;
+	_0559_ -> AND_1598_;
+	_0528_	[port=_0528_,
+		type=wire];
+	_0528_ -> NAND_1597_;
+	XNOR_1566_	[logic=XNOR,
+		type=gate];
+	_0528_ -> XNOR_1566_;
+	NAND_1599_	[logic=NAND,
+		type=gate];
+	_0561_	[port=_0561_,
+		type=wire];
+	NAND_1599_ -> _0561_;
+	_0561_ -> AND_1622_;
+	_0560_	[port=_0560_,
+		type=wire];
+	_0560_ -> NAND_1599_;
+	XNOR_1600_	[logic=XNOR,
+		type=gate];
+	_0560_ -> XNOR_1600_;
+	_0557_	[port=_0557_,
+		type=wire];
+	_0557_ -> NAND_1599_;
+	XNOR_1609_	[logic=XNOR,
+		type=gate];
+	_0557_ -> XNOR_1609_;
+	_0563_	[port=_0563_,
+		type=wire];
+	NAND_1601_ -> _0563_;
+	AND_1602_	[logic=AND,
+		type=gate];
+	_0563_ -> AND_1602_;
+	_0562_	[port=_0562_,
+		type=wire];
+	_0562_ -> NAND_1601_;
+	_0566_	[port=_0566_,
+		type=wire];
+	NAND_1604_ -> _0566_;
+	NAND_1606_	[logic=NAND,
+		type=gate];
+	_0566_ -> NAND_1606_;
+	NAND_1605_ -> "y[5]";
+	_0567_	[port=_0567_,
+		type=wire];
+	NAND_1605_ -> _0567_;
+	AND_1607_	[logic=AND,
+		type=gate];
+	_0567_ -> AND_1607_;
+	_0568_	[port=_0568_,
+		type=wire];
+	NAND_1606_ -> _0568_;
+	_0568_ -> AND_1607_;
+	_0535_	[port=_0535_,
+		type=wire];
+	_0535_ -> NAND_1606_;
+	XOR_1573_	[logic=XOR,
+		type=gate];
+	_0535_ -> XOR_1573_;
+	NAND_1608_	[logic=NAND,
+		type=gate];
+	_0570_	[port=_0570_,
+		type=wire];
+	NAND_1608_ -> _0570_;
+	NAND_1637_	[logic=NAND,
+		type=gate];
+	_0570_ -> NAND_1637_;
+	_0569_	[port=_0569_,
+		type=wire];
+	_0569_ -> NAND_1608_;
+	_0569_ -> XNOR_1609_;
+	_0558_	[port=_0558_,
+		type=wire];
+	_0558_ -> NAND_1608_;
+	_0558_ -> XNOR_1600_;
+	_0572_	[port=_0572_,
+		type=wire];
+	NAND_1610_ -> _0572_;
+	AND_1620_	[logic=AND,
+		type=gate];
+	_0572_ -> AND_1620_;
+	_0571_	[port=_0571_,
+		type=wire];
+	_0571_ -> NAND_1610_;
+	_0573_	[port=_0573_,
+		type=wire];
+	NAND_1611_ -> _0573_;
+	NAND_1615_	[logic=NAND,
+		type=gate];
+	_0573_ -> NAND_1615_;
+	AND_1614_	[logic=AND,
+		type=gate];
+	_0573_ -> AND_1614_;
+	NAND_1612_ -> "x[5]";
+	_0574_	[port=_0574_,
+		type=wire];
+	NAND_1612_ -> _0574_;
+	_0574_ -> NAND_1613_;
+	_0575_	[port=_0575_,
+		type=wire];
+	NAND_1613_ -> _0575_;
+	_0575_ -> NAND_1615_;
+	_0575_ -> AND_1614_;
+	_0577_	[port=_0577_,
+		type=wire];
+	NAND_1615_ -> _0577_;
+	NAND_1616_	[logic=NAND,
+		type=gate];
+	_0577_ -> NAND_1616_;
+	_0578_	[port=_0578_,
+		type=wire];
+	NAND_1616_ -> _0578_;
+	NAND_1619_	[logic=NAND,
+		type=gate];
+	_0578_ -> NAND_1619_;
+	NAND_1633_	[logic=NAND,
+		type=gate];
+	_0578_ -> NAND_1633_;
+	_0547_	[port=_0547_,
+		type=wire];
+	_0547_ -> NAND_1616_;
+	_0547_ -> XNOR_1589_;
+	_0579_	[port=_0579_,
+		type=wire];
+	NAND_1617_ -> _0579_;
+	_0579_ -> AND_1618_;
+	_0576_	[port=_0576_,
+		type=wire];
+	_0576_ -> NAND_1617_;
+	_0581_	[port=_0581_,
+		type=wire];
+	NAND_1619_ -> _0581_;
+	_0581_ -> AND_1620_;
+	_0580_	[port=_0580_,
+		type=wire];
+	_0580_ -> NAND_1619_;
+	NAND_1621_	[logic=NAND,
+		type=gate];
+	_0173_	[port=_0173_,
+		type=wire];
+	NAND_1621_ -> _0173_;
+	DFF__2136_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0173_ -> DFF__2136_;
+	_0582_	[port=_0582_,
+		type=wire];
+	_0582_ -> NAND_1621_;
+	_0565_	[port=_0565_,
+		type=wire];
+	_0565_ -> NAND_1621_;
+	_0585_	[port=_0585_,
+		type=wire];
+	NAND_1624_ -> _0585_;
+	AND_1641_	[logic=AND,
+		type=gate];
+	_0585_ -> AND_1641_;
+	_0584_	[port=_0584_,
+		type=wire];
+	_0584_ -> NAND_1624_;
+	_0586_	[port=_0586_,
+		type=wire];
+	NAND_1625_ -> _0586_;
+	AND_1627_	[logic=AND,
+		type=gate];
+	_0586_ -> AND_1627_;
+	_0587_	[port=_0587_,
+		type=wire];
+	NAND_1626_ -> _0587_;
+	_0587_ -> AND_1627_;
+	_0592_	[port=_0592_,
+		type=wire];
+	NAND_1631_ -> _0592_;
+	_0592_ -> AND_1641_;
+	_0591_	[port=_0591_,
+		type=wire];
+	_0591_ -> NAND_1631_;
+	_0593_	[port=_0593_,
+		type=wire];
+	NAND_1632_ -> _0593_;
+	_0593_ -> NAND_1633_;
+	_0594_	[port=_0594_,
+		type=wire];
+	NAND_1633_ -> _0594_;
+	XNOR_1634_	[logic=XNOR,
+		type=gate];
+	_0594_ -> XNOR_1634_;
+	_0596_	[port=_0596_,
+		type=wire];
+	NAND_1635_ -> _0596_;
+	AND_1640_	[logic=AND,
+		type=gate];
+	_0596_ -> AND_1640_;
+	_0595_	[port=_0595_,
+		type=wire];
+	_0595_ -> NAND_1635_;
+	_0597_	[port=_0597_,
+		type=wire];
+	NAND_1636_ -> _0597_;
+	_0597_ -> NAND_1637_;
+	_0598_	[port=_0598_,
+		type=wire];
+	NAND_1637_ -> _0598_;
+	_0598_ -> XNOR_1638_;
+	_0600_	[port=_0600_,
+		type=wire];
+	NAND_1639_ -> _0600_;
+	AND_1642_	[logic=AND,
+		type=gate];
+	_0600_ -> AND_1642_;
+	_0599_	[port=_0599_,
+		type=wire];
+	_0599_ -> NAND_1639_;
+	NAND_1643_	[logic=NAND,
+		type=gate];
+	_0174_	[port=_0174_,
+		type=wire];
+	NAND_1643_ -> _0174_;
+	DFF__2137_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0174_ -> DFF__2137_;
+	_0603_	[port=_0603_,
+		type=wire];
+	_0603_ -> NAND_1643_;
+	_0601_	[port=_0601_,
+		type=wire];
+	_0601_ -> NAND_1643_;
+	_0605_	[port=_0605_,
+		type=wire];
+	NAND_1646_ -> _0605_;
+	NAND_1650_	[logic=NAND,
+		type=gate];
+	_0605_ -> NAND_1650_;
+	_0605_ -> AND_1882_;
+	_0326_	[port=_0326_,
+		type=wire];
+	_0326_ -> NAND_1646_;
+	_0326_ -> NOR_1349_;
+	_0176_	[port=_0176_,
+		type=wire];
+	NAND_1650_ -> _0176_;
+	DFF__2139_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0176_ -> DFF__2139_;
+	_0608_	[port=_0608_,
+		type=wire];
+	_0608_ -> NAND_1650_;
+	NAND_1651_	[logic=NAND,
+		type=gate];
+	NAND_1651_ -> "y[0]";
+	NAND_1651_ -> "x[0]";
+	_0609_	[port=_0609_,
+		type=wire];
+	NAND_1651_ -> _0609_;
+	NAND_1674_	[logic=NAND,
+		type=gate];
+	_0609_ -> NAND_1674_;
+	XOR_1675_	[logic=XOR,
+		type=gate];
+	_0609_ -> XOR_1675_;
+	_0615_	[port=_0615_,
+		type=wire];
+	NAND_1657_ -> _0615_;
+	NAND_1659_	[logic=NAND,
+		type=gate];
+	_0615_ -> NAND_1659_;
+	AND_1660_	[logic=AND,
+		type=gate];
+	_0615_ -> AND_1660_;
+	_0614_	[port=_0614_,
+		type=wire];
+	_0614_ -> NAND_1657_;
+	_0614_ -> NAND_1682_;
+	_0616_	[port=_0616_,
+		type=wire];
+	NAND_1658_ -> _0616_;
+	_0616_ -> NAND_1659_;
+	_0616_ -> AND_1660_;
+	_0612_	[port=_0612_,
+		type=wire];
+	_0612_ -> NAND_1658_;
+	_0612_ -> NAND_1669_;
+	_0612_ -> AND_1668_;
+	_0617_	[port=_0617_,
+		type=wire];
+	NAND_1659_ -> _0617_;
+	NAND_1661_	[logic=NAND,
+		type=gate];
+	_0617_ -> NAND_1661_;
+	_0619_	[port=_0619_,
+		type=wire];
+	NAND_1661_ -> _0619_;
+	NAND_1667_	[logic=NAND,
+		type=gate];
+	_0619_ -> NAND_1667_;
+	_0607_	[port=_0607_,
+		type=wire];
+	_0607_ -> NAND_1661_;
+	NOR_1649_	[logic=NOR,
+		type=gate];
+	_0607_ -> NOR_1649_;
+	NAND_1663_	[logic=NAND,
+		type=gate];
+	_0621_	[port=_0621_,
+		type=wire];
+	NAND_1663_ -> _0621_;
+	AND_1666_	[logic=AND,
+		type=gate];
+	_0621_ -> AND_1666_;
+	_0620_	[port=_0620_,
+		type=wire];
+	_0620_ -> NAND_1663_;
+	_0618_	[port=_0618_,
+		type=wire];
+	_0618_ -> NAND_1663_;
+	_0622_	[port=_0622_,
+		type=wire];
+	NAND_1664_ -> _0622_;
+	_0622_ -> AND_1665_;
+	"T3d[2]"	[port=T3d,
+		type=wire];
+	"T3d[2]" -> NAND_1664_;
+	AND_1653_	[logic=AND,
+		type=gate];
+	"T3d[2]" -> AND_1653_;
+	"T3d[2]" -> AND_1655_;
+	NOR_1336_	[logic=NOR,
+		type=gate];
+	"T3d[2]" -> NOR_1336_;
+	XOR_1654_	[logic=XOR,
+		type=gate];
+	"T3d[2]" -> XOR_1654_;
+	XOR_1656_	[logic=XOR,
+		type=gate];
+	"T3d[2]" -> XOR_1656_;
+	_0177_	[port=_0177_,
+		type=wire];
+	NAND_1667_ -> _0177_;
+	DFF__2140_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0177_ -> DFF__2140_;
+	_0624_	[port=_0624_,
+		type=wire];
+	_0624_ -> NAND_1667_;
+	_0626_	[port=_0626_,
+		type=wire];
+	NAND_1669_ -> _0626_;
+	NAND_1680_	[logic=NAND,
+		type=gate];
+	_0626_ -> NAND_1680_;
+	_0629_	[port=_0629_,
+		type=wire];
+	NAND_1672_ -> _0629_;
+	NAND_1701_	[logic=NAND,
+		type=gate];
+	_0629_ -> NAND_1701_;
+	_0628_	[port=_0628_,
+		type=wire];
+	_0628_ -> NAND_1672_;
+	NAND_1683_	[logic=NAND,
+		type=gate];
+	_0628_ -> NAND_1683_;
+	NAND_1850_	[logic=NAND,
+		type=gate];
+	_0628_ -> NAND_1850_;
+	XOR_1684_	[logic=XOR,
+		type=gate];
+	_0628_ -> XOR_1684_;
+	XNOR_1673_	[logic=XNOR,
+		type=gate];
+	_0628_ -> XNOR_1673_;
+	_0631_	[port=_0631_,
+		type=wire];
+	NAND_1674_ -> _0631_;
+	_0631_ -> NAND_1701_;
+	_0630_	[port=_0630_,
+		type=wire];
+	_0630_ -> NAND_1674_;
+	_0630_ -> XOR_1675_;
+	NAND_1676_	[logic=NAND,
+		type=gate];
+	_0633_	[port=_0633_,
+		type=wire];
+	NAND_1676_ -> _0633_;
+	NAND_1700_	[logic=NAND,
+		type=gate];
+	_0633_ -> NAND_1700_;
+	_0632_	[port=_0632_,
+		type=wire];
+	_0632_ -> NAND_1676_;
+	XOR_1677_	[logic=XOR,
+		type=gate];
+	_0632_ -> XOR_1677_;
+	"T3d[3]"	[port=T3d,
+		type=wire];
+	"T3d[3]" -> NAND_1676_;
+	"T3d[3]" -> NAND_1683_;
+	"T3d[3]" -> AND_1694_;
+	"T3d[3]" -> NOR_1336_;
+	"T3d[3]" -> XOR_1677_;
+	"T3d[3]" -> XOR_1684_;
+	NAND_1678_	[logic=NAND,
+		type=gate];
+	_0635_	[port=_0635_,
+		type=wire];
+	NAND_1678_ -> _0635_;
+	_0635_ -> NAND_1700_;
+	_0634_	[port=_0634_,
+		type=wire];
+	_0634_ -> NAND_1678_;
+	NAND_1681_	[logic=NAND,
+		type=gate];
+	_0634_ -> NAND_1681_;
+	XNOR_1679_	[logic=XNOR,
+		type=gate];
+	_0634_ -> XNOR_1679_;
+	_0611_	[port=_0611_,
+		type=wire];
+	_0611_ -> NAND_1678_;
+	_0611_ -> XNOR_1679_;
+	_0637_	[port=_0637_,
+		type=wire];
+	NAND_1680_ -> _0637_;
+	NAND_1692_	[logic=NAND,
+		type=gate];
+	_0637_ -> NAND_1692_;
+	AND_1712_	[logic=AND,
+		type=gate];
+	_0637_ -> AND_1712_;
+	XOR_1713_	[logic=XOR,
+		type=gate];
+	_0637_ -> XOR_1713_;
+	_0636_	[port=_0636_,
+		type=wire];
+	_0636_ -> NAND_1680_;
+	_0638_	[port=_0638_,
+		type=wire];
+	NAND_1681_ -> _0638_;
+	_0638_ -> AND_1691_;
+	_0625_	[port=_0625_,
+		type=wire];
+	_0625_ -> NAND_1681_;
+	_0639_	[port=_0639_,
+		type=wire];
+	NAND_1682_ -> _0639_;
+	AND_1687_	[logic=AND,
+		type=gate];
+	_0639_ -> AND_1687_;
+	XOR_1688_	[logic=XOR,
+		type=gate];
+	_0639_ -> XOR_1688_;
+	_0640_	[port=_0640_,
+		type=wire];
+	NAND_1683_ -> _0640_;
+	NAND_1715_	[logic=NAND,
+		type=gate];
+	_0640_ -> NAND_1715_;
+	NAND_1685_	[logic=NAND,
+		type=gate];
+	_0642_	[port=_0642_,
+		type=wire];
+	NAND_1685_ -> _0642_;
+	_0642_ -> NAND_1715_;
+	_0641_	[port=_0641_,
+		type=wire];
+	_0641_ -> NAND_1685_;
+	XOR_1686_	[logic=XOR,
+		type=gate];
+	_0641_ -> XOR_1686_;
+	_0613_	[port=_0613_,
+		type=wire];
+	_0613_ -> NAND_1685_;
+	_0613_ -> XOR_1686_;
+	_0649_	[port=_0649_,
+		type=wire];
+	NAND_1692_ -> _0649_;
+	NAND_1693_	[logic=NAND,
+		type=gate];
+	_0649_ -> NAND_1693_;
+	_0648_	[port=_0648_,
+		type=wire];
+	_0648_ -> NAND_1692_;
+	_0650_	[port=_0650_,
+		type=wire];
+	NAND_1693_ -> _0650_;
+	NAND_1699_	[logic=NAND,
+		type=gate];
+	_0650_ -> NAND_1699_;
+	_0647_	[port=_0647_,
+		type=wire];
+	_0647_ -> NAND_1693_;
+	_0178_	[port=_0178_,
+		type=wire];
+	NAND_1699_ -> _0178_;
+	DFF__2141_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0178_ -> DFF__2141_;
+	_0655_	[port=_0655_,
+		type=wire];
+	_0655_ -> NAND_1699_;
+	_0656_	[port=_0656_,
+		type=wire];
+	NAND_1700_ -> _0656_;
+	NAND_1710_	[logic=NAND,
+		type=gate];
+	_0656_ -> NAND_1710_;
+	XOR_1711_	[logic=XOR,
+		type=gate];
+	_0656_ -> XOR_1711_;
+	_0657_	[port=_0657_,
+		type=wire];
+	NAND_1701_ -> _0657_;
+	NAND_1706_	[logic=NAND,
+		type=gate];
+	_0657_ -> NAND_1706_;
+	XOR_1707_	[logic=XOR,
+		type=gate];
+	_0657_ -> XOR_1707_;
+	_0660_	[port=_0660_,
+		type=wire];
+	NAND_1704_ -> _0660_;
+	NAND_1733_	[logic=NAND,
+		type=gate];
+	_0660_ -> NAND_1733_;
+	_0659_	[port=_0659_,
+		type=wire];
+	_0659_ -> NAND_1704_;
+	NAND_1716_	[logic=NAND,
+		type=gate];
+	_0659_ -> NAND_1716_;
+	NAND_1853_	[logic=NAND,
+		type=gate];
+	_0659_ -> NAND_1853_;
+	XOR_1717_	[logic=XOR,
+		type=gate];
+	_0659_ -> XOR_1717_;
+	XNOR_1705_	[logic=XNOR,
+		type=gate];
+	_0659_ -> XNOR_1705_;
+	_0662_	[port=_0662_,
+		type=wire];
+	NAND_1706_ -> _0662_;
+	_0662_ -> NAND_1733_;
+	_0661_	[port=_0661_,
+		type=wire];
+	_0661_ -> NAND_1706_;
+	_0661_ -> XOR_1707_;
+	NAND_1708_	[logic=NAND,
+		type=gate];
+	_0664_	[port=_0664_,
+		type=wire];
+	NAND_1708_ -> _0664_;
+	NAND_1732_	[logic=NAND,
+		type=gate];
+	_0664_ -> NAND_1732_;
+	_0663_	[port=_0663_,
+		type=wire];
+	_0663_ -> NAND_1708_;
+	XOR_1709_	[logic=XOR,
+		type=gate];
+	_0663_ -> XOR_1709_;
+	"T3d[4]"	[port=T3d,
+		type=wire];
+	"T3d[4]" -> NAND_1708_;
+	"T3d[4]" -> NAND_1716_;
+	"T3d[4]" -> NAND_1727_;
+	NOR_1333_	[logic=NOR,
+		type=gate];
+	"T3d[4]" -> NOR_1333_;
+	"T3d[4]" -> XOR_1709_;
+	"T3d[4]" -> XOR_1717_;
+	_0666_	[port=_0666_,
+		type=wire];
+	NAND_1710_ -> _0666_;
+	_0666_ -> NAND_1732_;
+	_0665_	[port=_0665_,
+		type=wire];
+	_0665_ -> NAND_1710_;
+	_0665_ -> XOR_1711_;
+	_0670_	[port=_0670_,
+		type=wire];
+	NAND_1714_ -> _0670_;
+	NAND_1725_	[logic=NAND,
+		type=gate];
+	_0670_ -> NAND_1725_;
+	_0669_	[port=_0669_,
+		type=wire];
+	_0669_ -> NAND_1714_;
+	_0671_	[port=_0671_,
+		type=wire];
+	NAND_1715_ -> _0671_;
+	NAND_1718_	[logic=NAND,
+		type=gate];
+	_0671_ -> NAND_1718_;
+	XOR_1719_	[logic=XOR,
+		type=gate];
+	_0671_ -> XOR_1719_;
+	_0672_	[port=_0672_,
+		type=wire];
+	NAND_1716_ -> _0672_;
+	NAND_1748_	[logic=NAND,
+		type=gate];
+	_0672_ -> NAND_1748_;
+	_0674_	[port=_0674_,
+		type=wire];
+	NAND_1718_ -> _0674_;
+	_0674_ -> NAND_1748_;
+	_0673_	[port=_0673_,
+		type=wire];
+	_0673_ -> NAND_1718_;
+	_0673_ -> XOR_1719_;
+	_0680_	[port=_0680_,
+		type=wire];
+	NAND_1724_ -> _0680_;
+	_0680_ -> NAND_1725_;
+	_0679_	[port=_0679_,
+		type=wire];
+	_0679_ -> NAND_1724_;
+	_0681_	[port=_0681_,
+		type=wire];
+	NAND_1725_ -> _0681_;
+	NAND_1726_	[logic=NAND,
+		type=gate];
+	_0681_ -> NAND_1726_;
+	_0682_	[port=_0682_,
+		type=wire];
+	NAND_1726_ -> _0682_;
+	NAND_1731_	[logic=NAND,
+		type=gate];
+	_0682_ -> NAND_1731_;
+	_0295_	[port=_0295_,
+		type=wire];
+	_0295_ -> NAND_1726_;
+	NAND_1757_	[logic=NAND,
+		type=gate];
+	_0295_ -> NAND_1757_;
+	NAND_1790_	[logic=NAND,
+		type=gate];
+	_0295_ -> NAND_1790_;
+	NAND_1822_	[logic=NAND,
+		type=gate];
+	_0295_ -> NAND_1822_;
+	NAND_1842_	[logic=NAND,
+		type=gate];
+	_0295_ -> NAND_1842_;
+	_0295_ -> NAND_1847_;
+	_0295_ -> NAND_1850_;
+	_0295_ -> NAND_1853_;
+	NAND_1856_	[logic=NAND,
+		type=gate];
+	_0295_ -> NAND_1856_;
+	NAND_1859_	[logic=NAND,
+		type=gate];
+	_0295_ -> NAND_1859_;
+	NAND_1862_	[logic=NAND,
+		type=gate];
+	_0295_ -> NAND_1862_;
+	NAND_1865_	[logic=NAND,
+		type=gate];
+	_0295_ -> NAND_1865_;
+	_0295_ -> AND_1350_;
+	_0295_ -> AND_1648_;
+	_0295_ -> AND_1662_;
+	_0683_	[port=_0683_,
+		type=wire];
+	NAND_1727_ -> _0683_;
+	AND_1730_	[logic=AND,
+		type=gate];
+	_0683_ -> AND_1730_;
+	_0179_	[port=_0179_,
+		type=wire];
+	NAND_1731_ -> _0179_;
+	DFF__2142_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0179_ -> DFF__2142_;
+	_0686_	[port=_0686_,
+		type=wire];
+	_0686_ -> NAND_1731_;
+	_0687_	[port=_0687_,
+		type=wire];
+	NAND_1732_ -> _0687_;
+	NAND_1743_	[logic=NAND,
+		type=gate];
+	_0687_ -> NAND_1743_;
+	XOR_1744_	[logic=XOR,
+		type=gate];
+	_0687_ -> XOR_1744_;
+	_0688_	[port=_0688_,
+		type=wire];
+	NAND_1733_ -> _0688_;
+	NAND_1768_	[logic=NAND,
+		type=gate];
+	_0688_ -> NAND_1768_;
+	XNOR_1740_	[logic=XNOR,
+		type=gate];
+	_0688_ -> XNOR_1740_;
+	_0692_	[port=_0692_,
+		type=wire];
+	NAND_1737_ -> _0692_;
+	NAND_1769_	[logic=NAND,
+		type=gate];
+	_0692_ -> NAND_1769_;
+	_0690_	[port=_0690_,
+		type=wire];
+	_0690_ -> NAND_1737_;
+	NAND_1749_	[logic=NAND,
+		type=gate];
+	_0690_ -> NAND_1749_;
+	_0690_ -> NAND_1856_;
+	_0690_ -> XNOR_1739_;
+	NAND_1738_	[logic=NAND,
+		type=gate];
+	NAND_1738_ -> "y[3]";
+	_0693_	[port=_0693_,
+		type=wire];
+	NAND_1738_ -> _0693_;
+	_0693_ -> NAND_1768_;
+	_0691_	[port=_0691_,
+		type=wire];
+	_0691_ -> NAND_1738_;
+	XNOR_1750_	[logic=XNOR,
+		type=gate];
+	_0691_ -> XNOR_1750_;
+	NAND_1741_	[logic=NAND,
+		type=gate];
+	_0696_	[port=_0696_,
+		type=wire];
+	NAND_1741_ -> _0696_;
+	NAND_1763_	[logic=NAND,
+		type=gate];
+	_0696_ -> NAND_1763_;
+	_0695_	[port=_0695_,
+		type=wire];
+	_0695_ -> NAND_1741_;
+	XOR_1742_	[logic=XOR,
+		type=gate];
+	_0695_ -> XOR_1742_;
+	"T3d[5]"	[port=T3d,
+		type=wire];
+	"T3d[5]" -> NAND_1741_;
+	"T3d[5]" -> NAND_1749_;
+	"T3d[5]" -> NAND_1758_;
+	"T3d[5]" -> NOR_1333_;
+	"T3d[5]" -> XOR_1742_;
+	"T3d[5]" -> XNOR_1750_;
+	_0698_	[port=_0698_,
+		type=wire];
+	NAND_1743_ -> _0698_;
+	_0698_ -> NAND_1763_;
+	_0697_	[port=_0697_,
+		type=wire];
+	_0697_ -> NAND_1743_;
+	_0697_ -> XOR_1744_;
+	_0702_	[port=_0702_,
+		type=wire];
+	NAND_1747_ -> _0702_;
+	NAND_1756_	[logic=NAND,
+		type=gate];
+	_0702_ -> NAND_1756_;
+	_0701_	[port=_0701_,
+		type=wire];
+	_0701_ -> NAND_1747_;
+	_0703_	[port=_0703_,
+		type=wire];
+	NAND_1748_ -> _0703_;
+	NAND_1751_	[logic=NAND,
+		type=gate];
+	_0703_ -> NAND_1751_;
+	XOR_1752_	[logic=XOR,
+		type=gate];
+	_0703_ -> XOR_1752_;
+	_0704_	[port=_0704_,
+		type=wire];
+	NAND_1749_ -> _0704_;
+	NAND_1779_	[logic=NAND,
+		type=gate];
+	_0704_ -> NAND_1779_;
+	_0706_	[port=_0706_,
+		type=wire];
+	NAND_1751_ -> _0706_;
+	_0706_ -> NAND_1779_;
+	_0705_	[port=_0705_,
+		type=wire];
+	_0705_ -> NAND_1751_;
+	_0705_ -> XOR_1752_;
+	_0710_	[port=_0710_,
+		type=wire];
+	NAND_1755_ -> _0710_;
+	_0710_ -> NAND_1756_;
+	_0709_	[port=_0709_,
+		type=wire];
+	_0709_ -> NAND_1755_;
+	_0711_	[port=_0711_,
+		type=wire];
+	NAND_1756_ -> _0711_;
+	_0711_ -> NAND_1757_;
+	_0712_	[port=_0712_,
+		type=wire];
+	NAND_1757_ -> _0712_;
+	NAND_1762_	[logic=NAND,
+		type=gate];
+	_0712_ -> NAND_1762_;
+	_0713_	[port=_0713_,
+		type=wire];
+	NAND_1758_ -> _0713_;
+	AND_1761_	[logic=AND,
+		type=gate];
+	_0713_ -> AND_1761_;
+	_0180_	[port=_0180_,
+		type=wire];
+	NAND_1762_ -> _0180_;
+	DFF__2143_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0180_ -> DFF__2143_;
+	_0716_	[port=_0716_,
+		type=wire];
+	_0716_ -> NAND_1762_;
+	_0717_	[port=_0717_,
+		type=wire];
+	NAND_1763_ -> _0717_;
+	NAND_1774_	[logic=NAND,
+		type=gate];
+	_0717_ -> NAND_1774_;
+	XOR_1775_	[logic=XOR,
+		type=gate];
+	_0717_ -> XOR_1775_;
+	_0720_	[port=_0720_,
+		type=wire];
+	NAND_1766_ -> _0720_;
+	NAND_1797_	[logic=NAND,
+		type=gate];
+	_0720_ -> NAND_1797_;
+	_0719_	[port=_0719_,
+		type=wire];
+	_0719_ -> NAND_1766_;
+	NAND_1780_	[logic=NAND,
+		type=gate];
+	_0719_ -> NAND_1780_;
+	_0719_ -> NAND_1859_;
+	XOR_1781_	[logic=XOR,
+		type=gate];
+	_0719_ -> XOR_1781_;
+	XNOR_1767_	[logic=XNOR,
+		type=gate];
+	_0719_ -> XNOR_1767_;
+	_0722_	[port=_0722_,
+		type=wire];
+	NAND_1768_ -> _0722_;
+	_0722_ -> NAND_1769_;
+	_0723_	[port=_0723_,
+		type=wire];
+	NAND_1769_ -> _0723_;
+	NAND_1770_	[logic=NAND,
+		type=gate];
+	_0723_ -> NAND_1770_;
+	XOR_1771_	[logic=XOR,
+		type=gate];
+	_0723_ -> XOR_1771_;
+	_0724_	[port=_0724_,
+		type=wire];
+	NAND_1770_ -> _0724_;
+	_0724_ -> NAND_1797_;
+	_0721_	[port=_0721_,
+		type=wire];
+	_0721_ -> NAND_1770_;
+	_0721_ -> XOR_1771_;
+	NAND_1772_	[logic=NAND,
+		type=gate];
+	_0726_	[port=_0726_,
+		type=wire];
+	NAND_1772_ -> _0726_;
+	NAND_1796_	[logic=NAND,
+		type=gate];
+	_0726_ -> NAND_1796_;
+	_0725_	[port=_0725_,
+		type=wire];
+	_0725_ -> NAND_1772_;
+	XOR_1773_	[logic=XOR,
+		type=gate];
+	_0725_ -> XOR_1773_;
+	"T3d[6]"	[port=T3d,
+		type=wire];
+	"T3d[6]" -> NAND_1772_;
+	"T3d[6]" -> NAND_1780_;
+	"T3d[6]" -> NAND_1791_;
+	NOR_1334_	[logic=NOR,
+		type=gate];
+	"T3d[6]" -> NOR_1334_;
+	"T3d[6]" -> XOR_1773_;
+	"T3d[6]" -> XOR_1781_;
+	_0728_	[port=_0728_,
+		type=wire];
+	NAND_1774_ -> _0728_;
+	_0728_ -> NAND_1796_;
+	_0727_	[port=_0727_,
+		type=wire];
+	_0727_ -> NAND_1774_;
+	_0727_ -> XOR_1775_;
+	_0732_	[port=_0732_,
+		type=wire];
+	NAND_1778_ -> _0732_;
+	NAND_1789_	[logic=NAND,
+		type=gate];
+	_0732_ -> NAND_1789_;
+	_0731_	[port=_0731_,
+		type=wire];
+	_0731_ -> NAND_1778_;
+	_0733_	[port=_0733_,
+		type=wire];
+	NAND_1779_ -> _0733_;
+	NAND_1782_	[logic=NAND,
+		type=gate];
+	_0733_ -> NAND_1782_;
+	XOR_1783_	[logic=XOR,
+		type=gate];
+	_0733_ -> XOR_1783_;
+	_0734_	[port=_0734_,
+		type=wire];
+	NAND_1780_ -> _0734_;
+	NAND_1812_	[logic=NAND,
+		type=gate];
+	_0734_ -> NAND_1812_;
+	_0736_	[port=_0736_,
+		type=wire];
+	NAND_1782_ -> _0736_;
+	_0736_ -> NAND_1812_;
+	_0735_	[port=_0735_,
+		type=wire];
+	_0735_ -> NAND_1782_;
+	_0735_ -> XOR_1783_;
+	_0742_	[port=_0742_,
+		type=wire];
+	NAND_1788_ -> _0742_;
+	_0742_ -> NAND_1789_;
+	_0741_	[port=_0741_,
+		type=wire];
+	_0741_ -> NAND_1788_;
+	_0743_	[port=_0743_,
+		type=wire];
+	NAND_1789_ -> _0743_;
+	_0743_ -> NAND_1790_;
+	_0744_	[port=_0744_,
+		type=wire];
+	NAND_1790_ -> _0744_;
+	NAND_1795_	[logic=NAND,
+		type=gate];
+	_0744_ -> NAND_1795_;
+	_0745_	[port=_0745_,
+		type=wire];
+	NAND_1791_ -> _0745_;
+	AND_1794_	[logic=AND,
+		type=gate];
+	_0745_ -> AND_1794_;
+	_0181_	[port=_0181_,
+		type=wire];
+	NAND_1795_ -> _0181_;
+	DFF__2144_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0181_ -> DFF__2144_;
+	_0748_	[port=_0748_,
+		type=wire];
+	_0748_ -> NAND_1795_;
+	_0749_	[port=_0749_,
+		type=wire];
+	NAND_1796_ -> _0749_;
+	NAND_1807_	[logic=NAND,
+		type=gate];
+	_0749_ -> NAND_1807_;
+	XOR_1808_	[logic=XOR,
+		type=gate];
+	_0749_ -> XOR_1808_;
+	_0750_	[port=_0750_,
+		type=wire];
+	NAND_1797_ -> _0750_;
+	NAND_1827_	[logic=NAND,
+		type=gate];
+	_0750_ -> NAND_1827_;
+	XNOR_1804_	[logic=XNOR,
+		type=gate];
+	_0750_ -> XNOR_1804_;
+	_0754_	[port=_0754_,
+		type=wire];
+	NAND_1801_ -> _0754_;
+	AND_1828_	[logic=AND,
+		type=gate];
+	_0754_ -> AND_1828_;
+	_0752_	[port=_0752_,
+		type=wire];
+	_0752_ -> NAND_1801_;
+	NAND_1813_	[logic=NAND,
+		type=gate];
+	_0752_ -> NAND_1813_;
+	_0752_ -> NAND_1862_;
+	_0752_ -> XNOR_1803_;
+	NAND_1802_	[logic=NAND,
+		type=gate];
+	NAND_1802_ -> "y[5]";
+	_0755_	[port=_0755_,
+		type=wire];
+	NAND_1802_ -> _0755_;
+	_0755_ -> NAND_1827_;
+	_0753_	[port=_0753_,
+		type=wire];
+	_0753_ -> NAND_1802_;
+	XNOR_1814_	[logic=XNOR,
+		type=gate];
+	_0753_ -> XNOR_1814_;
+	NAND_1805_	[logic=NAND,
+		type=gate];
+	_0758_	[port=_0758_,
+		type=wire];
+	NAND_1805_ -> _0758_;
+	NAND_1826_	[logic=NAND,
+		type=gate];
+	_0758_ -> NAND_1826_;
+	_0757_	[port=_0757_,
+		type=wire];
+	_0757_ -> NAND_1805_;
+	XOR_1806_	[logic=XOR,
+		type=gate];
+	_0757_ -> XOR_1806_;
+	"T3d[7]"	[port=T3d,
+		type=wire];
+	"T3d[7]" -> NAND_1805_;
+	"T3d[7]" -> NAND_1813_;
+	"T3d[7]" -> NAND_1823_;
+	"T3d[7]" -> NOR_1334_;
+	"T3d[7]" -> XOR_1806_;
+	"T3d[7]" -> XNOR_1814_;
+	_0760_	[port=_0760_,
+		type=wire];
+	NAND_1807_ -> _0760_;
+	_0760_ -> NAND_1826_;
+	_0759_	[port=_0759_,
+		type=wire];
+	_0759_ -> NAND_1807_;
+	_0759_ -> XOR_1808_;
+	_0764_	[port=_0764_,
+		type=wire];
+	NAND_1811_ -> _0764_;
+	NAND_1821_	[logic=NAND,
+		type=gate];
+	_0764_ -> NAND_1821_;
+	_0763_	[port=_0763_,
+		type=wire];
+	_0763_ -> NAND_1811_;
+	_0765_	[port=_0765_,
+		type=wire];
+	NAND_1812_ -> _0765_;
+	NAND_1815_	[logic=NAND,
+		type=gate];
+	_0765_ -> NAND_1815_;
+	XOR_1816_	[logic=XOR,
+		type=gate];
+	_0765_ -> XOR_1816_;
+	_0766_	[port=_0766_,
+		type=wire];
+	NAND_1813_ -> _0766_;
+	NAND_1837_	[logic=NAND,
+		type=gate];
+	_0766_ -> NAND_1837_;
+	_0768_	[port=_0768_,
+		type=wire];
+	NAND_1815_ -> _0768_;
+	_0768_ -> NAND_1837_;
+	_0767_	[port=_0767_,
+		type=wire];
+	_0767_ -> NAND_1815_;
+	_0767_ -> XOR_1816_;
+	_0771_	[port=_0771_,
+		type=wire];
+	NAND_1818_ -> _0771_;
+	NAND_1820_	[logic=NAND,
+		type=gate];
+	_0771_ -> NAND_1820_;
+	XNOR_1839_	[logic=XNOR,
+		type=gate];
+	_0771_ -> XNOR_1839_;
+	_0769_	[port=_0769_,
+		type=wire];
+	_0769_ -> NAND_1818_;
+	_0769_ -> NOR_1817_;
+	_0773_	[port=_0773_,
+		type=wire];
+	NAND_1820_ -> _0773_;
+	_0773_ -> NAND_1821_;
+	_0772_	[port=_0772_,
+		type=wire];
+	_0772_ -> NAND_1820_;
+	_0774_	[port=_0774_,
+		type=wire];
+	NAND_1821_ -> _0774_;
+	_0774_ -> NAND_1822_;
+	_0775_	[port=_0775_,
+		type=wire];
+	NAND_1822_ -> _0775_;
+	NAND_1825_	[logic=NAND,
+		type=gate];
+	_0775_ -> NAND_1825_;
+	_0776_	[port=_0776_,
+		type=wire];
+	NAND_1823_ -> _0776_;
+	AND_1824_	[logic=AND,
+		type=gate];
+	_0776_ -> AND_1824_;
+	_0182_	[port=_0182_,
+		type=wire];
+	NAND_1825_ -> _0182_;
+	DFF__2145_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0182_ -> DFF__2145_;
+	_0777_	[port=_0777_,
+		type=wire];
+	_0777_ -> NAND_1825_;
+	_0778_	[port=_0778_,
+		type=wire];
+	NAND_1826_ -> _0778_;
+	XNOR_1834_	[logic=XNOR,
+		type=gate];
+	_0778_ -> XNOR_1834_;
+	_0779_	[port=_0779_,
+		type=wire];
+	NAND_1827_ -> _0779_;
+	_0779_ -> AND_1828_;
+	_0788_	[port=_0788_,
+		type=wire];
+	NAND_1836_ -> _0788_;
+	NAND_1841_	[logic=NAND,
+		type=gate];
+	_0788_ -> NAND_1841_;
+	_0787_	[port=_0787_,
+		type=wire];
+	_0787_ -> NAND_1836_;
+	_0789_	[port=_0789_,
+		type=wire];
+	NAND_1837_ -> _0789_;
+	XNOR_1838_	[logic=XNOR,
+		type=gate];
+	_0789_ -> XNOR_1838_;
+	_0792_	[port=_0792_,
+		type=wire];
+	NAND_1840_ -> _0792_;
+	_0792_ -> NAND_1841_;
+	_0791_	[port=_0791_,
+		type=wire];
+	_0791_ -> NAND_1840_;
+	_0793_	[port=_0793_,
+		type=wire];
+	NAND_1841_ -> _0793_;
+	_0793_ -> NAND_1842_;
+	_0794_	[port=_0794_,
+		type=wire];
+	NAND_1842_ -> _0794_;
+	NAND_1845_	[logic=NAND,
+		type=gate];
+	_0794_ -> NAND_1845_;
+	_0795_	[port=_0795_,
+		type=wire];
+	NAND_1843_ -> _0795_;
+	AND_1844_	[logic=AND,
+		type=gate];
+	_0795_ -> AND_1844_;
+	_0183_	[port=_0183_,
+		type=wire];
+	NAND_1845_ -> _0183_;
+	DFF__2146_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0183_ -> DFF__2146_;
+	_0796_	[port=_0796_,
+		type=wire];
+	_0796_ -> NAND_1845_;
+	NAND_1846_ -> "x[0]";
+	_0797_	[port=_0797_,
+		type=wire];
+	NAND_1846_ -> _0797_;
+	NAND_1848_	[logic=NAND,
+		type=gate];
+	_0797_ -> NAND_1848_;
+	_0798_	[port=_0798_,
+		type=wire];
+	NAND_1847_ -> _0798_;
+	_0798_ -> NAND_1848_;
+	_0184_	[port=_0184_,
+		type=wire];
+	NAND_1848_ -> _0184_;
+	DFF__2147_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0184_ -> DFF__2147_;
+	NAND_1849_ -> "x[1]";
+	_0799_	[port=_0799_,
+		type=wire];
+	NAND_1849_ -> _0799_;
+	NAND_1851_	[logic=NAND,
+		type=gate];
+	_0799_ -> NAND_1851_;
+	_0800_	[port=_0800_,
+		type=wire];
+	NAND_1850_ -> _0800_;
+	_0800_ -> NAND_1851_;
+	_0185_	[port=_0185_,
+		type=wire];
+	NAND_1851_ -> _0185_;
+	DFF__2148_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0185_ -> DFF__2148_;
+	NAND_1852_ -> "x[2]";
+	_0801_	[port=_0801_,
+		type=wire];
+	NAND_1852_ -> _0801_;
+	NAND_1854_	[logic=NAND,
+		type=gate];
+	_0801_ -> NAND_1854_;
+	_0802_	[port=_0802_,
+		type=wire];
+	NAND_1853_ -> _0802_;
+	_0802_ -> NAND_1854_;
+	_0186_	[port=_0186_,
+		type=wire];
+	NAND_1854_ -> _0186_;
+	DFF__2149_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0186_ -> DFF__2149_;
+	NAND_1855_ -> "x[3]";
+	_0803_	[port=_0803_,
+		type=wire];
+	NAND_1855_ -> _0803_;
+	NAND_1857_	[logic=NAND,
+		type=gate];
+	_0803_ -> NAND_1857_;
+	_0804_	[port=_0804_,
+		type=wire];
+	NAND_1856_ -> _0804_;
+	_0804_ -> NAND_1857_;
+	_0187_	[port=_0187_,
+		type=wire];
+	NAND_1857_ -> _0187_;
+	DFF__2150_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0187_ -> DFF__2150_;
+	NAND_1858_ -> "x[4]";
+	_0805_	[port=_0805_,
+		type=wire];
+	NAND_1858_ -> _0805_;
+	NAND_1860_	[logic=NAND,
+		type=gate];
+	_0805_ -> NAND_1860_;
+	_0806_	[port=_0806_,
+		type=wire];
+	NAND_1859_ -> _0806_;
+	_0806_ -> NAND_1860_;
+	_0188_	[port=_0188_,
+		type=wire];
+	NAND_1860_ -> _0188_;
+	DFF__2151_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0188_ -> DFF__2151_;
+	NAND_1861_ -> "x[5]";
+	_0807_	[port=_0807_,
+		type=wire];
+	NAND_1861_ -> _0807_;
+	NAND_1863_	[logic=NAND,
+		type=gate];
+	_0807_ -> NAND_1863_;
+	_0808_	[port=_0808_,
+		type=wire];
+	NAND_1862_ -> _0808_;
+	_0808_ -> NAND_1863_;
+	_0189_	[port=_0189_,
+		type=wire];
+	NAND_1863_ -> _0189_;
+	DFF__2152_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0189_ -> DFF__2152_;
+	NAND_1864_ -> "x[6]";
+	_0809_	[port=_0809_,
+		type=wire];
+	NAND_1864_ -> _0809_;
+	NAND_1866_	[logic=NAND,
+		type=gate];
+	_0809_ -> NAND_1866_;
+	_0810_	[port=_0810_,
+		type=wire];
+	NAND_1865_ -> _0810_;
+	_0810_ -> NAND_1866_;
+	_0782_	[port=_0782_,
+		type=wire];
+	_0782_ -> NAND_1865_;
+	_0782_ -> XNOR_1831_;
+	_0190_	[port=_0190_,
+		type=wire];
+	NAND_1866_ -> _0190_;
+	DFF__2153_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0190_ -> DFF__2153_;
+	NAND_1867_	[logic=NAND,
+		type=gate];
+	_0811_	[port=_0811_,
+		type=wire];
+	NAND_1867_ -> _0811_;
+	NAND_1871_	[logic=NAND,
+		type=gate];
+	_0811_ -> NAND_1871_;
+	_0781_	[port=_0781_,
+		type=wire];
+	_0781_ -> NAND_1867_;
+	_0781_ -> NAND_1868_;
+	_0297_	[port=_0297_,
+		type=wire];
+	_0297_ -> NAND_1867_;
+	_0297_ -> AND_1319_;
+	_0812_	[port=_0812_,
+		type=wire];
+	NAND_1868_ -> _0812_;
+	NAND_1870_	[logic=NAND,
+		type=gate];
+	_0812_ -> NAND_1870_;
+	_0814_	[port=_0814_,
+		type=wire];
+	NAND_1870_ -> _0814_;
+	_0814_ -> NAND_1871_;
+	_0813_	[port=_0813_,
+		type=wire];
+	_0813_ -> NAND_1870_;
+	_0191_	[port=_0191_,
+		type=wire];
+	NAND_1871_ -> _0191_;
+	DFF__2154_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0191_ -> DFF__2154_;
+	NAND_1873_ -> "y[0]";
+	_0816_	[port=_0816_,
+		type=wire];
+	NAND_1873_ -> _0816_;
+	NAND_1905_	[logic=NAND,
+		type=gate];
+	_0816_ -> NAND_1905_;
+	XNOR_1906_	[logic=XNOR,
+		type=gate];
+	_0816_ -> XNOR_1906_;
+	NAND_1885_	[logic=NAND,
+		type=gate];
+	_0192_	[port=_0192_,
+		type=wire];
+	NAND_1885_ -> _0192_;
+	DFF__2155_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0192_ -> DFF__2155_;
+	_0827_	[port=_0827_,
+		type=wire];
+	_0827_ -> NAND_1885_;
+	_0820_	[port=_0820_,
+		type=wire];
+	_0820_ -> NAND_1885_;
+	_0829_	[port=_0829_,
+		type=wire];
+	NAND_1887_ -> _0829_;
+	NAND_1918_	[logic=NAND,
+		type=gate];
+	_0829_ -> NAND_1918_;
+	NAND_1889_	[logic=NAND,
+		type=gate];
+	_0831_	[port=_0831_,
+		type=wire];
+	NAND_1889_ -> _0831_;
+	_0831_ -> NAND_1918_;
+	_0830_	[port=_0830_,
+		type=wire];
+	_0830_ -> NAND_1889_;
+	XOR_1890_	[logic=XOR,
+		type=gate];
+	_0830_ -> XOR_1890_;
+	_0828_	[port=_0828_,
+		type=wire];
+	_0828_ -> NAND_1889_;
+	_0828_ -> XOR_1890_;
+	_0833_	[port=_0833_,
+		type=wire];
+	NAND_1891_ -> _0833_;
+	NAND_1917_	[logic=NAND,
+		type=gate];
+	_0833_ -> NAND_1917_;
+	_0832_	[port=_0832_,
+		type=wire];
+	_0832_ -> NAND_1891_;
+	_0834_	[port=_0834_,
+		type=wire];
+	NAND_1892_ -> _0834_;
+	AND_1913_	[logic=AND,
+		type=gate];
+	_0834_ -> AND_1913_;
+	NAND_1893_ -> "y[1]";
+	_0835_	[port=_0835_,
+		type=wire];
+	NAND_1893_ -> _0835_;
+	NAND_1949_	[logic=NAND,
+		type=gate];
+	_0835_ -> NAND_1949_;
+	AND_1948_	[logic=AND,
+		type=gate];
+	_0835_ -> AND_1948_;
+	NAND_1896_	[logic=NAND,
+		type=gate];
+	_0838_	[port=_0838_,
+		type=wire];
+	NAND_1896_ -> _0838_;
+	_0838_ -> NAND_1949_;
+	_0838_ -> AND_1948_;
+	_0836_	[port=_0836_,
+		type=wire];
+	_0836_ -> NAND_1896_;
+	_0836_ -> XNOR_1906_;
+	_0815_	[port=_0815_,
+		type=wire];
+	_0815_ -> NAND_1896_;
+	XNOR_1897_	[logic=XNOR,
+		type=gate];
+	_0815_ -> XNOR_1897_;
+	NAND_1898_	[logic=NAND,
+		type=gate];
+	_0840_	[port=_0840_,
+		type=wire];
+	NAND_1898_ -> _0840_;
+	AND_1916_	[logic=AND,
+		type=gate];
+	_0840_ -> AND_1916_;
+	_0839_	[port=_0839_,
+		type=wire];
+	_0839_ -> NAND_1898_;
+	_0381_	[port=_0381_,
+		type=wire];
+	_0381_ -> NAND_1898_;
+	_0381_ -> NAND_1986_;
+	_0381_ -> NAND_1994_;
+	NAND_2067_	[logic=NAND,
+		type=gate];
+	_0381_ -> NAND_2067_;
+	NAND_2089_	[logic=NAND,
+		type=gate];
+	_0381_ -> NAND_2089_;
+	AND_1952_	[logic=AND,
+		type=gate];
+	_0381_ -> AND_1952_;
+	NAND_1899_ -> "x[1]";
+	_0841_	[port=_0841_,
+		type=wire];
+	NAND_1899_ -> _0841_;
+	NAND_1928_	[logic=NAND,
+		type=gate];
+	_0841_ -> NAND_1928_;
+	AND_1927_	[logic=AND,
+		type=gate];
+	_0841_ -> AND_1927_;
+	NAND_1902_	[logic=NAND,
+		type=gate];
+	_0844_	[port=_0844_,
+		type=wire];
+	NAND_1902_ -> _0844_;
+	_0844_ -> NAND_1928_;
+	_0844_ -> AND_1927_;
+	_0842_	[port=_0842_,
+		type=wire];
+	_0842_ -> NAND_1902_;
+	XNOR_1911_	[logic=XNOR,
+		type=gate];
+	_0842_ -> XNOR_1911_;
+	_0821_	[port=_0821_,
+		type=wire];
+	_0821_ -> NAND_1902_;
+	XNOR_1903_	[logic=XNOR,
+		type=gate];
+	_0821_ -> XNOR_1903_;
+	NAND_1904_	[logic=NAND,
+		type=gate];
+	_0846_	[port=_0846_,
+		type=wire];
+	NAND_1904_ -> _0846_;
+	AND_1914_	[logic=AND,
+		type=gate];
+	_0846_ -> AND_1914_;
+	_0845_	[port=_0845_,
+		type=wire];
+	_0845_ -> NAND_1904_;
+	_0265_	[port=_0265_,
+		type=wire];
+	_0265_ -> NAND_1904_;
+	_0265_ -> NAND_1973_;
+	_0265_ -> NAND_1990_;
+	NAND_2034_	[logic=NAND,
+		type=gate];
+	_0265_ -> NAND_2034_;
+	NAND_2058_	[logic=NAND,
+		type=gate];
+	_0265_ -> NAND_2058_;
+	NAND_2097_	[logic=NAND,
+		type=gate];
+	_0265_ -> NAND_2097_;
+	AND_1931_	[logic=AND,
+		type=gate];
+	_0265_ -> AND_1931_;
+	_0265_ -> NOR_1284_;
+	_0847_	[port=_0847_,
+		type=wire];
+	NAND_1905_ -> _0847_;
+	NAND_1944_	[logic=NAND,
+		type=gate];
+	_0847_ -> NAND_1944_;
+	_0837_	[port=_0837_,
+		type=wire];
+	_0837_ -> NAND_1905_;
+	_0837_ -> XNOR_1897_;
+	_0849_	[port=_0849_,
+		type=wire];
+	NAND_1907_ -> _0849_;
+	_0849_ -> AND_1913_;
+	_0848_	[port=_0848_,
+		type=wire];
+	_0848_ -> NAND_1907_;
+	_0850_	[port=_0850_,
+		type=wire];
+	NAND_1908_ -> _0850_;
+	NAND_1912_	[logic=NAND,
+		type=gate];
+	_0850_ -> NAND_1912_;
+	NAND_1939_	[logic=NAND,
+		type=gate];
+	_0850_ -> NAND_1939_;
+	_0850_ -> NAND_1970_;
+	_0850_ -> NAND_1989_;
+	NAND_2018_	[logic=NAND,
+		type=gate];
+	_0850_ -> NAND_2018_;
+	NAND_2073_	[logic=NAND,
+		type=gate];
+	_0850_ -> NAND_2073_;
+	AND_2108_	[logic=AND,
+		type=gate];
+	_0850_ -> AND_2108_;
+	NAND_1909_ -> "x[0]";
+	_0851_	[port=_0851_,
+		type=wire];
+	NAND_1909_ -> _0851_;
+	NAND_1910_	[logic=NAND,
+		type=gate];
+	_0851_ -> NAND_1910_;
+	_0851_ -> XNOR_1911_;
+	_0852_	[port=_0852_,
+		type=wire];
+	NAND_1910_ -> _0852_;
+	NAND_1936_	[logic=NAND,
+		type=gate];
+	_0852_ -> NAND_1936_;
+	_0843_	[port=_0843_,
+		type=wire];
+	_0843_ -> NAND_1910_;
+	_0843_ -> XNOR_1903_;
+	_0854_	[port=_0854_,
+		type=wire];
+	NAND_1912_ -> _0854_;
+	_0854_ -> AND_1914_;
+	_0853_	[port=_0853_,
+		type=wire];
+	_0853_ -> NAND_1912_;
+	_0193_	[port=_0193_,
+		type=wire];
+	NAND_1917_ -> _0193_;
+	DFF__2156_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0193_ -> DFF__2156_;
+	_0858_	[port=_0858_,
+		type=wire];
+	_0858_ -> NAND_1917_;
+	_0859_	[port=_0859_,
+		type=wire];
+	NAND_1918_ -> _0859_;
+	NAND_1921_	[logic=NAND,
+		type=gate];
+	_0859_ -> NAND_1921_;
+	XOR_1922_	[logic=XOR,
+		type=gate];
+	_0859_ -> XOR_1922_;
+	_0860_	[port=_0860_,
+		type=wire];
+	NAND_1919_ -> _0860_;
+	NAND_1958_	[logic=NAND,
+		type=gate];
+	_0860_ -> NAND_1958_;
+	_0342_	[port=_0342_,
+		type=wire];
+	_0342_ -> NAND_1919_;
+	_0342_ -> AND_1696_;
+	_0862_	[port=_0862_,
+		type=wire];
+	NAND_1921_ -> _0862_;
+	_0862_ -> NAND_1958_;
+	_0861_	[port=_0861_,
+		type=wire];
+	_0861_ -> NAND_1921_;
+	_0861_ -> XOR_1922_;
+	_0864_	[port=_0864_,
+		type=wire];
+	NAND_1923_ -> _0864_;
+	NAND_1957_	[logic=NAND,
+		type=gate];
+	_0864_ -> NAND_1957_;
+	_0863_	[port=_0863_,
+		type=wire];
+	_0863_ -> NAND_1923_;
+	NAND_1924_ -> "x[2]";
+	_0865_	[port=_0865_,
+		type=wire];
+	NAND_1924_ -> _0865_;
+	AND_1971_	[logic=AND,
+		type=gate];
+	_0865_ -> AND_1971_;
+	_0869_	[port=_0869_,
+		type=wire];
+	NAND_1928_ -> _0869_;
+	NAND_1929_	[logic=NAND,
+		type=gate];
+	_0869_ -> NAND_1929_;
+	_0870_	[port=_0870_,
+		type=wire];
+	NAND_1929_ -> _0870_;
+	NAND_1932_	[logic=NAND,
+		type=gate];
+	_0870_ -> NAND_1932_;
+	_0870_ -> AND_1971_;
+	_0866_	[port=_0866_,
+		type=wire];
+	_0866_ -> NAND_1929_;
+	XNOR_1938_	[logic=XNOR,
+		type=gate];
+	_0866_ -> XNOR_1938_;
+	NAND_1930_	[logic=NAND,
+		type=gate];
+	_0871_	[port=_0871_,
+		type=wire];
+	NAND_1930_ -> _0871_;
+	_0871_ -> AND_1931_;
+	_0868_	[port=_0868_,
+		type=wire];
+	_0868_ -> NAND_1930_;
+	_0867_	[port=_0867_,
+		type=wire];
+	_0867_ -> NAND_1930_;
+	NAND_1937_	[logic=NAND,
+		type=gate];
+	_0867_ -> NAND_1937_;
+	_0873_	[port=_0873_,
+		type=wire];
+	NAND_1932_ -> _0873_;
+	AND_1934_	[logic=AND,
+		type=gate];
+	_0873_ -> AND_1934_;
+	_0872_	[port=_0872_,
+		type=wire];
+	_0872_ -> NAND_1932_;
+	_0874_	[port=_0874_,
+		type=wire];
+	NAND_1933_ -> _0874_;
+	_0874_ -> AND_1934_;
+	_0876_	[port=_0876_,
+		type=wire];
+	NAND_1935_ -> _0876_;
+	_0876_ -> NAND_1936_;
+	_0877_	[port=_0877_,
+		type=wire];
+	NAND_1936_ -> _0877_;
+	_0877_ -> NAND_1937_;
+	_0877_ -> XNOR_1938_;
+	_0878_	[port=_0878_,
+		type=wire];
+	NAND_1937_ -> _0878_;
+	NAND_1968_	[logic=NAND,
+		type=gate];
+	_0878_ -> NAND_1968_;
+	_0880_	[port=_0880_,
+		type=wire];
+	NAND_1939_ -> _0880_;
+	AND_1955_	[logic=AND,
+		type=gate];
+	_0880_ -> AND_1955_;
+	_0879_	[port=_0879_,
+		type=wire];
+	_0879_ -> NAND_1939_;
+	NAND_1940_ -> "y[2]";
+	_0881_	[port=_0881_,
+		type=wire];
+	NAND_1940_ -> _0881_;
+	AND_1984_	[logic=AND,
+		type=gate];
+	_0881_ -> AND_1984_;
+	_0884_	[port=_0884_,
+		type=wire];
+	NAND_1943_ -> _0884_;
+	_0884_ -> NAND_1944_;
+	_0885_	[port=_0885_,
+		type=wire];
+	NAND_1944_ -> _0885_;
+	NAND_1945_	[logic=NAND,
+		type=gate];
+	_0885_ -> NAND_1945_;
+	XNOR_1946_	[logic=XNOR,
+		type=gate];
+	_0885_ -> XNOR_1946_;
+	_0886_	[port=_0886_,
+		type=wire];
+	NAND_1945_ -> _0886_;
+	NAND_1981_	[logic=NAND,
+		type=gate];
+	_0886_ -> NAND_1981_;
+	_0883_	[port=_0883_,
+		type=wire];
+	_0883_ -> NAND_1945_;
+	NAND_1950_	[logic=NAND,
+		type=gate];
+	_0883_ -> NAND_1950_;
+	_0888_	[port=_0888_,
+		type=wire];
+	NAND_1947_ -> _0888_;
+	AND_1954_	[logic=AND,
+		type=gate];
+	_0888_ -> AND_1954_;
+	_0887_	[port=_0887_,
+		type=wire];
+	_0887_ -> NAND_1947_;
+	_0890_	[port=_0890_,
+		type=wire];
+	NAND_1949_ -> _0890_;
+	NAND_1951_	[logic=NAND,
+		type=gate];
+	_0890_ -> NAND_1951_;
+	_0891_	[port=_0891_,
+		type=wire];
+	NAND_1950_ -> _0891_;
+	NAND_1953_	[logic=NAND,
+		type=gate];
+	_0891_ -> NAND_1953_;
+	_0889_	[port=_0889_,
+		type=wire];
+	_0889_ -> NAND_1950_;
+	_0892_	[port=_0892_,
+		type=wire];
+	NAND_1951_ -> _0892_;
+	_0892_ -> AND_1952_;
+	_0892_ -> AND_1984_;
+	_0882_	[port=_0882_,
+		type=wire];
+	_0882_ -> NAND_1951_;
+	_0882_ -> XNOR_1946_;
+	_0894_	[port=_0894_,
+		type=wire];
+	NAND_1953_ -> _0894_;
+	_0894_ -> AND_1954_;
+	_0893_	[port=_0893_,
+		type=wire];
+	_0893_ -> NAND_1953_;
+	_0194_	[port=_0194_,
+		type=wire];
+	NAND_1957_ -> _0194_;
+	DFF__2157_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0194_ -> DFF__2157_;
+	_0897_	[port=_0897_,
+		type=wire];
+	_0897_ -> NAND_1957_;
+	_0898_	[port=_0898_,
+		type=wire];
+	NAND_1958_ -> _0898_;
+	NOR_2004_	[logic=NOR,
+		type=gate];
+	_0898_ -> NOR_2004_;
+	XNOR_1962_	[logic=XNOR,
+		type=gate];
+	_0898_ -> XNOR_1962_;
+	_0903_	[port=_0903_,
+		type=wire];
+	NAND_1963_ -> _0903_;
+	NAND_2001_	[logic=NAND,
+		type=gate];
+	_0903_ -> NAND_2001_;
+	_0902_	[port=_0902_,
+		type=wire];
+	_0902_ -> NAND_1963_;
+	_0904_	[port=_0904_,
+		type=wire];
+	NAND_1964_ -> _0904_;
+	AND_2031_	[logic=AND,
+		type=gate];
+	_0904_ -> AND_2031_;
+	NAND_1965_ -> "x[3]";
+	_0905_	[port=_0905_,
+		type=wire];
+	NAND_1965_ -> _0905_;
+	_0905_ -> NAND_2030_;
+	_0907_	[port=_0907_,
+		type=wire];
+	NAND_1967_ -> _0907_;
+	_0907_ -> NAND_1968_;
+	NAND_1968_ -> _0908_;
+	_0910_	[port=_0910_,
+		type=wire];
+	NAND_1970_ -> _0910_;
+	NAND_1974_	[logic=NAND,
+		type=gate];
+	_0910_ -> NAND_1974_;
+	_0913_	[port=_0913_,
+		type=wire];
+	NAND_1973_ -> _0913_;
+	_0913_ -> NAND_1974_;
+	_0914_	[port=_0914_,
+		type=wire];
+	NAND_1974_ -> _0914_;
+	NAND_1975_	[logic=NAND,
+		type=gate];
+	_0914_ -> NAND_1975_;
+	_0915_	[port=_0915_,
+		type=wire];
+	NAND_1975_ -> _0915_;
+	AND_1999_	[logic=AND,
+		type=gate];
+	_0915_ -> AND_1999_;
+	_0906_	[port=_0906_,
+		type=wire];
+	_0906_ -> NAND_1975_;
+	NOR_1992_	[logic=NOR,
+		type=gate];
+	_0906_ -> NOR_1992_;
+	_0916_	[port=_0916_,
+		type=wire];
+	NAND_1976_ -> _0916_;
+	AND_1998_	[logic=AND,
+		type=gate];
+	_0916_ -> AND_1998_;
+	_0917_	[port=_0917_,
+		type=wire];
+	NAND_1977_ -> _0917_;
+	AND_2038_	[logic=AND,
+		type=gate];
+	_0917_ -> AND_2038_;
+	NAND_1978_ -> "y[3]";
+	_0918_	[port=_0918_,
+		type=wire];
+	NAND_1978_ -> _0918_;
+	_0918_ -> NAND_2037_;
+	_0920_	[port=_0920_,
+		type=wire];
+	NAND_1980_ -> _0920_;
+	_0920_ -> NAND_1981_;
+	NAND_1981_ -> _0921_;
+	_0923_	[port=_0923_,
+		type=wire];
+	NAND_1983_ -> _0923_;
+	AND_1987_	[logic=AND,
+		type=gate];
+	_0923_ -> AND_1987_;
+	_0926_	[port=_0926_,
+		type=wire];
+	NAND_1986_ -> _0926_;
+	_0926_ -> AND_1987_;
+	_0929_	[port=_0929_,
+		type=wire];
+	NAND_1989_ -> _0929_;
+	AND_1991_	[logic=AND,
+		type=gate];
+	_0929_ -> AND_1991_;
+	_0930_	[port=_0930_,
+		type=wire];
+	NAND_1990_ -> _0930_;
+	_0930_ -> AND_1991_;
+	_0933_	[port=_0933_,
+		type=wire];
+	NAND_1993_ -> _0933_;
+	NAND_1995_	[logic=NAND,
+		type=gate];
+	_0933_ -> NAND_1995_;
+	_0934_	[port=_0934_,
+		type=wire];
+	NAND_1994_ -> _0934_;
+	_0934_ -> NAND_1995_;
+	_0935_	[port=_0935_,
+		type=wire];
+	NAND_1995_ -> _0935_;
+	NAND_1996_	[logic=NAND,
+		type=gate];
+	_0935_ -> NAND_1996_;
+	_0936_	[port=_0936_,
+		type=wire];
+	NAND_1996_ -> _0936_;
+	_0936_ -> AND_1998_;
+	_0919_	[port=_0919_,
+		type=wire];
+	_0919_ -> NAND_1996_;
+	NOR_1988_	[logic=NOR,
+		type=gate];
+	_0919_ -> NOR_1988_;
+	_0195_	[port=_0195_,
+		type=wire];
+	NAND_2001_ -> _0195_;
+	DFF__2158_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0195_ -> DFF__2158_;
+	_0940_	[port=_0940_,
+		type=wire];
+	_0940_ -> NAND_2001_;
+	_0941_	[port=_0941_,
+		type=wire];
+	NAND_2002_ -> _0941_;
+	NAND_2047_	[logic=NAND,
+		type=gate];
+	_0941_ -> NAND_2047_;
+	_0355_	[port=_0355_,
+		type=wire];
+	_0355_ -> NAND_2002_;
+	NAND_2006_	[logic=NAND,
+		type=gate];
+	_0945_	[port=_0945_,
+		type=wire];
+	NAND_2006_ -> _0945_;
+	_0945_ -> NAND_2047_;
+	_0944_	[port=_0944_,
+		type=wire];
+	_0944_ -> NAND_2006_;
+	XOR_2007_	[logic=XOR,
+		type=gate];
+	_0944_ -> XOR_2007_;
+	_0942_	[port=_0942_,
+		type=wire];
+	_0942_ -> NAND_2006_;
+	_0942_ -> XOR_2007_;
+	_0947_	[port=_0947_,
+		type=wire];
+	NAND_2008_ -> _0947_;
+	NAND_2046_	[logic=NAND,
+		type=gate];
+	_0947_ -> NAND_2046_;
+	_0946_	[port=_0946_,
+		type=wire];
+	_0946_ -> NAND_2008_;
+	NAND_2009_ -> "x[4]";
+	_0948_	[port=_0948_,
+		type=wire];
+	NAND_2009_ -> _0948_;
+	AND_2056_	[logic=AND,
+		type=gate];
+	_0948_ -> AND_2056_;
+	NAND_2012_ -> "x[3]";
+	_0951_	[port=_0951_,
+		type=wire];
+	NAND_2012_ -> _0951_;
+	_0951_ -> NAND_2014_;
+	_0952_	[port=_0952_,
+		type=wire];
+	NAND_2013_ -> _0952_;
+	NAND_2015_	[logic=NAND,
+		type=gate];
+	_0952_ -> NAND_2015_;
+	_0953_	[port=_0953_,
+		type=wire];
+	NAND_2014_ -> _0953_;
+	_0953_ -> NAND_2015_;
+	_0954_	[port=_0954_,
+		type=wire];
+	NAND_2015_ -> _0954_;
+	NAND_2016_	[logic=NAND,
+		type=gate];
+	_0954_ -> NAND_2016_;
+	XNOR_2017_	[logic=XNOR,
+		type=gate];
+	_0954_ -> XNOR_2017_;
+	_0955_	[port=_0955_,
+		type=wire];
+	NAND_2016_ -> _0955_;
+	AND_2071_	[logic=AND,
+		type=gate];
+	_0955_ -> AND_2071_;
+	_0950_	[port=_0950_,
+		type=wire];
+	_0950_ -> NAND_2016_;
+	_0957_	[port=_0957_,
+		type=wire];
+	NAND_2018_ -> _0957_;
+	AND_2029_	[logic=AND,
+		type=gate];
+	_0957_ -> AND_2029_;
+	_0956_	[port=_0956_,
+		type=wire];
+	_0956_ -> NAND_2018_;
+	NAND_2019_ -> "y[4]";
+	_0958_	[port=_0958_,
+		type=wire];
+	NAND_2019_ -> _0958_;
+	AND_2065_	[logic=AND,
+		type=gate];
+	_0958_ -> AND_2065_;
+	NAND_2022_ -> "y[3]";
+	_0961_	[port=_0961_,
+		type=wire];
+	NAND_2022_ -> _0961_;
+	_0961_ -> NAND_2024_;
+	_0962_	[port=_0962_,
+		type=wire];
+	NAND_2023_ -> _0962_;
+	NAND_2025_	[logic=NAND,
+		type=gate];
+	_0962_ -> NAND_2025_;
+	_0963_	[port=_0963_,
+		type=wire];
+	NAND_2024_ -> _0963_;
+	_0963_ -> NAND_2025_;
+	_0964_	[port=_0964_,
+		type=wire];
+	NAND_2025_ -> _0964_;
+	NAND_2026_	[logic=NAND,
+		type=gate];
+	_0964_ -> NAND_2026_;
+	XNOR_2027_	[logic=XNOR,
+		type=gate];
+	_0964_ -> XNOR_2027_;
+	_0965_	[port=_0965_,
+		type=wire];
+	NAND_2026_ -> _0965_;
+	NAND_2075_	[logic=NAND,
+		type=gate];
+	_0965_ -> NAND_2075_;
+	_0960_	[port=_0960_,
+		type=wire];
+	_0960_ -> NAND_2026_;
+	_0967_	[port=_0967_,
+		type=wire];
+	NAND_2028_ -> _0967_;
+	_0967_ -> AND_2029_;
+	_0966_	[port=_0966_,
+		type=wire];
+	_0966_ -> NAND_2028_;
+	_0969_	[port=_0969_,
+		type=wire];
+	NAND_2030_ -> _0969_;
+	_0969_ -> AND_2031_;
+	NAND_2033_	[logic=NAND,
+		type=gate];
+	_0972_	[port=_0972_,
+		type=wire];
+	NAND_2033_ -> _0972_;
+	_0972_ -> NAND_2034_;
+	_0972_ -> AND_2056_;
+	_0970_	[port=_0970_,
+		type=wire];
+	_0970_ -> NAND_2033_;
+	NOR_2032_	[logic=NOR,
+		type=gate];
+	_0970_ -> NOR_2032_;
+	_0949_	[port=_0949_,
+		type=wire];
+	_0949_ -> NAND_2033_;
+	_0949_ -> NOR_2032_;
+	_0949_ -> XNOR_2017_;
+	_0973_	[port=_0973_,
+		type=wire];
+	NAND_2034_ -> _0973_;
+	NOR_2035_	[logic=NOR,
+		type=gate];
+	_0973_ -> NOR_2035_;
+	_0975_	[port=_0975_,
+		type=wire];
+	NAND_2036_ -> _0975_;
+	NAND_2043_	[logic=NAND,
+		type=gate];
+	_0975_ -> NAND_2043_;
+	_0976_	[port=_0976_,
+		type=wire];
+	NAND_2037_ -> _0976_;
+	_0976_ -> AND_2038_;
+	NAND_2040_	[logic=NAND,
+		type=gate];
+	_0979_	[port=_0979_,
+		type=wire];
+	NAND_2040_ -> _0979_;
+	NAND_2042_	[logic=NAND,
+		type=gate];
+	_0979_ -> NAND_2042_;
+	_0979_ -> AND_2065_;
+	_0977_	[port=_0977_,
+		type=wire];
+	_0977_ -> NAND_2040_;
+	NOR_2039_	[logic=NOR,
+		type=gate];
+	_0977_ -> NOR_2039_;
+	_0959_	[port=_0959_,
+		type=wire];
+	_0959_ -> NAND_2040_;
+	_0959_ -> NOR_2039_;
+	_0959_ -> XNOR_2027_;
+	_0981_	[port=_0981_,
+		type=wire];
+	NAND_2042_ -> _0981_;
+	_0981_ -> NAND_2043_;
+	_0980_	[port=_0980_,
+		type=wire];
+	_0980_ -> NAND_2042_;
+	_0982_	[port=_0982_,
+		type=wire];
+	NAND_2043_ -> _0982_;
+	NOR_2044_	[logic=NOR,
+		type=gate];
+	_0982_ -> NOR_2044_;
+	_0196_	[port=_0196_,
+		type=wire];
+	NAND_2046_ -> _0196_;
+	DFF__2159_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0196_ -> DFF__2159_;
+	_0984_	[port=_0984_,
+		type=wire];
+	_0984_ -> NAND_2046_;
+	_0985_	[port=_0985_,
+		type=wire];
+	NAND_2047_ -> _0985_;
+	AND_2081_	[logic=AND,
+		type=gate];
+	_0985_ -> AND_2081_;
+	XNOR_2051_	[logic=XNOR,
+		type=gate];
+	_0985_ -> XNOR_2051_;
+	_0987_	[port=_0987_,
+		type=wire];
+	NAND_2049_ -> _0987_;
+	_0987_ -> AND_2081_;
+	_0990_	[port=_0990_,
+		type=wire];
+	NAND_2052_ -> _0990_;
+	NAND_2080_	[logic=NAND,
+		type=gate];
+	_0990_ -> NAND_2080_;
+	_0989_	[port=_0989_,
+		type=wire];
+	_0989_ -> NAND_2052_;
+	_0991_	[port=_0991_,
+		type=wire];
+	NAND_2053_ -> _0991_;
+	AND_2094_	[logic=AND,
+		type=gate];
+	_0991_ -> AND_2094_;
+	NAND_2054_ -> "x[5]";
+	_0992_	[port=_0992_,
+		type=wire];
+	NAND_2054_ -> _0992_;
+	NAND_2093_	[logic=NAND,
+		type=gate];
+	_0992_ -> NAND_2093_;
+	_0996_	[port=_0996_,
+		type=wire];
+	NAND_2058_ -> _0996_;
+	AND_2069_	[logic=AND,
+		type=gate];
+	_0996_ -> AND_2069_;
+	_0995_	[port=_0995_,
+		type=wire];
+	_0995_ -> NAND_2058_;
+	_0997_	[port=_0997_,
+		type=wire];
+	NAND_2059_ -> _0997_;
+	AND_2068_	[logic=AND,
+		type=gate];
+	_0997_ -> AND_2068_;
+	NAND_2060_ -> "y[5]";
+	_0998_	[port=_0998_,
+		type=wire];
+	NAND_2060_ -> _0998_;
+	NAND_2099_	[logic=NAND,
+		type=gate];
+	_0998_ -> NAND_2099_;
+	_0999_	[port=_0999_,
+		type=wire];
+	NAND_2061_ -> _0999_;
+	AND_2100_	[logic=AND,
+		type=gate];
+	_0999_ -> AND_2100_;
+	_1000_	[port=_1000_,
+		type=wire];
+	NAND_2062_ -> _1000_;
+	AND_2086_	[logic=AND,
+		type=gate];
+	_1000_ -> AND_2086_;
+	NAND_2063_ -> "y[5]";
+	_1001_	[port=_1001_,
+		type=wire];
+	NAND_2063_ -> _1001_;
+	NAND_2085_	[logic=NAND,
+		type=gate];
+	_1001_ -> NAND_2085_;
+	_1005_	[port=_1005_,
+		type=wire];
+	NAND_2067_ -> _1005_;
+	_1005_ -> AND_2068_;
+	_1004_	[port=_1004_,
+		type=wire];
+	_1004_ -> NAND_2067_;
+	_1008_	[port=_1008_,
+		type=wire];
+	NAND_2070_ -> _1008_;
+	_1008_ -> AND_2071_;
+	_1011_	[port=_1011_,
+		type=wire];
+	NAND_2073_ -> _1011_;
+	AND_2078_	[logic=AND,
+		type=gate];
+	_1011_ -> AND_2078_;
+	_1010_	[port=_1010_,
+		type=wire];
+	_1010_ -> NAND_2073_;
+	_1012_	[port=_1012_,
+		type=wire];
+	NAND_2074_ -> _1012_;
+	_1012_ -> NAND_2075_;
+	_1013_	[port=_1013_,
+		type=wire];
+	NAND_2075_ -> _1013_;
+	_1013_ -> NAND_2099_;
+	XNOR_2076_	[logic=XNOR,
+		type=gate];
+	_1013_ -> XNOR_2076_;
+	_1015_	[port=_1015_,
+		type=wire];
+	NAND_2077_ -> _1015_;
+	_1015_ -> AND_2078_;
+	_1014_	[port=_1014_,
+		type=wire];
+	_1014_ -> NAND_2077_;
+	_0197_	[port=_0197_,
+		type=wire];
+	NAND_2080_ -> _0197_;
+	DFF__2160_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0197_ -> DFF__2160_;
+	_1017_	[port=_1017_,
+		type=wire];
+	_1017_ -> NAND_2080_;
+	_1021_	[port=_1021_,
+		type=wire];
+	NAND_2084_ -> _1021_;
+	NAND_2112_	[logic=NAND,
+		type=gate];
+	_1021_ -> NAND_2112_;
+	_1020_	[port=_1020_,
+		type=wire];
+	_1020_ -> NAND_2084_;
+	_1022_	[port=_1022_,
+		type=wire];
+	NAND_2085_ -> _1022_;
+	_1022_ -> AND_2086_;
+	_1003_	[port=_1003_,
+		type=wire];
+	_1003_ -> NAND_2085_;
+	XNOR_2066_	[logic=XNOR,
+		type=gate];
+	_1003_ -> XNOR_2066_;
+	_1026_	[port=_1026_,
+		type=wire];
+	NAND_2089_ -> _1026_;
+	AND_2091_	[logic=AND,
+		type=gate];
+	_1026_ -> AND_2091_;
+	_1025_	[port=_1025_,
+		type=wire];
+	_1025_ -> NAND_2089_;
+	_1027_	[port=_1027_,
+		type=wire];
+	NAND_2090_ -> _1027_;
+	_1027_ -> AND_2091_;
+	_1030_	[port=_1030_,
+		type=wire];
+	NAND_2093_ -> _1030_;
+	_1030_ -> AND_2094_;
+	_0994_	[port=_0994_,
+		type=wire];
+	_0994_ -> NAND_2093_;
+	XNOR_2057_	[logic=XNOR,
+		type=gate];
+	_0994_ -> XNOR_2057_;
+	NAND_2095_	[logic=NAND,
+		type=gate];
+	_1032_	[port=_1032_,
+		type=wire];
+	NAND_2095_ -> _1032_;
+	_1032_ -> NAND_2097_;
+	_1031_	[port=_1031_,
+		type=wire];
+	_1031_ -> NAND_2095_;
+	NOR_2096_	[logic=NOR,
+		type=gate];
+	_1031_ -> NOR_2096_;
+	_1029_	[port=_1029_,
+		type=wire];
+	_1029_ -> NAND_2095_;
+	_1029_ -> NOR_2096_;
+	XNOR_2107_	[logic=XNOR,
+		type=gate];
+	_1029_ -> XNOR_2107_;
+	_1034_	[port=_1034_,
+		type=wire];
+	NAND_2097_ -> _1034_;
+	NOR_2098_	[logic=NOR,
+		type=gate];
+	_1034_ -> NOR_2098_;
+	_1036_	[port=_1036_,
+		type=wire];
+	NAND_2099_ -> _1036_;
+	_1036_ -> AND_2100_;
+	_0200_	[port=_0200_,
+		type=wire];
+	NAND_2102_ -> _0200_;
+	AND_2110_	[logic=AND,
+		type=gate];
+	_0200_ -> AND_2110_;
+	_0199_	[port=_0199_,
+		type=wire];
+	_0199_ -> NAND_2102_;
+	_0201_	[port=_0201_,
+		type=wire];
+	NAND_2103_ -> _0201_;
+	NAND_2105_	[logic=NAND,
+		type=gate];
+	_0201_ -> NAND_2105_;
+	NAND_2104_ -> "x[5]";
+	_0202_	[port=_0202_,
+		type=wire];
+	NAND_2104_ -> _0202_;
+	AND_2106_	[logic=AND,
+		type=gate];
+	_0202_ -> AND_2106_;
+	_0203_	[port=_0203_,
+		type=wire];
+	NAND_2105_ -> _0203_;
+	_0203_ -> AND_2106_;
+	_1009_	[port=_1009_,
+		type=wire];
+	_1009_ -> NAND_2105_;
+	XOR_2072_	[logic=XOR,
+		type=gate];
+	_1009_ -> XOR_2072_;
+	_0198_	[port=_0198_,
+		type=wire];
+	NAND_2112_ -> _0198_;
+	DFF__2161_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0198_ -> DFF__2161_;
+	_0209_	[port=_0209_,
+		type=wire];
+	_0209_ -> NAND_2112_;
+	_0116_	[port=_0116_,
+		type=wire];
+	AND_1101_ -> _0116_;
+	_0116_ -> AND_1102_;
+	_0116_ -> XOR_1170_;
+	_0117_	[port=_0117_,
+		type=wire];
+	AND_1102_ -> _0117_;
+	_0117_ -> AND_1103_;
+	_0117_ -> XOR_1167_;
+	_0118_	[port=_0118_,
+		type=wire];
+	AND_1103_ -> _0118_;
+	_0118_ -> AND_1104_;
+	_0118_ -> XOR_1164_;
+	AND_1104_ -> _0119_;
+	AND_1106_ -> _0121_;
+	_0120_	[port=_0120_,
+		type=wire];
+	_0120_ -> AND_1106_;
+	AND_1107_ -> _0122_;
+	_0124_	[port=_0124_,
+		type=wire];
+	AND_1109_ -> _0124_;
+	_0124_ -> AND_1110_;
+	_0124_ -> XOR_1145_;
+	_0125_	[port=_0125_,
+		type=wire];
+	AND_1110_ -> _0125_;
+	AND_1114_	[logic=AND,
+		type=gate];
+	_0125_ -> AND_1114_;
+	_0125_ -> AND_1120_;
+	_0125_ -> NOR_1117_;
+	_0125_ -> XOR_1141_;
+	AND_1111_ -> _0126_;
+	AND_1114_ -> _0129_;
+	_0128_	[port=_0128_,
+		type=wire];
+	_0128_ -> AND_1114_;
+	_0134_	[port=_0134_,
+		type=wire];
+	AND_1120_ -> _0134_;
+	_0134_ -> AND_1121_;
+	_0134_ -> XOR_1137_;
+	_0135_	[port=_0135_,
+		type=wire];
+	AND_1121_ -> _0135_;
+	_0135_ -> AND_1122_;
+	_0135_ -> XOR_1133_;
+	_0136_	[port=_0136_,
+		type=wire];
+	AND_1122_ -> _0136_;
+	_0136_ -> AND_1128_;
+	AND_1125_ -> _0139_;
+	_0142_	[port=_0142_,
+		type=wire];
+	AND_1128_ -> _0142_;
+	_0142_ -> NOR_1129_;
+	AND_1155_ -> _0088_;
+	_0063_	[port=_0063_,
+		type=wire];
+	AND_1159_ -> _0063_;
+	_0063_ -> DFF__1214_;
+	_0061_	[port=_0061_,
+		type=wire];
+	AND_1163_ -> _0061_;
+	_0061_ -> DFF__1212_;
+	_0093_	[port=_0093_,
+		type=wire];
+	_0093_ -> AND_1163_;
+	_0056_	[port=_0056_,
+		type=wire];
+	AND_1177_ -> _0056_;
+	_0056_ -> DFF__1207_;
+	_0103_	[port=_0103_,
+		type=wire];
+	AND_1178_ -> _0103_;
+	_0103_ -> AND_1180_;
+	_0103_ -> AND_1184_;
+	_0103_ -> AND_1188_;
+	_0103_ -> NOR_1181_;
+	_0103_ -> NOR_1185_;
+	_0103_ -> NOR_1189_;
+	_0105_	[port=_0105_,
+		type=wire];
+	AND_1180_ -> _0105_;
+	NOR_1182_	[logic=NOR,
+		type=gate];
+	_0105_ -> NOR_1182_;
+	_0108_	[port=_0108_,
+		type=wire];
+	AND_1184_ -> _0108_;
+	NOR_1186_	[logic=NOR,
+		type=gate];
+	_0108_ -> NOR_1186_;
+	_0111_	[port=_0111_,
+		type=wire];
+	AND_1188_ -> _0111_;
+	NOR_1190_	[logic=NOR,
+		type=gate];
+	_0111_ -> NOR_1190_;
+	AND_1254_ -> _0237_;
+	AND_1256_ -> _0239_;
+	AND_1258_ -> _0241_;
+	AND_1264_ -> _0247_;
+	AND_1268_ -> _0251_;
+	AND_1269_ -> _0252_;
+	AND_1278_ -> _0260_;
+	AND_1281_ -> _0263_;
+	AND_1283_ -> _0265_;
+	_0155_	[port=_0155_,
+		type=wire];
+	AND_1287_ -> _0155_;
+	_0155_ -> DFF__2118_;
+	AND_1289_ -> _0270_;
+	AND_1301_ -> _0281_;
+	AND_1307_ -> _0287_;
+	AND_1311_ -> _0291_;
+	AND_1315_ -> _0295_;
+	AND_1319_ -> _0299_;
+	AND_1321_ -> _0301_;
+	AND_1328_ -> _0307_;
+	_0306_	[port=_0306_,
+		type=wire];
+	_0306_ -> AND_1328_;
+	AND_1335_	[logic=AND,
+		type=gate];
+	AND_1335_ -> _0313_;
+	_0312_	[port=_0312_,
+		type=wire];
+	_0312_ -> AND_1335_;
+	_0311_	[port=_0311_,
+		type=wire];
+	_0311_ -> AND_1335_;
+	AND_1338_	[logic=AND,
+		type=gate];
+	AND_1338_ -> _0316_;
+	_0315_	[port=_0315_,
+		type=wire];
+	_0315_ -> AND_1338_;
+	_0314_	[port=_0314_,
+		type=wire];
+	_0314_ -> AND_1338_;
+	AND_1342_ -> _0320_;
+	AND_1345_ -> _0323_;
+	"SW[5]"	[port=SW,
+		type=input];
+	"SW[5]" -> AND_1345_;
+	"SW[5]" -> AND_1365_;
+	AND_1346_ -> _0324_;
+	AND_1348_ -> _0326_;
+	AND_1350_ -> _0328_;
+	_0329_	[port=_0329_,
+		type=wire];
+	AND_1351_ -> _0329_;
+	NOR_1352_	[logic=NOR,
+		type=gate];
+	_0329_ -> NOR_1352_;
+	AND_1360_ -> _0337_;
+	AND_1363_ -> "y[2]";
+	AND_1363_ -> _0339_;
+	AND_1365_ -> _0341_;
+	AND_1366_ -> _0342_;
+	AND_1369_ -> _0345_;
+	AND_1372_ -> "y[3]";
+	AND_1372_ -> _0347_;
+	AND_1376_ -> _0351_;
+	AND_1379_ -> "y[4]";
+	AND_1379_ -> _0353_;
+	AND_1381_ -> _0355_;
+	AND_1384_ -> _0358_;
+	AND_1390_ -> _0363_;
+	AND_1394_ -> "y[6]";
+	AND_1394_ -> _0366_;
+	AND_1409_ -> "y[0]";
+	AND_1409_ -> _0377_;
+	AND_1413_ -> _0381_;
+	_0400_	[port=_0400_,
+		type=wire];
+	AND_1433_ -> _0400_;
+	_0400_ -> AND_1451_;
+	AND_1440_ -> "x[0]";
+	AND_1440_ -> _0407_;
+	AND_1444_ -> _0411_;
+	AND_1448_ -> _0415_;
+	AND_1450_ -> _0417_;
+	_0418_	[port=_0418_,
+		type=wire];
+	AND_1451_ -> _0418_;
+	_0418_ -> AND_1452_;
+	AND_1452_ -> _0419_;
+	_0429_	[port=_0429_,
+		type=wire];
+	AND_1463_ -> _0429_;
+	_0429_ -> AND_1464_;
+	_0430_	[port=_0430_,
+		type=wire];
+	AND_1464_ -> _0430_;
+	_0430_ -> AND_1487_;
+	AND_1473_ -> _0439_;
+	AND_1477_ -> _0443_;
+	AND_1480_ -> _0446_;
+	AND_1484_ -> _0450_;
+	AND_1486_ -> _0452_;
+	AND_1487_ -> _0453_;
+	_0456_	[port=_0456_,
+		type=wire];
+	AND_1491_ -> _0456_;
+	_0456_ -> AND_1512_;
+	AND_1495_ -> _0460_;
+	AND_1506_ -> _0471_;
+	AND_1509_ -> _0474_;
+	AND_1512_ -> _0477_;
+	_0478_	[port=_0478_,
+		type=wire];
+	AND_1513_ -> _0478_;
+	_0478_ -> AND_1514_;
+	AND_1514_ -> _0479_;
+	AND_1520_ -> _0484_;
+	AND_1528_ -> _0492_;
+	AND_1537_ -> _0501_;
+	_0500_	[port=_0500_,
+		type=wire];
+	_0500_ -> AND_1537_;
+	AND_1542_ -> _0506_;
+	AND_1545_ -> _0509_;
+	AND_1550_ -> _0514_;
+	AND_1554_ -> _0518_;
+	AND_1561_ -> _0524_;
+	AND_1565_ -> _0528_;
+	_0533_	[port=_0533_,
+		type=wire];
+	AND_1570_ -> _0533_;
+	_0533_ -> AND_1580_;
+	AND_1572_ -> _0535_;
+	AND_1575_ -> _0538_;
+	_0543_	[port=_0543_,
+		type=wire];
+	AND_1580_ -> _0543_;
+	_0543_ -> AND_1581_;
+	AND_1581_ -> _0544_;
+	AND_1587_ -> _0549_;
+	_0555_	[port=_0555_,
+		type=wire];
+	AND_1593_ -> _0555_;
+	_0555_ -> AND_1602_;
+	AND_1598_ -> _0560_;
+	_0564_	[port=_0564_,
+		type=wire];
+	AND_1602_ -> _0564_;
+	_0564_ -> AND_1603_;
+	AND_1603_ -> _0565_;
+	AND_1607_ -> _0569_;
+	AND_1614_ -> _0576_;
+	AND_1618_ -> _0580_;
+	AND_1620_ -> _0582_;
+	_0583_	[port=_0583_,
+		type=wire];
+	AND_1622_ -> _0583_;
+	_0583_ -> XNOR_1623_;
+	_0588_	[port=_0588_,
+		type=wire];
+	AND_1627_ -> _0588_;
+	_0588_ -> AND_1640_;
+	_0590_	[port=_0590_,
+		type=wire];
+	AND_1629_ -> _0590_;
+	XNOR_1630_	[logic=XNOR,
+		type=gate];
+	_0590_ -> XNOR_1630_;
+	AND_1640_ -> _0601_;
+	_0602_	[port=_0602_,
+		type=wire];
+	AND_1641_ -> _0602_;
+	_0602_ -> AND_1642_;
+	AND_1642_ -> _0603_;
+	_0606_	[port=_0606_,
+		type=wire];
+	AND_1647_ -> _0606_;
+	_0606_ -> NOR_1649_;
+	AND_1648_ -> _0607_;
+	AND_1653_ -> _0611_;
+	_0610_	[port=_0610_,
+		type=wire];
+	_0610_ -> AND_1653_;
+	_0610_ -> XOR_1654_;
+	AND_1655_ -> _0613_;
+	AND_1660_ -> _0618_;
+	AND_1662_ -> _0620_;
+	_0623_	[port=_0623_,
+		type=wire];
+	AND_1665_ -> _0623_;
+	_0623_ -> AND_1666_;
+	AND_1666_ -> _0624_;
+	AND_1668_ -> _0625_;
+	AND_1670_	[logic=AND,
+		type=gate];
+	AND_1670_ -> "x[0]";
+	AND_1670_ -> "x[1]";
+	_0627_	[port=_0627_,
+		type=wire];
+	AND_1670_ -> _0627_;
+	AND_1702_	[logic=AND,
+		type=gate];
+	_0627_ -> AND_1702_;
+	_0627_ -> XNOR_1703_;
+	_0644_	[port=_0644_,
+		type=wire];
+	AND_1687_ -> _0644_;
+	AND_1720_	[logic=AND,
+		type=gate];
+	_0644_ -> AND_1720_;
+	NOR_1722_	[logic=NOR,
+		type=gate];
+	_0644_ -> NOR_1722_;
+	_0643_	[port=_0643_,
+		type=wire];
+	_0643_ -> AND_1687_;
+	_0643_ -> XOR_1688_;
+	AND_1691_ -> _0648_;
+	_0651_	[port=_0651_,
+		type=wire];
+	AND_1694_ -> _0651_;
+	NOR_1698_	[logic=NOR,
+		type=gate];
+	_0651_ -> NOR_1698_;
+	_0652_	[port=_0652_,
+		type=wire];
+	AND_1695_ -> _0652_;
+	_0652_ -> AND_1728_;
+	NOR_1697_	[logic=NOR,
+		type=gate];
+	_0652_ -> NOR_1697_;
+	_0652_ -> XNOR_1729_;
+	_0653_	[port=_0653_,
+		type=wire];
+	AND_1696_ -> _0653_;
+	_0653_ -> NOR_1697_;
+	AND_1702_ -> "x[2]";
+	_0658_	[port=_0658_,
+		type=wire];
+	AND_1702_ -> _0658_;
+	AND_1734_	[logic=AND,
+		type=gate];
+	_0658_ -> AND_1734_;
+	_0658_ -> XNOR_1735_;
+	XNOR_1736_	[logic=XNOR,
+		type=gate];
+	_0658_ -> XNOR_1736_;
+	_0668_	[port=_0668_,
+		type=wire];
+	AND_1712_ -> _0668_;
+	AND_1745_	[logic=AND,
+		type=gate];
+	_0668_ -> AND_1745_;
+	XOR_1746_	[logic=XOR,
+		type=gate];
+	_0668_ -> XOR_1746_;
+	_0667_	[port=_0667_,
+		type=wire];
+	_0667_ -> AND_1712_;
+	_0667_ -> XOR_1713_;
+	AND_1720_ -> _0676_;
+	_0675_	[port=_0675_,
+		type=wire];
+	_0675_ -> AND_1720_;
+	_0675_ -> NOR_1722_;
+	_0684_	[port=_0684_,
+		type=wire];
+	AND_1728_ -> _0684_;
+	_0684_ -> AND_1759_;
+	_0684_ -> XNOR_1760_;
+	AND_1730_ -> _0686_;
+	_0685_	[port=_0685_,
+		type=wire];
+	_0685_ -> AND_1730_;
+	AND_1734_ -> "x[3]";
+	_0689_	[port=_0689_,
+		type=wire];
+	AND_1734_ -> _0689_;
+	AND_1764_	[logic=AND,
+		type=gate];
+	_0689_ -> AND_1764_;
+	_0689_ -> XNOR_1765_;
+	_0700_	[port=_0700_,
+		type=wire];
+	AND_1745_ -> _0700_;
+	AND_1776_	[logic=AND,
+		type=gate];
+	_0700_ -> AND_1776_;
+	XOR_1777_	[logic=XOR,
+		type=gate];
+	_0700_ -> XOR_1777_;
+	_0699_	[port=_0699_,
+		type=wire];
+	_0699_ -> AND_1745_;
+	_0699_ -> XOR_1746_;
+	_0708_	[port=_0708_,
+		type=wire];
+	AND_1753_ -> _0708_;
+	AND_1784_	[logic=AND,
+		type=gate];
+	_0708_ -> AND_1784_;
+	NOR_1786_	[logic=NOR,
+		type=gate];
+	_0708_ -> NOR_1786_;
+	_0707_	[port=_0707_,
+		type=wire];
+	_0707_ -> AND_1753_;
+	_0707_ -> XNOR_1754_;
+	_0714_	[port=_0714_,
+		type=wire];
+	AND_1759_ -> _0714_;
+	_0714_ -> AND_1792_;
+	_0714_ -> XNOR_1793_;
+	AND_1761_ -> _0716_;
+	_0715_	[port=_0715_,
+		type=wire];
+	_0715_ -> AND_1761_;
+	AND_1764_ -> "x[4]";
+	_0718_	[port=_0718_,
+		type=wire];
+	AND_1764_ -> _0718_;
+	AND_1798_	[logic=AND,
+		type=gate];
+	_0718_ -> AND_1798_;
+	_0718_ -> XNOR_1799_;
+	XNOR_1800_	[logic=XNOR,
+		type=gate];
+	_0718_ -> XNOR_1800_;
+	_0730_	[port=_0730_,
+		type=wire];
+	AND_1776_ -> _0730_;
+	AND_1809_	[logic=AND,
+		type=gate];
+	_0730_ -> AND_1809_;
+	XOR_1810_	[logic=XOR,
+		type=gate];
+	_0730_ -> XOR_1810_;
+	_0729_	[port=_0729_,
+		type=wire];
+	_0729_ -> AND_1776_;
+	_0729_ -> XOR_1777_;
+	AND_1784_ -> _0738_;
+	_0737_	[port=_0737_,
+		type=wire];
+	_0737_ -> AND_1784_;
+	_0737_ -> NOR_1786_;
+	_0746_	[port=_0746_,
+		type=wire];
+	AND_1792_ -> _0746_;
+	_0746_ -> AND_1824_;
+	_0746_ -> AND_1844_;
+	AND_1794_ -> _0748_;
+	_0747_	[port=_0747_,
+		type=wire];
+	_0747_ -> AND_1794_;
+	AND_1798_ -> "x[5]";
+	_0751_	[port=_0751_,
+		type=wire];
+	AND_1798_ -> _0751_;
+	AND_1829_	[logic=AND,
+		type=gate];
+	_0751_ -> AND_1829_;
+	_0751_ -> XNOR_1830_;
+	_0762_	[port=_0762_,
+		type=wire];
+	AND_1809_ -> _0762_;
+	XNOR_1835_	[logic=XNOR,
+		type=gate];
+	_0762_ -> XNOR_1835_;
+	_0761_	[port=_0761_,
+		type=wire];
+	_0761_ -> AND_1809_;
+	_0761_ -> XOR_1810_;
+	AND_1824_ -> _0777_;
+	_0780_	[port=_0780_,
+		type=wire];
+	AND_1828_ -> _0780_;
+	XNOR_1833_	[logic=XNOR,
+		type=gate];
+	_0780_ -> XNOR_1833_;
+	AND_1829_ -> "x[6]";
+	AND_1829_ -> _0781_;
+	AND_1844_ -> _0796_;
+	AND_1869_ -> _0813_;
+	"x[7]"	[port=x,
+		type=output];
+	AND_1869_ -> "x[7]";
+	"x[7]" -> "module#top";
+	AND_1872_ -> "y[0]";
+	AND_1872_ -> _0815_;
+	_0819_	[port=_0819_,
+		type=wire];
+	AND_1876_ -> _0819_;
+	NOR_1877_	[logic=NOR,
+		type=gate];
+	_0819_ -> NOR_1877_;
+	AND_1878_ -> "x[0]";
+	AND_1878_ -> _0821_;
+	_0823_	[port=_0823_,
+		type=wire];
+	AND_1880_ -> _0823_;
+	NOR_1884_	[logic=NOR,
+		type=gate];
+	_0823_ -> NOR_1884_;
+	_0822_	[port=_0822_,
+		type=wire];
+	_0822_ -> AND_1880_;
+	_0825_	[port=_0825_,
+		type=wire];
+	AND_1882_ -> _0825_;
+	NOR_1883_	[logic=NOR,
+		type=gate];
+	_0825_ -> NOR_1883_;
+	AND_1886_ -> _0828_;
+	_0327_	[port=_0327_,
+		type=wire];
+	_0327_ -> AND_1886_;
+	_0327_ -> NOR_1352_;
+	_0327_ -> NOR_1881_;
+	_0855_	[port=_0855_,
+		type=wire];
+	AND_1913_ -> _0855_;
+	AND_1915_	[logic=AND,
+		type=gate];
+	_0855_ -> AND_1915_;
+	_0856_	[port=_0856_,
+		type=wire];
+	AND_1914_ -> _0856_;
+	_0856_ -> AND_1915_;
+	_0857_	[port=_0857_,
+		type=wire];
+	AND_1915_ -> _0857_;
+	_0857_ -> AND_1916_;
+	AND_1916_ -> _0858_;
+	AND_1927_ -> _0868_;
+	AND_1931_ -> _0872_;
+	_0875_	[port=_0875_,
+		type=wire];
+	AND_1934_ -> _0875_;
+	AND_1956_	[logic=AND,
+		type=gate];
+	_0875_ -> AND_1956_;
+	AND_1948_ -> _0889_;
+	AND_1952_ -> _0893_;
+	_0895_	[port=_0895_,
+		type=wire];
+	AND_1954_ -> _0895_;
+	_0895_ -> AND_1955_;
+	_0896_	[port=_0896_,
+		type=wire];
+	AND_1955_ -> _0896_;
+	_0896_ -> AND_1956_;
+	AND_1956_ -> _0897_;
+	_0900_	[port=_0900_,
+		type=wire];
+	AND_1960_ -> _0900_;
+	NOR_2005_	[logic=NOR,
+		type=gate];
+	_0900_ -> NOR_2005_;
+	AND_1971_ -> _0911_;
+	AND_1984_ -> _0924_;
+	_0927_	[port=_0927_,
+		type=wire];
+	AND_1987_ -> _0927_;
+	_0927_ -> NOR_1988_;
+	_0931_	[port=_0931_,
+		type=wire];
+	AND_1991_ -> _0931_;
+	_0931_ -> NOR_1992_;
+	_0938_	[port=_0938_,
+		type=wire];
+	AND_1998_ -> _0938_;
+	_0938_ -> AND_1999_;
+	_0939_	[port=_0939_,
+		type=wire];
+	AND_1999_ -> _0939_;
+	AND_2000_	[logic=AND,
+		type=gate];
+	_0939_ -> AND_2000_;
+	AND_2000_ -> _0940_;
+	_0937_	[port=_0937_,
+		type=wire];
+	_0937_ -> AND_2000_;
+	_0968_	[port=_0968_,
+		type=wire];
+	AND_2029_ -> _0968_;
+	AND_2045_	[logic=AND,
+		type=gate];
+	_0968_ -> AND_2045_;
+	AND_2031_ -> _0970_;
+	AND_2038_ -> _0977_;
+	AND_2045_ -> _0984_;
+	_0983_	[port=_0983_,
+		type=wire];
+	_0983_ -> AND_2045_;
+	AND_2056_ -> _0994_;
+	AND_2065_ -> _1003_;
+	_1006_	[port=_1006_,
+		type=wire];
+	AND_2068_ -> _1006_;
+	_1006_ -> AND_2069_;
+	_1007_	[port=_1007_,
+		type=wire];
+	AND_2069_ -> _1007_;
+	AND_2079_	[logic=AND,
+		type=gate];
+	_1007_ -> AND_2079_;
+	AND_2071_ -> _1009_;
+	_1016_	[port=_1016_,
+		type=wire];
+	AND_2078_ -> _1016_;
+	_1016_ -> AND_2079_;
+	AND_2079_ -> _1017_;
+	_1018_	[port=_1018_,
+		type=wire];
+	AND_2081_ -> _1018_;
+	NOR_2082_	[logic=NOR,
+		type=gate];
+	_1018_ -> NOR_2082_;
+	_1023_	[port=_1023_,
+		type=wire];
+	AND_2086_ -> _1023_;
+	XNOR_2088_	[logic=XNOR,
+		type=gate];
+	_1023_ -> XNOR_2088_;
+	_1028_	[port=_1028_,
+		type=wire];
+	AND_2091_ -> _1028_;
+	AND_2111_	[logic=AND,
+		type=gate];
+	_1028_ -> AND_2111_;
+	AND_2094_ -> _1031_;
+	_1037_	[port=_1037_,
+		type=wire];
+	AND_2100_ -> _1037_;
+	XNOR_2101_	[logic=XNOR,
+		type=gate];
+	_1037_ -> XNOR_2101_;
+	_0204_	[port=_0204_,
+		type=wire];
+	AND_2106_ -> _0204_;
+	_0204_ -> XNOR_2107_;
+	_0206_	[port=_0206_,
+		type=wire];
+	AND_2108_ -> _0206_;
+	NOR_2109_	[logic=NOR,
+		type=gate];
+	_0206_ -> NOR_2109_;
+	_0205_	[port=_0205_,
+		type=wire];
+	_0205_ -> AND_2108_;
+	_0208_	[port=_0208_,
+		type=wire];
+	AND_2110_ -> _0208_;
+	_0208_ -> AND_2111_;
+	_0207_	[port=_0207_,
+		type=wire];
+	_0207_ -> AND_2110_;
+	AND_2111_ -> _0209_;
+	NOR_1105_ -> _0120_;
+	NOR_1113_ -> _0128_;
+	_0131_	[port=_0131_,
+		type=wire];
+	NOR_1117_ -> _0131_;
+	_0131_ -> NOR_1118_;
+	_0132_	[port=_0132_,
+		type=wire];
+	NOR_1118_ -> _0132_;
+	_0132_ -> NOR_1119_;
+	NOR_1119_ -> _0133_;
+	NOR_1123_ -> _0137_;
+	_0143_	[port=_0143_,
+		type=wire];
+	NOR_1129_ -> _0143_;
+	NOR_1131_	[logic=NOR,
+		type=gate];
+	_0143_ -> NOR_1131_;
+	_0144_	[port=_0144_,
+		type=wire];
+	NOR_1130_ -> _0144_;
+	_0144_ -> NOR_1131_;
+	_0070_	[port=_0070_,
+		type=wire];
+	NOR_1131_ -> _0070_;
+	_0070_ -> DFF__1221_;
+	_0092_	[port=_0092_,
+		type=wire];
+	NOR_1160_ -> _0092_;
+	_0092_ -> NOR_1161_;
+	_0062_	[port=_0062_,
+		type=wire];
+	NOR_1161_ -> _0062_;
+	_0062_ -> DFF__1213_;
+	NOR_1162_ -> _0093_;
+	_0106_	[port=_0106_,
+		type=wire];
+	NOR_1181_ -> _0106_;
+	_0106_ -> NOR_1182_;
+	_0072_	[port=_0072_,
+		type=wire];
+	NOR_1182_ -> _0072_;
+	DFF__1223_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0072_ -> DFF__1223_;
+	_0109_	[port=_0109_,
+		type=wire];
+	NOR_1185_ -> _0109_;
+	_0109_ -> NOR_1186_;
+	_0073_	[port=_0073_,
+		type=wire];
+	NOR_1186_ -> _0073_;
+	DFF__1224_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0073_ -> DFF__1224_;
+	_0112_	[port=_0112_,
+		type=wire];
+	NOR_1189_ -> _0112_;
+	_0112_ -> NOR_1190_;
+	_0074_	[port=_0074_,
+		type=wire];
+	NOR_1190_ -> _0074_;
+	DFF__1225_	[clock=CLOCK_50,
+		reset=None,
+		type=FF];
+	_0074_ -> DFF__1225_;
+	NOR_1253_ -> _0236_;
+	NOR_1260_	[logic=NOR,
+		type=gate];
+	NOR_1260_ -> "y[0]";
+	NOR_1260_ -> "y[1]";
+	NOR_1260_ -> _0243_;
+	NOR_1263_ -> "y[3]";
+	NOR_1263_ -> _0246_;
+	NOR_1267_ -> "y[6]";
+	NOR_1267_ -> _0250_;
+	_0255_	[port=_0255_,
+		type=wire];
+	NOR_1272_ -> _0255_;
+	_0255_ -> NOR_1273_;
+	_0256_	[port=_0256_,
+		type=wire];
+	NOR_1273_ -> _0256_;
+	NOR_1275_	[logic=NOR,
+		type=gate];
+	_0256_ -> NOR_1275_;
+	_0257_	[port=_0257_,
+		type=wire];
+	NOR_1274_ -> _0257_;
+	_0257_ -> NOR_1275_;
+	_0156_	[port=_0156_,
+		type=wire];
+	NOR_1275_ -> _0156_;
+	_0156_ -> DFF__2119_;
+	NOR_1277_ -> _0259_;
+	NOR_1284_ -> _0266_;
+	NOR_1317_ -> _0297_;
+	NOR_1317_ -> "x[7]";
+	_0302_	[port=_0302_,
+		type=wire];
+	NOR_1323_ -> _0302_;
+	_0302_ -> NOR_1327_;
+	"KEY_N[0]"	[port=KEY_N,
+		type=input];
+	"KEY_N[0]" -> NOR_1323_;
+	NOR_1327_ -> _0306_;
+	NOR_1333_ -> _0311_;
+	NOR_1334_ -> _0312_;
+	NOR_1336_ -> _0314_;
+	NOR_1337_ -> _0315_;
+	"T3d[0]"	[port=T3d,
+		type=wire];
+	"T3d[0]" -> NOR_1337_;
+	"T3d[0]" -> NOR_1644_;
+	NOR_1343_ -> _0321_;
+	NOR_1349_ -> _0327_;
+	NOR_1352_ -> _0330_;
+	_0383_	[port=_0383_,
+		type=wire];
+	NOR_1415_ -> _0383_;
+	NOR_1418_	[logic=NOR,
+		type=gate];
+	_0383_ -> NOR_1418_;
+	NOR_1875_	[logic=NOR,
+		type=gate];
+	_0383_ -> NOR_1875_;
+	_0386_	[port=_0386_,
+		type=wire];
+	NOR_1418_ -> _0386_;
+	_0386_ -> NOR_1422_;
+	_0385_	[port=_0385_,
+		type=wire];
+	_0385_ -> NOR_1418_;
+	NOR_1422_ -> _0390_;
+	_0493_	[port=_0493_,
+		type=wire];
+	NOR_1529_ -> _0493_;
+	_0493_ -> NOR_1532_;
+	_0496_	[port=_0496_,
+		type=wire];
+	NOR_1532_ -> _0496_;
+	_0496_ -> NOR_1536_;
+	NOR_1536_ -> _0500_;
+	NOR_1644_ -> _0604_;
+	NOR_1649_ -> _0608_;
+	_0646_	[port=_0646_,
+		type=wire];
+	NOR_1689_ -> _0646_;
+	_0646_ -> NOR_1690_;
+	_0645_	[port=_0645_,
+		type=wire];
+	_0645_ -> NOR_1689_;
+	NOR_1690_ -> _0647_;
+	_0654_	[port=_0654_,
+		type=wire];
+	NOR_1697_ -> _0654_;
+	_0654_ -> NOR_1698_;
+	NOR_1698_ -> _0655_;
+	_0678_	[port=_0678_,
+		type=wire];
+	NOR_1722_ -> _0678_;
+	_0678_ -> NOR_1723_;
+	NOR_1723_ -> _0679_;
+	_0740_	[port=_0740_,
+		type=wire];
+	NOR_1786_ -> _0740_;
+	_0740_ -> NOR_1787_;
+	NOR_1787_ -> _0741_;
+	_0770_	[port=_0770_,
+		type=wire];
+	NOR_1817_ -> _0770_;
+	_0770_ -> NOR_1819_;
+	NOR_1819_ -> _0772_;
+	_0818_	[port=_0818_,
+		type=wire];
+	NOR_1875_ -> _0818_;
+	_0818_ -> NOR_1877_;
+	_0817_	[port=_0817_,
+		type=wire];
+	_0817_ -> NOR_1875_;
+	NOR_1877_ -> _0820_;
+	_0824_	[port=_0824_,
+		type=wire];
+	NOR_1881_ -> _0824_;
+	_0824_ -> NOR_1883_;
+	_0826_	[port=_0826_,
+		type=wire];
+	NOR_1883_ -> _0826_;
+	_0826_ -> NOR_1884_;
+	NOR_1884_ -> _0827_;
+	_0899_	[port=_0899_,
+		type=wire];
+	NOR_1959_ -> _0899_;
+	_0899_ -> NOR_2004_;
+	_0928_	[port=_0928_,
+		type=wire];
+	NOR_1988_ -> _0928_;
+	NOR_1997_	[logic=NOR,
+		type=gate];
+	_0928_ -> NOR_1997_;
+	_0932_	[port=_0932_,
+		type=wire];
+	NOR_1992_ -> _0932_;
+	_0932_ -> NOR_1997_;
+	NOR_1997_ -> _0937_;
+	_0943_	[port=_0943_,
+		type=wire];
+	NOR_2004_ -> _0943_;
+	_0943_ -> NOR_2005_;
+	NOR_2005_ -> _0944_;
+	_0971_	[port=_0971_,
+		type=wire];
+	NOR_2032_ -> _0971_;
+	_0971_ -> NOR_2035_;
+	_0974_	[port=_0974_,
+		type=wire];
+	NOR_2035_ -> _0974_;
+	_0974_ -> NOR_2044_;
+	_0978_	[port=_0978_,
+		type=wire];
+	NOR_2039_ -> _0978_;
+	_0978_ -> NOR_2041_;
+	NOR_2041_ -> _0980_;
+	NOR_2044_ -> _0983_;
+	_0986_	[port=_0986_,
+		type=wire];
+	NOR_2048_ -> _0986_;
+	_0986_ -> NOR_2082_;
+	_1019_	[port=_1019_,
+		type=wire];
+	NOR_2082_ -> _1019_;
+	_1019_ -> XNOR_2083_;
+	_1033_	[port=_1033_,
+		type=wire];
+	NOR_2096_ -> _1033_;
+	_1033_ -> NOR_2098_;
+	_1035_	[port=_1035_,
+		type=wire];
+	NOR_2098_ -> _1035_;
+	_1035_ -> NOR_2109_;
+	NOR_2109_ -> _0207_;
+	XOR_1133_ -> _0146_;
+	XOR_1137_ -> _0075_;
+	XOR_1141_ -> _0078_;
+	XOR_1145_ -> _0081_;
+	XOR_1149_ -> _0084_;
+	XOR_1164_ -> _0094_;
+	XOR_1167_ -> _0096_;
+	XOR_1170_ -> _0098_;
+	XOR_1173_ -> _0100_;
+	XOR_1282_ -> _0264_;
+	XOR_1411_ -> "y[0]";
+	XOR_1411_ -> _0379_;
+	XOR_1425_ -> "y[1]";
+	XOR_1425_ -> _0392_;
+	XOR_1435_ -> "x[1]";
+	XOR_1435_ -> _0402_;
+	XOR_1455_ -> "y[2]";
+	XOR_1455_ -> _0421_;
+	XOR_1471_ -> "x[2]";
+	XOR_1471_ -> _0437_;
+	XOR_1494_ -> "y[3]";
+	_0459_	[port=_0459_,
+		type=wire];
+	XOR_1494_ -> _0459_;
+	_0459_ -> XOR_1507_;
+	_0459_ -> XNOR_1496_;
+	XOR_1503_ -> _0468_;
+	_0465_	[port=_0465_,
+		type=wire];
+	_0465_ -> XOR_1503_;
+	_0465_ -> XOR_1510_;
+	XOR_1507_ -> _0472_;
+	XOR_1510_ -> _0475_;
+	XOR_1517_ -> "y[4]";
+	XOR_1517_ -> _0481_;
+	XOR_1525_ -> "x[4]";
+	XOR_1525_ -> _0489_;
+	XOR_1558_ -> "x[5]";
+	_0521_	[port=_0521_,
+		type=wire];
+	XOR_1558_ -> _0521_;
+	_0521_ -> XNOR_1576_;
+	_0521_ -> XNOR_1578_;
+	XOR_1564_ -> "y[5]";
+	_0527_	[port=_0527_,
+		type=wire];
+	XOR_1564_ -> _0527_;
+	_0527_ -> XOR_1573_;
+	_0527_ -> XNOR_1566_;
+	XOR_1573_ -> _0536_;
+	XOR_1584_ -> "x[6]";
+	XOR_1584_ -> _0546_;
+	XOR_1595_ -> "y[6]";
+	XOR_1595_ -> _0557_;
+	XOR_1628_ -> "x[7]";
+	_0589_	[port=_0589_,
+		type=wire];
+	XOR_1628_ -> _0589_;
+	_0589_ -> XNOR_1630_;
+	_0589_ -> XNOR_1634_;
+	XOR_1654_ -> _0612_;
+	XOR_1656_ -> "x[0]";
+	XOR_1656_ -> _0614_;
+	XOR_1671_	[logic=XOR,
+		type=gate];
+	XOR_1671_ -> "x[0]";
+	XOR_1671_ -> "x[1]";
+	XOR_1671_ -> _0628_;
+	XOR_1675_ -> _0632_;
+	XOR_1677_ -> _0634_;
+	XOR_1684_ -> _0641_;
+	XOR_1686_ -> _0643_;
+	XOR_1688_ -> _0645_;
+	XOR_1707_ -> _0663_;
+	XOR_1709_ -> _0665_;
+	XOR_1711_ -> _0667_;
+	XOR_1713_ -> _0669_;
+	XOR_1717_ -> _0673_;
+	XOR_1719_ -> _0675_;
+	XOR_1742_ -> _0697_;
+	XOR_1744_ -> _0699_;
+	XOR_1746_ -> _0701_;
+	XOR_1752_ -> _0707_;
+	XOR_1771_ -> _0725_;
+	XOR_1773_ -> _0727_;
+	XOR_1775_ -> _0729_;
+	XOR_1777_ -> _0731_;
+	XOR_1781_ -> _0735_;
+	XOR_1783_ -> _0737_;
+	XOR_1806_ -> _0759_;
+	XOR_1808_ -> _0761_;
+	XOR_1810_ -> _0763_;
+	XOR_1816_ -> _0769_;
+	XOR_1879_ -> "x[0]";
+	XOR_1879_ -> _0822_;
+	XOR_1890_ -> _0832_;
+	XOR_1894_ -> "y[1]";
+	XOR_1894_ -> _0836_;
+	XOR_1900_ -> "x[1]";
+	XOR_1900_ -> _0842_;
+	XOR_1922_ -> _0863_;
+	XOR_1925_ -> "x[2]";
+	XOR_1925_ -> _0866_;
+	XOR_1941_ -> "y[2]";
+	XOR_1941_ -> _0882_;
+	XOR_1966_ -> "x[3]";
+	XOR_1966_ -> _0906_;
+	XOR_1979_ -> "y[3]";
+	XOR_1979_ -> _0919_;
+	XOR_2007_ -> _0946_;
+	XOR_2010_ -> "x[4]";
+	XOR_2010_ -> _0949_;
+	XOR_2020_ -> "y[4]";
+	XOR_2020_ -> _0959_;
+	XOR_2055_ -> "x[5]";
+	_0993_	[port=_0993_,
+		type=wire];
+	XOR_2055_ -> _0993_;
+	_0993_ -> XOR_2072_;
+	_0993_ -> XNOR_2057_;
+	XOR_2064_ -> "y[5]";
+	_1002_	[port=_1002_,
+		type=wire];
+	XOR_2064_ -> _1002_;
+	_1002_ -> XNOR_2066_;
+	_1002_ -> XNOR_2076_;
+	XOR_2072_ -> _1010_;
+	XOR_2092_ -> "x[6]";
+	XOR_2092_ -> _1029_;
+	BUF_1206_ -> T2Done;
+	XNOR_1355_	[logic=XNOR,
+		type=gate];
+	XNOR_1355_ -> "y[0]";
+	XNOR_1355_ -> "y[1]";
+	XNOR_1355_ -> _0332_;
+	XNOR_1388_ -> _0361_;
+	XNOR_1417_ -> "x[0]";
+	XNOR_1417_ -> _0385_;
+	XNOR_1426_ -> "y[1]";
+	XNOR_1426_ -> _0393_;
+	XNOR_1429_ -> _0396_;
+	XNOR_1436_ -> "x[1]";
+	XNOR_1436_ -> _0403_;
+	XNOR_1438_ -> _0405_;
+	XNOR_1456_ -> "y[2]";
+	XNOR_1456_ -> _0422_;
+	XNOR_1459_ -> _0425_;
+	XNOR_1468_ -> _0434_;
+	XNOR_1472_ -> "x[2]";
+	XNOR_1472_ -> _0438_;
+	XNOR_1496_ -> _0461_;
+	XNOR_1500_ -> "x[3]";
+	XNOR_1500_ -> _0465_;
+	XNOR_1518_ -> "y[4]";
+	XNOR_1518_ -> _0482_;
+	XNOR_1522_ -> _0486_;
+	XNOR_1526_ -> "x[4]";
+	XNOR_1526_ -> _0490_;
+	XNOR_1552_ -> _0516_;
+	XNOR_1566_ -> _0529_;
+	XNOR_1576_ -> _0539_;
+	XNOR_1578_ -> _0541_;
+	XNOR_1585_ -> "x[6]";
+	XNOR_1585_ -> _0547_;
+	XNOR_1589_ -> _0551_;
+	XNOR_1596_ -> "y[6]";
+	XNOR_1596_ -> _0558_;
+	XNOR_1600_ -> _0562_;
+	XNOR_1609_ -> _0571_;
+	XNOR_1623_ -> _0584_;
+	XNOR_1630_ -> _0591_;
+	XNOR_1634_ -> _0595_;
+	XNOR_1638_ -> _0599_;
+	XNOR_1652_	[logic=XNOR,
+		type=gate];
+	XNOR_1652_ -> "y[0]";
+	XNOR_1652_ -> "x[0]";
+	XNOR_1652_ -> _0610_;
+	XNOR_1673_ -> "y[1]";
+	XNOR_1673_ -> _0630_;
+	XNOR_1679_ -> _0636_;
+	XNOR_1703_ -> _0659_;
+	XNOR_1705_ -> "y[2]";
+	XNOR_1705_ -> _0661_;
+	XNOR_1729_ -> _0685_;
+	XNOR_1735_ -> _0690_;
+	XNOR_1736_ -> "x[3]";
+	XNOR_1736_ -> _0691_;
+	_0694_	[port=_0694_,
+		type=wire];
+	XNOR_1739_ -> _0694_;
+	_0694_ -> XNOR_1740_;
+	XNOR_1740_ -> _0695_;
+	XNOR_1750_ -> _0705_;
+	XNOR_1754_ -> _0709_;
+	XNOR_1760_ -> _0715_;
+	XNOR_1765_ -> _0719_;
+	XNOR_1767_ -> "y[4]";
+	XNOR_1767_ -> _0721_;
+	XNOR_1793_ -> _0747_;
+	XNOR_1799_ -> _0752_;
+	XNOR_1800_ -> "x[5]";
+	XNOR_1800_ -> _0753_;
+	_0756_	[port=_0756_,
+		type=wire];
+	XNOR_1803_ -> _0756_;
+	_0756_ -> XNOR_1804_;
+	XNOR_1804_ -> _0757_;
+	XNOR_1814_ -> _0767_;
+	XNOR_1830_ -> _0782_;
+	_0783_	[port=_0783_,
+		type=wire];
+	XNOR_1831_ -> _0783_;
+	_0783_ -> XNOR_1832_;
+	_0783_ -> XNOR_1838_;
+	_0784_	[port=_0784_,
+		type=wire];
+	XNOR_1832_ -> _0784_;
+	_0784_ -> XNOR_1833_;
+	_0785_	[port=_0785_,
+		type=wire];
+	XNOR_1833_ -> _0785_;
+	_0785_ -> XNOR_1834_;
+	_0786_	[port=_0786_,
+		type=wire];
+	XNOR_1834_ -> _0786_;
+	_0786_ -> XNOR_1835_;
+	XNOR_1835_ -> _0787_;
+	_0790_	[port=_0790_,
+		type=wire];
+	XNOR_1838_ -> _0790_;
+	_0790_ -> XNOR_1839_;
+	XNOR_1839_ -> _0791_;
+	XNOR_1874_ -> "y[0]";
+	XNOR_1874_ -> _0817_;
+	XNOR_1888_ -> _0830_;
+	XNOR_1895_ -> "y[1]";
+	XNOR_1895_ -> _0837_;
+	XNOR_1897_ -> _0839_;
+	XNOR_1901_ -> "x[1]";
+	XNOR_1901_ -> _0843_;
+	XNOR_1903_ -> _0845_;
+	XNOR_1906_ -> _0848_;
+	XNOR_1911_ -> _0853_;
+	XNOR_1920_ -> _0861_;
+	XNOR_1926_ -> "x[2]";
+	XNOR_1926_ -> _0867_;
+	XNOR_1938_ -> _0879_;
+	XNOR_1942_ -> "y[2]";
+	XNOR_1942_ -> _0883_;
+	XNOR_1946_ -> _0887_;
+	_0901_	[port=_0901_,
+		type=wire];
+	XNOR_1961_ -> _0901_;
+	_0901_ -> XNOR_1962_;
+	XNOR_1962_ -> _0902_;
+	XNOR_2003_ -> _0942_;
+	XNOR_2011_ -> "x[4]";
+	XNOR_2011_ -> _0950_;
+	XNOR_2017_ -> _0956_;
+	XNOR_2021_ -> "y[4]";
+	XNOR_2021_ -> _0960_;
+	XNOR_2027_ -> _0966_;
+	_0988_	[port=_0988_,
+		type=wire];
+	XNOR_2050_ -> _0988_;
+	_0988_ -> XNOR_2051_;
+	XNOR_2051_ -> _0989_;
+	XNOR_2057_ -> _0995_;
+	XNOR_2066_ -> _1004_;
+	XNOR_2076_ -> _1014_;
+	XNOR_2083_ -> _1020_;
+	XNOR_2087_ -> "y[6]";
+	_1024_	[port=_1024_,
+		type=wire];
+	XNOR_2087_ -> _1024_;
+	_1024_ -> XNOR_2088_;
+	_1024_ -> XNOR_2101_;
+	XNOR_2088_ -> _1025_;
+	XNOR_2101_ -> _0199_;
+	XNOR_2107_ -> _0205_;
+	DFF__1207_ -> "T2x[0]";
+	CLOCK_50	[type=input];
+	CLOCK_50 -> DFF__1207_;
+	CLOCK_50 -> DFF__1208_;
+	CLOCK_50 -> DFF__1209_;
+	CLOCK_50 -> DFF__1210_;
+	CLOCK_50 -> DFF__1211_;
+	CLOCK_50 -> DFF__1212_;
+	CLOCK_50 -> DFF__1213_;
+	CLOCK_50 -> DFF__1214_;
+	CLOCK_50 -> DFF__1215_;
+	CLOCK_50 -> DFF__1216_;
+	CLOCK_50 -> DFF__1217_;
+	CLOCK_50 -> DFF__1218_;
+	CLOCK_50 -> DFF__1219_;
+	CLOCK_50 -> DFF__1220_;
+	CLOCK_50 -> DFF__1221_;
+	CLOCK_50 -> DFF__1222_;
+	CLOCK_50 -> DFF__2116_;
+	CLOCK_50 -> DFF__2117_;
+	CLOCK_50 -> DFF__2118_;
+	CLOCK_50 -> DFF__2119_;
+	CLOCK_50 -> DFF__1223_;
+	CLOCK_50 -> DFF__1224_;
+	CLOCK_50 -> DFF__1225_;
+	CLOCK_50 -> DFF__2120_;
+	CLOCK_50 -> DFF__2121_;
+	CLOCK_50 -> DFF__2122_;
+	CLOCK_50 -> DFF__2123_;
+	CLOCK_50 -> DFF__2124_;
+	CLOCK_50 -> DFF__2125_;
+	CLOCK_50 -> DFF__2126_;
+	CLOCK_50 -> DFF__2127_;
+	CLOCK_50 -> DFF__2128_;
+	CLOCK_50 -> DFF__2129_;
+	CLOCK_50 -> DFF__2130_;
+	CLOCK_50 -> DFF__2131_;
+	CLOCK_50 -> DFF__2132_;
+	CLOCK_50 -> DFF__2133_;
+	CLOCK_50 -> DFF__2134_;
+	CLOCK_50 -> DFF__2135_;
+	CLOCK_50 -> DFF__2136_;
+	CLOCK_50 -> DFF__2137_;
+	CLOCK_50 -> DFF__2138_;
+	CLOCK_50 -> DFF__2139_;
+	CLOCK_50 -> DFF__2140_;
+	CLOCK_50 -> DFF__2141_;
+	CLOCK_50 -> DFF__2142_;
+	CLOCK_50 -> DFF__2143_;
+	CLOCK_50 -> DFF__2144_;
+	CLOCK_50 -> DFF__2145_;
+	CLOCK_50 -> DFF__2146_;
+	CLOCK_50 -> DFF__2147_;
+	CLOCK_50 -> DFF__2148_;
+	CLOCK_50 -> DFF__2149_;
+	CLOCK_50 -> DFF__2150_;
+	CLOCK_50 -> DFF__2151_;
+	CLOCK_50 -> DFF__2152_;
+	CLOCK_50 -> DFF__2153_;
+	CLOCK_50 -> DFF__2154_;
+	CLOCK_50 -> DFF__2155_;
+	CLOCK_50 -> DFF__2156_;
+	CLOCK_50 -> DFF__2157_;
+	CLOCK_50 -> DFF__2158_;
+	CLOCK_50 -> DFF__2159_;
+	CLOCK_50 -> DFF__2160_;
+	CLOCK_50 -> DFF__2161_;
+	DFF__1208_ -> "T2x[1]";
+	DFF__1209_ -> "T2x[2]";
+	DFF__1210_ -> "T2x[3]";
+	DFF__1211_ -> "T2x[4]";
+	DFF__1212_ -> "T2x[5]";
+	DFF__1213_ -> "T2x[6]";
+	DFF__1214_ -> "T2x[7]";
+	DFF__1215_ -> "T2y[0]";
+	DFF__1216_ -> "T2y[1]";
+	DFF__1217_ -> "T2y[2]";
+	DFF__1218_ -> "T2y[3]";
+	DFF__1219_ -> "T2y[4]";
+	DFF__1220_ -> "T2y[5]";
+	DFF__1221_ -> "T2y[6]";
+	DFF__1222_ -> _0039_;
+	DFF__2116_ -> "T3state[0]";
+	DFF__2117_ -> "T3state[1]";
+	DFF__2118_ -> "T3state[2]";
+	DFF__2119_ -> "T3state[3]";
+	DFF__1223_ -> "T2colour[0]";
+	DFF__1224_ -> "T2colour[1]";
+	DFF__1225_ -> "T2colour[2]";
+	DFF__2120_ -> "y[0]";
+	DFF__2121_ -> "y[1]";
+	DFF__2122_ -> "y[2]";
+	DFF__2123_ -> "y[3]";
+	DFF__2124_ -> "y[4]";
+	DFF__2125_ -> "y[5]";
+	DFF__2126_ -> "y[6]";
+	DFF__2127_ -> "T3colourcircle[0]";
+	DFF__2128_ -> "T3colourcircle[1]";
+	DFF__2129_ -> "T3colourcircle[2]";
+	DFF__2130_ -> "T3xp[0]";
+	DFF__2131_ -> "T3xp[1]";
+	DFF__2132_ -> "T3xp[2]";
+	DFF__2133_ -> "T3xp[3]";
+	DFF__2134_ -> "T3xp[4]";
+	DFF__2135_ -> "T3xp[5]";
+	DFF__2136_ -> "T3xp[6]";
+	DFF__2137_ -> "T3xp[7]";
+	DFF__2138_ -> "T3d[0]";
+	DFF__2139_ -> "T3d[1]";
+	DFF__2140_ -> "T3d[2]";
+	DFF__2141_ -> "T3d[3]";
+	DFF__2142_ -> "T3d[4]";
+	DFF__2143_ -> "T3d[5]";
+	DFF__2144_ -> "T3d[6]";
+	DFF__2145_ -> "T3d[7]";
+	DFF__2146_ -> "T3d[8]";
+	DFF__2147_ -> "x[0]";
+	DFF__2148_ -> "x[1]";
+	DFF__2149_ -> "x[2]";
+	DFF__2150_ -> "x[3]";
+	DFF__2151_ -> "x[4]";
+	DFF__2152_ -> "x[5]";
+	DFF__2153_ -> "x[6]";
+	DFF__2154_ -> "x[7]";
+	DFF__2155_ -> "T3yp[0]";
+	DFF__2156_ -> "T3yp[1]";
+	DFF__2157_ -> "T3yp[2]";
+	DFF__2158_ -> "T3yp[3]";
+	DFF__2159_ -> "T3yp[4]";
+	DFF__2160_ -> "T3yp[5]";
+	DFF__2161_ -> "T3yp[6]";
+	"module#top" -> "KEY_N[3]";
+	"module#top" -> "SW[3]";
+	"module#top" -> "SW[4]";
+	"module#top" -> "SW[9]";
+	"module#top" -> "SW[6]";
+	"module#top" -> "SW[7]";
+	"module#top" -> "SW[8]";
+	"module#top" -> "SW[0]";
+	"module#top" -> "SW[1]";
+	"module#top" -> "SW[2]";
+	"module#top" -> "SW[5]";
+	"module#top" -> "KEY_N[0]";
+	"module#top" -> CLOCK_50;
+	"module#top" -> "KEY_N[1]";
+	"module#top" -> "KEY_N[2]";
 }

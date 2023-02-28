@@ -14,23 +14,15 @@ class PreSAT:
         self.keyint=key
         self.bitkey = format(key, "b")
 
-      # print(2**n, "<----->", self.keyint, "<----->", (2**n) >= self.keyint)
       if (n > len(self.bitkey)):
           self.bitkey = format(self.keyint, "0"+str(n)+"b")
       elif (n < len(self.bitkey)):
           print("ERROR")
           print("Number of Gates < Number of Key-Bits")
           return None
-      # else:
-      # print("n == Bits")
+      self.module.bitkey=self.bitkey+self.module.bitkey
+      print(self.module.bitkey)
 
-      # print("######################################", end="\n          ")
-      # print(self.keyint, " ----------> ", self.bitkey)
-      print(self.bitkey)
-      self.module.bitkey=self.bitkey
-      # print("######################################")
-
-    
     
     def InsertKeyGate(self, NodeA: str, NodeB: str, gatetype: str = 'XOR') -> None:
       keygatecount=len(self.module.lockingdata["gates"])
@@ -79,7 +71,9 @@ class PreSAT:
       # print(NodeA,Na)
       if(Na['type']=='gate'):
         self.module.gates[Na['logic']][NodeA]['outputs']=keywire_name
-        # self.module.gates[Na['logic']][NodeA]=keywire_name
+      elif('DFF' in Na['type']):
+        # print(Na,NodeA)
+        self.module.FF_tech[Na['type']][NodeA]['outputs']=keywire_name
       else:
         raise Exception("NOT A GATE WHYYYYYY???????????")
       
@@ -172,11 +166,11 @@ class PreSAT:
                   pass
                 elif(self.bitkey[self.keycount-1]=='1'):
                     self.InsertKeyGate(i, out, 'XNOR')
-                    print(self.bitkey[self.keycount-1],i,out,end="\n")
+                    # print(self.bitkey[self.keycount-1],i,out,end="\n")
                     self.keycount-=1
                 else:
                     self.InsertKeyGate(i, out, 'XOR')
-                    print(self.bitkey[self.keycount-1],i,out,end="\n")
+                    # print(self.bitkey[self.keycount-1],i,out,end="\n")
                     self.keycount-=1
           current_layer = next_layer
           count+=1
@@ -184,7 +178,7 @@ class PreSAT:
 
 
     def SLL(self):
-      self.keycount=self.keycount
+
       tx=self.module.io['wires']
 
       locked=[]
@@ -195,7 +189,6 @@ class PreSAT:
         if((tp['bits']==1) and random_key not in locked ):
           break
 
-      self.keycount=self.keycount
       while(1):
         self.LayerTraversal(random_key,mode="f")
         if(self.keycount==0):
@@ -226,7 +219,7 @@ class PreSAT:
         self.module.circuitgraph.remove_edge(gate, gateio['outputs'])
 
         wire_name="new_inverter_wire"+str(len(self.module.io['wires']))
-        invgate=f"NOT_inserted_{invgatecount}_"
+        invgate=f"NOT_inserted_{invgatecount}_"+str(random.randint(1,10000))
 
         
         new_gatetype=invert_gate(gatetype)
@@ -274,7 +267,7 @@ class PreSAT:
       gio[new_gatetype][inverter]["inputs"].append(keygate_input_name)
 
       bit="0" if new_gatetype=="XOR" else "1"
-      self.module.bitkey=bit+self.module.bitkey
+      # self.module.bitkey=bit+self.module.bitkey
       self.module.lockingdata["inputs"].append((keygate_input_name,bit))
       
       if("lockingkeyinput" not in self.module.io['inputs']):

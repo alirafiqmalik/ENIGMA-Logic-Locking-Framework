@@ -27,12 +27,6 @@ def get_diference(a,b):
 ####################################################################################################################################
 
 
-# def get_diference_abs(a,b):
-#     tmpa=list(set(a) - set(b))
-#     tmpb=list(set(b) - set(a))
-#     tmplist=list(set(tmpa)|set(tmpb))
-#     return tmplist
-
 def get_difference_abs(*args):
     a = args[0]
     others = args[1:]
@@ -148,9 +142,13 @@ def format_verilog_org(verilog):
     return verilog
 
 
+####################################################################################################################################
+####################################################################################################################################
 
 def format_verilog(verilog,remove_wire=False,remove_assign=False):
     verilog=re.sub(r"//.*\n","",verilog)
+    verilog=re.sub(r" +\)",")",verilog)
+    verilog=re.sub(r"\( +",")",verilog)
     # verilog=re.sub(r"[/][].[*][/]","",verilog)
     # verilog=re.sub(r"[(][].[*][)]\n","",verilog)
     verilog=re.sub(r"/\*.*?\*/", "", verilog, flags=re.DOTALL)
@@ -166,11 +164,9 @@ def format_verilog(verilog,remove_wire=False,remove_assign=False):
 
     assign_nodes=re.findall(r"assign (\\?.*) = (\\?.*) ?;\n",verilog)
 
-    
-
     verilog=re.sub(r"(\w)\.",r"\1",verilog)
 
-    verilog=re.sub(r"assign (\\?.*) = (\\?.*) ?;\n","",verilog) #BUF_g node\1_ ( .A(\2), .Y(\1) );\n
+    # verilog=re.sub(r"assign (\\?.*) = (\\?.*) ?;\n","",verilog) #BUF_g node\1_ ( .A(\2), .Y(\1) );\n
 
     verilog_withoutwire=re.sub(r"wire .*;\n","",verilog)
     if(remove_wire):
@@ -328,6 +324,8 @@ def invert_gate(operator):
     return operator_map.get(operator, operator)
 
 
+
+
 ####################################################################################################################################
 ####################################################################################################################################
 ##AST help functions
@@ -351,13 +349,16 @@ def verify_verilog(path,top):
       hierarchy -check -top {top}
       '
   """
+  path=f"\"{path}\""
   result = subprocess.run(cmd.format(yosys_path=yosys_path,path=path,top=top), shell=True)
   if(result.returncode==1):
+    print(result)
     raise Exception("Error code 1\nVerilog Code Syntax Error")
   elif(result.returncode==0):
     pass
     # print("Verilog Code Working Without Error")
   else:
+    print(result)
     raise Exception(f"Unknown Error Code {result.returncode}")
 
 
@@ -444,20 +445,57 @@ def module_extraction (verilog):
 
 def gates_module_extraction(verilog):
   gates=['BUF_g','NOT_g', 'AND_g', 'OR_g', 'NAND_g', 'NOR_g','XOR_g','XNOR_g']
-  gate_tech={}
+  FF=['DFFcell',"DFFRcell"]
+#   DFFRcell _2116_ ( .C(CLOCK_50), .D(_0153_), .Q(T3state[0]), .R(_0149_) );
 #   {'BUF':[],'NOT':[], 'AND':[], 'OR':[],'XOR':[],'NAND':[], 'NOR':[],'XNOR':[]}
+  gate_tech={}
+  FF_tech={}
+  Clock_pins=[]
+  Reset_pins=[]
   sub_module={}
   def process_chunk(chunk):
-    type,init,extra=chunk
-    if(type in gates):
+    type_block,init,extra=chunk
+    if(type_block in gates):
       tmpx=re.findall(r'\.\S+\(([^\(\),]+)\)',extra)
       tmpx.reverse()
-      type_port=re.sub("_g","",type)
-      if type_port not in gate_tech:
-        gate_tech[type_port]={}
-        gate_tech[type_port][type_port+init]={"inputs": tmpx[1:] ,"outputs": tmpx[0]}
-      else:
-        gate_tech[type_port][type_port+init]={"inputs": tmpx[1:] ,"outputs": tmpx[0]}
+      type_block_port=re.sub("_g","",type_block)
+      if type_block_port not in gate_tech:
+        gate_tech[type_block_port]={}
+      gate_tech[type_block_port][type_block_port+init]={"inputs": tmpx[1:] ,"outputs": tmpx[0]}
+        
+    elif(type_block in FF):
+        # print(type_block,init,extra)
+        if(type_block=="DFFRcell"):
+            type_block_port="DFF_"+init
+            regex_pattern = r"\((.*?)\)"
+            matches = re.findall(regex_pattern, extra)
+            C,D,Q,R = [match for match in matches]
+            if(C not in Clock_pins):
+                Clock_pins.append(C)
+            if(R not in Reset_pins):
+                Reset_pins.append(R)
+            
+            if type_block not in FF_tech:
+                FF_tech[type_block]={}
+            
+            FF_tech[type_block][type_block_port]={"inputs": D ,"outputs": Q,"clock":C,"reset":R}
+            
+            # print("HERE",C,D,Q,R)
+            # print(re.findall(".C(CLOCK_50), .D(_0056_), .Q(T2x[0]), .R(_0040_)",extra))
+        elif(type_block=="DFFcell"):
+            type_block_port="DFF_"+init
+            regex_pattern = r"\((.*?)\)"
+            matches = re.findall(regex_pattern, extra)
+            C,D,Q = [match for match in matches]
+            if(C not in Clock_pins):
+                Clock_pins.append(C)
+            if type_block not in FF_tech:
+                FF_tech[type_block]={}   
+            FF_tech[type_block][type_block_port]={"inputs": D ,"outputs": Q,"clock":C}
+            # print("HERE",C,D,Q,extra)
+        else:
+            raise Exception("FLIP_FLOP not Defined")
+
     else:
         links=[]
         for i in extra.split(","):
@@ -465,12 +503,12 @@ def gates_module_extraction(verilog):
             links.append((Li,Ri,None))
 
         # links=[re.findall("\.(.*)\((.*)\)",i)[0] for i in extra.split(",")]
-        sub_module[init]={"module_name": type,"links":links,"port":extra}
+        sub_module[init]={"module_name": type_block,"links":links,"port":extra}
 
   for i in re.findall(r"(\w+) (\w+) \((.*)\);",verilog):
     process_chunk(i)
 
-  return gate_tech,sub_module
+  return gate_tech,sub_module,(FF_tech,Clock_pins,Reset_pins)
 
 
 def submodules_info(sub):
@@ -490,6 +528,82 @@ def submodules_info(sub):
 
 ####################################################################################################################################
 ####################################################################################################################################
+def node_to_txt(iodict,mode="input",return_bits=False):
+    txt=""
+    total_bits=0
+    for i in iodict:
+        tmpi=iodict[i]
+        if(tmpi["bits"]==1):
+            total_bits+=1
+            txt+=f"{mode} {i};\n"
+        else:
+            total_bits+=tmpi["bits"]
+            txt+=f"{mode} [{tmpi['endbit']}:{tmpi['startbit']}] {i};\n"
+
+    if(return_bits):
+        return txt,total_bits
+    else:
+        return txt
+        
+
+
+####################################################################################################################################
+####################################################################################################################################
+def FF_to_txt(FF):
+    txt=""
+    # DFFcell(C, D, Q)
+    for i in FF:
+        if(i=="DFFcell"):
+            fn =lambda io,initname: f"{i} {initname}(.C({io['clock']}), .D({io['inputs']}), .Q({io['outputs']}));"
+        elif(i=="DFFRcell"):
+            fn=lambda io,initname: f"{i} {initname}(.C({io['clock']}), .D({io['inputs']}), .Q({io['outputs']}), .R({io['reset']}));"
+        else:
+            raise Exception("FF not defined")
+        
+        for jj in FF[i]:
+            j=FF[i][jj]
+            txt+=fn(j,jj)+"\n"
+        # print(fn(j['inputs'],j['outputs']))
+    return txt
+
+####################################################################################################################################
+####################################################################################################################################
+def gates_to_txt(gates):
+    txt=""
+    for i in gates:
+        # print(i)
+        if(i=="NOT" or i=="BUF"):
+            fn =lambda inputs,outputs,initname: f"{i}_g {initname}(.A({inputs[0]}), .Y({outputs}));"
+        else:
+            fn=lambda inputs,outputs,initname: f"{i}_g {initname}(.A({inputs[0]}), .B({inputs[1]}), .Y({outputs}));"     
+        # print(gates[i])
+        for jj in gates[i]:
+            j=gates[i][jj]
+            # print(jj,j)
+            # print(j,gates[i][j])
+            txt+=fn(j['inputs'],j['outputs'],jj)+"\n"
+        # print(fn(j['inputs'],j['outputs']))
+    return txt
+
+####################################################################################################################################
+####################################################################################################################################
+def module_to_txt(linkages):
+    txt=""
+    for i in linkages:
+        tmpi=linkages[i]
+        # print(i,tmpi)
+        port=""
+        for L,R in zip(tmpi["L"],tmpi["R"]):
+            port+=f".{L}({R}), "
+        txt+=f"{tmpi['module_name']} {i}({port[:-2]});\n"
+            # print(f"{tmpi['module_name']} {i}({port[:-2]});")
+    return txt
+
+
+
+
+####################################################################################################################################
+####################################################################################################################################
 def save_graph(G,svg=False):
     import networkx as nx
     nx.drawing.nx_agraph.write_dot(G, "./tmp/tmp.dot")
@@ -497,10 +611,47 @@ def save_graph(G,svg=False):
     if(svg):
         subprocess.run("dot -Tsvg ./tmp/tmp.dot > ./tmp/tmp.svg", shell=True)
 
+# _0174_
 ####################################################################################################################################
 ####################################################################################################################################
+
+
+
+def rand_selection(my_dict,val,req_bits):
+    #req_bits: Set the desired sum of counts
+
+    # Initialize the sum to zero
+    sum_counts = 0
+    # Initialize the list of selected keys to an empty list
+    selected_keys = []
+    # Loop until you find a combination of keys that satisfies the condition
+    keys=list(my_dict.keys())
+    while sum_counts != req_bits:
+        # print("doing ", sum_counts)
+        # Select `num_keys` keys at random
+        num_keys=random.randint(1,len(keys))
+        selected_keys = random.sample(keys, num_keys)
+        # Calculate the sum of counts for the selected keys
+        
+        sum_counts = sum(my_dict[key][val] for key in selected_keys)
+        print("Doing ",req_bits, sum_counts)
+    
+    return {i:my_dict[i] for i in my_dict if i in selected_keys}
+
+
+
 ####################################################################################################################################
 ####################################################################################################################################
+
+def remove_key(thedict,thekey):
+    if(type(thekey)!=list):
+        thekey=[thekey]
+    for i in thekey:
+        if i in thedict: del thedict[i]
+
+####################################################################################################################################
+####################################################################################################################################
+
 ####################################################################################################################################
 ####################################################################################################################################
 ####################################################################################################################################

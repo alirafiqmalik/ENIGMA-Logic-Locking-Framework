@@ -90,7 +90,98 @@ def hammingcc(modulename, inputs, h, key=None):
 
 
 
+class PostSAT:
+    def __init__(self,module) -> None:
+        self.module=module
 
+    def set_key(self, n, key=None,inputs=None,outputs=None):
+        self.keycount=n
+        if(key==None):
+            self.keyint,self.bitkey=utils.randKey(self.keycount)
+        else:  
+            self.keyint=key
+            self.bitkey = format(key, "b")
+
+        if (n > len(self.bitkey)):
+            self.bitkey = format(self.keyint, "0"+str(n)+"b")
+        elif (n < len(self.bitkey)):
+            print("ERROR")
+            print("Number of Gates < Number of Key-Bits")
+            return None
+        self.module.bitkey=self.bitkey+self.module.bitkey
+        print(self.module.bitkey)
+
+        if(inputs==None):    
+            tmpin=self.module.io['inputs'].copy()
+            utils.remove_key(tmpin,"lockingkeyinput")
+            utils.remove_key(tmpin,self.module.io["Clock_pins"])
+            
+            self.inputs={}
+            self.inputs=utils.rand_selection(tmpin,"bits",self.keycount)
+            # print(self.keycount,self.inputs)
+        else:
+            sum_counts = sum(inputs[key]['bits'] for key in inputs)
+            if(sum_counts!=self.keycount):
+                raise Exception(f"Keybits for inputs {inputs} must be less than equal to total input bits count ")
+        
+        
+        if(outputs==None):
+            self.outputs=self.module.io['outputs']
+        else:
+            self.outputs=self.module.io['outputs']
+
+ 
+    def AntiSAT(self):
+        no_of_init=len(self.module.linkages)
+        modulename=f"antisat_{no_of_init}"
+        nodes,ic=utils.node_to_txt(self.inputs,mode="input",return_bits=True)
+        initname=f"{modulename}_init{self.module.module_name}_{no_of_init}"
+
+        c=len(self.module.io['wires'])
+
+        outQ=f"Q_int_{c}"
+
+        lockinginputs_count=len(self.module.lockingdata["inputs"])
+        a=lockinginputs_count+ic-1
+        b=lockinginputs_count
+        links=[]
+        port=""
+        portnodes=""
+        for i in self.inputs:
+            links.append((i,i,"I"))
+            port+=f".{i}({i}), "
+            portnodes+=f"{i}, "
+        portnodes=portnodes[:-2]
+        port+=f".KEY(lockingkeyinput[{b}:{a}]), "
+        port+=f".Q({outQ})"
+
+        links.append(("KEY",f"lockingkeyinput[{b}:{a}]","I"))
+        links.append(("Q",outQ,"O"))
+
+        tmp=f"module {modulename}({portnodes}, KEY, Q);\n{nodes}input [{ic-1}:0] KEY;\nwire [{ic-1}:0] A;\nassign A={{{portnodes}}};\noutput reg Q;\nalways@(*)begin \nif(A==KEY)Q=1;\nelse Q=0;\nend \nendmodule"
+
+        self.module.io['wires'][outQ]=utils.connector(1,0,0)
+
+        # self.module.linkages={}
+        self.module.linkages[initname]={"module_name": modulename,"links":links,"port":port,"code":tmp}
+        
+        if("lockingkeyinput" not in self.module.io['inputs']):
+            self.module.io['inputs']["lockingkeyinput"]=utils.connector(a+1,0,a)
+            self.module.io["input_ports"]+="lockingkeyinput,"
+        else:
+            self.module.io['inputs']["lockingkeyinput"]=utils.connector(a+1,0,a)
+        
+        key_bit=len(self.bitkey)
+        # print("here",key_bit,range(b,a+1))
+        for i,bitval in enumerate(range(b,a+1)):
+            keygate_input_name=f"lockingkeyinput[{bitval}]"
+            bit=self.bitkey[key_bit-1-i]
+            # print(bit,key_bit-1-i)
+            # bit="0" if new_gatetype=="XOR" else "1" 
+            # self.keyint,self.bitkey=randKey(self.keycount)
+            self.module.lockingdata["inputs"].append((keygate_input_name,bit))
+        
+        
 
 
 

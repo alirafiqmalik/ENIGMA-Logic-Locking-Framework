@@ -59,9 +59,11 @@ endmodule
 
 module DFFRcell(C, D, Q, R);
 input C, D, R;
+wire x;
+assign x=~R;
 output reg Q;
-always @(posedge C, negedge R)
-	if (!R)
+always @(posedge C, negedge x)
+	if (!x)
 		Q <= 1'b0;
 	else
 		Q <= D;

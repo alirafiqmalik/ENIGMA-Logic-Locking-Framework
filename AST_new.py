@@ -1,86 +1,64 @@
 import src.utils as utils
-import src.verification as ver
 from src.AST import AST
 import src.AST as ASTf
-from src.PreSAT import PreSAT
-import src.PostSAT as PostSAT
-import networkx as nx
+from src.LL import LogicLocking
 import re
 
 
-# obj=AST(file_path="./input_files/Benchmarks/ISCAS85/c17/c17.v",rw="w",flag="v",top="c17",filename="c17org")
-obj = AST(file_path="./output_files/c17org.json",rw='r',filename="c17locked") # r for read from file
-# obj.save_module_connections()
+# obj=AST(file_path="input_files/demo.v",rw="w",flag="v",top="top",filename="demoorg")
+obj = AST(file_path="./output_files/demoorg.json",rw='r',filename="demolocked") # r for read from file
+
+
+
+# print(obj.top_module.circuitgraph["DFF__1207_"])
+# obj.top_module.nodeio("DFF__1207_")
+# print(obj.top_module.circuitgraph.nodes["DFF__1207_"])
+
+# obj.update_LLverilog()
+
+
+# obj.top_module.save_graph(svg=True)
+
+LL=LogicLocking(obj)
+# LL.PreSAT.set_key(3) # for TRLL, keycount<=Total No of original gates
+# LL.PreSAT.SLL()
+
+
+LL.PreSAT.set_key(50) # for TRLL, keycount<=Total No of original gates
+LL.PreSAT.SLL()
+# LL.PreSAT.TRLL_plus()
+
+
+# LL.PostSAT.set_key(14) # for TRLL, keycount<=Total No of original gates
+# # # # # LL.RLL()
+# LL.PostSAT.AntiSAT()
 
 
 
 
-# LL=PreSAT(obj.top_module)
-# LL.set_key(3) # for TRLL, keycount<=Total No of original gates
-# # # LL.RLL()
-# # # LL.SLL()
-# LL.TRLL_plus()
-# print(obj.linkages[obj.top_module_name])
-def AntiSAT():
-  modulename="anitsat"
-  inputs=obj.top_module.io["inputs"].copy()
-  if("lockingkeyinput" in inputs):
-    inputs.pop("lockingkeyinput")
 
-  nodes,ic=ASTf.node_to_txt(inputs,mode="input",return_bits=True)
-  initname=f"{modulename}_{len(obj.modules)+1}"
+# LL.PostSAT.set_key(5) # for TRLL, keycount<=Total No of original gates
+# # # # LL.RLL()
+# LL.PostSAT.AntiSAT()
 
-  portnodes=obj.top_module.io["input_ports"]
-  portnodes=re.sub("lockingkeyinput,","",portnodes)
-  portnodes=portnodes[:-1]
+# AntiSAT()
 
-  tmp=f"module {modulename}({portnodes},KEY,Q);\n{nodes}input [{ic-1}:0] KEY;\nwire [{ic-1}:0] A;\nassign A={{{portnodes}}};\noutput reg Q;\nalways@(*)begin \nif(A==KEY)Q=1;\nelse Q=0;\nend \nendmodule"
-
-  a=len(obj.top_module.lockingdata["inputs"])+1+ic
-  b=len(obj.top_module.lockingdata["inputs"])+1
-
-  links=[]
-  port=""
-  for i in inputs:
-    links.append((i,i,"I"))
-    port+=f".{i}({i}), "
-  port+=f".KEY(lockingkeyinput[{b}:{a}])"
-  port+=".Q(Q_int)"
-
-  links.append(("KEY",f"lockingkeyinput[{b}:{a}]","I"))
-  links.append(("Q","Q_int","O"))
-
-  obj.top_module.io['wires']["Q_int"]=utils.connector(1,0,0)
-
-  obj.top_module.linkages={}
-  obj.top_module.linkages[initname]={"module_name": "antisat","links":links,"port":port,"code":tmp}
-
-  if("lockingkeyinput" not in obj.top_module.io['inputs']):
-    obj.top_module.io['inputs']["lockingkeyinput"]=utils.connector(1,0,0)
-    obj.top_module.io["input_ports"]+="lockingkeyinput,"
-  else:
-    obj.top_module.io['inputs']["lockingkeyinput"]=utils.connector(a+1,0,a)
-
-
-
-AntiSAT()
-
-for i in obj.modules:
-  tmpi=obj.modules[i]
-  for j in tmpi.linkages:
-    tmpj=tmpi.linkages[j]
-    module_name=tmpi.linkages[j]['module_name']
-    code=tmpi.linkages[j]['code']
-    links=tmpi.linkages[j]['links']
+# obj.top_module.linkages["antisat_2"]['code']
+# print(obj.top_module.linkages["antisat_2"]['port'])
+    # code=tmpi.linkages[j]['code']
+    # links=tmpi.linkages[j]['links']
     # print(j,tmpj['module_name'],tmpj['links'],tmpj['code'])
-    for L,R,D in links:
-      print(L,R,D)
+    # for L,R,D in links:
+    #   print(L,R,D)
 
+# for i in obj.modules:
+#     obj.modules[i].gen_graph()
+# obj.gen_graph_links()
 
-obj.gen_graph_links()
-obj.top_module.save_graph(svg=True)
+# obj.
 obj.writeLLFile()
 obj.gen_verification_files()
+# obj.top_module.save_graph(svg=True)
 
 
 
@@ -91,6 +69,58 @@ obj.gen_verification_files()
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# module {name} ({portnodes},KEY,Q);
+# {nodes}
+# input [2*{ic}-1:0] KEY;
+# output Q;
+# wire [{ic-1}:0]A;
+# assign A={portnodes};
+# wire Q1,Q2;
+# g_block g(A,KEY[{ic}-1:0],Q1);
+# g_block gc(A,KEY[2*{ic}-1:n],Q2);
+# assign Q = Q1 & (~Q2);
+# endmodule
+
+
+# module {module_name}({portnodes},KEY,Q);
+# {nodes}
+# input [{ic-1}:0]KEY;
+# wire [{ic-1}:0]A;
+# assign A={portnodes};
+# output reg Q;
+# always@(*)begin if(A==KEY)Q=1;
+# else Q=0;
+# end endmodule"
+
+            
+
+# ~/FYP/linux/yosys/build/yosys -p '
+# read_verilog input_files/demo.v
+# hierarchy -check -top top
+# proc; opt; fsm; opt; memory; opt;
+# techmap; opt
+# dfflibmap -liberty ./vlib/mycells.lib
+# abc -liberty ./vlib/mycells.lib  
+# flatten
+# opt_clean -purge
+# write_verilog -noattr ./tmp/tmp_syn2flatten.v
+# '
 
 
 
