@@ -44,7 +44,7 @@ def gen_miter_testbench(key_inputs_p,
                             log_path=log_path,
                             top_port=top_port,
                             innerloop=500,
-                            outerloop=100
+                            outerloop=500
                             )
 
 def gen_miterCircuit(verilog,verilogLL,gatemodules,top,key,Clock_pins):

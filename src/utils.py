@@ -128,17 +128,20 @@ def randKey(bits, seed=None):
 ####################################################################################################################################
 
 def format_verilog_org(verilog):
+    # verilog=re.sub("`","\\`",verilog)
     verilog=re.sub(r"//.*\n","",verilog)
     # verilog=re.sub(r"[/][].[*][/]","",verilog)
     # verilog=re.sub(r"[(][].[*][)]\n","",verilog)
     verilog=re.sub(r"/\*.*?\*/", "", verilog, flags=re.DOTALL)
+    
+
 
     verilog=re.sub(r"\n+","",verilog)
     verilog=re.sub(r"\s+"," ",verilog)
     verilog=re.sub(r" ?; ?",";\n",verilog)
-    verilog=re.sub(r"endmodule","endmodule\n",verilog)
-    verilog=re.sub(r"end ","end\n",verilog)
-    verilog=re.sub(r"begin","begin\n",verilog)
+    verilog=re.sub(r"endmodule"," endmodule\n",verilog)
+    verilog=re.sub(r"end ","end \n",verilog)
+    verilog=re.sub(r"begin","begin \n",verilog)
     return verilog
 
 
@@ -148,7 +151,7 @@ def format_verilog_org(verilog):
 def format_verilog(verilog,remove_wire=False,remove_assign=False):
     verilog=re.sub(r"//.*\n","",verilog)
     verilog=re.sub(r" +\)",")",verilog)
-    verilog=re.sub(r"\( +",")",verilog)
+    verilog=re.sub(r"\( +","(",verilog)
     # verilog=re.sub(r"[/][].[*][/]","",verilog)
     # verilog=re.sub(r"[(][].[*][)]\n","",verilog)
     verilog=re.sub(r"/\*.*?\*/", "", verilog, flags=re.DOTALL)
@@ -165,6 +168,8 @@ def format_verilog(verilog,remove_wire=False,remove_assign=False):
     assign_nodes=re.findall(r"assign (\\?.*) = (\\?.*) ?;\n",verilog)
 
     verilog=re.sub(r"(\w)\.",r"\1",verilog)
+    verilog=re.sub(r"\] \[","][",verilog)
+    
 
     # verilog=re.sub(r"assign (\\?.*) = (\\?.*) ?;\n","",verilog) #BUF_g node\1_ ( .A(\2), .Y(\1) );\n
 
@@ -174,15 +179,20 @@ def format_verilog(verilog,remove_wire=False,remove_assign=False):
     
     tmpstr=""
     if(remove_assign):
-        count=0
-        for i in assign_nodes:
+        for count,i in enumerate(assign_nodes):
             if(re.findall(i[0],verilog_withoutwire)!=[]):
                 if("1'h" in i[1]):
-                    print(i,re.findall(i[0],verilog))
-                    raise Exception("\n\n\n\t   GONNA HAVE TO FIX THIS NOW!!!!!!!!!! \n\n =====>>> Binary value on left Side of assign <<<=====")
+                    tmpstr+="BUF_g assignbuffer{} ( .A({}), .Y({}) );\n".format(count,i[1],i[0])
+                    # print(i,re.findall(i[0],verilog))
+                    # raise Exception("\n\n\n\t   GONNA HAVE TO FIX THIS NOW!!!!!!!!!! \n\n =====>>> Binary value on left Side of assign <<<=====")
+                elif("'h" in i[1]):
+                    bit,val=i[1].split("'h")
+
+                    print(bit,val)
+                    # for i in 
+                    # tmpstr+="BUF_g assignbuffer{} ( .A({}), .Y({}) );\n".format(count,i[1],i[0])
                 else:
                     tmpstr+="BUF_g assignbuffer{} ( .A({}), .Y({}) );\n".format(count,i[1],i[0])
-                    count+=1
 
     verilog=re.sub("endmodule",tmpstr+"endmodule",verilog)
     return verilog
@@ -235,10 +245,13 @@ def extract_io_v(verilog,mode="input"):
   port=""
   tmp=re.findall("\n"+mode.lower()+r"[\s\[](.*);",verilog)
   for i in tmp:
+    # if("cpuregs" in i):
+    #     print(i)
     if("[" in i):
         # print(i)
         ei,si,tmpi=re.findall(r"\[(\d+):(\d+)\] ?(.*)",i)[0]
         ei,si=int(ei),int(si)
+        # print(ei,si,tmpi)
         if("," in tmpi):
             tmpi=tmpi.split(",")
             for k in tmpi:
@@ -258,7 +271,16 @@ def extract_io_v(verilog,mode="input"):
 
   return nodes,port
 
+####################################################################################################################################
+####################################################################################################################################
 
+def check_port(i):
+    tmptxt=re.findall(r"\[",i)
+    if(len(tmptxt)==2):
+        tmptxt=re.sub("(.*\[\d+\])\[\d+\]",r"\1",i)
+    else:
+        tmptxt=re.sub("\[\d+\]","",i)
+    return tmptxt
 ####################################################################################################################################
 ####################################################################################################################################
 
@@ -355,64 +377,69 @@ def verify_verilog(path,top):
     print(result)
     raise Exception("Error code 1\nVerilog Code Syntax Error")
   elif(result.returncode==0):
-    pass
+    return True
     # print("Verilog Code Working Without Error")
   else:
     print(result)
     raise Exception(f"Unknown Error Code {result.returncode}")
 
 
-
+import os
 def synthesize_verilog(verilog, top,flag = "flatten"):
     with open("./tmp/tmp_syn1.v", "w") as f:
         f.write(verilog)
-
-    if flag == "flatten":
-        cmd = """
-            {yosys_path} -q -p'
-            read_verilog ./tmp/tmp_syn1.v
-            hierarchy -check -top {module_name}
-            proc; opt; fsm; opt; memory; opt;
-            techmap; opt
-            dfflibmap -liberty ./vlib/mycells.lib
-            abc -liberty ./vlib/mycells.lib  
-            flatten
-            opt_clean -purge
-            write_verilog -noattr ./tmp/tmp_syn2flatten.v
-            '
-        """
+    file_name=f"{top}_2_{flag}.v"
+    file_path=f"./tmp/{file_name}"
+    if(os.path.isfile(file_path)):
+        print(f"File Already Synthesize, Delete file in tmp to re-synthesize file {file_name}")
+    else:
+        if flag == "flatten":
+            cmd = """
+                {yosys_path} -q -p'
+                read_verilog ./tmp/tmp_syn1.v
+                hierarchy -check -top {module_name}
+                proc; opt; fsm; opt; memory; opt;
+                techmap; opt
+                dfflibmap -liberty ./vlib/mycells.lib
+                abc -liberty ./vlib/mycells.lib  
+                flatten
+                opt_clean -purge
+                write_verilog -noattr {out_file}
+                '
+            """
+            
+        elif flag == "dont_flatten":
+            cmd = """
+                {yosys_path} -q -p'
+                read_verilog ./tmp/tmp_syn1.v
+                hierarchy -check -top {module_name}
+                proc; opt; fsm; opt; memory; opt;
+                techmap; opt
+                dfflibmap -liberty ./vlib/mycells.lib
+                abc -liberty ./vlib/mycells.lib 
+                opt_clean -purge
+                write_verilog -noattr {out_file}
+                '
+            """
+        else:
+            Exception("Enter either 'flatten' or 'don't flatten' ")
+        # Run the command and capture the output
         
-    elif flag == "dont_flatten":
-        cmd = """
-            {yosys_path} -q -p'
-            read_verilog ./tmp/tmp_syn1.v
-            hierarchy -check -top {module_name}
-            proc; opt; fsm; opt; memory; opt;
-            techmap; opt
-            dfflibmap -liberty ./vlib/mycells.lib
-            abc -liberty ./vlib/mycells.lib 
-            opt_clean -purge
-            write_verilog -noattr ./tmp/tmp_syn2dont_flatten.v
-            '
-        """
-    else:
-        Exception("Enter either 'flatten' or 'don't flatten' ")
-    # Run the command and capture the output
-    
-    result=subprocess.run(cmd.format(yosys_path=yosys_path,module_name=top), shell=True)
+        result=subprocess.run(cmd.format(yosys_path=yosys_path,module_name=top,out_file=file_path), shell=True)
 
-    if(result.returncode==1):
-        raise Exception("Error code 1\nVerilog Code Syntax Error or yosys Path not found")
-    elif(result.returncode==0):
-        pass
-        # print("Verilog Code Working Without Error")
-    else:
-        raise Exception(f"Unknown Error Code {result.returncode}")
+        if(result.returncode==1):
+            raise Exception("Error code 1\nVerilog Code Syntax Error or yosys Path not found")
+        elif(result.returncode==0):
+            pass
+            # print("Verilog Code Working Without Error")
+        else:
+            raise Exception(f"Unknown Error Code {result.returncode}")
+        
     
-    synthesized_verilog = open(f"./tmp/tmp_syn2{flag}.v", "r").read()
-    synthesized_verilog = format_verilog(synthesized_verilog,remove_wire=False,remove_assign=True)
-    
-    with open(f"./tmp/tmp_syn2{flag}.v","w") as f:
+    synthesized_verilog = open(file_path, "r").read()
+    synthesized_verilog = format_verilog(synthesized_verilog,remove_wire=False,remove_assign=False)
+
+    with open(file_path,"w") as f:
         f.write(synthesized_verilog)    
     #os.remove("./tmp/tmp_syn1.v")
     #os.remove("./tmp/tmp_syn2.v")

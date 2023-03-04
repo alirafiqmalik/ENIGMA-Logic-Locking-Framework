@@ -21,7 +21,7 @@ class PreSAT:
           print("Number of Gates < Number of Key-Bits")
           return None
       self.module.bitkey=self.bitkey+self.module.bitkey
-      print(self.module.bitkey)
+      # print(self.module.bitkey)
 
     
     def InsertKeyGate(self, NodeA: str, NodeB: str, gatetype: str = 'XOR') -> None:
@@ -326,9 +326,9 @@ class PreSAT:
         
         gate=random.choice(inv_keys)
         if(rnd=="1"):
-          self.ReplaceInverter(inverter=gate,new_gatetype="XNOR")
-        else:
           self.ReplaceInverter(inverter=gate,new_gatetype="XOR")
+        else:
+          self.ReplaceInverter(inverter=gate,new_gatetype="XNOR")
 
       for i in range(split,self.keycount):
         rnd=self.bitkey[self.keycount-i-1]
