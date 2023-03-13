@@ -95,27 +95,42 @@ class PostSAT:
         self.module=module
 
     def set_key(self, n, key=None,inputs=None,outputs=None):
-        self.keycount=n
-        if(key==None):
-            self.keyint,self.bitkey=utils.randKey(self.keycount)
-        else:  
-            self.keyint=key
-            self.bitkey = format(key, "b")
+        self.input_count={i:self.module.io['inputs'][i]['bits'] for i in self.module.io['inputs']}
 
-        if (n > len(self.bitkey)):
-            self.bitkey = format(self.keyint, "0"+str(n)+"b")
-        elif (n < len(self.bitkey)):
-            print("ERROR")
-            print("Number of Gates < Number of Key-Bits")
-            return None
+        print(self.input_count)
+        utils.remove_key(self.input_count,"lockingkeyinput")
+        utils.remove_key(self.input_count,self.module.io["Clock_pins"])
+        print(self.input_count)
+
+        return None
+        # self.keycount=n
+        # if(key==None):
+        #     self.keyint,self.bitkey=utils.randKey(self.keycount)
+        # else:  
+        #     self.keyint=key
+        #     self.bitkey = format(key, "b")
+
+        # if (n > len(self.bitkey)):
+        #     self.bitkey = format(self.keyint, "0"+str(n)+"b")
+        # elif (n < len(self.bitkey)):
+        #     print("ERROR")
+        #     print("Number of Gates < Number of Key-Bits")
+        #     return None
+        
+
         self.module.bitkey=self.bitkey+self.module.bitkey
-        print(self.module.bitkey)
+        # print(self.module.bitkey)
 
         if(inputs==None):    
             tmpin=self.module.io['inputs'].copy()
             utils.remove_key(tmpin,"lockingkeyinput")
             utils.remove_key(tmpin,self.module.io["Clock_pins"])
-            
+            print(tmpin.keys())
+
+            raise Exception("")
+            # irq
+            # mem_rdata
+            # pcpi_rd
             self.inputs={}
             self.inputs=utils.rand_selection(tmpin,"bits",self.keycount)
             # print(self.keycount,self.inputs)

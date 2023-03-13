@@ -1,10 +1,11 @@
-from src.utils import *
-from src.conv import *
 from src.verification import *
+from src.utils import *
 import networkx as nx
+from src.conv import *
 import pickle
 import base64
 import json
+import os
 
 
 class module:
@@ -157,7 +158,21 @@ class module:
     
     def save_graph(self,svg=False):
         save_graph(self.circuitgraph,svg)
-    
+
+    # def gen_org_verilog(self):
+    #     self.gate_level_verilog=f"module {self.module_name}({self.io['input_ports']}{self.io['output_ports'][:-1]});\n"
+    #     self.gate_level_verilog+=node_to_txt(self.io['inputs'],mode="input")
+    #     self.gate_level_verilog+=node_to_txt(self.io['outputs'],mode="output")
+    #     self.gate_level_verilog+=node_to_txt(self.io['wires'],mode="wire")
+    #     self.gate_level_verilog+=gates_to_txt(self.gates)
+    #     self.gate_level_verilog+=FF_to_txt(self.FF_tech)
+    #     # self.module_LLverilog+=module_to_txt(self.linkages)
+    #     for j in self.linkages:
+    #         tmpj=self.linkages[j]
+    #         self.gate_level_verilog+=f"{tmpj['module_name']} {j}({tmpj['port']}); \n"
+    #     self.gate_level_verilog+="endmodule\n"
+
+
     def gen_LL_verilog(self):
         self.module_LLverilog=f"module {self.module_name}({self.io['input_ports']}{self.io['output_ports'][:-1]});\n"
         self.module_LLverilog+=node_to_txt(self.io['inputs'],mode="input")
@@ -191,6 +206,7 @@ class AST:
                 self.verilog = open(file_path).read()
                 # self.verilog=format_verilog_org(self.verilog)
                 verify_verilog(file_path,top)
+                print("Input Verilog File Verified Without Issue")
                 
             elif flag == 'b':
                 self.bench = open(file_path).read()
@@ -251,6 +267,7 @@ class AST:
         self.top_module=self.modules[self.top_module_name]
             
     def writeLLFile(self):
+        print("Writing LL file")
         self.update_LLverilog()
         ast_dict = dict({"orginal_code" : self.verilog, "gate_lib":self.gate_lib,"gate_level_flattened" : self.gate_level_flattened,"Bench_format_flattened" : self.flatten_bench, "gate_level_not_flattened" : self.synthesized_verilog, "top_module_name" : self.top_module_name,"Total_number_of_modules":self.no_of_modules,"LL_gatelevel_verilog":self.LLverilog,"bitkey":self.top_module.bitkey})
         # top_dict = dict({"Verilog": self.top_module.org_code_verilog, "Synthesized_verilog" : self.top_module.gate_level_verilog, "Total_number_of_modules":self.no_of_modules, "io":self.top_module.io, "gates": self.top_module.gates, "links" : self.top_module.linkages, "DiGraph":self.top_module.base64_data})
@@ -267,6 +284,7 @@ class AST:
         json_file = json.dumps(ast, indent = 4)
         with open(self.filepath, "w") as verilog_ast:
             verilog_ast.write(json_file)
+        print("Done Writing LL file")
 
     def gen_graph_links(self):
         def process_node(R,module):
@@ -349,9 +367,14 @@ class AST:
             process_links(self.modules[i])
 
     def read_LLFile(self, file_path):
+        print("Reading LL file")
+        print("\t Loading json file")
         with open(file_path) as json_file:
             verilog_ast = json.load(json_file)
+        
+        print("\t Done Loading json file")
 
+        print("\t Loading Top module in AST")
         self.top_module = module()
         self.modules = {}
         self.verilog =  verilog_ast["AST"]["orginal_code"]
@@ -362,9 +385,12 @@ class AST:
         self.flatten_bench=verilog_ast["AST"]["Bench_format_flattened"]
         self.gate_lib=verilog_ast["AST"]["gate_lib"]
         # self.linkages=verilog_ast["linkages"]
+        print(f"\t Done Loading Top module {self.top_module_name} in AST")
 
         keys = list((verilog_ast["modules"]).keys())
+        print("\t Loading module data in AST")
         for i in keys:
+            print(f"\t\t Loading module {i} in AST")
             self.modules[i]=module()
             self.modules[i].module_name = i
             self.modules[i].org_code_verilog = verilog_ast["modules"][i]["Verilog"]
@@ -379,9 +405,11 @@ class AST:
             # Decode the binary string back to a graph object
             self.modules[i].base64_data = verilog_ast["modules"][i]["DiGraph"]
             self.modules[i].circuitgraph = pickle.loads(base64.b64decode(self.modules[i].base64_data.encode('utf-8')))
+            print(f"\t\t Done Loading module {i} in AST")
+        print("\t Done Loading module data in AST")
         self.top_module=self.modules[self.top_module_name]
         self.top_module.bitkey=verilog_ast["AST"]["bitkey"]
-    
+        print("Done Reading LL file")
     
     # def gen_module_connections(self):
     #     self.module_connections = nx.DiGraph()
@@ -408,6 +436,17 @@ class AST:
     #     save_graph(self.module_connections)
     
 
+    # def update_org_verilog(self):
+    #     self.gate_level_flattened=""
+    #     for i in self.modules:
+    #         self.modules[i].gen_org_verilog()
+    #         self.LLverilog=""
+    #         self.gate_level_flattened+=self.top_module.gate_level_verilog+"\n"
+    #         for i in self.modules:
+    #             if(i!=self.top_module_name):
+    #                 self.gate_level_flattened+=self.modules[i].gate_level_verilog+"\n"
+
+
     def update_LLverilog(self):
         for i in self.modules:
             if(self.modules[i].change_flag==1):
@@ -415,7 +454,9 @@ class AST:
         self.gen_graph_links()
         
         
+        
         if("lockingkeyinput" in self.top_module.io["inputs"]):
+            print("\t Updating Logic Locked Verilog Code")
             for i in self.modules:
                 self.modules[i].gen_LL_verilog()
             self.LLverilog=""
@@ -429,41 +470,57 @@ class AST:
                 tmpi=self.modules[i]
                 for j in tmpi.linkages:
                     self.postsat_lib+="\n"+tmpi.linkages[j]['code']+"\n"
+            print("\t Done Updating Logic Locked Verilog Code")
+        else:
+            print("\t Netlist Not Locked, No Update to Peform")
 
-    def gen_verification_files(self):
-        self.update_LLverilog()
+    def gen_verification_files(self,tmpdir=r"/mnt/d/alis files/LAPTOP/alis files/university files/PROJECTS_2022-2023/FYP/Circuits/top"):
+        print("Generating Verification Files")
+        # print("\t Updating Logic Locked Verilog Code")
+        # self.update_LLverilog()
+        print(f"\t Generating Miter Circuit Verilog and Testbench")
         cir,testbench=gen_miterCircuit(self.gate_level_flattened,self.LLverilog,self.gate_lib+self.postsat_lib,self.top_module_name,self.top_module.bitkey,self.top_module.io["Clock_pins"])
-        import os
         # tmpdir="./tmp/"
-        tmpdir=r"/mnt/d/alis files/LAPTOP/alis files/university files/PROJECTS_2022-2023/FYP/Circuits/top"
+        
         # tmpdir=tmpdir.replace(" ", "\ ")
         # "./tmp/"
         top_path=os.path.join(tmpdir,"top.v")
         test_path=os.path.join(tmpdir,"testbench.v")
         # print(top_path,test_path)
+        print(f"\t Writing miter circuit verilog to {top_path}")
         with open(top_path,"w") as f:
             f.write(cir)
+        print("\t Done")
 
+        print(f"\t Writing miter circuit testbench to {test_path}")
         with open(test_path,"w") as f:
             f.write(testbench)
-
-
+        print("\t Done")
         
+        print("\t Verifying Miter circuit top.v")
         verify_verilog(top_path,'top')
-        print("Verification Done Without Error")
+        print("\t Verification Done Without Error")
+        print("Done Generating Verification Files")
 
     def gen_results(self,org=True):
         gate_count=0
         for i in self.top_module.gates:
             gate_count+=len(self.top_module.gates[i])
-        # print("Total Gate Count: ",gate_count)
+        
         if(org):
             self.org_gate_count=gate_count
             return gate_count
         else:
             self.LL_gate_count=gate_count
-            return gate_count,(gate_count-self.org_gate_count)*100/gate_count
-            print("% Overhead in Number of Gates",(self.org_gate_count-gate_count)*100/self.org_gate_count)
+            FF_count=0
+            for i in self.top_module.FF_tech:
+                FF_count+=len(self.top_module.FF_tech[i])
+
+            overhead=(gate_count-self.org_gate_count)*100/gate_count
+            return gate_count,overhead,FF_count
+            print("Overhead in Number of Gates: ",(gate_count-self.org_gate_count)*100/gate_count)
+            print("Expected Overhead in Number of Flip-Flops: ",(gate_count-self.org_gate_count)*100/FF_count)
+            
 
 
 

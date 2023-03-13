@@ -4,29 +4,51 @@ import os
 import src.utils as utils
 
 
-top="picorv32"
+
+import re 
+import os
 # c5315
 # pathin="input_files/Benchmarks/ISCAS85/"+f"{top}/{top}.v"
 # pathin="input_files/demo.v"
 
+top="picorv32"
 pathin="/home/alira/FYP/linux/picorv32/picorv32.v"
 
-# obj=AST(file_path=pathin,rw="w",flag="v",top=top,filename=f"{top}org") #Run to Read in Verilog Design
+
+# top="demo"
+# pathin="input_files/demo.v"
+
+obj=AST(file_path=pathin,rw="w",flag="v",top=top,filename=f"{top}org") #Run to Read in Verilog Design
 obj = AST(file_path=f"./output_files/{top}org.json",rw='r',filename=f"{top}locked") #Run to read in AST Format
 
-
+# # 16733 16618
 countorg=obj.gen_results()
+print(countorg)
+# obj.update_org_verilog()
 
 # obj.top_module.save_graph(svg=True) #Run to save circuit Graph as a SVG
+bits=128
 LL=LogicLocking(obj) #Object for Locking Circuit
-LL.PreSAT.set_key(128) # set Key bits or Locking Key Value
+LL.PreSAT.set_key(bits) # set Key bits or Locking Key Value
 LL.PreSAT.TRLL_plus()  # perform Strong Logic Locking on Circuit
+
+# LL.PostSAT.set_key(128) # set Key bits or Locking Key Value
+# LL.PostSAT.AntiSAT()  # perform Strong Logic Locking on Circuit
+
 obj.writeLLFile() # Write Locked circcuit to AST format file
 obj.gen_verification_files() #Generate Verification Testbench Files
-# obj.top_module.save_graph(svg=True)
-count_ll,overhead=obj.gen_results(org=False)
+# # obj.top_module.save_graph(svg=True)
+count_ll,overhead,FF_count=obj.gen_results(org=False)
 
-print(countorg,count_ll,overhead)
+print(countorg,count_ll,overhead,bits*100/(FF_count+bits))
+
+# t=re.findall(r"assign (\\?.*) = (\\?.*) ?;\n",verilog)
+
+
+
+
+
+
 
 
 
@@ -68,6 +90,105 @@ print(countorg,count_ll,overhead)
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# tmp=["1'h0" ,"2'h3", "3'h0","32'd0","32'd124","81'h000000000000000000000","7'b1111100"]
+
+
+
+
+
+# for i in tmp:
+#     num=utils.extract_value(i)
+#     print(i,num)
+
+
+
+
+# verilog=open("tmp/picorv32_2_flatten.v").read()
+
+
+
+
+# with open("tmp/tmp.v","w") as f:
+#     f.write(verilog) 
+
+
+# elif("'" in R):
+#     if(":" not in L):
+#         print(L,re.findall(re.compile(L),verilog))
+#     if("'h" in R):
+#         pass
+#     elif("'d" in R):
+#         pass
+#     pass
+#     # print(i)
+# else:
+#     pass
+#     # print(L,R)
+
+
+
+
+
+
+
+
+# for i,j in zip(L,R):
+#             if(":" not in i):
+#                 if(re.findall(re.compile(i),verilog)==[]):
+#                     continue
+#                 tmpstr+=f"assign {i} = {j};\n"
+#             else:
+#                 tmpi,ei,si=re.findall(r"(.*)\[(\d+):(\d+)\]",i)[0]
+#                 si,ei=int(si),int(ei)
+#                 if("'h" in j):
+#                     tmpv=utils.extract_value(j,bits=ei-si+1)
+
+#                 for ii,k in enumerate(range(si,ei+1)):
+#                     if(re.findall(re.compile(f"{tmpi}[{k}]"),verilog)==[]):
+#                             if("'h" not in j):
+#                                 print(i,j)
+#                             continue
+                    
+#                     if("'h" in j):
+#                         tmpbuf+=f"BUF_g ab_{tmpi}_ ( .A({tmpi}[{k}]), .Y(1'h{tmpv[ei-si-ii]}) );\n"
+#                     else:
+#                         print(f"BUF_g ab_{tmpi}_ ( .A({tmpi}[{k}]), .Y({j}) );")
+#                         tmpbuf+=f"BUF_g ab_{tmpi}_ ( .A({tmpi}[{k}]), .Y({j}) );\n"
+                        
+#                     # print(k,re.compile(f"{tmpi}[{k}]"),re.findall(re.compile(f"{tmpi}[{k}]"),verilog))
 
 
 

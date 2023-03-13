@@ -127,6 +127,54 @@ def randKey(bits, seed=None):
 ####################################################################################################################################
 ####################################################################################################################################
 
+def extract_value(encoded_value,bits=None):
+    size, encoding_value = encoded_value.split("'")
+    base = encoding_value[0]
+    value=encoding_value[1:]
+    if(bits==None):
+        bits=int(size)
+
+
+
+    if base == "h":
+        val_bin = bin(int(value, 16))[2:]
+    elif base == "d":
+        val_bin = bin(int(value))[2:]
+    elif base == "b":
+        val_bin = value
+    else:
+        raise ValueError("Unknown encoding scheme: {}".format(base))
+
+    return val_bin.zfill(bits)
+
+####################################################################################################################################
+####################################################################################################################################
+
+
+def proc_assign_bracket(node): #assign {,}={,.,} 
+    node_n=[]
+    for node_i in node:
+        if(":" in node_i):
+            tmpi,ei,si=re.findall(r"(.*)\[(\d+):(\d+)\]",node_i)[0]
+            si,ei=int(si),int(ei)
+            for k in range(si,ei+1):
+                # print(f"{tmpi}[{k}]")
+                node_n.append(f"{tmpi}[{k}]")
+        elif("'h" in node_i):
+            bit_val=extract_value(node_i)
+            for k in range(len(bit_val)-1, -1, -1):
+                node_n.append(f"1'b{bit_val[k]}")
+        else:
+            node_n.append(node_i)
+    return node_n
+            
+
+
+
+####################################################################################################################################
+####################################################################################################################################
+
+
 def format_verilog_org(verilog):
     # verilog=re.sub("`","\\`",verilog)
     verilog=re.sub(r"//.*\n","",verilog)
@@ -134,8 +182,6 @@ def format_verilog_org(verilog):
     # verilog=re.sub(r"[(][].[*][)]\n","",verilog)
     verilog=re.sub(r"/\*.*?\*/", "", verilog, flags=re.DOTALL)
     
-
-
     verilog=re.sub(r"\n+","",verilog)
     verilog=re.sub(r"\s+"," ",verilog)
     verilog=re.sub(r" ?; ?",";\n",verilog)
@@ -148,7 +194,10 @@ def format_verilog_org(verilog):
 ####################################################################################################################################
 ####################################################################################################################################
 
-def format_verilog(verilog,remove_wire=False,remove_assign=False):
+
+
+
+def format_verilog(verilog):
     verilog=re.sub(r"//.*\n","",verilog)
     verilog=re.sub(r" +\)",")",verilog)
     verilog=re.sub(r"\( +","(",verilog)
@@ -165,36 +214,36 @@ def format_verilog(verilog,remove_wire=False,remove_assign=False):
     verilog=re.sub(r"end ","end\n",verilog)
     verilog=re.sub(r"begin","begin\n",verilog)
 
-    assign_nodes=re.findall(r"assign (\\?.*) = (\\?.*) ?;\n",verilog)
-
+    
     verilog=re.sub(r"(\w)\.",r"\1",verilog)
     verilog=re.sub(r"\] \[","][",verilog)
-    
 
-    # verilog=re.sub(r"assign (\\?.*) = (\\?.*) ?;\n","",verilog) #BUF_g node\1_ ( .A(\2), .Y(\1) );\n
+    t=re.findall(r"assign (\\?.*) = (\\?.*) ?;\n",verilog)
+    verilog=re.sub(r"assign (\\?.*) = (\\?.*) ?;\n","",verilog)
 
-    verilog_withoutwire=re.sub(r"wire .*;\n","",verilog)
-    if(remove_wire):
-        verilog=re.sub(r"wire .*;\n","",verilog)
-    
-    tmpstr=""
-    if(remove_assign):
-        for count,i in enumerate(assign_nodes):
-            if(re.findall(i[0],verilog_withoutwire)!=[]):
-                if("1'h" in i[1]):
-                    tmpstr+="BUF_g assignbuffer{} ( .A({}), .Y({}) );\n".format(count,i[1],i[0])
-                    # print(i,re.findall(i[0],verilog))
-                    # raise Exception("\n\n\n\t   GONNA HAVE TO FIX THIS NOW!!!!!!!!!! \n\n =====>>> Binary value on left Side of assign <<<=====")
-                elif("'h" in i[1]):
-                    bit,val=i[1].split("'h")
 
-                    print(bit,val)
-                    # for i in 
-                    # tmpstr+="BUF_g assignbuffer{} ( .A({}), .Y({}) );\n".format(count,i[1],i[0])
-                else:
-                    tmpstr+="BUF_g assignbuffer{} ( .A({}), .Y({}) );\n".format(count,i[1],i[0])
+    verilog_without_wire=re.sub("wire .*;\n","",verilog)
 
-    verilog=re.sub("endmodule",tmpstr+"endmodule",verilog)
+    tmpbuf=""
+    tmpassign=""
+    for i in t:
+        L,R=i
+        if("{" in L):
+            L=re.sub(" +","",L)[1:-1].split(",")
+            R=re.sub(" +","",R)[1:-1].split(",")
+            if(len(L)!=len(R)):
+                L=proc_assign_bracket(L)
+                R=proc_assign_bracket(R) 
+            for Li,Ri in zip(L,R):
+                if(re.findall(re.compile(Li),verilog_without_wire)!=[]):
+                    tmpbuf+=f"BUF_g assignbuf_{Li}_{Ri}_ ( .A({Ri}), .Y({Li}) );\n"
+        else:
+            if(re.findall(re.compile(L),verilog_without_wire)==[]):
+                continue
+            tmpassign+=f"assign {L} = {R};\n"
+
+    verilog=re.sub("endmodule",tmpbuf+tmpassign+"endmodule",verilog)
+
     return verilog
 
 ####################################################################################################################################
@@ -240,15 +289,40 @@ def connector(bits,startbit,endbit) -> None:
         return {"bits":bits,"startbit":startbit,"endbit":endbit}
 
 
+
+def proc_port(x):
+    tmp=x.split("[")    
+    if(len(tmp)==3):
+        # print(f"{tmp[0]}_{tmp[1][:-1]}[{tmp[2]}")
+        return f"{tmp[0]}_{tmp[1][:-1]}[{tmp[2]}"
+    elif(len(tmp)>2):
+        raise Exception("More than 2d memory in output verilog")
+    else:
+        return x
+    # if("[" in x):
+    #     print(x)
+    #     port,rbit=x.split("[")
+    #     return f"{port}_{rbit}"
+    return x
+
+
+def proc_node_dec(x):
+    if("[" in x):
+        port,rbit=x.split("[")
+        return f"{port}_{rbit[:-1]}"
+    return x
+
+
+
+
 def extract_io_v(verilog,mode="input"):
   nodes={}
   port=""
   tmp=re.findall("\n"+mode.lower()+r"[\s\[](.*);",verilog)
+
   for i in tmp:
-    # if("cpuregs" in i):
-    #     print(i)
+    i=re.sub("\[(\d+)\]",r"_\1",i)
     if("[" in i):
-        # print(i)
         ei,si,tmpi=re.findall(r"\[(\d+):(\d+)\] ?(.*)",i)[0]
         ei,si=int(ei),int(si)
         # print(ei,si,tmpi)
@@ -276,7 +350,7 @@ def extract_io_v(verilog,mode="input"):
 
 def check_port(i):
     tmptxt=re.findall(r"\[",i)
-    if(len(tmptxt)==2):
+    if(len(tmptxt)!=1):
         tmptxt=re.sub("(.*\[\d+\])\[\d+\]",r"\1",i)
     else:
         tmptxt=re.sub("\[\d+\]","",i)
@@ -437,10 +511,10 @@ def synthesize_verilog(verilog, top,flag = "flatten"):
         
     
     synthesized_verilog = open(file_path, "r").read()
-    synthesized_verilog = format_verilog(synthesized_verilog,remove_wire=False,remove_assign=False)
+    synthesized_verilog = format_verilog(synthesized_verilog)
 
     with open(file_path,"w") as f:
-        f.write(synthesized_verilog)    
+        f.write(synthesized_verilog)
     #os.remove("./tmp/tmp_syn1.v")
     #os.remove("./tmp/tmp_syn2.v")
 
@@ -458,7 +532,7 @@ def synthesize_verilog(verilog, top,flag = "flatten"):
 #         '
 #     """
 #     synthesized_verilog = open(f"./tmp/tmp_syn2.v", "r").read()
-#     synthesized_verilog = format_verilog(synthesized_verilog,remove_wire=False)
+#     synthesized_verilog = format_verilog(synthesized_verilog)
 #     with open(f"./tmp/tmp_syn2.v","w") as f:
 #         f.write(synthesized_verilog)
 #     #os.remove("./tmp/tmp_syn1.v")
@@ -482,13 +556,15 @@ def gates_module_extraction(verilog):
   sub_module={}
   def process_chunk(chunk):
     type_block,init,extra=chunk
+    extra=re.sub(" \[","[",extra)
+    extra=re.sub("\[(\d+)\](\[\d+\])",r"_\1\2",extra)
     if(type_block in gates):
-      tmpx=re.findall(r'\.\S+\(([^\(\),]+)\)',extra)
-      tmpx.reverse()
-      type_block_port=re.sub("_g","",type_block)
-      if type_block_port not in gate_tech:
-        gate_tech[type_block_port]={}
-      gate_tech[type_block_port][type_block_port+init]={"inputs": tmpx[1:] ,"outputs": tmpx[0]}
+        tmpx=re.findall(r'\.\S+\(([^\(\),]+)\)',extra)
+        tmpx.reverse()
+        type_block_port=re.sub("_g","",type_block)
+        if type_block_port not in gate_tech:
+            gate_tech[type_block_port]={}
+        gate_tech[type_block_port][type_block_port+init]={"inputs": tmpx[1:] ,"outputs": tmpx[0]}
         
     elif(type_block in FF):
         # print(type_block,init,extra)
@@ -521,7 +597,7 @@ def gates_module_extraction(verilog):
             FF_tech[type_block][type_block_port]={"inputs": D ,"outputs": Q,"clock":C}
             # print("HERE",C,D,Q,extra)
         else:
-            raise Exception("FLIP_FLOP not Defined")
+            raise Exception("FLIP_FLOP NOT Defined")
 
     else:
         links=[]
@@ -553,6 +629,8 @@ def submodules_info(sub):
     return dictionary
 
 
+
+
 ####################################################################################################################################
 ####################################################################################################################################
 def node_to_txt(iodict,mode="input",return_bits=False):
@@ -565,6 +643,11 @@ def node_to_txt(iodict,mode="input",return_bits=False):
             txt+=f"{mode} {i};\n"
         else:
             total_bits+=tmpi["bits"]
+            # # print(i)
+            # if("[" in i):
+            #     port,rbit=i.split("[")
+            #     txt+=f"{mode} [{tmpi['endbit']}:{tmpi['startbit']}] {port}_{rbit[:-1]};\n"
+            # else:
             txt+=f"{mode} [{tmpi['endbit']}:{tmpi['startbit']}] {i};\n"
 
     if(return_bits):
@@ -656,7 +739,7 @@ def rand_selection(my_dict,val,req_bits):
     while sum_counts != req_bits:
         # print("doing ", sum_counts)
         # Select `num_keys` keys at random
-        num_keys=random.randint(1,len(keys))
+        num_keys=random.randint(1,len(keys)-1)
         selected_keys = random.sample(keys, num_keys)
         # Calculate the sum of counts for the selected keys
         

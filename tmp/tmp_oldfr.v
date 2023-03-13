@@ -1,0 +1,46 @@
+ 1'h0
+ dbg_ascii_instr[62]
+ dbg_ascii_instr[62]
+ 2'h0
+ dbg_ascii_instr[62]
+ 2'h0
+ dbg_ascii_instr[54]
+ 1'h0
+ dbg_ascii_instr[62]
+ dbg_ascii_instr[52]
+ 2'h0
+ dbg_ascii_instr[54]
+ dbg_ascii_instr[54]
+ 1'h0
+ dbg_ascii_instr[52]
+ dbg_ascii_instr[62]
+ 1'h0
+ dbg_ascii_instr[38]
+ dbg_ascii_instr[43]
+ 1'h0
+ dbg_ascii_instr[30]
+ 1'h0
+ dbg_ascii_instr[22]
+ 1'h0
+ dbg_ascii_instr[14]
+ 1'h0
+ dbg_ascii_instr[14]
+ dbg_ascii_instr[14]
+
+
+
+ dbg_ascii_instr[63]  
+ dbg_ascii_instr[61:55]
+ dbg_ascii_instr[53]
+ dbg_ascii_instr[51:44]
+ dbg_ascii_instr[42]
+ dbg_ascii_instr[40:39]
+ dbg_ascii_instr[37]
+ dbg_ascii_instr[34]
+ dbg_ascii_instr[31]
+ dbg_ascii_instr[29]
+ dbg_ascii_instr[23]
+ dbg_ascii_instr[21]
+ dbg_ascii_instr[15]
+ dbg_ascii_instr[13]
+ dbg_ascii_instr[7:5]

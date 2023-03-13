@@ -119,10 +119,15 @@ def gen_miterCircuit(verilog,verilogLL,gatemodules,top,key,Clock_pins):
 
     miter_circuit+=re.sub(r"module "+top+"\(","module orgcir(",verilog)
 
+    #     miter_circuit+=re.sub(r"module "+top+r"( ?#?\()",r"module enccir\1",verilogLL)+"\n\n\n\n"
+
+    # miter_circuit+=re.sub(r"module "+top+r"( ?#?\()",r"module orgcir\1",verilog)
+
+
 
     # gatemodules=open("./vlib/mycells.v").read()
 
-    miter_circuit+=gatemodules
+    miter_circuit+="\n\n\n"+gatemodules
 
     # print(LLinp[keyinputs[0]]['bits'])
     # print(cir_inputs)

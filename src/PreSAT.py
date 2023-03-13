@@ -21,6 +21,7 @@ class PreSAT:
           print("Number of Gates < Number of Key-Bits")
           return None
       self.module.bitkey=self.bitkey+self.module.bitkey
+      print("\t Key for PreSat locking Set")
       # print(self.module.bitkey)
 
     
@@ -316,6 +317,7 @@ class PreSAT:
       #     Key[k] ← 0
       #   return Key, C
 
+      print("\t\t\t Replacing Inveters with Keygates")
       for i in range(0,split):
         rnd=self.bitkey[self.keycount-i-1]
         # rnd=random.randint(0,1)
@@ -330,6 +332,8 @@ class PreSAT:
         else:
           self.ReplaceInverter(inverter=gate,new_gatetype="XNOR")
 
+      print("\t\t\t Done Replacing Inveters with Keygates")
+      print("\t\t\t Inserting Keygates")
       for i in range(split,self.keycount):
         rnd=self.bitkey[self.keycount-i-1]
         # rnd=random.randint(0,1)
@@ -345,10 +349,11 @@ class PreSAT:
         else:
           self.InsertKeyGate(gate,gate_o,gatetype="XOR")
           # self.ReplaceInverter(inverter=gate,new_gatetype="XOR")
-
+      print("\t\t\t Done Inserting Keygates")
 
 
     def TRLL_plus(self):
+      print("\t Starting TRLL_plus Logic Locking")
       gatecount=0
       for i in self.module.gates:
         gatecount+=len(self.module.gates[i])
@@ -367,9 +372,13 @@ class PreSAT:
       #   ProduceInverters(C,N onInvList,split-num_inv)
       if(invgatecount<split):
         # print(invgatecount,split)
+        print("\t\t Inserting Inverters")
         self.InsertInverters(noninvlist,invlist,split-invgatecount)
+        print("\t\t Done Inserting Inverters")
       
       # invlist,noninvlist,=get_gates(obj.top_module.gates)
       
       self.TRLL_Locking(split,invlist,noninvlist)
+      print("\t Done TRLL_plus Logic Locking")
+      
 

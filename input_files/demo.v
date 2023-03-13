@@ -1,4 +1,4 @@
-module top(CLOCK_50,KEY_N,SW,vga_x,vga_y,vga_plot,vga_colour);
+module demo(CLOCK_50,KEY_N,SW,vga_x,vga_y,vga_plot,vga_colour);
 
 	input CLOCK_50;
 	input [9:0]SW;
