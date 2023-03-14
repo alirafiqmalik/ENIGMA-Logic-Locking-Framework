@@ -7,9 +7,13 @@ import src.utils as utils
 
 import re 
 import os
-# c5315
-# pathin="input_files/Benchmarks/ISCAS85/"+f"{top}/{top}.v"
-# pathin="input_files/demo.v"
+
+
+
+
+# # c5315
+# # pathin="input_files/Benchmarks/ISCAS85/"+f"{top}/{top}.v"
+# # pathin="input_files/demo.v"
 
 top="picorv32"
 pathin="/home/alira/FYP/linux/picorv32/picorv32.v"
@@ -42,7 +46,83 @@ count_ll,overhead,FF_count=obj.gen_results(org=False)
 
 print(countorg,count_ll,overhead,bits*100/(FF_count+bits))
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# top="picorv32"
+# pathin="/home/alira/FYP/linux/picorv32/picorv32.v"
+
+# obj = AST(file_path=f"./output_files/{top}org.json",rw='r',filename=f"{top}locked") #Run to read in AST Format
+
+# verilog=open("tmp/picorv32_2_flatten.v").read()
+
+# verilog=utils.format_verilog(verilog)
+
 # t=re.findall(r"assign (\\?.*) = (\\?.*) ?;\n",verilog)
+# tmp=""
+# for i in t:
+#     # print(i)
+#     node=obj.top_module.io["outputs"][i[0]]
+#     if(node['bits']!=1):
+#         ct=utils.extract_value(i[1])
+#         ei,si=re.findall(f"wire \[(\d+):(\d+)\] {i[0]};",verilog)[0]
+#         si,ei=int(si),int(ei)
+#         # print(node['bits'],len(ct),ct,si,ei)
+#         for k in range(si,ei+1):
+#             tmp+=f"BUF_g assignbuf_{i[0]}_{k}_{i[1]}_ ( .A(1'b{ct[k]}), .Y({i[0]}[{k}]) );\n"
+#             print(f"BUF_g assignbuf_{i[0]}_{k}_{i[1]}_ ( .A(1'b{ct[k]}), .Y({i[0]}[{k}]) );\n")
+#     else:
+#         print(f"BUF_g assignbuf_{i[0]}_{i[1]}_ ( .A({i[1]}), .Y({i[0]}) );\n")
+
+
+#     # print(node['bits'])
+#     # print(i[0] in obj.top_module.io["wires"])
+#     # print(i[0] in obj.top_module.io["outputs"])
+#     # print(obj.top_module.io["outputs"][i[0]])
+
+
+
+
+
+# def extract_assign(verilog):
+#     t=re.findall(r"assign (\\?.*) = (\\?.*) ?;\n",verilog)
+#     for i in t:
+#         print(i)
+
+
+# extract_assign(verilog)
+
+# with open("tmp/tmp.v","w") as f:
+#     f.write(verilog)
+
+
+
+
+
+# # t=re.findall(r"assign (\\?.*) = (\\?.*) ?;\n",verilog)
 
 
 

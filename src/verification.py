@@ -21,10 +21,16 @@ def gen_miter_testbench(key_inputs_p,
                         top_module="top",
                         log_path="logfile.txt"):
     
+    # print(Clock_pins)
+    if("clk" in Clock_pins):
+        Clock_pins.remove("clk")
+        cir_inputs=re.sub(".*clk;\n","",cir_inputs)
+    
     clk_txt=""
     for i in Clock_pins:
         clk_txt+=f"assign {i}=clk;\n"
         cir_inputs_p=re.sub(i+",?","",cir_inputs_p)
+        
     
     # print("hh ",cir_inputs_p)
         

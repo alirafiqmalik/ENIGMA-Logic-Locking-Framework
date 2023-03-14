@@ -63,8 +63,8 @@ class module:
                     elif(i in self.io["wires"]):
                         self.circuitgraph.add_node(i, type="wire",port=tmptxt)
                         self.circuitgraph.add_edge(i,node_name)
-                    elif("1'h" in i):
-                        self.circuitgraph.add_node(i, type="bit",value=int(i[-1]))
+                    elif("1'" in i):
+                        self.circuitgraph.add_node(i, type="bit",value=i)
                         self.circuitgraph.add_edge(i,node_name)
                     else:
                         print("HERE")
@@ -248,10 +248,9 @@ class AST:
             self.modules[key].module_name = key
             self.modules[key].org_code_verilog = self.extracted_modules[key]
             self.modules[key].gate_level_verilog = self.modules_techmap[key]
-            self.modules[key].gates,self.modules[key].linkages,tmp = gates_module_extraction(self.modules[key].gate_level_verilog)
-            # self.linkages[key]=linkages
-            
+            self.modules[key].gates,self.modules[key].linkages,tmp = gates_module_extraction(self.modules[key].gate_level_verilog)            
             self.modules[key].FF_tech,self.modules[key].Clock_pins,self.modules[key].Reset_pins=tmp
+
             inputs, input_ports = extract_io_v(self.modules[key].org_code_verilog)
             outputs, output_ports = extract_io_v(self.modules[key].org_code_verilog, "output")
             wire, _ = extract_io_v(self.modules[key].gate_level_verilog, "wire")
@@ -485,7 +484,7 @@ class AST:
         # tmpdir=tmpdir.replace(" ", "\ ")
         # "./tmp/"
         top_path=os.path.join(tmpdir,"top.v")
-        test_path=os.path.join(tmpdir,"testbench.v")
+        test_path=os.path.join(tmpdir,"testbench.sv")
         # print(top_path,test_path)
         print(f"\t Writing miter circuit verilog to {top_path}")
         with open(top_path,"w") as f:

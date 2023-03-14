@@ -135,15 +135,18 @@ def extract_value(encoded_value,bits=None):
         bits=int(size)
 
 
-
-    if base == "h":
+    if(len(value)==value.count("x")):
+        val_bin="x"*bits
+    elif('x' in value):
+        raise ValueError(f"Mix of x and numbers in value = {value}")
+    elif base == "h":
         val_bin = bin(int(value, 16))[2:]
     elif base == "d":
         val_bin = bin(int(value))[2:]
     elif base == "b":
         val_bin = value
     else:
-        raise ValueError("Unknown encoding scheme: {}".format(base))
+        raise ValueError(f"Unknown encoding scheme: {base}")
 
     return val_bin.zfill(bits)
 
@@ -221,8 +224,13 @@ def format_verilog(verilog):
     t=re.findall(r"assign (\\?.*) = (\\?.*) ?;\n",verilog)
     verilog=re.sub(r"assign (\\?.*) = (\\?.*) ?;\n","",verilog)
 
-
     verilog_without_wire=re.sub("wire .*;\n","",verilog)
+
+    verilog=re.sub(r" \[","[",verilog)
+    verilog=re.sub(r"\[(\d+)\](\[\d+\])",r"_\1\2",verilog)
+
+    verilog=re.sub(r"(wire|input|output)\[",r"\1 [",verilog)
+    verilog=re.sub(r"(wire|input|output)( \[\d+:\d+\] .*)\[(\d+)\]",r"\1\2_\3",verilog)
 
     tmpbuf=""
     tmpassign=""
@@ -240,7 +248,32 @@ def format_verilog(verilog):
         else:
             if(re.findall(re.compile(L),verilog_without_wire)==[]):
                 continue
-            tmpassign+=f"assign {L} = {R};\n"
+            # tmpassign+=f"assign {L} = {R};\n"
+            node=re.findall(f"wire(.*){L};",verilog)[0]
+
+            if("[" in node):
+                ct=extract_value(R)
+                end,start=node.strip().split(":")
+                end,start=int(end[1:]),int(start[:-1])
+                # print(end,start)
+                for k in range(start,end+1):
+                    tmpassign+=f"BUF_g assignbuf_{L}[{k}]_{R}_ ( .A(1'b{ct[k]}), .Y({L}[{k}]) );\n"
+                    # print(f"BUF_g assignbuf_{L}[{k}]_{R}_ ( .A(1'b{ct[k]}), .Y({L}[{k}]) );\n")
+            else:
+                tmpassign+=f"BUF_g assignbuf_{L}_{R}_ ( .A({R}), .Y({L}) );\n"
+                # print(f"BUF_g assignbuf_{L}_{R}_ ( .A({R}), .Y({L}) );\n")
+            
+            # print(node,re.findall(f"wire(.*){L};",verilog))
+        #     if(node['bits']!=1):
+        #         ct=utils.extract_value(i[1])
+        #         ei,si=re.findall(f"wire \[(\d+):(\d+)\] {i[0]};",verilog)[0]
+        #         si,ei=int(si),int(ei)
+        #         # print(node['bits'],len(ct),ct,si,ei)
+                # for k in range(si,ei+1):
+                #     tmp+=f"BUF_g assignbuf_{i[0]}_{k}_{i[1]}_ ( .A(1'b{ct[k]}), .Y({i[0]}[{k}]) );\n"
+                #     print(f"BUF_g assignbuf_{i[0]}_{k}_{i[1]}_ ( .A(1'b{ct[k]}), .Y({i[0]}[{k}]) );\n")
+        # else:
+        #     print(f"BUF_g assignbuf_{i[0]}_{i[1]}_ ( .A({i[1]}), .Y({i[0]}) );\n")
 
     verilog=re.sub("endmodule",tmpbuf+tmpassign+"endmodule",verilog)
 
@@ -547,8 +580,8 @@ def module_extraction (verilog):
 def gates_module_extraction(verilog):
   gates=['BUF_g','NOT_g', 'AND_g', 'OR_g', 'NAND_g', 'NOR_g','XOR_g','XNOR_g']
   FF=['DFFcell',"DFFRcell"]
-#   DFFRcell _2116_ ( .C(CLOCK_50), .D(_0153_), .Q(T3state[0]), .R(_0149_) );
-#   {'BUF':[],'NOT':[], 'AND':[], 'OR':[],'XOR':[],'NAND':[], 'NOR':[],'XNOR':[]}
+  #   DFFRcell _2116_ ( .C(CLOCK_50), .D(_0153_), .Q(T3state[0]), .R(_0149_) );
+  #   {'BUF':[],'NOT':[], 'AND':[], 'OR':[],'XOR':[],'NAND':[], 'NOR':[],'XNOR':[]}
   gate_tech={}
   FF_tech={}
   Clock_pins=[]
@@ -556,8 +589,8 @@ def gates_module_extraction(verilog):
   sub_module={}
   def process_chunk(chunk):
     type_block,init,extra=chunk
-    extra=re.sub(" \[","[",extra)
-    extra=re.sub("\[(\d+)\](\[\d+\])",r"_\1\2",extra)
+    # extra=re.sub(" \[","[",extra)
+    # extra=re.sub("\[(\d+)\](\[\d+\])",r"_\1\2",extra)
     if(type_block in gates):
         tmpx=re.findall(r'\.\S+\(([^\(\),]+)\)',extra)
         tmpx.reverse()
@@ -610,8 +643,12 @@ def gates_module_extraction(verilog):
 
   for i in re.findall(r"(\w+) (\w+) \((.*)\);",verilog):
     process_chunk(i)
-
+  
   return gate_tech,sub_module,(FF_tech,Clock_pins,Reset_pins)
+
+
+
+
 
 
 def submodules_info(sub):
@@ -655,7 +692,6 @@ def node_to_txt(iodict,mode="input",return_bits=False):
     else:
         return txt
         
-
 
 ####################################################################################################################################
 ####################################################################################################################################
