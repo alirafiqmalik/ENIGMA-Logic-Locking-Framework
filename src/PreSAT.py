@@ -72,7 +72,7 @@ class PreSAT:
       # print(NodeA,Na)
       if(Na['type']=='gate'):
         self.module.gates[Na['logic']][NodeA]['outputs']=keywire_name
-      elif('DFF' in Na['type']):
+      elif('DFF' in Na['type'].upper()):
         # print(Na,NodeA)
         self.module.FF_tech[Na['type']][NodeA]['outputs']=keywire_name
       else:
@@ -102,6 +102,8 @@ class PreSAT:
       #   # print("A",self.module.linkages[NodeB.split("#")[-1]])
       # else:
       #   pass
+
+
 
     def RLL(self):
       random.seed(10)
@@ -175,7 +177,6 @@ class PreSAT:
                     self.keycount-=1
           current_layer = next_layer
           count+=1
-          # 
 
 
     def SLL(self):
@@ -382,3 +383,84 @@ class PreSAT:
       print("\t Done TRLL_plus Logic Locking")
       
 
+    def InsertMUX(self, NodeA: str, NodeB: str, NodeC: str, gatetype: str = 'MUX') -> None:
+      keygatecount=len(self.module.lockingdata["gates"])
+      
+      keygate_name=f"keygate_{gatetype}_{str(keygatecount)}"
+      self.circuitgraph.remove_edge(NodeA, NodeB)
+      
+      keywire_name="keywire"+str(len(self.module.io["wires"]))
+      
+      self.circuitgraph.add_node(keygate_name,type="gate",logic=gatetype)
+      self.circuitgraph.add_node(keywire_name,type="wire",port=keywire_name)
+
+      
+      self.circuitgraph.add_edge(NodeA, keywire_name)
+      self.circuitgraph.add_edge(keywire_name, keygate_name)
+      self.circuitgraph.add_edge(keygate_name, NodeB)
+
+      bitval=len(self.module.lockingdata['inputs'])
+      # print(bitval)
+      keygate_input_name=f"lockingkeyinput[{bitval}]"
+      self.circuitgraph.add_node(keygate_input_name,type="input",port="lockingkeyinput")
+      self.circuitgraph.add_edge(keygate_input_name, keygate_name)
+
+      self.circuitgraph.add_edge("module#"+self.module.module_name,keygate_input_name)
+      # print(self.module.self.module_name)
+
+
+      self.module.lockingdata["gates"].append(keygate_name)
+      bit="0" if gatetype=="XOR" else "1"
+      self.module.lockingdata["inputs"].append((keygate_input_name,bit))
+      self.module.lockingdata["wires"].append(keywire_name)
+
+      self.module.io['wires'][keywire_name]=connector(1,0,0)
+      
+      
+      if("lockingkeyinput" not in self.module.io['inputs']):
+        self.module.io['inputs']["lockingkeyinput"]=connector(1,0,0)
+        self.module.io["input_ports"]+="lockingkeyinput,"
+      else:
+        # bits=self.module.io['inputs'][keygate_input_name]["bits"]
+        self.module.io['inputs']["lockingkeyinput"]=connector(bitval+1,0,bitval)
+        # self.module.io["input_ports"]+=f"{keygate_input_name},"
+
+      # print(NodeA)
+      Na=self.circuitgraph.nodes[NodeA]
+      # Nb=self.circuitgraph.nodes[NodeB]
+      # print(NodeA,Na)
+      if(Na['type']=='gate'):
+        self.module.gates[Na['logic']][NodeA]['outputs']=keywire_name
+      elif('DFF' in Na['type']):
+        # print(Na,NodeA)
+        self.module.FF_tech[Na['type']][NodeA]['outputs']=keywire_name
+      else:
+        raise Exception("NOT A GATE WHYYYYYY???????????")
+      
+      # if(Nb['type']=='wire'):
+      #   self.module.gates[Na['logic']]['output']=keywire_name
+      # else:
+      #   raise Exception("NOT A GATE WHYYYYYY")
+
+      # print(NodeA,self.circuitgraph.nodes[NodeA])
+      # print(NodeB,self.circuitgraph.nodes[NodeB])
+
+      if(gatetype not in self.module.gates.keys()):
+        self.module.gates[gatetype]={}
+      
+
+      self.module.gates[gatetype][keygate_name]={"inputs": [keywire_name,keygate_input_name] ,"outputs": NodeB}
+
+
+      # else:
+      #     self.module.gates[gatetype]={}
+      #     self.module.gates[gatetype][keygate_name]={"inputs": [keywire_name,keygate_input_name] ,"outputs": NodeB}
+
+      # if("self.module#" in NodeA):
+      #   print(self.circuitgraph.nodes[NodeA])
+      #   # print("A",self.module.linkages[NodeA.split("#")[-1]])
+      # elif("self.module#" in NodeB):
+      #   print(self.circuitgraph.nodes[NodeB])
+      #   # print("A",self.module.linkages[NodeB.split("#")[-1]])
+      # else:
+      #   pass

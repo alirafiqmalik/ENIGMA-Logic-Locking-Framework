@@ -1,4 +1,5 @@
 import re
+import time
 import random
 import subprocess
 from src.path_var import *
@@ -244,7 +245,8 @@ def format_verilog(verilog):
                 R=proc_assign_bracket(R) 
             for Li,Ri in zip(L,R):
                 if(re.findall(re.compile(Li),verilog_without_wire)!=[]):
-                    tmpbuf+=f"BUF_g assignbuf_{Li}_{Ri}_ ( .A({Ri}), .Y({Li}) );\n"
+                    tmp=Ri.split("'")[-1]
+                    tmpbuf+=f"BUF_g assignbuf_{Li}_{tmp}_ ( .A({Ri}), .Y({Li}) );\n"
         else:
             if(re.findall(re.compile(L),verilog_without_wire)==[]):
                 continue
@@ -257,10 +259,12 @@ def format_verilog(verilog):
                 end,start=int(end[1:]),int(start[:-1])
                 # print(end,start)
                 for k in range(start,end+1):
-                    tmpassign+=f"BUF_g assignbuf_{L}[{k}]_{R}_ ( .A(1'b{ct[k]}), .Y({L}[{k}]) );\n"
+                    tmp=R.split("'")[-1]
+                    tmpassign+=f"BUF_g assignbuf_{L}[{k}]_{tmp}_ ( .A(1'b{ct[k]}), .Y({L}[{k}]) );\n"
                     # print(f"BUF_g assignbuf_{L}[{k}]_{R}_ ( .A(1'b{ct[k]}), .Y({L}[{k}]) );\n")
             else:
-                tmpassign+=f"BUF_g assignbuf_{L}_{R}_ ( .A({R}), .Y({L}) );\n"
+                tmp=R.split("'")[-1]
+                tmpassign+=f"BUF_g assignbuf_{L}_{tmp}_ ( .A({R}), .Y({L}) );\n"
                 # print(f"BUF_g assignbuf_{L}_{R}_ ( .A({R}), .Y({L}) );\n")
             
             # print(node,re.findall(f"wire(.*){L};",verilog))
@@ -276,6 +280,7 @@ def format_verilog(verilog):
         #     print(f"BUF_g assignbuf_{i[0]}_{i[1]}_ ( .A({i[1]}), .Y({i[0]}) );\n")
 
     verilog=re.sub("endmodule",tmpbuf+tmpassign+"endmodule",verilog)
+
 
     return verilog
 
@@ -496,29 +501,34 @@ def synthesize_verilog(verilog, top,flag = "flatten"):
     with open("./tmp/tmp_syn1.v", "w") as f:
         f.write(verilog)
     file_name=f"{top}_2_{flag}.v"
-    file_path=f"./tmp/{file_name}"
-    if(os.path.isfile(file_path)):
+    output_file_path=f"./tmp/{file_name}"
+    output_file_path2=f"./tmp/{top}_unformated.v"
+    readin="read_verilog ./tmp/tmp_syn1.v"
+    
+    if(os.path.isfile(output_file_path)):
         print(f"File Already Synthesize, Delete file in tmp to re-synthesize file {file_name}")
     else:
         if flag == "flatten":
             cmd = """
                 {yosys_path} -q -p'
-                read_verilog ./tmp/tmp_syn1.v
+                {readin}
                 hierarchy -check -top {module_name}
                 proc; opt; fsm; opt; memory; opt;
                 techmap; opt
-                dfflibmap -liberty ./vlib/mycells.lib
-                abc -liberty ./vlib/mycells.lib  
                 flatten
                 opt_clean -purge
+                dfflibmap -liberty ./vlib/mycells.lib
+                abc -liberty ./vlib/mycells.lib  
+                opt_clean -purge
                 write_verilog -noattr {out_file}
+                write_verilog -noattr {out_file2}
                 '
             """
             
         elif flag == "dont_flatten":
             cmd = """
                 {yosys_path} -q -p'
-                read_verilog ./tmp/tmp_syn1.v
+                {readin}
                 hierarchy -check -top {module_name}
                 proc; opt; fsm; opt; memory; opt;
                 techmap; opt
@@ -526,13 +536,15 @@ def synthesize_verilog(verilog, top,flag = "flatten"):
                 abc -liberty ./vlib/mycells.lib 
                 opt_clean -purge
                 write_verilog -noattr {out_file}
+                write_verilog -noattr {out_file2}
                 '
             """
         else:
             Exception("Enter either 'flatten' or 'don't flatten' ")
         # Run the command and capture the output
         
-        result=subprocess.run(cmd.format(yosys_path=yosys_path,module_name=top,out_file=file_path), shell=True)
+        
+        result=subprocess.run(cmd.format(yosys_path=yosys_path,module_name=top,out_file=output_file_path,out_file2=output_file_path2,readin=readin), shell=True)
 
         if(result.returncode==1):
             raise Exception("Error code 1\nVerilog Code Syntax Error or yosys Path not found")
@@ -543,10 +555,10 @@ def synthesize_verilog(verilog, top,flag = "flatten"):
             raise Exception(f"Unknown Error Code {result.returncode}")
         
     
-    synthesized_verilog = open(file_path, "r").read()
+    synthesized_verilog = open(output_file_path, "r").read()
     synthesized_verilog = format_verilog(synthesized_verilog)
 
-    with open(file_path,"w") as f:
+    with open(output_file_path,"w") as f:
         f.write(synthesized_verilog)
     #os.remove("./tmp/tmp_syn1.v")
     #os.remove("./tmp/tmp_syn2.v")
@@ -579,7 +591,7 @@ def module_extraction (verilog):
 
 def gates_module_extraction(verilog):
   gates=['BUF_g','NOT_g', 'AND_g', 'OR_g', 'NAND_g', 'NOR_g','XOR_g','XNOR_g']
-  FF=['DFFcell',"DFFRcell"]
+  FF=['DFFcell',"DFFRcell","dffsr"]
   #   DFFRcell _2116_ ( .C(CLOCK_50), .D(_0153_), .Q(T3state[0]), .R(_0149_) );
   #   {'BUF':[],'NOT':[], 'AND':[], 'OR':[],'XOR':[],'NAND':[], 'NOR':[],'XNOR':[]}
   gate_tech={}
@@ -629,6 +641,19 @@ def gates_module_extraction(verilog):
                 FF_tech[type_block]={}   
             FF_tech[type_block][type_block_port]={"inputs": D ,"outputs": Q,"clock":C}
             # print("HERE",C,D,Q,extra)
+        elif(type_block=="dffsr"):
+            type_block_port="DFF_"+init
+            regex_pattern = r"\((.*?)\)"
+            matches = re.findall(regex_pattern, extra)
+            Clear,C,D,Preset,Q= [match for match in matches]
+            # "inputs": D ,"outputs": Q,"clock":C,"clear":Clear,"preset":Preset
+            # dffsr _123757_ (.CLEAR(1'h0), .CLK(clk_i), .D(_158363_Y), .PRESET(1'h0), .Q(_155393_A));s
+            if(C not in Clock_pins):
+                Clock_pins.append(C)
+            if type_block not in FF_tech:
+                FF_tech[type_block]={}   
+            FF_tech[type_block][type_block_port]={"inputs": D ,"outputs": Q,"clock":C,"clear":Clear,"preset":Preset}
+            # print("HERE",C,D,Q,extra)
         else:
             raise Exception("FLIP_FLOP NOT Defined")
 
@@ -642,8 +667,11 @@ def gates_module_extraction(verilog):
         sub_module[init]={"module_name": type_block,"links":links,"port":extra}
 
   for i in re.findall(r"(\w+) (\w+) \((.*)\);",verilog):
+    # print("HERE1 ",i)
     process_chunk(i)
-  
+
+
+    #   and "1'" not in Clock_pins
   return gate_tech,sub_module,(FF_tech,Clock_pins,Reset_pins)
 
 
@@ -703,6 +731,10 @@ def FF_to_txt(FF):
             fn =lambda io,initname: f"{i} {initname}(.C({io['clock']}), .D({io['inputs']}), .Q({io['outputs']}));"
         elif(i=="DFFRcell"):
             fn=lambda io,initname: f"{i} {initname}(.C({io['clock']}), .D({io['inputs']}), .Q({io['outputs']}), .R({io['reset']}));"
+        elif(i=="dffsr"):
+            fn=lambda io,initname: f"{i} {initname}(.CLEAR({io['clear']}), .CLK({io['clock']}), .D({io['inputs']}), .PRESET({io['preset']}), .Q({io['outputs']}));"
+            # "inputs": D ,"outputs": Q,"clock":C,"clear":Clear,"preset":Preset
+            # dffsr _123757_ (.CLEAR(1'h0), .CLK(clk_i), .D(_158363_Y), .PRESET(1'h0), .Q(_155393_A));
         else:
             raise Exception("FF not defined")
         
@@ -740,6 +772,8 @@ def module_to_txt(linkages):
         # print(i,tmpi)
         port=""
         for L,R in zip(tmpi["L"],tmpi["R"]):
+            if(":" in R):
+                print("here   ",L,R)
             port+=f".{L}({R}), "
         txt+=f"{tmpi['module_name']} {i}({port[:-2]});\n"
             # print(f"{tmpi['module_name']} {i}({port[:-2]});")
@@ -764,6 +798,7 @@ def save_graph(G,svg=False):
 
 
 def rand_selection(my_dict,val,req_bits):
+    MAX_ITERATIONS=5000
     #req_bits: Set the desired sum of counts
 
     # Initialize the sum to zero
@@ -772,6 +807,14 @@ def rand_selection(my_dict,val,req_bits):
     selected_keys = []
     # Loop until you find a combination of keys that satisfies the condition
     keys=list(my_dict.keys())
+
+    MAX_keys_sample=None
+    MAX_num_keys=0
+    MIN_Diff_num_keys=999999999
+    
+    
+    
+    current_try=0
     while sum_counts != req_bits:
         # print("doing ", sum_counts)
         # Select `num_keys` keys at random
@@ -779,10 +822,29 @@ def rand_selection(my_dict,val,req_bits):
         selected_keys = random.sample(keys, num_keys)
         # Calculate the sum of counts for the selected keys
         
-        sum_counts = sum(my_dict[key][val] for key in selected_keys)
-        print("Doing ",req_bits, sum_counts)
+        sum_counts = sum(my_dict[key][val] for key in selected_keys)        
+        # print("Doing ",current_try,req_bits, sum_counts)
+        if(sum_counts==req_bits):
+            print(f"Match found under max iterations at iteration {current_try}, {sum_counts} ")
+            req_bits_i=req_bits
+            break
+        
+        current_try+=1
+        
+        if(abs(sum_counts-req_bits)<MIN_Diff_num_keys):
+            MIN_Diff_num_keys=abs(sum_counts-req_bits)
+            MAX_keys_sample=selected_keys
+            MAX_num_keys=sum_counts
+
+        if(current_try>MAX_ITERATIONS):
+            selected_keys=MAX_keys_sample
+            print(f"Match not found under max iterations {MAX_ITERATIONS}")
+            print(f"Using key sample with MIN DIFFERENCE {MIN_Diff_num_keys} with Count {MAX_num_keys}")
+            req_bits_i=MAX_num_keys
+            break
+
     
-    return {i:my_dict[i] for i in my_dict if i in selected_keys}
+    return {i:my_dict[i] for i in my_dict if i in selected_keys},req_bits_i
 
 
 
@@ -798,9 +860,80 @@ def remove_key(thedict,thekey):
 ####################################################################################################################################
 ####################################################################################################################################
 
+
+
+
+
+def timerit_func(func):
+  def function_timer(*args, **kwargs):
+    start = time.time()
+    value = func(*args, **kwargs)
+    end = time.time()
+    runtime = end - start
+    msg = "{func} took {time} seconds to complete its execution."
+    print(msg.format(func = func.__name__,time = runtime))
+    return value
+  return function_timer
+
+
+
+def timer_func(func):
+  def function_timer(*args, **kwargs):
+    start = time.time()
+    value = func(*args, **kwargs)
+    end = time.time()
+    runtime = end - start
+    msg = "{func} took {time} seconds to complete its execution."
+    print(msg.format(func = func.__name__,time = runtime))
+    return value
+  return function_timer
+
+
+
+checks=["tb",'backup','vrf']
+def find_verilog_files_iter(parentdir,code="read_verilog {path}\n"):
+  stack = [parentdir]
+  tmp=""
+  while stack:
+      currentdir = stack.pop()
+      for i in os.listdir(currentdir):
+          if os.path.isfile(os.path.join(currentdir, i)):
+              if i.split(".")[-1] != "v":
+                  continue
+              if(any(x in i for x in checks)):
+                  continue
+              # print("ITERATIVE", os.path.join(currentdir, i))
+              tmp+=code.format(path=os.path.join(os.path.abspath(currentdir),i))
+            #   tmp.append(os.path.join(parentdir,i))
+          elif os.path.isdir(os.path.join(currentdir, i)):
+              stack.append(os.path.join(currentdir, i))
+  return tmp[:-1]
+
+@timer_func
+def find_verilog_files_recursive(tmp,parentdir):
+  for i in os.listdir(parentdir):
+    # print(i,i[-2:])
+    if os.path.isfile(os.path.join(parentdir,i)):
+      if i.split(".")[-1]!="v":
+        continue
+      # print("ITERATIVE", os.path.join(parentdir, i))
+      tmp.append(os.path.join(parentdir,i))
+    elif os.path.isdir(os.path.join(parentdir,i)):
+      find_verilog_files_recursive(tmp,os.path.join(parentdir,i))
+  return tmp
+
+
+
+
+
+
 ####################################################################################################################################
 ####################################################################################################################################
 ####################################################################################################################################
 ####################################################################################################################################
 ####################################################################################################################################
+
+
+
+
 

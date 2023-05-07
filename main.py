@@ -1,13 +1,6 @@
-from src.AST import AST
 from src.LL import LogicLocking
-import os
 import src.utils as utils
-
-
-
-import re 
-import os
-
+from src.AST import AST
 
 
 
@@ -15,39 +8,82 @@ import os
 # # pathin="input_files/Benchmarks/ISCAS85/"+f"{top}/{top}.v"
 # # pathin="input_files/demo.v"
 
-top="picorv32"
-pathin="/home/alira/FYP/linux/picorv32/picorv32.v"
-
+# top="picorv32"
+# pathin="/home/alira/FYP/linux/picorv32/picorv32.v"
 
 # top="demo"
 # pathin="input_files/demo.v"
 
+# top="c5315"
+# pathin="input_files/Benchmarks/ISCAS85/"+f"{top}/{top}.v"
+
+top="soc_top"
+pathin="input_files/soc_top.v"
+# path="../FYP/linux/bare-metal-processor/design"
+
+# top="c17"
+# pathin="input_files/Benchmarks/ISCAS85/"+f"{top}/{top}.v"
+# /home/alira/FYP/linux/Final_Demo/bare-metal-processor/design/soc_top_locked/src/soc_top.v
+
 obj=AST(file_path=pathin,rw="w",flag="v",top=top,filename=f"{top}org") #Run to Read in Verilog Design
-obj = AST(file_path=f"./output_files/{top}org.json",rw='r',filename=f"{top}locked") #Run to read in AST Format
 
-# # 16733 16618
-countorg=obj.gen_results()
-print(countorg)
-# obj.update_org_verilog()
-
-# obj.top_module.save_graph(svg=True) #Run to save circuit Graph as a SVG
-bits=128
-LL=LogicLocking(obj) #Object for Locking Circuit
-LL.PreSAT.set_key(bits) # set Key bits or Locking Key Value
-LL.PreSAT.TRLL_plus()  # perform Strong Logic Locking on Circuit
-
-# LL.PostSAT.set_key(128) # set Key bits or Locking Key Value
-# LL.PostSAT.AntiSAT()  # perform Strong Logic Locking on Circuit
-
-obj.writeLLFile() # Write Locked circcuit to AST format file
-obj.gen_verification_files() #Generate Verification Testbench Files
-# # obj.top_module.save_graph(svg=True)
-count_ll,overhead,FF_count=obj.gen_results(org=False)
-
-print(countorg,count_ll,overhead,bits*100/(FF_count+bits))
+for i in range(0,6):
+  ti={0:"RLL",1:"SLL",2:"TRLL",3:"SARLOCK",4:"RLL_sarlock",5:"SLL_sarock",6:"TRLL_sarock"}
+  obj = AST(file_path=f"./output_files/{top}org.json",rw='r',filename=f"{top}locked_{ti[i]}") #Run to read in AST Format
 
 
 
+  # # 16733 16618
+  countorg=obj.gen_results()
+  # print(countorg)
+  # # obj.update_org_verilog()
+
+  # # obj.top_module.save_graph(svg=True) #Run to save circuit Graph as a SVG
+  bits=128
+  LL=LogicLocking(obj) #Object for Locking Circuit
+
+
+  LL.PreSAT.set_key(bits) # set Key bits or Locking Key Value
+  
+  if(i==0):
+    LL.PreSAT.RLL()  # perform Strong Logic Locking on Circuit
+  elif(i==1):
+    LL.PreSAT.SLL()  # perform Strong Logic Locking on Circuit
+  elif(i==2):
+    LL.PreSAT.TRLL_plus()  # perform Strong Logic Locking on Circuit
+  elif(i==3):
+    # LL.PreSAT.RLL()  # perform Strong Logic Locking on Circuit
+    LL.PostSAT.set_key(bits) # set Key bits or Locking Key Value
+    LL.PostSAT.Sarlock()  # perform Strong Logic Locking on Circuit
+  elif(i==4):
+    LL.PreSAT.RLL()  # perform Strong Logic Locking on Circuit
+    LL.PostSAT.set_key(bits) # set Key bits or Locking Key Value
+    LL.PostSAT.Sarlock()  # perform Strong Logic Locking on Circuit
+  elif(i==5):
+    LL.PreSAT.SLL()  # perform Strong Logic Locking on Circuit
+    LL.PostSAT.set_key(bits) # set Key bits or Locking Key Value
+    LL.PostSAT.Sarlock()  # perform Strong Logic Locking on Circuit
+  elif(i==6):
+    LL.PreSAT.TRLL_plus()  # perform Strong Logic Locking on Circuit
+    LL.PostSAT.set_key(bits) # set Key bits or Locking Key Value
+    LL.PostSAT.Sarlock()  # perform Strong Logic Locking on Circuit
+
+
+  # LL.PostSAT.set_key(bits) # set Key bits or Locking Key Value
+  # LL.PostSAT.Sarlock()  # perform Strong Logic Locking on Circuit
+
+
+  obj.writeLLFile() # Write Locked circcuit to AST format file
+  outpath="./tmp/"
+  # outpath=r"/mnt/d/alis_files/LAPTOP/alis_files/university_files/PROJECTS_2022-2023/FYP/Circuits/top"
+  # {ti[i]}
+  obj.gen_verification_files(file_name=f"{ti[i]}",tmpdir=outpath) #Generate Verification Testbench Files
+  # # # obj.top_module.save_graph(svg=True)
+  count_ll,overhead,FF_count=obj.gen_results(org=False)
+
+  # print(countorg,count_ll,overhead,bits*100/(FF_count+bits))
+# except:
+#   print("Exception at ",ti[i])
 
 
 
@@ -56,6 +92,29 @@ print(countorg,count_ll,overhead,bits*100/(FF_count+bits))
 
 
 
+
+
+
+
+
+
+
+
+# from src.path_var import *
+
+# cmd = """
+# {yosys_path} -q -p'
+# {readin}
+# hierarchy -check -top {module_name}
+# proc; opt; fsm; opt; memory; opt;
+# techmap; opt
+# dfflibmap -liberty ./vlib/mycells.lib
+# abc -liberty ./vlib/mycells.lib  
+# flatten
+# opt_clean -purge
+# write_verilog -noattr {out_file}
+# '
+# """
 
 
 

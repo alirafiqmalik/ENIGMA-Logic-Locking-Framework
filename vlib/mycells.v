@@ -68,3 +68,26 @@ always @(posedge C, negedge x)
 	else
 		Q <= D;
 endmodule
+
+
+
+module dffn(input CLK, D, output reg Q);
+
+always @(negedge CLK)
+	Q <= D;
+
+
+
+endmodule
+
+module dffsr(input CLK, D, CLEAR, PRESET, output reg Q);
+
+always @(posedge CLK, posedge CLEAR, posedge PRESET)
+	if (CLEAR)
+		Q <= 0;
+	else if (PRESET)
+		Q <= 1;
+	else
+		Q <= D;
+
+endmodule

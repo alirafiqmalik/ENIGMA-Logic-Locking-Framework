@@ -36,6 +36,7 @@ class module:
                 node_name=init_name
                 port=check_port(node_output)
                 self.circuitgraph.add_node(node_name, type="gate",logic=logic_gate)
+
                 if(port in self.io["outputs"]):
                     self.circuitgraph.add_node(node_output, type="output")
                     self.circuitgraph.add_edge(node_name, node_output)
@@ -49,6 +50,9 @@ class module:
 
 
                 for i in node_input:
+                    def tmp():
+                        if("XNOR_117153_" in init_name):
+                            print("HERE212 ",i,node_input,node_name)
                     tmptxt=check_port(i)
 
                     if(tmptxt in self.io["inputs"]):
@@ -56,7 +60,9 @@ class module:
                         self.circuitgraph.add_edge(i,node_name)
                     elif(tmptxt in self.io["outputs"]):
                         self.circuitgraph.add_node(i, type="output",port=tmptxt)
-                        self.circuitgraph.add_edge(node_name,i)
+                        self.circuitgraph.add_edge(i,node_name)
+                        # tmp()
+                        # print(i)
                     elif(tmptxt in self.io["wires"]):
                         self.circuitgraph.add_node(i, type="wire",port=tmptxt)
                         self.circuitgraph.add_edge(i,node_name)
@@ -190,6 +196,10 @@ class module:
 
 
 class AST:
+    """
+
+    
+    """
     def __init__(self,file_path,top=None, rw = 'w', flag = 'v',filename=None,vlibpath="vlib/mycells.v"):
         self.LLverilog = ""
         self.postsat_lib=""
@@ -205,6 +215,7 @@ class AST:
             if flag == 'v':
                 self.verilog = open(file_path).read()
                 # self.verilog=format_verilog_org(self.verilog)
+                print("Verifiying Input Verilog File")
                 verify_verilog(file_path,top)
                 print("Input Verilog File Verified Without Issue")
                 
@@ -227,6 +238,7 @@ class AST:
             Exception("Enter either 'r' (for read) or 'w' (for write)")
         
     def gen_LLFile(self):
+        print("Generating Logic Locking AST File")
         self.synthesized_verilog = synthesize_verilog(self.verilog,top=self.top_module_name)#,flag="dont_flatten"
         self.gate_level_flattened=self.synthesized_verilog
         # self.gate_level_flattened = synthesize_verilog(self.verilog,top=self.top_module_name)
@@ -238,6 +250,8 @@ class AST:
 
         self.sub_modules_data()
         self.gen_graph_links()
+
+        print("Done Generating Logic Locking AST File")
             # self.modules[i].bin_graph()
         
         # self.gen_module_connections()        
@@ -251,10 +265,18 @@ class AST:
             self.modules[key].gates,self.modules[key].linkages,tmp = gates_module_extraction(self.modules[key].gate_level_verilog)            
             self.modules[key].FF_tech,self.modules[key].Clock_pins,self.modules[key].Reset_pins=tmp
 
+
+            # print(self.modules[key].linkages.keys())
+
             inputs, input_ports = extract_io_v(self.modules[key].org_code_verilog)
             outputs, output_ports = extract_io_v(self.modules[key].org_code_verilog, "output")
             wire, _ = extract_io_v(self.modules[key].gate_level_verilog, "wire")
             wire={key:wire[key]  for key in get_difference_abs(wire.keys(),inputs.keys(),outputs.keys())}
+
+
+            for i in self.modules[key].Clock_pins:
+                if(("1'" in i) or (i not in inputs.keys())):
+                    self.modules[key].Clock_pins.remove(i)
             # print("N4944" in  wire.keys())
             # print(get_diference(wire.keys(),outputs.keys()))
             # print("HERE",wire["cpuregs[5]"])
@@ -473,18 +495,22 @@ class AST:
         else:
             print("\t Netlist Not Locked, No Update to Peform")
 
-    def gen_verification_files(self,tmpdir=r"/mnt/d/alis files/LAPTOP/alis files/university files/PROJECTS_2022-2023/FYP/Circuits/top"):
+    def gen_verification_files(self,file_name="",tmpdir=r"/mnt/d/alis_files/LAPTOP/alis_files/university_files/PROJECTS_2022-2023/FYP/Circuits/top"):
+        # r"/mnt/d/alis_files/LAPTOP/alis_files/university_files/PROJECTS_2022-2023/FYP/Circuits/top"
+        # self.update_LLverilog()
         print("Generating Verification Files")
         # print("\t Updating Logic Locked Verilog Code")
         # self.update_LLverilog()
         print(f"\t Generating Miter Circuit Verilog and Testbench")
-        cir,testbench=gen_miterCircuit(self.gate_level_flattened,self.LLverilog,self.gate_lib+self.postsat_lib,self.top_module_name,self.top_module.bitkey,self.top_module.io["Clock_pins"])
-        # tmpdir="./tmp/"
-        
-        # tmpdir=tmpdir.replace(" ", "\ ")
-        # "./tmp/"
-        top_path=os.path.join(tmpdir,"top.v")
-        test_path=os.path.join(tmpdir,"testbench.sv")
+        cir,testbench=gen_miterCircuit(self.gate_level_flattened,self.LLverilog,self.postsat_lib+"\n\n\n"+self.gate_lib,self.top_module_name,self.top_module.bitkey,self.top_module.io["Clock_pins"])
+
+        cir=re.sub(r"\n",r"\n ",cir)
+        cir=re.sub(r" module",r"module",cir)
+        cir=re.sub(r" endmodule",r"endmodule",cir)
+
+
+        top_path=os.path.join(tmpdir,f"top{file_name}.v")
+        test_path=os.path.join(tmpdir,f"testbench{file_name}.sv")
         # print(top_path,test_path)
         print(f"\t Writing miter circuit verilog to {top_path}")
         with open(top_path,"w") as f:

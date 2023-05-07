@@ -85,18 +85,20 @@ def gen_miterCircuit(verilog,verilogLL,gatemodules,top,key,Clock_pins):
     orgport_i=""
     orgport_o=""
     encport_o=""
-    compare_o=""
+    compare_o="always@(*)begin"
+
+    cmpstr_fn=lambda A,B,i:" if({A}=={B}) Q[{i}]=1;\n else if(({A}==1'bX) & ({B}==1'bX)) Q[{i}]=1;\n else Q[{i}]=0;\n".format(A=A,B=B,i=i)
     compare_Z="assign Z= "
     for i in Uinp:
         orgport_i+=".{}({}),".format(i,i)
-
     count=0
     for i in LLout:
         tmpi=LLout[i]
         orgport_o+=".{}({}),".format(i,i+"_org")
         encport_o+=".{}({}),".format(i,i+"_enc")
         if(tmpi['bits']==1):
-            compare_o+="assign {}={}=={};\n".format("Q[{}]".format(count),i+"_enc",i+"_org")
+            compare_o+=cmpstr_fn(i+"_enc",i+"_org",count)
+            # compare_o+="assign {}={}=={};\n".format("Q[{}]".format(count),i+"_enc",i+"_org")
             compare_Z+="Q[{}]&".format(count)
             count+=1
             miter_circuit+=f"wire {i}_enc, {i}_org;\n"
@@ -104,12 +106,13 @@ def gen_miterCircuit(verilog,verilogLL,gatemodules,top,key,Clock_pins):
             miter_circuit+=f"wire [{tmpi['endbit']}:{tmpi['startbit']}] {i}_enc, {i}_org;\n"
             # print(f"wire [{tmpi['endbit']}:{tmpi['startbit']}] {i}_enc, {i}_org;\n")
             for j in range(tmpi['startbit'],tmpi['endbit']+1):
-                compare_o+="assign {}={}=={};\n".format("Q[{}]".format(count),f"{i}_enc[{j}]",f"{i}_org[{j}]")
+                # compare_o+="assign {}={}=={};\n".format("Q[{}]".format(count),f"{i}_enc[{j}]",f"{i}_org[{j}]")
+                compare_o+=cmpstr_fn(f"{i}_enc[{j}]",f"{i}_org[{j}]",count)
                 compare_Z+="Q[{}]&".format(count)
                 count+=1
 
 
-    compare_o="output Z;\noutput [{}:0]Q;\n".format(count-1)+compare_o
+    compare_o="output Z;\noutput reg [{}:0]Q;\n ".format(count-1)+compare_o+"end \n"
     compare_o+=compare_Z[:-1]+";\n"
 
     
@@ -119,7 +122,6 @@ def gen_miterCircuit(verilog,verilogLL,gatemodules,top,key,Clock_pins):
 
     miter_circuit+="endmodule\n\n\n\n"
 
-    
 
     miter_circuit+=re.sub(r"module "+top+"\(","module enccir(",verilogLL)+"\n\n\n\n"
 
