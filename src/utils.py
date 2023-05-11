@@ -185,13 +185,16 @@ def format_verilog_org(verilog):
     # verilog=re.sub(r"[/][].[*][/]","",verilog)
     # verilog=re.sub(r"[(][].[*][)]\n","",verilog)
     verilog=re.sub(r"/\*.*?\*/", "", verilog, flags=re.DOTALL)
-    
+
     verilog=re.sub(r"\n+","",verilog)
     verilog=re.sub(r"\s+"," ",verilog)
     verilog=re.sub(r" ?; ?",";\n",verilog)
+
     verilog=re.sub(r"endmodule"," endmodule\n",verilog)
     verilog=re.sub(r"end ","end \n",verilog)
     verilog=re.sub(r"begin","begin \n",verilog)
+
+
     return verilog
 
 
@@ -565,6 +568,84 @@ def synthesize_verilog(verilog, top,flag = "flatten"):
 
     return synthesized_verilog
 
+
+
+
+
+
+
+
+
+
+
+
+def synthesize_verilog_flatten_gate(verilog, top):
+    filesintmp=os.listdir("./tmp")
+    if("tmp_syn2.v" in filesintmp):
+        print("File already exists, Returning Old File")
+        return open("./tmp/tmp_syn2.v").read()
+         
+    with open("./tmp/tmp_syn2.v", "w") as f:
+        f.write(verilog)
+    file_name=f"{top}_outgatelevel_flatten.v"
+    output_file_path=f"./tmp/{file_name}"
+    output_file_path2=f"./tmp/{top}_unformated.v"
+    readin="read_verilog ./tmp/tmp_syn2.v"
+    
+    cmd = """
+        {yosys_path} -q -p'
+        {readin}
+        hierarchy -check -top {module_name}
+        proc; opt; fsm; opt; memory; opt;
+        techmap; opt
+        flatten
+        opt_clean -purge
+        write_verilog -noattr {out_file}
+        write_verilog -noattr {out_file2}
+        '
+    """
+        
+    result=subprocess.run(cmd.format(yosys_path=yosys_path,module_name=top,out_file=output_file_path,out_file2=output_file_path2,readin=readin), shell=True)
+
+    if(result.returncode==1):
+        raise Exception("Error code 1\nVerilog Code Syntax Error or yosys Path not found")
+    elif(result.returncode==0):
+        pass
+        # print("Verilog Code Working Without Error")
+    else:
+        raise Exception(f"Unknown Error Code {result.returncode}")
+    
+    
+    synthesized_verilog = open(output_file_path, "r").read()
+    synthesized_verilog = format_verilog_org(synthesized_verilog)
+
+    with open(output_file_path,"w") as f:
+        f.write(synthesized_verilog)
+    
+    return synthesized_verilog
+
+
+
+
+def clean_dir(dir):
+    files=os.listdir(dir)
+    for i in files:
+        if(".svg" in i):
+            continue
+        path_i=os.path.join(os.path.abspath(dir),i)
+        if(os.path.isfile(path_i)):
+            os.remove(path_i)
+
+
+
+
+
+
+
+
+
+
+
 # def synthesize_bench(bench):
 #     text_file = open("./tmp/tmp_syn1.bench", "w")
 #     text_file.write(bench)
@@ -798,7 +879,7 @@ def save_graph(G,svg=False):
 
 
 def rand_selection(my_dict,val,req_bits):
-    MAX_ITERATIONS=5000
+    MAX_ITERATIONS=6000
     #req_bits: Set the desired sum of counts
 
     # Initialize the sum to zero

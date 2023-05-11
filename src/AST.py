@@ -495,7 +495,54 @@ class AST:
         else:
             print("\t Netlist Not Locked, No Update to Peform")
 
-    def gen_verification_files(self,file_name="",tmpdir=r"/mnt/d/alis_files/LAPTOP/alis_files/university_files/PROJECTS_2022-2023/FYP/Circuits/top"):
+
+    def write_Verilog_File(self,file="LL",file_name="",output_dir=r"./tmp/"):
+        print("Generating Output Verilog File")
+        if(file=="LL"):
+            cir=self.LLverilog+"\n\n\n"+self.postsat_lib+"\n\n\n"+self.gate_lib
+            cir=re.sub(r"\n",r"\n ",cir)
+            cir=re.sub(r" module",r"module",cir)
+            cir=re.sub(r" endmodule",r"endmodule",cir)
+
+            bits=self.top_module.io["inputs"]["lockingkeyinput"]['bits']
+
+            cir=synthesize_verilog_flatten_gate(verilog=cir,top=self.top_module_name)
+            cir=f"// lockingkey = {bits}'b{self.top_module.bitkey} \n"+cir
+        elif(file=="org"):
+            cir=self.gate_level_flattened + "\n\n\n" + self.gate_lib
+            cir=re.sub(r"\n",r"\n ",cir)
+            cir=re.sub(r" module",r"module",cir)
+            cir=re.sub(r" endmodule",r"endmodule",cir)
+
+            cir=synthesize_verilog_flatten_gate(verilog=cir,top=self.top_module_name)
+        else:
+            raise Exception(f"Wrong file type {file}")
+        
+
+        cir=format_verilog_org(cir)
+        cir=re.sub(r"\n",r"\n ",cir)
+        # cir=re.sub(r"module",r"\n module",cir)
+        # cir=re.sub(r"endmodule",r"endmodule\n",cir)
+        cir=re.sub(r"\\","",cir)
+        cir=re.sub(r"\s+module",r" \n\nmodule",cir)
+        cir=re.sub(r"\s+endmodule",r" endmodule",cir)
+
+
+        top_path=os.path.join(output_dir,f"top{file_name}.v")
+
+        print(f"\t Writing Output Verilog File to {top_path}")
+        with open(top_path,"w") as f:
+            f.write(cir)
+        
+        print("\t Done")
+        verify_verilog(top_path,self.top_module_name)
+        
+
+        print("Done Generating Output Verilog File")
+
+
+
+    def gen_verification_files(self,file_name="",output_dir=r"/mnt/d/alis_files/LAPTOP/alis_files/university_files/PROJECTS_2022-2023/FYP/Circuits/top"):
         # r"/mnt/d/alis_files/LAPTOP/alis_files/university_files/PROJECTS_2022-2023/FYP/Circuits/top"
         # self.update_LLverilog()
         print("Generating Verification Files")
@@ -509,8 +556,8 @@ class AST:
         cir=re.sub(r" endmodule",r"endmodule",cir)
 
 
-        top_path=os.path.join(tmpdir,f"top{file_name}.v")
-        test_path=os.path.join(tmpdir,f"testbench{file_name}.sv")
+        top_path=os.path.join(output_dir,f"top{file_name}.v")
+        test_path=os.path.join(output_dir,f"testbench{file_name}.sv")
         # print(top_path,test_path)
         print(f"\t Writing miter circuit verilog to {top_path}")
         with open(top_path,"w") as f:
@@ -526,6 +573,9 @@ class AST:
         verify_verilog(top_path,'top')
         print("\t Verification Done Without Error")
         print("Done Generating Verification Files")
+
+
+
 
     def gen_results(self,org=True):
         gate_count=0

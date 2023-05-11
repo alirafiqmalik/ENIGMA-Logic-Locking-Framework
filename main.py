@@ -17,73 +17,130 @@ from src.AST import AST
 # top="c5315"
 # pathin="input_files/Benchmarks/ISCAS85/"+f"{top}/{top}.v"
 
-top="soc_top"
-pathin="input_files/soc_top.v"
-# path="../FYP/linux/bare-metal-processor/design"
+# top="soc_top"
+# pathin="input_files/soc_top.v"
+# # path="../FYP/linux/bare-metal-processor/design"
 
-# top="c17"
-# pathin="input_files/Benchmarks/ISCAS85/"+f"{top}/{top}.v"
+top="c5315"
+pathin="input_files/Benchmarks/ISCAS85/"+f"{top}/{top}.v"
 # /home/alira/FYP/linux/Final_Demo/bare-metal-processor/design/soc_top_locked/src/soc_top.v
 
 obj=AST(file_path=pathin,rw="w",flag="v",top=top,filename=f"{top}org") #Run to Read in Verilog Design
+# obj.top_module.save_graph(svg=True)
 
-for i in range(0,6):
-  ti={0:"RLL",1:"SLL",2:"TRLL",3:"SARLOCK",4:"RLL_sarlock",5:"SLL_sarock",6:"TRLL_sarock"}
-  obj = AST(file_path=f"./output_files/{top}org.json",rw='r',filename=f"{top}locked_{ti[i]}") #Run to read in AST Format
+obj = AST(file_path=f"./output_files/{top}org.json",rw='r',filename=f"{top}locked_test") #Run to read in AST Format
 
+countorg=obj.gen_results()
 
-
-  # # 16733 16618
-  countorg=obj.gen_results()
-  # print(countorg)
-  # # obj.update_org_verilog()
-
-  # # obj.top_module.save_graph(svg=True) #Run to save circuit Graph as a SVG
-  bits=128
-  LL=LogicLocking(obj) #Object for Locking Circuit
+bits=5
+LL=LogicLocking(obj) #Object for Locking Circuit
+# 291480291480291480291480
+LL.PreSAT.set_key(bits,key=12) # set Key bits or Locking Key Integer Value
+LL.PreSAT.SLL()  # perform Strong Logic Locking on Circuit
 
 
-  LL.PreSAT.set_key(bits) # set Key bits or Locking Key Value
+# LL.PostSAT.set_key(bits) # set Key bits or Locking Key Value
+# LL.PostSAT.Sarlock()  # perform Strong Logic Locking on Circuit
+
+
+obj.writeLLFile() # Write Locked circuit to AST format file
+
+obj.write_Verilog_File(file="LL",file_name="locked_top") # Write Locked circuit Verilog Code to File
+
+outpath=r"/mnt/d/alis_files/LAPTOP/alis_files/university_files/PROJECTS_2022-2023/FYP/Circuits/top"
+obj.gen_verification_files(output_dir=outpath) #Generate Verification Testbench Files
+
+# # obj.top_module.save_graph(svg=True)
+count_ll,overhead,FF_count=obj.gen_results(org=False)
+
+print(countorg,count_ll,overhead,bits*100/(FF_count+bits))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# for i in range(1,2):
+#   ti={0:"RLL",1:"SLL",2:"TRLL",3:"SARLOCK",4:"RLL_sarlock",5:"SLL_sarock",6:"TRLL_sarock"}
+#   obj = AST(file_path=f"./output_files/{top}org.json",rw='r',filename=f"{top}locked_{ti[i]}") #Run to read in AST Format
+
+
+#   # # 16733 16618
+#   countorg=obj.gen_results()
+#   # print(countorg)
+#   # # obj.update_org_verilog()
+
+#   # # # obj.top_module.save_graph(svg=True) #Run to save circuit Graph as a SVG
+#   # bits=128
+#   # LL=LogicLocking(obj) #Object for Locking Circuit
+
+
+#   # LL.PreSAT.set_key(bits) # set Key bits or Locking Key Value
   
-  if(i==0):
-    LL.PreSAT.RLL()  # perform Strong Logic Locking on Circuit
-  elif(i==1):
-    LL.PreSAT.SLL()  # perform Strong Logic Locking on Circuit
-  elif(i==2):
-    LL.PreSAT.TRLL_plus()  # perform Strong Logic Locking on Circuit
-  elif(i==3):
-    # LL.PreSAT.RLL()  # perform Strong Logic Locking on Circuit
-    LL.PostSAT.set_key(bits) # set Key bits or Locking Key Value
-    LL.PostSAT.Sarlock()  # perform Strong Logic Locking on Circuit
-  elif(i==4):
-    LL.PreSAT.RLL()  # perform Strong Logic Locking on Circuit
-    LL.PostSAT.set_key(bits) # set Key bits or Locking Key Value
-    LL.PostSAT.Sarlock()  # perform Strong Logic Locking on Circuit
-  elif(i==5):
-    LL.PreSAT.SLL()  # perform Strong Logic Locking on Circuit
-    LL.PostSAT.set_key(bits) # set Key bits or Locking Key Value
-    LL.PostSAT.Sarlock()  # perform Strong Logic Locking on Circuit
-  elif(i==6):
-    LL.PreSAT.TRLL_plus()  # perform Strong Logic Locking on Circuit
-    LL.PostSAT.set_key(bits) # set Key bits or Locking Key Value
-    LL.PostSAT.Sarlock()  # perform Strong Logic Locking on Circuit
+#   # if(i==0):
+#   #   LL.PreSAT.RLL()  # perform Strong Logic Locking on Circuit
+#   # elif(i==1):
+#   #   LL.PreSAT.SLL()  # perform Strong Logic Locking on Circuit
+#   # elif(i==2):
+#   #   LL.PreSAT.TRLL_plus()  # perform Strong Logic Locking on Circuit
+#   # elif(i==3):
+#   #   # LL.PreSAT.RLL()  # perform Strong Logic Locking on Circuit
+#   #   LL.PostSAT.set_key(bits) # set Key bits or Locking Key Value
+#   #   LL.PostSAT.Sarlock()  # perform Strong Logic Locking on Circuit
+#   # elif(i==4):
+#   #   LL.PreSAT.RLL()  # perform Strong Logic Locking on Circuit
+#   #   LL.PostSAT.set_key(bits) # set Key bits or Locking Key Value
+#   #   LL.PostSAT.Sarlock()  # perform Strong Logic Locking on Circuit
+#   # elif(i==5):
+#   #   LL.PreSAT.SLL()  # perform Strong Logic Locking on Circuit
+#   #   LL.PostSAT.set_key(bits) # set Key bits or Locking Key Value
+#   #   LL.PostSAT.Sarlock()  # perform Strong Logic Locking on Circuit
+#   # elif(i==6):
+#   #   LL.PreSAT.TRLL_plus()  # perform Strong Logic Locking on Circuit
+#   #   LL.PostSAT.set_key(bits) # set Key bits or Locking Key Value
+#   #   LL.PostSAT.Sarlock()  # perform Strong Logic Locking on Circuit
 
 
-  # LL.PostSAT.set_key(bits) # set Key bits or Locking Key Value
-  # LL.PostSAT.Sarlock()  # perform Strong Logic Locking on Circuit
+#   # LL.PostSAT.set_key(bits) # set Key bits or Locking Key Value
+#   # LL.PostSAT.Sarlock()  # perform Strong Logic Locking on Circuit
 
 
-  obj.writeLLFile() # Write Locked circcuit to AST format file
-  outpath="./tmp/"
-  # outpath=r"/mnt/d/alis_files/LAPTOP/alis_files/university_files/PROJECTS_2022-2023/FYP/Circuits/top"
-  # {ti[i]}
-  obj.gen_verification_files(file_name=f"{ti[i]}",tmpdir=outpath) #Generate Verification Testbench Files
-  # # # obj.top_module.save_graph(svg=True)
-  count_ll,overhead,FF_count=obj.gen_results(org=False)
+#   # obj.writeLLFile() # Write Locked circcuit to AST format file
+#   # outpath="./tmp/"
+#   # outpath=r"/mnt/d/alis_files/LAPTOP/alis_files/university_files/PROJECTS_2022-2023/FYP/Circuits/top"
+#   # {ti[i]}
+#   name="org"#ti[i]
+#   obj.write_Verilog_File(file="org",file_name=f"{name}")
+#   # obj.gen_verification_files(file_name=f"{ti[i]}",tmpdir=outpath) #Generate Verification Testbench Files
+#   # # # obj.top_module.save_graph(svg=True)
+#   # count_ll,overhead,FF_count=obj.gen_results(org=False)
 
-  # print(countorg,count_ll,overhead,bits*100/(FF_count+bits))
-# except:
-#   print("Exception at ",ti[i])
+#   # print(countorg,count_ll,overhead,bits*100/(FF_count+bits))
 
 
 

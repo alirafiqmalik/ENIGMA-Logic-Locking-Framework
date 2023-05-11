@@ -165,7 +165,7 @@ class PostSAT:
 
     def Sarlock(self):
         no_of_init=len(self.module.linkages)
-        modulename=f"antisat_{no_of_init}"
+        modulename=f"Sarlock_{no_of_init}"
         nodes,ic=utils.node_to_txt(self.key_inputs,mode="input",return_bits=True)
         initname=f"{modulename}_init{self.module.module_name}_{no_of_init}"
 
