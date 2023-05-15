@@ -4,38 +4,25 @@ from src.AST import AST
 
 
 
-# # c5315
-# # pathin="input_files/Benchmarks/ISCAS85/"+f"{top}/{top}.v"
-# # pathin="input_files/demo.v"
-
-# top="picorv32"
-# pathin="/home/alira/FYP/linux/picorv32/picorv32.v"
-
-# top="demo"
-# pathin="input_files/demo.v"
-
-# top="c5315"
-# pathin="input_files/Benchmarks/ISCAS85/"+f"{top}/{top}.v"
+top="c5315"
+pathin="input_files/Benchmarks/ISCAS85/"+f"{top}/{top}.v"
 
 # top="soc_top"
 # pathin="input_files/soc_top.v"
 # # path="../FYP/linux/bare-metal-processor/design"
 
-top="c5315"
-pathin="input_files/Benchmarks/ISCAS85/"+f"{top}/{top}.v"
-# /home/alira/FYP/linux/Final_Demo/bare-metal-processor/design/soc_top_locked/src/soc_top.v
-
-obj=AST(file_path=pathin,rw="w",flag="v",top=top,filename=f"{top}org") #Run to Read in Verilog Design
+# obj=AST(file_path=pathin,rw="w",flag="v",top=top,filename=f"{top}org") #Run to Read in Verilog Design
 # obj.top_module.save_graph(svg=True)
 
 obj = AST(file_path=f"./output_files/{top}org.json",rw='r',filename=f"{top}locked_test") #Run to read in AST Format
 
+utils.clean_dir("./tmp")
 countorg=obj.gen_results()
 
-bits=5
+bits=128
 LL=LogicLocking(obj) #Object for Locking Circuit
 # 291480291480291480291480
-LL.PreSAT.set_key(bits,key=12) # set Key bits or Locking Key Integer Value
+LL.PreSAT.set_key(bits,key=291480291480291480291480) # set Key bits or Locking Key Integer Value
 LL.PreSAT.SLL()  # perform Strong Logic Locking on Circuit
 
 
@@ -78,6 +65,22 @@ print(countorg,count_ll,overhead,bits*100/(FF_count+bits))
 
 
 
+# # c5315
+# # pathin="input_files/Benchmarks/ISCAS85/"+f"{top}/{top}.v"
+# # pathin="input_files/demo.v"
+
+# top="picorv32"
+# pathin="/home/alira/FYP/linux/picorv32/picorv32.v"
+
+# top="demo"
+# pathin="input_files/demo.v"
+
+# top="c5315"
+# pathin="input_files/Benchmarks/ISCAS85/"+f"{top}/{top}.v"
+
+# top="c5315"
+# pathin="input_files/Benchmarks/ISCAS85/"+f"{top}/{top}.v"
+# /home/alira/FYP/linux/Final_Demo/bare-metal-processor/design/soc_top_locked/src/soc_top.v
 
 
 

@@ -194,7 +194,6 @@ def format_verilog_org(verilog):
     verilog=re.sub(r"end ","end \n",verilog)
     verilog=re.sub(r"begin","begin \n",verilog)
 
-
     return verilog
 
 
