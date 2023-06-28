@@ -4,12 +4,12 @@ from src.AST import AST
 
 
 
-top="c5315"
-pathin="input_files/Benchmarks/ISCAS85/"+f"{top}/{top}.v"
+# top="c5315"
+# pathin="input_files/Benchmarks/ISCAS85/"+f"{top}/{top}.v"
 
-# top="soc_top"
-# pathin="input_files/soc_top.v"
-# # path="../FYP/linux/bare-metal-processor/design"
+top="soc_top"
+pathin="input_files/soc_top.v"
+# path="../FYP/linux/bare-metal-processor/design"
 
 # obj=AST(file_path=pathin,rw="w",flag="v",top=top,filename=f"{top}org") #Run to Read in Verilog Design
 # obj.top_module.save_graph(svg=True)
@@ -22,7 +22,7 @@ countorg=obj.gen_results()
 bits=128
 LL=LogicLocking(obj) #Object for Locking Circuit
 # 291480291480291480291480
-LL.PreSAT.set_key(bits,key=291480291480291480291480) # set Key bits or Locking Key Integer Value
+LL.PreSAT.set_key(bits,key=155078537555888897905301648718854418945) # set Key bits or Locking Key Integer Value
 LL.PreSAT.SLL()  # perform Strong Logic Locking on Circuit
 
 
@@ -34,6 +34,7 @@ obj.writeLLFile() # Write Locked circuit to AST format file
 
 obj.write_Verilog_File(file="LL",file_name="locked_top") # Write Locked circuit Verilog Code to File
 
+# obj.top_module.save_graph(svg=True)
 outpath=r"/mnt/d/alis_files/LAPTOP/alis_files/university_files/PROJECTS_2022-2023/FYP/Circuits/top"
 obj.gen_verification_files(output_dir=outpath) #Generate Verification Testbench Files
 
