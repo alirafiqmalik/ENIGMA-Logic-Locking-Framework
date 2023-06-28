@@ -3,3 +3,4 @@ output_files
 tmp
 tmp.py
 tmp.v
+src/__pycache__
