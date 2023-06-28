@@ -1,109 +1,102 @@
-# Setup before running
-Change yosys path in src/path_var.py to your path for yosys
- **if yosys is in build dir, give path to yosys bin file:**
+# Enigma Logic Locking Framework
 
-yosys_path="~/FYP/linux/yosys/build/yosys"
+Enigma is a logic locking framework designed for securing integrated circuits by inserting additional circuitry known as "logic locks." These locks protect against intellectual property theft and unauthorized modifications. Enigma provides a set of tools and techniques for implementing logic locking in Verilog designs.
 
- **if yosys is installed using apt, write yosys:**
+## File Structure
 
-yosys_path="yosys"
+The file structure of Enigma is organized as follows:
 
 
-# Example Run
+<pre>
+input_files/
+├── Benchmarks/
+│   ├── demo.v
+│   └── tmporg.v
+├── src/
+│   ├── attacks/
+│   │   └── satattack
+│   ├── AST.py
+│   ├── LL.py
+│   ├── PostSAT.py
+│   ├── PreSAT.py
+│   ├── SATAttack.py
+│   ├── conv.py
+│   ├── netlist.py
+│   ├── path_var.py
+│   ├── utils.py
+│   └── verification.py
+├── tmp/ (temporary working directory)
+├── vlib/
+│   ├── mycells.v
+│   └── mycells.lib
+├── .gitattributes
+├── .gitignore
+├── README.md
+└── main.py
+</pre>
 
-**To Create New Netlist File for Locking use:**
+
+## Prerequisites
+
+Before using Enigma, please ensure you have the following prerequisites installed:
+
+- Yosys: Logic synthesis tool used by Enigma. Make sure to set the correct path to Yosys in `src/path_var.py`.
+
+## Usage
+
+To use Enigma, follow the example run commands provided below:
+
+To create:
+
+```python
+from src.AST import AST
+
+obj = AST(file_path="./input_files/tmporg.v", rw="w", flag="v", top="locked", filename="locked_new")
 ```
-obj=AST(file_path="./input_files/tmporg.v",rw="w",flag="v",top="locked",filename="locked_new")
+
+This command reads the Verilog code from ./input_files/tmporg.v and creates a JSON file in the output_files directory named locked_new, with the top module set to "locked".
+
+After the:
+```python
+obj = AST(file_path="./output_files/locked_new.json", rw='r', top="locked", filename="locked")
 ```
 
-This reads verilog code from file "./input_files/tmporg.v" and creates a json file in output_files with name "locked_new" with top module "locked"
+This command reads the JSON file generated for the original circuit.
 
+To save modified netlist as JSON file, run:
 
-**Run this command once at start only , then using the following command afterwards:**
-
+```python
+obj.writeLLFile()
 ```
-obj = AST(file_path="./output_files/locked_new.json",rw='r',top="locked",filename="locked") # r for read from file
-```
 
-This reads in the json file generated for original circuit
+Example Usage:
 
-To save any changes, use obj.writeLLFile() which writes to a new json file filename="locked"
-
-
-# Example Run of code after Initialing function in python
-
-```
+```python
 from src.AST import AST
 from src.PreSAT import PreSAT
 
-obj = AST(file_path="./output_files/locked_new.json",rw='r',filename="locked")
-
-
-LL=PreSAT(obj.top_module)
-LL.set_key(256,key=123121341221213213) # setting key for locking operation
-# key integer val= key
-# using locking techniques
-# LL.RLL()
-LL.SLL()
-
-# obj.top_module.save_graph()  # saves graph in svg form in tmp dir but a little slow
-obj.writeLLFile() # saves locked circuit to a new json file filename="locked"
-
-```
-
-
-# Example Run of code For RLL Locking
-```
-from src.AST import AST
-from src.PreSAT import PreSAT
-
-obj = AST(file_path="./output_files/locked_new.json",rw='r',filename="locked")
-LL=PreSAT(obj.top_module)
-LL.set_key(256,key=123121341221213213) # setting key for locking operation
-# key integer val= key
+obj = AST(file_path="./output_files/locked_new.json", rw='r', filename="locked")
+LL = PreSAT(obj.top_module)
+LL.set_key(256, key=123121341221213213)  # Setting the key for locking operation
 LL.RLL()
-obj.writeLLFile() # saves locked circuit to a new json file filename="locked"
-
+obj.writeLLFile()  # Saves the locked circuit to a new JSON file named "locked"
 ```
 
+## Prerequisites Running SAT Attack
+To perform a SAT attack, you can use the sat_attack/run.py script. Currently, you need to provide the file type (binary or Verilog) as an argument.
 
-# Example Run of code For SLL Locking
+Example command:
+```bash
+python3 /path/to/enigma/sat_attack/run.py file_type(b or v)
 ```
-from src.AST import AST
-from src.PreSAT import PreSAT
+For example, to run the attack on a Verilog file:
 
-obj = AST(file_path="./output_files/locked_new.json",rw='r',filename="locked")
-LL=PreSAT(obj.top_module)
-LL.set_key(256,key=123121341221213213) # setting key for locking operation
-# key integer val= key
-LL.SLL()
-obj.writeLLFile() # saves locked circuit to a new json file filename="locked"
-
+```bash
+python3 /path/to/enigma/sat_attack/run.py /path/to/verilog_file.v v
 ```
 
-
-# Example Run of code For TRLL Locking
-```
-from src.AST import AST
-from src.PreSAT import PreSAT
-
-obj = AST(file_path="./output_files/locked_new.json",rw='r',filename="locked")
-LL=PreSAT(obj.top_module)
-LL.set_key(6) # for TRLL, keycount<=Total No of original gates
-# key integer val= key
-LL.TRLL_plus()
-obj.writeLLFile() # saves locked circuit to a new json file filename="locked"
+## License
+<!-- Enigma is released under the  License. See the LICENSE file for more details. -->
 
 
 
-
-
-<!-- # ##############################################################
-# RUNNING SAT ATTACK
-# For NOW
-```
-python3 /home/alira/FYP/sat_attack/run.py <locked> <unlocked> file_type(b or v)
-Example
-python3 /home/alira/FYP/sat_attack/run.py /home/alira/FYP/tmp/tmprtl.v /home/alira/FYP/tmp/ortl.v v
-```
-# ############################################################## -->
