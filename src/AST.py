@@ -200,7 +200,15 @@ class AST:
 
     
     """
-    def __init__(self,file_path,top=None, rw = 'w', flag = 'v',filename=None,vlibpath="vlib/mycells.v"):
+    def __init__(self,
+                 file_path,
+                 top=None,
+                 rw = 'w',
+                 flag = 'v',
+                 filename=None,
+                 vlibpath="vlib/mycells.v",
+                 sub_modules=None
+                 ):
         self.LLverilog = ""
         self.postsat_lib=""
         if(filename==None):
@@ -214,10 +222,22 @@ class AST:
         elif rw == 'w':
             if flag == 'v':
                 self.verilog = open(file_path).read()
+                
+                if(sub_modules!=None):
+                    if(type(sub_modules)==list):
+                        for files in sub_modules:
+                            self.verilog+=open(files).read()
+                    else:
+                        self.verilog+=open(sub_modules).read()
+                
+                tmp_file_path=f"./tmp/tmp_verilog_{top}.v"
+                with open(tmp_file_path,"w") as f:
+                    f.write(self.verilog)
                 # self.verilog=format_verilog_org(self.verilog)
                 print("Verifiying Input Verilog File")
-                verify_verilog(file_path,top)
+                verify_verilog(tmp_file_path,top)
                 print("Input Verilog File Verified Without Issue")
+                os.remove(tmp_file_path)
                 
             elif flag == 'b':
                 self.bench = open(file_path).read()
