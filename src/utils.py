@@ -18,6 +18,14 @@ gate_to_assign={'BUF':'','NOT':'~', 'AND':'&', 'OR':'|','XOR':'^','NAND':'&', 'N
 ####################################################################################################################################
 ####################################################################################################################################
 
+def find_common_elements(list1, list2):
+    set1 = set(list1)
+    set2 = set(list2)
+    common_elements = set1.intersection(set2)
+    return list(common_elements)
+
+
+
 def get_diference(a,b):
     tmpa=list(set(a) - set(b))
     tmpb=list(set(b) - set(a))
