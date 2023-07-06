@@ -2,5 +2,4 @@ input_files
 output_files
 tmp
 src/__pycache__
-tmp*.py
 tmp.v
