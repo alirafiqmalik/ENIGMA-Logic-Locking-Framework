@@ -13,18 +13,25 @@ input_files/
 │   ├── demo.v
 │   └── tmporg.v
 ├── src/
-│   ├── attacks/
-│   │   └── satattack
-│   ├── AST.py
-│   ├── LL.py
-│   ├── PostSAT.py
-│   ├── PreSAT.py
-│   ├── SATAttack.py
-│   ├── conv.py
-│   ├── netlist.py
+│   ├── Attack
+│   │   ├── SATAttack.py
+│   │   └── attacks/
+│   │      └── satattack
+│   ├── Locking
+│   │   ├── LL.py
+│   │   ├── PostSAT.py
+│   │   └── PreSAT.py
+│   ├── Netlist
+│   │   ├── AST.py
+│   │   └── netlist.py
+│   ├── Parser
+│   │    ├── verilog_parser.py
+│   │    ├── bench_parser.py
+│   │    └── conv.py
+│   ├── Verification
+│   │   └── verification.py
 │   ├── path_var.py
 │   ├── utils.py
-│   └── verification.py
 ├── tmp/ (temporary working directory)
 ├── vlib/
 │   ├── mycells.v
@@ -49,7 +56,7 @@ To use Enigma, follow the example run commands provided below:
 To create:
 
 ```python
-from src.AST import AST
+from src.Netlist.AST import AST
 
 obj = AST(file_path="./input_files/tmporg.v", rw="w", flag="v", top="locked", filename="locked_new")
 ```
@@ -72,7 +79,7 @@ obj.writeLLFile()
 Example Usage:
 
 ```python
-from src.AST import AST
+from src.Netlist.AST import AST
 from src.PreSAT import PreSAT
 
 obj = AST(file_path="./output_files/locked_new.json", rw='r', filename="locked")
