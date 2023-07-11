@@ -1,5 +1,6 @@
 input_files
 output_files
 tmp
-src/__pycache__
+__pycache__
+src/attacks/
 tmp.v
