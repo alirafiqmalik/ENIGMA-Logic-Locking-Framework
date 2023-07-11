@@ -1,6 +1,6 @@
-from src.LL import LogicLocking
+from src.Locking.LL import LogicLocking
 import src.utils as utils
-from src.AST import AST
+from src.Netlist.AST import AST
 import time 
 # start_time = time.time()
 # elapsed_time = time.time() - start_time
