@@ -1,5 +1,8 @@
-import re
-from src.utils import format_verilog,io_port,extract_gates_b,extract_io_b,extract_io_v,extract_gates_v
+from src.Parser.verilog_parser import extract_io_v,extract_gates_v
+from src.Parser.bench_parser import extract_gates_b,extract_io_b
+from src.utils import format_verilog,io_port
+
+gate_to_assign={'BUF':'','NOT':'~', 'AND':'&', 'OR':'|','XOR':'^','NAND':'&', 'NOR':'|','XNOR':'^'}
 
 
 def bench_to_verilog(bench,clkpin="Clock",modulename="top"):
