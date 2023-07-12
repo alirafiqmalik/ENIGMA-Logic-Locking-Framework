@@ -1,11 +1,18 @@
-from src.Verification.verification import *
-from src.utils import *
-import networkx as nx
-from src.conv import *
-import pickle
-import base64
-import json
 import os
+import json
+import base64
+import pickle
+import networkx as nx
+
+
+# from src.utils import *
+import src.utils as utils
+import src.yosys as yosys
+import src.Parser.conv as conv
+from src.Verification.verification import *
+
+
+
 
 
 class module:
@@ -34,7 +41,7 @@ class module:
                 node_input=node["inputs"]
                 node_output=node["outputs"]
                 node_name=init_name
-                port=check_port(node_output)
+                port=utils.check_port(node_output)
                 self.circuitgraph.add_node(node_name, type="gate",logic=logic_gate)
 
                 if(port in self.io["outputs"]):
@@ -53,7 +60,7 @@ class module:
                     def tmp():
                         if("XNOR_117153_" in init_name):
                             print("HERE212 ",i,node_input,node_name)
-                    tmptxt=check_port(i)
+                    tmptxt=utils.check_port(i)
 
                     if(tmptxt in self.io["inputs"]):
                         self.circuitgraph.add_node(i, type="input",port=tmptxt)
@@ -101,7 +108,7 @@ class module:
                     self.circuitgraph.add_node(rst, type="input")
                     self.circuitgraph.add_edge(rst, node_name)
 
-                port=check_port(node_output)
+                port=utils.check_port(node_output)
                 if(port in self.io["outputs"]):
                     self.circuitgraph.add_node(node_output, type="output",port=port)
                     self.circuitgraph.add_edge(node_name, node_output)
@@ -114,7 +121,7 @@ class module:
                     raise Exception("NODE NOT FOUND")
                 
 
-                tmptxt=check_port(node_input)
+                tmptxt=utils.check_port(node_input)
                 if(tmptxt in self.io["inputs"]):
                     self.circuitgraph.add_node(node_input, type="input",port=tmptxt)
                     self.circuitgraph.add_edge(node_input,node_name)
@@ -163,15 +170,15 @@ class module:
         print("Node inputs = ",list(self.circuitgraph.predecessors(Node)))    
     
     def save_graph(self,svg=False):
-        save_graph(self.circuitgraph,svg)
+        utils.save_graph(self.circuitgraph,svg)
 
     # def gen_org_verilog(self):
     #     self.gate_level_verilog=f"module {self.module_name}({self.io['input_ports']}{self.io['output_ports'][:-1]});\n"
-    #     self.gate_level_verilog+=node_to_txt(self.io['inputs'],mode="input")
-    #     self.gate_level_verilog+=node_to_txt(self.io['outputs'],mode="output")
-    #     self.gate_level_verilog+=node_to_txt(self.io['wires'],mode="wire")
-    #     self.gate_level_verilog+=gates_to_txt(self.gates)
-    #     self.gate_level_verilog+=FF_to_txt(self.FF_tech)
+    #     self.gate_level_verilog+=utils.node_to_txt(self.io['inputs'],mode="input")
+    #     self.gate_level_verilog+=utils.node_to_txt(self.io['outputs'],mode="output")
+    #     self.gate_level_verilog+=utils.node_to_txt(self.io['wires'],mode="wire")
+    #     self.gate_level_verilog+=utils.gates_to_txt(self.gates)
+    #     self.gate_level_verilog+=utils.FF_to_txt(self.FF_tech)
     #     # self.module_LLverilog+=module_to_txt(self.linkages)
     #     for j in self.linkages:
     #         tmpj=self.linkages[j]
@@ -181,11 +188,11 @@ class module:
 
     def gen_LL_verilog(self):
         self.module_LLverilog=f"module {self.module_name}({self.io['input_ports']}{self.io['output_ports'][:-1]});\n"
-        self.module_LLverilog+=node_to_txt(self.io['inputs'],mode="input")
-        self.module_LLverilog+=node_to_txt(self.io['outputs'],mode="output")
-        self.module_LLverilog+=node_to_txt(self.io['wires'],mode="wire")
-        self.module_LLverilog+=gates_to_txt(self.gates)
-        self.module_LLverilog+=FF_to_txt(self.FF_tech)
+        self.module_LLverilog+=utils.node_to_txt(self.io['inputs'],mode="input")
+        self.module_LLverilog+=utils.node_to_txt(self.io['outputs'],mode="output")
+        self.module_LLverilog+=utils.node_to_txt(self.io['wires'],mode="wire")
+        self.module_LLverilog+=utils.gates_to_txt(self.gates)
+        self.module_LLverilog+=utils.FF_to_txt(self.FF_tech)
         # self.module_LLverilog+=module_to_txt(self.linkages)
         for j in self.linkages:
             tmpj=self.linkages[j]
@@ -235,13 +242,13 @@ class AST:
                     f.write(self.verilog)
                 # self.verilog=format_verilog_org(self.verilog)
                 print("Verifiying Input Verilog File")
-                verify_verilog(tmp_file_path,top)
+                yosys.verify_verilog(tmp_file_path,top)
                 print("Input Verilog File Verified Without Issue")
                 os.remove(tmp_file_path)
                 
             elif flag == 'b':
                 self.bench = open(file_path).read()
-                self.verilog = bench_to_verilog(self.bench)
+                self.verilog = conv.bench_to_verilog(self.bench)
             else:
                 Exception("Enter either 'v' (for verilog) or 'b' (for bench)")
             
@@ -259,13 +266,13 @@ class AST:
         
     def gen_LLFile(self):
         print("Generating Logic Locking AST File")
-        self.synthesized_verilog = synthesize_verilog(self.verilog,top=self.top_module_name)#,flag="dont_flatten"
+        self.synthesized_verilog = yosys.synthesize_verilog(self.verilog,top=self.top_module_name)#,flag="dont_flatten"
         self.gate_level_flattened=self.synthesized_verilog
         # self.gate_level_flattened = synthesize_verilog(self.verilog,top=self.top_module_name)
-        self.flatten_bench = verilog_to_bench(self.gate_level_flattened)
+        self.flatten_bench = conv.verilog_to_bench(self.gate_level_flattened)
 
-        self.modules_techmap = module_extraction(self.synthesized_verilog)
-        self.extracted_modules = module_extraction(self.synthesized_verilog)
+        self.modules_techmap = utils.module_extraction(self.synthesized_verilog)
+        self.extracted_modules = utils.module_extraction(self.synthesized_verilog)
         self.no_of_modules = len(self.extracted_modules)
 
         self.sub_modules_data()
@@ -282,7 +289,7 @@ class AST:
             self.modules[key].module_name = key
             self.modules[key].org_code_verilog = self.extracted_modules[key]
             self.modules[key].gate_level_verilog = self.modules_techmap[key]
-            self.modules[key].gates,self.modules[key].linkages,tmp = gates_module_extraction(self.modules[key].gate_level_verilog)            
+            self.modules[key].gates,self.modules[key].linkages,tmp = utils.gates_module_extraction(self.modules[key].gate_level_verilog)            
             self.modules[key].FF_tech,self.modules[key].Clock_pins,self.modules[key].Reset_pins=tmp
 
 
@@ -526,7 +533,7 @@ class AST:
 
             bits=self.top_module.io["inputs"]["lockingkeyinput"]['bits']
 
-            cir=synthesize_verilog_flatten_gate(verilog=cir,top=self.top_module_name)
+            cir=yosys.synthesize_verilog_flatten_gate(verilog=cir,top=self.top_module_name)
             cir=f"// lockingkey = {bits}'b{self.top_module.bitkey} \n"+cir
         elif(file=="org"):
             cir=self.gate_level_flattened + "\n\n\n" + self.gate_lib
@@ -534,7 +541,7 @@ class AST:
             cir=re.sub(r" module",r"module",cir)
             cir=re.sub(r" endmodule",r"endmodule",cir)
 
-            cir=synthesize_verilog_flatten_gate(verilog=cir,top=self.top_module_name)
+            cir=yosys.synthesize_verilog_flatten_gate(verilog=cir,top=self.top_module_name)
         else:
             raise Exception(f"Wrong file type {file}")
         
@@ -555,7 +562,7 @@ class AST:
             f.write(cir)
         
         print("\t Done")
-        verify_verilog(top_path,self.top_module_name)
+        yosys.verify_verilog(top_path,self.top_module_name)
         
 
         print("Done Generating Output Verilog File")
@@ -590,7 +597,7 @@ class AST:
         print("\t Done")
         
         print("\t Verifying Miter circuit top.v")
-        verify_verilog(top_path,'top')
+        yosys.verify_verilog(top_path,'top')
         print("\t Verification Done Without Error")
         print("Done Generating Verification Files")
 
