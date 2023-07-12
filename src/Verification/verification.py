@@ -1,4 +1,5 @@
-from src.utils import format_verilog_org,extract_io_v,get_difference_abs
+from src.Parser.verilog_parser import extract_io_v
+from src.utils import format_verilog_org,get_difference_abs
 import re
 
 
