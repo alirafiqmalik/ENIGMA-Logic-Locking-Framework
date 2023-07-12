@@ -1,7 +1,7 @@
 import re
 import src.utils as utils
 
-
+@utils.timer_func
 def extract_modules(text):
   Operations={
    "OR"  :{},
@@ -132,7 +132,6 @@ for i in Operations:
     if(i=="NOT" or i=="BUF"):
       for j in Operations[i]:
         tmpx=re.findall(r"\n ?"+j + r" .* "+Operations[i][j]["port"],verilog)
-        # print(j,tmpx,Operations[i][j]["port"])
     else:
       for j in Operations[i]:
         tmpx=re.findall(r"\n ?"+j + r" .* "+Operations[i][j]["port"],verilog)
@@ -141,3 +140,4 @@ for i in Operations:
     gate_count[i] = len(tmp[i])
 
 # print(tmp["NAND"])
+
