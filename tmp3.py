@@ -2,7 +2,7 @@ import re
 import src.utils as utils
 
 @utils.timer_func
-def extract_modules(text):
+def extract_modules_def(gate_module_lib):
   Operations={
    "OR"  :{},
    "BUF" :{},
@@ -13,7 +13,7 @@ def extract_modules(text):
    "NAND":{},
    "XNOR":{}
    }
-  modules = re.findall(r"module\s+(\w+) ?\((.*?)\);(.*?)endmodule", text, re.DOTALL)
+  modules = re.findall(r"module\s+(\w+) ?\((.*?)\);(.*?)endmodule", gate_module_lib, re.DOTALL)
   
   
   for module in modules:
@@ -119,7 +119,7 @@ verilog=utils.format_verilog(open("input_files/ASSURE_LOCKED/design1/design1_net
 # with open("tmp.v","w") as f:
 #   f.write(t)
 
-Operations=extract_modules(module_txt)
+Operations=extract_modules_def(module_txt)
 
 
 
