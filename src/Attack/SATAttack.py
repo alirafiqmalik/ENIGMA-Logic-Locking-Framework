@@ -1,12 +1,11 @@
 import re
 import z3
 import time
-import argparse
-import src.Attack.attacks.satattack.circuit as circuit
-import src.Attack.attacks.satattack.sat_model as sat_model
-import src.Attack.attacks.satattack.benchmarks as benchmarks
-import src.Attack.attacks.satattack.dip_finder as dip_finder
-import src.Attack.attacks.satattack.oracle_runner as oracle_runner
+import src.Attack.attack.satattack.circuit as circuit
+import src.Attack.attack.satattack.sat_model as sat_model
+import src.Attack.attack.satattack.benchmarks as benchmarks
+import src.Attack.attack.satattack.dip_finder as dip_finder
+import src.Attack.attack.satattack.oracle_runner as oracle_runner
 
 
 class SatAttack:
