@@ -17,6 +17,9 @@ from src.Verification.verification import *
 
 class module:
     def __init__(self):
+        """
+        Initialize the module object.
+        """
         self.change_flag=1
         self.org_code_verilog = None
         self.org_code_bench = None
@@ -33,6 +36,9 @@ class module:
         # self.module_LLcircuitgraph=None
     
     def gen_graph(self):
+        """
+        Generate the circuit graph.
+        """
         self.circuitgraph = nx.DiGraph()
         for logic_gate in self.gates:
             for init_name in self.gates[logic_gate]:
@@ -162,14 +168,28 @@ class module:
 
     
     def bin_graph(self):
-        # Encode the graph object to a binary string using pickle and encode the binary string to a base64 string
+        """
+        Encode the circuit graph to a binary string using pickle and encode the binary string to a base64 string.
+        """
         self.base64_data = base64.b64encode(pickle.dumps(self.circuitgraph)).decode('utf-8')
 
     def nodeio(self,Node)->None:
+        """
+        Print the outputs and inputs of a node in the circuit graph.
+        
+        Args:
+            Node (str): The name of the node.
+        """
         print("Node outputs = ",list(self.circuitgraph.successors(Node))) 
         print("Node inputs = ",list(self.circuitgraph.predecessors(Node)))    
     
     def save_graph(self,svg=False):
+        """
+        Save the circuit graph as an SVG image.
+        
+        Args:
+            svg (bool): Whether to save the graph as an SVG image (default: False).
+        """
         utils.save_graph(self.circuitgraph,svg)
 
     # def gen_org_verilog(self):
@@ -187,6 +207,9 @@ class module:
 
 
     def gen_LL_verilog(self):
+        """
+        Generate the LL verilog code for the module.
+        """
         self.module_LLverilog=f"module {self.module_name}({self.io['input_ports']}{self.io['output_ports'][:-1]});\n"
         self.module_LLverilog+=utils.node_to_txt(self.io['inputs'],mode="input")
         self.module_LLverilog+=utils.node_to_txt(self.io['outputs'],mode="output")
