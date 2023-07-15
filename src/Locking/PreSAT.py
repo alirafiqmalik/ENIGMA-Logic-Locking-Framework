@@ -1,4 +1,6 @@
+import random
 from src.Netlist.AST import *
+import src.utils as utils
 
 class PreSAT:
     def __init__(self, module) -> None:
@@ -9,7 +11,7 @@ class PreSAT:
     def set_key(self,n , key=None):
       self.keycount=n
       if(key==None):
-        self.keyint,self.bitkey=randKey(self.keycount)
+        self.keyint,self.bitkey=utils.randKey(self.keycount)
       else:  
         self.keyint=key
         self.bitkey = format(key, "b")
@@ -55,15 +57,15 @@ class PreSAT:
       self.module.lockingdata["inputs"].append((keygate_input_name,bit))
       self.module.lockingdata["wires"].append(keywire_name)
 
-      self.module.io['wires'][keywire_name]=connector(1,0,0)
+      self.module.io['wires'][keywire_name]=utils.connector(1,0,0)
       
       
       if("lockingkeyinput" not in self.module.io['inputs']):
-        self.module.io['inputs']["lockingkeyinput"]=connector(1,0,0)
+        self.module.io['inputs']["lockingkeyinput"]=utils.connector(1,0,0)
         self.module.io["input_ports"]+="lockingkeyinput,"
       else:
         # bits=self.module.io['inputs'][keygate_input_name]["bits"]
-        self.module.io['inputs']["lockingkeyinput"]=connector(bitval+1,0,bitval)
+        self.module.io['inputs']["lockingkeyinput"]=utils.connector(bitval+1,0,bitval)
         # self.module.io["input_ports"]+=f"{keygate_input_name},"
 
       # print(NodeA)
@@ -224,7 +226,7 @@ class PreSAT:
         invgate=f"NOT_inserted_{invgatecount}_"+str(random.randint(1,10000))
 
         
-        new_gatetype=invert_gate(gatetype)
+        new_gatetype=utils.invert_gate(gatetype)
         self.circuitgraph.add_node(gate,type="gate",logic=new_gatetype)
         self.circuitgraph.add_node(wire_name,type="wire",port=wire_name)
         self.circuitgraph.add_node(invgate,type="gate",logic="NOT")
@@ -244,7 +246,7 @@ class PreSAT:
 
         
         gio["NOT"][invgate]={'inputs':[wire_name],"outputs":gateio['outputs']}
-        self.module.io['wires'][wire_name]=connector(1,0,0)
+        self.module.io['wires'][wire_name]=utils.connector(1,0,0)
         gateio['outputs']=wire_name
         
 
@@ -273,10 +275,10 @@ class PreSAT:
       self.module.lockingdata["inputs"].append((keygate_input_name,bit))
       
       if("lockingkeyinput" not in self.module.io['inputs']):
-        self.module.io['inputs']["lockingkeyinput"]=connector(1,0,0)
+        self.module.io['inputs']["lockingkeyinput"]=utils.connector(1,0,0)
         self.module.io["input_ports"]+="lockingkeyinput,"
       else:
-        self.module.io['inputs']["lockingkeyinput"]=connector(bitval+1,0,bitval)
+        self.module.io['inputs']["lockingkeyinput"]=utils.connector(bitval+1,0,bitval)
 
 
     def get_gates(self):# AllGates ← all_gates(C)
@@ -414,15 +416,15 @@ class PreSAT:
       self.module.lockingdata["inputs"].append((keygate_input_name,bit))
       self.module.lockingdata["wires"].append(keywire_name)
 
-      self.module.io['wires'][keywire_name]=connector(1,0,0)
+      self.module.io['wires'][keywire_name]=utils.connector(1,0,0)
       
       
       if("lockingkeyinput" not in self.module.io['inputs']):
-        self.module.io['inputs']["lockingkeyinput"]=connector(1,0,0)
+        self.module.io['inputs']["lockingkeyinput"]=utils.connector(1,0,0)
         self.module.io["input_ports"]+="lockingkeyinput,"
       else:
         # bits=self.module.io['inputs'][keygate_input_name]["bits"]
-        self.module.io['inputs']["lockingkeyinput"]=connector(bitval+1,0,bitval)
+        self.module.io['inputs']["lockingkeyinput"]=utils.connector(bitval+1,0,bitval)
         # self.module.io["input_ports"]+=f"{keygate_input_name},"
 
       # print(NodeA)
