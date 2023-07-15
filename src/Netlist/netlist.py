@@ -1,3 +1,4 @@
+# Deprecated
 import networkx as nx
 import re
 
