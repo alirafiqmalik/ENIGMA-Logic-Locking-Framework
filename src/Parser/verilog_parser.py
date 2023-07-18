@@ -12,13 +12,17 @@ verilog_gates=['BUF_g','NOT_g', 'AND_g', 'OR_g', 'NAND_g', 'NOR_g','XOR_g','XNOR
 
 
 
+
 def extract_io_v(verilog,mode="input"):
   nodes={}
   port=""
   tmp=re.findall("\n"+mode.lower()+r"[\s\[](.*);",verilog)
 
+
   for i in tmp:
     i=re.sub("\[(\d+)\]",r"_\1",i)
+    # if("n3471" in i):
+    #    print("HERE ",i)
     if("[" in i):
         ei,si,tmpi=re.findall(r"\[(\d+):(\d+)\] ?(.*)",i)[0]
         ei,si=int(ei),int(si)
@@ -26,6 +30,7 @@ def extract_io_v(verilog,mode="input"):
         if("," in tmpi):
             tmpi=tmpi.split(",")
             for k in tmpi:
+                k=k.strip()
                 nodes[k]=utils.connector(ei-si+1,si,ei)
                 port+=k+","
         else:
@@ -34,33 +39,146 @@ def extract_io_v(verilog,mode="input"):
     elif("," in i):
         tmpi=i.split(",")
         for k in tmpi:
+            k=k.strip()
             nodes[k]=utils.connector(1,0,0)
             port+=k+","
     else:
-      nodes[i]=utils.connector(1,0,0)
-      port+=i+","
+      nodes[i.strip()]=utils.connector(1,0,0)
+      port+=i.strip()+","
 
   return nodes,port
 
-def extract_gates_v(verilog):
-    tmp={}
-    gate_count = {}
-    #   tmp[re.sub("_g","",verilog_gates[0])]=re.findall(" "+verilog_gates[0] +" .* \( .A\((.*)\), .Y\((.*)\) \) ?;",verilog)
-    #   gate_count[verilog_gates[0]] = len(tmp[re.sub("_g","",verilog_gates[0])])
-    #   tmp[re.sub("_g","",verilog_gates[1])]=re.findall(" "+verilog_gates[1] +" .* \( .A\((.*)\), .Y\((.*)\) \) ?;",verilog)
-    #   gate_count[verilog_gates[1]] = len(tmp[re.sub("_g","",verilog_gates[1])])
-
-    for i in verilog_gates:
-        if(i=="NOT_g" or i=="BUF_g"):
-            tmpx=re.findall(r"\n ?"+i + r" .* \( .A\((.*)\), .Y\((.*)\) \) ?;",verilog)
-        else:
-            tmpx=re.findall(r"\n ?"+i +r" .* \( .A\((.*)\), .B\((.*)\), .Y\((.*)\) \) ?;",verilog)
-
-        tmpi=re.sub("_g","",i)
-        tmp[tmpi]=tmpx
-        gate_count[i] = len(tmp[tmpi])
-            
+def extract_gates_v(verilog,gate_mapping):
+   tmp={}
+   gate_count = {}
+   for i in gate_mapping:
+    for j in gate_mapping[i]:
+       tmpx=re.findall(r"\n ?"+j + r" (.*) "+gate_mapping[i][j]["port"],verilog)
+    
+    tmp[i]=tmpx
+    gate_count[i] = len(tmp[i])            
     return tmp,gate_count
+
+
+
+@utils.timer_func
+def extract_modules_def(gate_module_lib):
+  gate_module_lib=re.sub(r"\n","",gate_module_lib)
+  gate_module_lib=re.sub(r"endmodule",r"endmodule\n",gate_module_lib)
+  gates={}
+  FF={}
+  gate_mapping={
+   "FF"  :[],
+   "OR"  :[],
+   "BUF" :[],
+   "NOT" :[],
+   "AND" :[],
+   "XOR" :[],
+   "NOR" :[],
+   "NAND":[],
+   "XNOR":[]
+   }
+  modules = re.findall(r"module\s+(\w+) ?\((.*?)\);(.*?)endmodule", gate_module_lib, re.DOTALL)
+  
+  
+  for module in modules:
+      module_name = module[0]
+      port_list = [i.strip() for i in module[1].split(",")]
+      tmp=re.sub(";",r"\n",module[2])
+      module_inputs = []
+      for i in re.findall(r"input\s+(.*)", tmp):
+        for j in i.split(","):
+          module_inputs.append(j.strip())
+      module_outputs = re.findall(r"output(?:\s+reg)?\s+(.*)", tmp)
+      assign_line = re.search(r"assign\s+(.*?)\;", module[2], re.DOTALL)
+      always_block = re.search(r"always\s*@\s*\((.*?)\)\s*begin\s*(.*?)\s*end", module[2], re.DOTALL)
+
+      port_io_map=""
+
+      for i in port_list:
+        if(i in module_inputs):
+          port_io_map+="I"
+        if(i in module_outputs):
+          port_io_map+="O"
+
+      # print("PORT MAP",port_io_map)
+
+      if(2<len(port_list)>4):
+        raise Exception("INVALID PORT Length")
+
+      if(port_io_map!="IIIO" and len(port_list)==4):
+        raise Exception("INVALID PORT LISTING")
+
+      if(port_io_map!="IIO" and len(port_list)==3):
+        raise Exception("INVALID PORT LISTING")
+      
+      if(port_io_map!="IO" and len(port_list)==2):
+        raise Exception("INVALID PORT LISTING")    
+        
+
+
+      if(always_block==None and assign_line!=None):
+        port="\("
+        for i in port_list[:-1]:
+          port+=f".{i}\(({{{i}}})\), "
+        port+=f".{port_list[-1]}\(({{{port_list[-1]}}})\)"+" ?\);"
+      elif(always_block!=None and assign_line==None):
+        port="\("
+        for i in port_list[:-1]:
+          port+=f".{i}\(({{{i}}})\), "
+        port+=f".{port_list[-1]}\(({{{port_list[-1]}}})\)"+" ?\);"
+      else:
+        raise Exception("Gate Definition Not Supported")
+      # elif(always_block!=None and assign_line!=None):
+      #   pass
+      # elif(always_block==None and assign_line==None):
+      #   pass
+      
+
+
+      tmp=dict({
+          "port_list":port_list,
+          "port":port,
+          "inputs": [input_.strip() for input_ in module_inputs],
+          "outputs": module_outputs,
+          "assign_line": assign_line.group(1).strip() if assign_line else None,
+          "always_block":{
+                          "sensitivity_list": always_block.group(1).strip() if always_block else None,
+                          "lines": always_block.group(2).strip() if always_block else None
+                          } if always_block else None
+      })
+
+      if("BUF" in module_name):
+        gate_mapping["BUF"].append(module_name)
+        gates[module_name]=tmp
+      elif("NOT" in module_name or "INV" in module_name):
+        gate_mapping["NOT"].append(module_name)
+        gates[module_name]=tmp
+      elif("NAND" in module_name):
+        gate_mapping["NAND"].append(module_name)
+        gates[module_name]=tmp
+      elif("XNOR" in module_name):
+        gate_mapping["XNOR"].append(module_name)
+        gates[module_name]=tmp
+      elif("NOR" in module_name):
+        gate_mapping["NOR"].append(module_name)
+        gates[module_name]=tmp
+      elif("AND" in module_name):
+        gate_mapping["AND"].append(module_name)
+        gates[module_name]=tmp
+      elif("XOR" in module_name):
+        gate_mapping["XOR"].append(module_name)
+        gates[module_name]=tmp
+      elif("OR" in module_name):
+        gate_mapping["OR"].append(module_name)
+        gates[module_name]=tmp    
+      elif("FF" in module_name):
+        gate_mapping["FF"].append(module_name)
+        FF[module_name]=tmp  
+      else:
+        raise Exception(f"LOGIC NOT IDENTIFIED = {module_name}")
+  
+  return gate_mapping,gates,FF
 
 
 
@@ -130,10 +248,10 @@ def gates_module_extraction(verilog,gate_mapping,gates,FF):
         if(Clockpin not in Clock_pins):
           Clock_pins.append(Clockpin)
         
-        if(Resetpin not in Reset_pins):
+        if(Resetpin not in Reset_pins and Resetpin!=None):
           Reset_pins.append(Resetpin)
         
-        if(Presetpin not in Reset_pins):
+        if(Presetpin not in Reset_pins and Presetpin!=None):
           Reset_pins.append(Presetpin)
 
         if type_block not in FF_tech:
