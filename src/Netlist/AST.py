@@ -374,9 +374,12 @@ class AST:
                                   "links" : self.modules[key].linkages}
                                   )
             #"postSAT_modules" : self.modules[key].postSAT_modules,"links" : self.modules[key].linkages
-
-
-        ast = dict({"AST_overview":ast_dict1,"modules": sub_dict,"Code":ast_dict2})
+        gate_lib_data=dict({"gate_mapping_vlib":self.gate_mapping_vlib,
+                            "gates_vlib":self.gates_vlib,
+                            "FF_vlib":self.FF_vlib}
+                            )
+        
+        ast = dict({"AST_overview":ast_dict1,"modules": sub_dict,"Gate_Lib_Data":gate_lib_data,"Code":ast_dict2})
 
         json_file = json.dumps(ast, indent = 4)
         with open(self.filepath, "w") as verilog_ast:
@@ -483,6 +486,9 @@ class AST:
         self.flatten_bench=verilog_ast["Code"]["Bench_format_flattened"]
         self.gate_lib=verilog_ast["Code"]["gate_lib"]
         # self.linkages=verilog_ast["linkages"]
+        self.top_module=self.modules[self.top_module_name]
+        self.top_module.bitkey=verilog_ast["AST_overview"]["bitkey"]
+        
         print(f"\t Done Loading Top module {self.top_module_name} in AST")
 
         keys = list((verilog_ast["modules"]).keys())
@@ -505,8 +511,18 @@ class AST:
             self.modules[i].circuitgraph = pickle.loads(base64.b64decode(self.modules[i].base64_data.encode('utf-8')))
             print(f"\t\t Done Loading module {i} in AST")
         print("\t Done Loading module data in AST")
-        self.top_module=self.modules[self.top_module_name]
-        self.top_module.bitkey=verilog_ast["AST_overview"]["bitkey"]
+
+
+        print("\t Loading gate level data in AST")
+
+        self.gate_mapping_vlib,=verilog_ast["Gate_Lib_Data"]["gate_mapping_vlib"]
+        self.gates_vlib,=verilog_ast["Gate_Lib_Data"]["gates_vlib"]
+        self.FF_vlib=verilog_ast["Gate_Lib_Data"]["FF_vlib"]
+
+        
+        print("\t Loading gate level data in AST")
+
+
         print("Done Reading LL file")
     
     # def gen_module_connections(self):
