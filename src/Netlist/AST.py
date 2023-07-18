@@ -9,6 +9,7 @@ import networkx as nx
 import src.utils as utils
 import src.yosys as yosys
 import src.Parser.conv as conv
+import src.Parser.verilog_parser as verilog_parser
 from src.Verification.verification import *
 
 
@@ -201,7 +202,7 @@ class module:
         self.gate_level_verilog+=utils.node_to_txt(self.io['inputs'],mode="input")
         self.gate_level_verilog+=utils.node_to_txt(self.io['outputs'],mode="output")
         self.gate_level_verilog+=utils.node_to_txt(self.io['wires'],mode="wire")
-        print(self.gates)
+        # print(self.gates)
         self.gate_level_verilog+=utils.gates_to_txt(self.gates)
         self.gate_level_verilog+=utils.FF_to_txt(self.FF_tech)
         # self.module_LLverilog+=module_to_txt(self.linkages)
@@ -287,6 +288,7 @@ class AST:
             # self.linkages={}
             self.top_module_name=top
             self.gate_lib=open(vlibpath).read()
+            self.gate_mapping_vlib,self.gates_vlib,self.FF_vlib=verilog_parser.extract_modules_def(self.gate_lib)
             self.gen_LLFile()
             self.writeLLFile() 
         else:
@@ -297,7 +299,7 @@ class AST:
         self.synthesized_verilog = yosys.synthesize_verilog(self.verilog,top=self.top_module_name)#,flag="dont_flatten"
         self.gate_level_flattened=self.synthesized_verilog
         # self.gate_level_flattened = synthesize_verilog(self.verilog,top=self.top_module_name)
-        self.flatten_bench = conv.verilog_to_bench(self.gate_level_flattened)
+        self.flatten_bench = conv.verilog_to_bench(self.gate_level_flattened,self.gate_mapping_vlib)
 
         self.modules_techmap = utils.module_extraction(self.synthesized_verilog)
         self.extracted_modules = utils.module_extraction(self.synthesized_verilog)
@@ -317,7 +319,7 @@ class AST:
             self.modules[key].module_name = key
             self.modules[key].org_code_verilog = self.extracted_modules[key]
             self.modules[key].gate_level_verilog = self.modules_techmap[key]
-            self.modules[key].gates,self.modules[key].linkages,tmp = utils.gates_module_extraction(self.modules[key].gate_level_verilog)            
+            self.modules[key].gates,self.modules[key].linkages,tmp = utils.gates_module_extraction(self.modules[key].gate_level_verilog,self.gate_mapping_vlib,self.gates_vlib,self.FF_vlib)
             self.modules[key].FF_tech,self.modules[key].Clock_pins,self.modules[key].Reset_pins=tmp
 
 
