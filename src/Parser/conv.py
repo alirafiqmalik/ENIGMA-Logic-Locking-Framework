@@ -116,12 +116,12 @@ def bench_to_verilog(bench,clkpin="Clock",modulename="top"):
 ####################################################################################################################################
 
 
-def verilog_to_bench(verilog):
+def verilog_to_bench(verilog,gate_mapping):
     verilog = format_verilog(verilog)
     inputs,_=extract_io_v(verilog,mode="input")
     outputs,_=extract_io_v(verilog,mode="output")
     
-    gates,gate_count=extract_gates_v(verilog)
+    gates,gate_count=extract_gates_v(verilog,gate_mapping)
 
     bench=""
 
