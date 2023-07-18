@@ -347,17 +347,36 @@ class AST:
     def writeLLFile(self):
         print("Writing LL file")
         self.update_LLverilog()
-        ast_dict = dict({"top_module_name" : self.top_module_name,"Total_number_of_modules":self.no_of_modules,"LL_gatelevel_verilog":self.LLverilog,"bitkey":self.top_module.bitkey})
+        ast_dict1 = dict({"top_module_name" : self.top_module_name,
+                          "Total_number_of_modules":self.no_of_modules,
+                          "bitkey":self.top_module.bitkey}
+                          )
+        ast_dict2 = dict({"LL_gatelevel_verilog":self.LLverilog,
+                          "orginal_code" : self.verilog, 
+                          "gate_lib":self.gate_lib,
+                          "gate_level_flattened" : self.gate_level_flattened,
+                          "Bench_format_flattened" : self.flatten_bench, 
+                          "gate_level_not_flattened" : self.synthesized_verilog}
+                          )
         # top_dict = dict({"Verilog": self.top_module.org_code_verilog, "Synthesized_verilog" : self.top_module.gate_level_verilog, "Total_number_of_modules":self.no_of_modules, "io":self.top_module.io, "gates": self.top_module.gates, "links" : self.top_module.linkages, "DiGraph":self.top_module.base64_data})
         # top_dict = dict({"Total_number_of_modules":self.no_of_modules, "io":self.top_module.io, "gates": self.top_module.gates, "links" : self.top_module.linkages, "DiGraph":self.top_module.base64_data})
 
         sub_dict = {}
         for key in list(self.modules.keys()):
             self.modules[key].bin_graph()
-            sub_dict[key] = dict({"Verilog": self.modules[key].org_code_verilog, "Synthesized_verilog" : self.modules[key].gate_level_verilog,"lockingdata":self.modules[key].lockingdata,"DiGraph":self.modules[key].base64_data, "io":self.modules[key].io, "gates": self.modules[key].gates,"FF":self.modules[key].FF_tech,"links" : self.modules[key].linkages})#"postSAT_modules" : self.modules[key].postSAT_modules, "links" : self.modules[key].linkages
+            sub_dict[key] = dict({"Verilog": self.modules[key].org_code_verilog,
+                                  "Synthesized_verilog" : self.modules[key].gate_level_verilog,
+                                  "lockingdata":self.modules[key].lockingdata,
+                                  "DiGraph":self.modules[key].base64_data,
+                                  "io":self.modules[key].io,
+                                  "gates": self.modules[key].gates,
+                                  "FF":self.modules[key].FF_tech,
+                                  "links" : self.modules[key].linkages}
+                                  )
+            #"postSAT_modules" : self.modules[key].postSAT_modules,"links" : self.modules[key].linkages
 
 
-        ast = dict({"AST":ast_dict,"modules": sub_dict})
+        ast = dict({"AST_overview":ast_dict1,"modules": sub_dict,"Code":ast_dict2})
 
         json_file = json.dumps(ast, indent = 4)
         with open(self.filepath, "w") as verilog_ast:
@@ -455,13 +474,14 @@ class AST:
         print("\t Loading Top module in AST")
         self.top_module = module()
         self.modules = {}
-        self.verilog =  verilog_ast["AST"]["orginal_code"]
-        self.gate_level_flattened = verilog_ast["AST"]["gate_level_flattened"]
-        self.synthesized_verilog = verilog_ast["AST"]["gate_level_not_flattened"]
-        self.top_module_name  = verilog_ast["AST"]["top_module_name"]
-        self.no_of_modules = verilog_ast["AST"]["Total_number_of_modules"]
-        self.flatten_bench=verilog_ast["AST"]["Bench_format_flattened"]
-        self.gate_lib=verilog_ast["AST"]["gate_lib"]
+        self.top_module_name  = verilog_ast["AST_overview"]["top_module_name"]
+        self.no_of_modules = verilog_ast["AST_overview"]["Total_number_of_modules"]
+        
+        self.verilog =  verilog_ast["Code"]["orginal_code"]
+        self.gate_level_flattened = verilog_ast["Code"]["gate_level_flattened"]
+        self.synthesized_verilog = verilog_ast["Code"]["gate_level_not_flattened"]
+        self.flatten_bench=verilog_ast["Code"]["Bench_format_flattened"]
+        self.gate_lib=verilog_ast["Code"]["gate_lib"]
         # self.linkages=verilog_ast["linkages"]
         print(f"\t Done Loading Top module {self.top_module_name} in AST")
 
@@ -486,7 +506,7 @@ class AST:
             print(f"\t\t Done Loading module {i} in AST")
         print("\t Done Loading module data in AST")
         self.top_module=self.modules[self.top_module_name]
-        self.top_module.bitkey=verilog_ast["AST"]["bitkey"]
+        self.top_module.bitkey=verilog_ast["AST_overview"]["bitkey"]
         print("Done Reading LL file")
     
     # def gen_module_connections(self):
