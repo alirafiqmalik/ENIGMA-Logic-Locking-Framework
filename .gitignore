@@ -2,6 +2,6 @@ input_files
 output_files
 tmp
 __pycache__
-src/attacks/
+attacks/
 tmp.v
 .vscode
