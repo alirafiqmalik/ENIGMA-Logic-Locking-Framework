@@ -347,7 +347,7 @@ class AST:
     def writeLLFile(self):
         print("Writing LL file")
         self.update_LLverilog()
-        ast_dict = dict({"orginal_code" : self.verilog, "gate_lib":self.gate_lib,"gate_level_flattened" : self.gate_level_flattened,"Bench_format_flattened" : self.flatten_bench, "gate_level_not_flattened" : self.synthesized_verilog, "top_module_name" : self.top_module_name,"Total_number_of_modules":self.no_of_modules,"LL_gatelevel_verilog":self.LLverilog,"bitkey":self.top_module.bitkey})
+        ast_dict = dict({"top_module_name" : self.top_module_name,"Total_number_of_modules":self.no_of_modules,"LL_gatelevel_verilog":self.LLverilog,"bitkey":self.top_module.bitkey})
         # top_dict = dict({"Verilog": self.top_module.org_code_verilog, "Synthesized_verilog" : self.top_module.gate_level_verilog, "Total_number_of_modules":self.no_of_modules, "io":self.top_module.io, "gates": self.top_module.gates, "links" : self.top_module.linkages, "DiGraph":self.top_module.base64_data})
         # top_dict = dict({"Total_number_of_modules":self.no_of_modules, "io":self.top_module.io, "gates": self.top_module.gates, "links" : self.top_module.linkages, "DiGraph":self.top_module.base64_data})
 
