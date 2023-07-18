@@ -375,14 +375,14 @@ class AST:
         sub_dict = {}
         for key in list(self.modules.keys()):
             self.modules[key].bin_graph()
-            sub_dict[key] = dict({"Verilog": self.modules[key].org_code_verilog,
-                                  "Synthesized_verilog" : self.modules[key].gate_level_verilog,
-                                  "lockingdata":self.modules[key].lockingdata,
-                                  "DiGraph":self.modules[key].base64_data,
+            sub_dict[key] = dict({"lockingdata":self.modules[key].lockingdata,
                                   "io":self.modules[key].io,
                                   "gates": self.modules[key].gates,
                                   "FF":self.modules[key].FF_tech,
-                                  "links" : self.modules[key].linkages}
+                                  "links" : self.modules[key].linkages,
+                                  "DiGraph":self.modules[key].base64_data,
+                                  "Verilog": self.modules[key].org_code_verilog,
+                                  "Synthesized_verilog" : self.modules[key].gate_level_verilog}
                                   )
             #"postSAT_modules" : self.modules[key].postSAT_modules,"links" : self.modules[key].linkages
         gate_lib_data=dict({"gate_mapping_vlib":self.gate_mapping_vlib,
