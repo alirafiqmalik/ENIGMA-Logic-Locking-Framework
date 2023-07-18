@@ -82,90 +82,87 @@ def module_extraction (verilog):
         module_dict = dict((module[1], module[0]) for module in modules)
         return module_dict      #module_dict = {'modulename' : "module code"}
 
-def gates_module_extraction(verilog):
-  gates=['BUF_g','NOT_g', 'AND_g', 'OR_g', 'NAND_g', 'NOR_g','XOR_g','XNOR_g']
-  FF=['DFFcell',"DFFRcell","dffsr"]
-  #   DFFRcell _2116_ ( .C(CLOCK_50), .D(_0153_), .Q(T3state[0]), .R(_0149_) );
-  #   {'BUF':[],'NOT':[], 'AND':[], 'OR':[],'XOR':[],'NAND':[], 'NOR':[],'XNOR':[]}
+@utils.timer_func
+def gates_module_extraction(verilog,gate_mapping,gates,FF):
   gate_tech={}
   FF_tech={}
   Clock_pins=[]
   Reset_pins=[]
   sub_module={}
+  
   def process_chunk(chunk):
     type_block,init,extra=chunk
-    # extra=re.sub(" \[","[",extra)
-    # extra=re.sub("\[(\d+)\](\[\d+\])",r"_\1\2",extra)
+
     if(type_block in gates):
-        tmpx=re.findall(r'\.\S+\(([^\(\),]+)\)',extra)
-        tmpx.reverse()
-        type_block_port=re.sub("_g","",type_block)
-        if type_block_port not in gate_tech:
-            gate_tech[type_block_port]={}
-        gate_tech[type_block_port][type_block_port+init]={"inputs": tmpx[1:] ,"outputs": tmpx[0]}
-        
+      tmpx=re.findall(r'\.\S+\(([^\(\),]+)\)',extra)
+      tmpx.reverse()
+      
+      logic=utils.det_logic(type_block,gate_mapping)
+    
+      if logic not in gate_tech:
+          gate_tech[logic]={}
+      
+      if type_block not in gate_tech[logic]:
+        gate_tech[logic][type_block]={}
+      
+      gate_tech[logic][type_block][logic+"_"+init]={"inputs": tmpx[1:] ,"outputs": tmpx[0]}
+  
     elif(type_block in FF):
-        # print(type_block,init,extra)
-        if(type_block=="DFFRcell"):
-            type_block_port="DFF_"+init
-            regex_pattern = r"\((.*?)\)"
-            matches = re.findall(regex_pattern, extra)
-            C,D,Q,R = [match for match in matches]
-            if(C not in Clock_pins):
-                Clock_pins.append(C)
-            if(R not in Reset_pins):
-                Reset_pins.append(R)
-            
-            if type_block not in FF_tech:
-                FF_tech[type_block]={}
-            
-            FF_tech[type_block][type_block_port]={"inputs": D ,"outputs": Q,"clock":C,"reset":R}
-            
-            # print("HERE",C,D,Q,R)
-            # print(re.findall(".C(CLOCK_50), .D(_0056_), .Q(T2x[0]), .R(_0040_)",extra))
-        elif(type_block=="DFFcell"):
-            type_block_port="DFF_"+init
-            regex_pattern = r"\((.*?)\)"
-            matches = re.findall(regex_pattern, extra)
-            C,D,Q = [match for match in matches]
-            if(C not in Clock_pins):
-                Clock_pins.append(C)
-            if type_block not in FF_tech:
-                FF_tech[type_block]={}   
-            FF_tech[type_block][type_block_port]={"inputs": D ,"outputs": Q,"clock":C}
-            # print("HERE",C,D,Q,extra)
-        elif(type_block=="dffsr"):
-            type_block_port="DFF_"+init
-            regex_pattern = r"\((.*?)\)"
-            matches = re.findall(regex_pattern, extra)
-            Clear,C,D,Preset,Q= [match for match in matches]
-            # "inputs": D ,"outputs": Q,"clock":C,"clear":Clear,"preset":Preset
-            # dffsr _123757_ (.CLEAR(1'h0), .CLK(clk_i), .D(_158363_Y), .PRESET(1'h0), .Q(_155393_A));s
-            if(C not in Clock_pins):
-                Clock_pins.append(C)
-            if type_block not in FF_tech:
-                FF_tech[type_block]={}   
-            FF_tech[type_block][type_block_port]={"inputs": D ,"outputs": Q,"clock":C,"clear":Clear,"preset":Preset}
-            # print("HERE",C,D,Q,extra)
-        else:
-            raise Exception("FLIP_FLOP NOT Defined")
 
+      tmpx=re.findall(r'\.\S+\(([^\(\),]+)\)',extra)
+
+      if(type_block in FF):
+        Presetpin=None
+        Resetpin=None
+        for mIO,NodeIO in zip(FF[type_block]["port_list"],tmpx):
+          if("clock" in mIO.lower() or "clk" in mIO.lower()):
+            Clockpin=NodeIO
+          elif(mIO=="R" or mIO.lower()=="rn" or mIO.lower()=="rst" or mIO.lower()=="clr" or mIO.lower()=="clear" or mIO.lower()=="reset"):
+            Resetpin=NodeIO
+          elif(mIO=="S" or mIO.lower()=="sn" or mIO.lower()=="pr" or mIO.lower()=="prn" or mIO.lower()=="preset" or mIO.lower()=="set"):
+            Presetpin=NodeIO
+          elif(mIO=="D"):
+            D_pin=NodeIO
+          elif(mIO=="Q"):
+            Q_pin=NodeIO
+
+      
+        if(Clockpin not in Clock_pins):
+          Clock_pins.append(Clockpin)
+        
+        if(Resetpin not in Reset_pins):
+          Reset_pins.append(Resetpin)
+        
+        if(Presetpin not in Reset_pins):
+          Reset_pins.append(Presetpin)
+
+        if type_block not in FF_tech:
+            FF_tech[type_block]={}    
+            
+        FF_tech[type_block][init]={"inputs": D_pin ,"outputs": Q_pin,"clock":Clockpin,"reset":Resetpin,"preset":Presetpin}
+  
+    elif(type_block=="module"):
+      return
+    
     else:
-        links=[]
-        for i in extra.split(","):
-            Li,Ri=re.findall("\.(.*)\((.*)\)",i)[0]
-            links.append((Li,Ri,None))
+      links=[]
+      for i in extra.split(","):
+          Li,Ri=re.findall("\.(.*)\((.*)\)",i)[0]
+          links.append((Li,Ri,None))
+      
+      links=[re.findall("\.(.*)\((.*)\)",i)[0] for i in extra.split(",")]
+    
+      sub_module[init]={"module_name": type_block,"links":links,"port":extra} 
+  
+    # else:
+    #   raise Exception(f"TypeBlock={type_block} NOT Defined")
 
-        # links=[re.findall("\.(.*)\((.*)\)",i)[0] for i in extra.split(",")]
-        sub_module[init]={"module_name": type_block,"links":links,"port":extra}
-
+  
   for i in re.findall(r"(\w+) (\w+) \((.*)\);",verilog):
-    # print("HERE1 ",i)
     process_chunk(i)
 
-
-    #   and "1'" not in Clock_pins
   return gate_tech,sub_module,(FF_tech,Clock_pins,Reset_pins)
+
 
 def submodules_info(sub):
     dictionary = {}
