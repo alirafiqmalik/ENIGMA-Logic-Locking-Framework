@@ -41,55 +41,54 @@ class module:
         Generate the circuit graph.
         """
         self.circuitgraph = nx.DiGraph()
-        for logic_gate in self.gates:
-            for init_name in self.gates[logic_gate]:
-                node=self.gates[logic_gate][init_name]
-                tmpi=self.gates[logic_gate]
-                node_input=node["inputs"]
-                node_output=node["outputs"]
-                node_name=init_name
-                port=utils.check_port(node_output)
-                self.circuitgraph.add_node(node_name, type="gate",logic=logic_gate)
+        for logic in self.gates:
+            for logic_gate in self.gates[logic]:
+                for init_name in self.gates[logic][logic_gate]:
+                    # print(init_name,self.gates[logic][logic_gate][init_name])
+                    node=self.gates[logic][logic_gate][init_name]
+                    tmpi=self.gates[logic][logic_gate]
+                    node_input=node["inputs"]
+                    node_output=node["outputs"]
+                    node_name=init_name
+                    port=utils.check_port(node_output)
+                    self.circuitgraph.add_node(node_name, type="gate",logic=logic_gate)
 
-                if(port in self.io["outputs"]):
-                    self.circuitgraph.add_node(node_output, type="output")
-                    self.circuitgraph.add_edge(node_name, node_output)
-                elif(port in self.io["wires"]):
-                    self.circuitgraph.add_node(node_output, type="wire")
-                    self.circuitgraph.add_edge(node_name, node_output)
-                else:
-                    print(self.module_name)
-                    print(port,node_output)
-                    raise Exception("NODE NOT FOUND")
-
-
-                for i in node_input:
-                    def tmp():
-                        if("XNOR_117153_" in init_name):
-                            print("HERE212 ",i,node_input,node_name)
-                    tmptxt=utils.check_port(i)
-
-                    if(tmptxt in self.io["inputs"]):
-                        self.circuitgraph.add_node(i, type="input",port=tmptxt)
-                        self.circuitgraph.add_edge(i,node_name)
-                    elif(tmptxt in self.io["outputs"]):
-                        self.circuitgraph.add_node(i, type="output",port=tmptxt)
-                        self.circuitgraph.add_edge(i,node_name)
-                        # tmp()
-                        # print(i)
-                    elif(tmptxt in self.io["wires"]):
-                        self.circuitgraph.add_node(i, type="wire",port=tmptxt)
-                        self.circuitgraph.add_edge(i,node_name)
-                    elif(i in self.io["wires"]):
-                        self.circuitgraph.add_node(i, type="wire",port=tmptxt)
-                        self.circuitgraph.add_edge(i,node_name)
-                    elif("1'" in i):
-                        self.circuitgraph.add_node(i, type="bit",value=i)
-                        self.circuitgraph.add_edge(i,node_name)
+                    if(port in self.io["outputs"]):
+                        self.circuitgraph.add_node(node_output, type="output")
+                        self.circuitgraph.add_edge(node_name, node_output)
+                    elif(port in self.io["wires"]):
+                        self.circuitgraph.add_node(node_output, type="wire")
+                        self.circuitgraph.add_edge(node_name, node_output)
                     else:
-                        print("HERE")
-                        print(self.module_name," ==>> ",tmptxt,i)
+                        # print(self.module_name)
+                        print(port,node_output)
                         raise Exception("NODE NOT FOUND")
+
+
+                    for i in node_input:
+                        tmptxt=utils.check_port(i)
+
+                        if(tmptxt in self.io["inputs"]):
+                            self.circuitgraph.add_node(i, type="input",port=tmptxt)
+                            self.circuitgraph.add_edge(i,node_name)
+                        elif(tmptxt in self.io["outputs"]):
+                            self.circuitgraph.add_node(i, type="output",port=tmptxt)
+                            self.circuitgraph.add_edge(i,node_name)
+                            # tmp()
+                            # print(i)
+                        elif(tmptxt in self.io["wires"]):
+                            self.circuitgraph.add_node(i, type="wire",port=tmptxt)
+                            self.circuitgraph.add_edge(i,node_name)
+                        elif(i in self.io["wires"]):
+                            self.circuitgraph.add_node(i, type="wire",port=tmptxt)
+                            self.circuitgraph.add_edge(i,node_name)
+                        elif("1'" in i):
+                            self.circuitgraph.add_node(i, type="bit",value=i)
+                            self.circuitgraph.add_edge(i,node_name)
+                        else:
+                            print("HERE")
+                            print(self.module_name," ==>> ",tmptxt,i)
+                            raise Exception("NODE NOT FOUND")
 
         # print("HERE",self.FF_tech)
         for FF in self.FF_tech:
@@ -116,6 +115,7 @@ class module:
                     self.circuitgraph.add_edge(rst, node_name)
 
                 port=utils.check_port(node_output)
+
                 if(port in self.io["outputs"]):
                     self.circuitgraph.add_node(node_output, type="output",port=port)
                     self.circuitgraph.add_edge(node_name, node_output)
@@ -260,7 +260,10 @@ class AST:
         elif rw == 'w':
             if flag == 'v':
                 self.verilog = open(file_path).read()
+                with open(vlibpath,"r") as f:
+                    self.gate_lib=f.read()
                 
+
                 if(sub_modules!=None):
                     if(type(sub_modules)==list):
                         for files in sub_modules:
@@ -270,7 +273,8 @@ class AST:
                 
                 tmp_file_path=f"./tmp/tmp_verilog_{top}.v"
                 with open(tmp_file_path,"w") as f:
-                    f.write(self.verilog)
+                    if(~synth):
+                        f.write(self.verilog+self.gate_lib)
                 # self.verilog=format_verilog_org(self.verilog)
                 print("Verifiying Input Verilog File")
                 yosys.verify_verilog(tmp_file_path,top)
@@ -289,7 +293,6 @@ class AST:
             self.modules = {}
             # self.linkages={}
             self.top_module_name=top
-            self.gate_lib=open(vlibpath).read()
             self.gate_mapping_vlib,self.gates_vlib,self.FF_vlib=verilog_parser.extract_modules_def(self.gate_lib)
             self.gen_LLFile(synth=synth)
             self.writeLLFile() 
@@ -304,7 +307,8 @@ class AST:
             self.synthesized_verilog = self.verilog
         self.gate_level_flattened=self.synthesized_verilog
         # self.gate_level_flattened = synthesize_verilog(self.verilog,top=self.top_module_name)
-        self.flatten_bench = conv.verilog_to_bench(self.gate_level_flattened,self.gate_mapping_vlib)
+        self.flatten_bench = ""
+        # conv.verilog_to_bench(self.gate_level_flattened,self.gate_mapping_vlib,self.gates_vlib,self.FF_vlib)
 
         self.modules_techmap = verilog_parser.module_extraction(self.synthesized_verilog)
         self.extracted_modules = verilog_parser.module_extraction(self.synthesized_verilog)
@@ -333,6 +337,8 @@ class AST:
             inputs, input_ports = extract_io_v(self.modules[key].org_code_verilog)
             outputs, output_ports = extract_io_v(self.modules[key].org_code_verilog, "output")
             wire, _ = extract_io_v(self.modules[key].gate_level_verilog, "wire")
+            with open("tmp/tmp.v","w") as f:
+                f.write(self.modules[key].gate_level_verilog)
             wire={key:wire[key]  for key in get_difference_abs(wire.keys(),inputs.keys(),outputs.keys())}
 
 
