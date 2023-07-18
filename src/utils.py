@@ -383,7 +383,7 @@ def check_port(i):
         tmptxt=re.sub("(.*\[\d+\])\[\d+\]",r"\1",i)
     else:
         tmptxt=re.sub("\[\d+\]","",i)
-    return tmptxt
+    return tmptxt.strip()
 
 
 
@@ -434,11 +434,6 @@ def node_to_txt(iodict,mode="input",return_bits=False):
             txt+=f"{mode} {i};\n"
         else:
             total_bits+=tmpi["bits"]
-            # # print(i)
-            # if("[" in i):
-            #     port,rbit=i.split("[")
-            #     txt+=f"{mode} [{tmpi['endbit']}:{tmpi['startbit']}] {port}_{rbit[:-1]};\n"
-            # else:
             txt+=f"{mode} [{tmpi['endbit']}:{tmpi['startbit']}] {i};\n"
 
     if(return_bits):
@@ -446,6 +441,15 @@ def node_to_txt(iodict,mode="input",return_bits=False):
     else:
         return txt
         
+
+####################################################################################################################################
+####################################################################################################################################
+
+def det_logic(logic_gate,gate_mapping):
+  for gate, gate_list in gate_mapping.items():
+    if logic_gate in gate_list:
+        return gate
+
 
 ####################################################################################################################################
 ####################################################################################################################################
