@@ -243,7 +243,8 @@ class AST:
                  flag = 'v',
                  filename=None,
                  vlibpath="vlib/mycells.v",
-                 sub_modules=None
+                 sub_modules=None,
+                 synth=True
                  ):
         self.LLverilog = ""
         self.postsat_lib=""
@@ -253,6 +254,7 @@ class AST:
         else:
             self.filename=filename
             self.filepath="./output_files/{}.json".format(self.filename)
+        
         if rw == 'r':
             self.read_LLFile(file_path)
         elif rw == 'w':
@@ -289,20 +291,23 @@ class AST:
             self.top_module_name=top
             self.gate_lib=open(vlibpath).read()
             self.gate_mapping_vlib,self.gates_vlib,self.FF_vlib=verilog_parser.extract_modules_def(self.gate_lib)
-            self.gen_LLFile()
+            self.gen_LLFile(synth=synth)
             self.writeLLFile() 
         else:
             Exception("Enter either 'r' (for read) or 'w' (for write)")
         
-    def gen_LLFile(self):
+    def gen_LLFile(self,synth):
         print("Generating Logic Locking AST File")
-        self.synthesized_verilog = yosys.synthesize_verilog(self.verilog,top=self.top_module_name)#,flag="dont_flatten"
+        if(synth):
+            self.synthesized_verilog = yosys.synthesize_verilog(self.verilog,top=self.top_module_name)#,flag="dont_flatten"
+        else:
+            self.synthesized_verilog = self.verilog
         self.gate_level_flattened=self.synthesized_verilog
         # self.gate_level_flattened = synthesize_verilog(self.verilog,top=self.top_module_name)
         self.flatten_bench = conv.verilog_to_bench(self.gate_level_flattened,self.gate_mapping_vlib)
 
-        self.modules_techmap = utils.module_extraction(self.synthesized_verilog)
-        self.extracted_modules = utils.module_extraction(self.synthesized_verilog)
+        self.modules_techmap = verilog_parser.module_extraction(self.synthesized_verilog)
+        self.extracted_modules = verilog_parser.module_extraction(self.synthesized_verilog)
         self.no_of_modules = len(self.extracted_modules)
 
         self.sub_modules_data()
@@ -319,7 +324,7 @@ class AST:
             self.modules[key].module_name = key
             self.modules[key].org_code_verilog = self.extracted_modules[key]
             self.modules[key].gate_level_verilog = self.modules_techmap[key]
-            self.modules[key].gates,self.modules[key].linkages,tmp = utils.gates_module_extraction(self.modules[key].gate_level_verilog,self.gate_mapping_vlib,self.gates_vlib,self.FF_vlib)
+            self.modules[key].gates,self.modules[key].linkages,tmp = verilog_parser.gates_module_extraction(self.modules[key].gate_level_verilog,self.gate_mapping_vlib,self.gates_vlib,self.FF_vlib)
             self.modules[key].FF_tech,self.modules[key].Clock_pins,self.modules[key].Reset_pins=tmp
 
 
