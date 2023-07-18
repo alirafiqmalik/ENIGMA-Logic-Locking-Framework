@@ -165,8 +165,7 @@ class module:
                 for k in range(tmpi['startbit'],tmpi["endbit"]+1):
                     self.circuitgraph.add_edge("module#"+self.module_name,i+f"[{k}]")
         self.change_flag=0
-
-    
+  
     def bin_graph(self):
         """
         Encode the circuit graph to a binary string using pickle and encode the binary string to a base64 string.
@@ -192,18 +191,24 @@ class module:
         """
         utils.save_graph(self.circuitgraph,svg)
 
-    # def gen_org_verilog(self):
-    #     self.gate_level_verilog=f"module {self.module_name}({self.io['input_ports']}{self.io['output_ports'][:-1]});\n"
-    #     self.gate_level_verilog+=utils.node_to_txt(self.io['inputs'],mode="input")
-    #     self.gate_level_verilog+=utils.node_to_txt(self.io['outputs'],mode="output")
-    #     self.gate_level_verilog+=utils.node_to_txt(self.io['wires'],mode="wire")
-    #     self.gate_level_verilog+=utils.gates_to_txt(self.gates)
-    #     self.gate_level_verilog+=utils.FF_to_txt(self.FF_tech)
-    #     # self.module_LLverilog+=module_to_txt(self.linkages)
-    #     for j in self.linkages:
-    #         tmpj=self.linkages[j]
-    #         self.gate_level_verilog+=f"{tmpj['module_name']} {j}({tmpj['port']}); \n"
-    #     self.gate_level_verilog+="endmodule\n"
+
+
+    def gen_org_verilog(self):
+        """
+        Generate the orginal verilog code for the module.
+        """
+        self.gate_level_verilog=f"module {self.module_name}({self.io['input_ports']}{self.io['output_ports'][:-1]});\n"
+        self.gate_level_verilog+=utils.node_to_txt(self.io['inputs'],mode="input")
+        self.gate_level_verilog+=utils.node_to_txt(self.io['outputs'],mode="output")
+        self.gate_level_verilog+=utils.node_to_txt(self.io['wires'],mode="wire")
+        print(self.gates)
+        self.gate_level_verilog+=utils.gates_to_txt(self.gates)
+        self.gate_level_verilog+=utils.FF_to_txt(self.FF_tech)
+        # self.module_LLverilog+=module_to_txt(self.linkages)
+        for j in self.linkages:
+            tmpj=self.linkages[j]
+            self.gate_level_verilog+=f"{tmpj['module_name']} {j}({tmpj['port']}); \n"
+        self.gate_level_verilog+="endmodule\n"
 
 
     def gen_LL_verilog(self):
