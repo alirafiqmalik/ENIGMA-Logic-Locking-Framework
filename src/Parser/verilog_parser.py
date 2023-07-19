@@ -118,15 +118,15 @@ def extract_modules_def(gate_module_lib):
 
 
       if(always_block==None and assign_line!=None):
-        port="\("
+        port="("
         for i in port_list[:-1]:
-          port+=f".{i}\(({{{i}}})\), "
-        port+=f".{port_list[-1]}\(({{{port_list[-1]}}})\)"+" ?\);"
+          port+=f".{i}({{{i}}}), "
+        port+=f".{port_list[-1]}({{{port_list[-1]}}})"+");"
       elif(always_block!=None and assign_line==None):
-        port="\("
+        port="("
         for i in port_list[:-1]:
-          port+=f".{i}\(({{{i}}})\), "
-        port+=f".{port_list[-1]}\(({{{port_list[-1]}}})\)"+" ?\);"
+          port+=f".{i}({{{i}}}), "
+        port+=f".{port_list[-1]}({{{port_list[-1]}}})"+");"
       else:
         raise Exception("Gate Definition Not Supported")
       # elif(always_block!=None and assign_line!=None):
@@ -212,7 +212,7 @@ def gates_module_extraction(verilog,gate_mapping,gates,FF):
     type_block,init,extra=chunk
 
     if(type_block in gates):
-      tmpx=re.findall(r'\.\S+\(([^\(\),]+)\)',extra)
+      tmpx=re.findall(r'\.\S+\( ?([^\(\),]+)\)',extra)
       tmpx.reverse()
       
       logic=utils.det_logic(type_block,gate_mapping)
