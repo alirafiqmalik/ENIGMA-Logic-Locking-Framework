@@ -255,6 +255,8 @@ def format_verilog(verilog):
 
     verilog=re.sub(r" \[","[",verilog)
     verilog=re.sub(r"\[(\d+)\](\[\d+\])",r"_\1\2",verilog)
+    verilog=re.sub(r"(\.\S+\() ?",r"\1",verilog)
+
 
     verilog=re.sub(r"(wire|input|output)\[",r"\1 [",verilog)
     verilog=re.sub(r"(wire|input|output)( \[\d+:\d+\] .*)\[(\d+)\]",r"\1\2_\3",verilog)
