@@ -194,7 +194,7 @@ class module:
 
 
 
-    def gen_org_verilog(self):
+    def gen_org_verilog(self,gates_vlib):
         """
         Generate the orginal verilog code for the module.
         """
@@ -203,7 +203,7 @@ class module:
         self.gate_level_verilog+=utils.node_to_txt(self.io['outputs'],mode="output")
         self.gate_level_verilog+=utils.node_to_txt(self.io['wires'],mode="wire")
         # print(self.gates)
-        self.gate_level_verilog+=utils.gates_to_txt(self.gates)
+        self.gate_level_verilog+=utils.gates_to_txt(self.gates,gates_vlib)
         self.gate_level_verilog+=utils.FF_to_txt(self.FF_tech)
         # self.module_LLverilog+=module_to_txt(self.linkages)
         for j in self.linkages:
@@ -212,7 +212,7 @@ class module:
         self.gate_level_verilog+="endmodule\n"
 
 
-    def gen_LL_verilog(self):
+    def gen_LL_verilog(self,gates_vlib):
         """
         Generate the LL verilog code for the module.
         """
@@ -220,7 +220,7 @@ class module:
         self.module_LLverilog+=utils.node_to_txt(self.io['inputs'],mode="input")
         self.module_LLverilog+=utils.node_to_txt(self.io['outputs'],mode="output")
         self.module_LLverilog+=utils.node_to_txt(self.io['wires'],mode="wire")
-        self.module_LLverilog+=utils.gates_to_txt(self.gates)
+        self.module_LLverilog+=utils.gates_to_txt(self.gates,gates_vlib)
         self.module_LLverilog+=utils.FF_to_txt(self.FF_tech)
         # self.module_LLverilog+=module_to_txt(self.linkages)
         for j in self.linkages:
@@ -579,11 +579,10 @@ class AST:
         self.gen_graph_links()
         
         
-        
         if("lockingkeyinput" in self.top_module.io["inputs"]):
             print("\t Updating Logic Locked Verilog Code")
             for i in self.modules:
-                self.modules[i].gen_LL_verilog()
+                self.modules[i].gen_LL_verilog(gates_vlib=self.gates_vlib)
             self.LLverilog=""
             self.LLverilog+=self.top_module.module_LLverilog+"\n"
             for i in self.modules:
