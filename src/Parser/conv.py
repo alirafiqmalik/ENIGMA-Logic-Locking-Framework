@@ -1,4 +1,4 @@
-from src.Parser.verilog_parser import extract_io_v,extract_gates_v
+from src.Parser.verilog_parser import extract_io_v,gates_module_extraction
 from src.Parser.bench_parser import extract_gates_b,extract_io_b
 from src.utils import format_verilog,io_port
 
@@ -116,12 +116,12 @@ def bench_to_verilog(bench,clkpin="Clock",modulename="top"):
 ####################################################################################################################################
 
 
-def verilog_to_bench(verilog,gate_mapping):
+def verilog_to_bench(verilog,gate_mapping,gates_vlib,FF_vlib):
     verilog = format_verilog(verilog)
     inputs,_=extract_io_v(verilog,mode="input")
     outputs,_=extract_io_v(verilog,mode="output")
     
-    gates,gate_count=extract_gates_v(verilog,gate_mapping)
+    gate_tech,sub_module,(FF_tech,Clock_pins,Reset_pins)=gates_module_extraction(verilog,gate_mapping,gates_vlib,FF_vlib)
 
     bench=""
 
@@ -143,13 +143,13 @@ def verilog_to_bench(verilog,gate_mapping):
                 bench+="OUTPUT({})\n".format(i+f"[{k}]")
 
     
-    for i in gates:
-        if(i=='BUF' or i=='NOT'):
-            for j in gates[i]:
-                bench+="{} = {}({})\n".format(j[1],i,j[0])
-        else:
-            for j in gates[i]:
-                bench+="{} = {}({},{})\n".format(j[2],i,j[0],j[1])
+    # for i in gates:
+    #     if(i=='BUF' or i=='NOT'):
+    #         for j in gates[i]:
+    #             bench+="{} = {}({})\n".format(j[1],i,j[0])
+    #     else:
+    #         for j in gates[i]:
+    #             bench+="{} = {}({},{})\n".format(j[2],i,j[0],j[1])
     return bench
 
 
