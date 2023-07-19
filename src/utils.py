@@ -478,21 +478,19 @@ def FF_to_txt(FF):
 
 ####################################################################################################################################
 ####################################################################################################################################
-def gates_to_txt(gates):
+def gates_to_txt(gate_tech,gates_vlib):
     txt=""
-    for i in gates:
-        # print(i)
-        if(i=="NOT" or i=="BUF"):
-            fn =lambda inputs,outputs,initname: f"{i}_g {initname}(.A({inputs[0]}), .Y({outputs}));"
-        else:
-            fn=lambda inputs,outputs,initname: f"{i}_g {initname}(.A({inputs[0]}), .B({inputs[1]}), .Y({outputs}));"     
-        # print(gates[i])
-        for jj in gates[i]:
-            j=gates[i][jj]
-            # print(jj,j)
-            # print(j,gates[i][j])
-            txt+=fn(j['inputs'],j['outputs'],jj)+"\n"
-        # print(fn(j['inputs'],j['outputs']))
+    for logic in gate_tech:
+        for logic_gate in gate_tech[logic]:
+            NodeIO_def=gates_vlib[logic_gate]
+            port=NodeIO_def['port']
+            for init_name in gate_tech[logic][logic_gate]:
+                I=gate_tech[logic][logic_gate][init_name]["inputs"]
+                tmp={}
+                tmp[NodeIO_def["outputs"][0]]=gate_tech[logic][logic_gate][init_name]["outputs"]
+                for NodeI,mI in zip(NodeIO_def["inputs"],I):
+                    tmp[NodeI]=mI
+                txt+= f"{logic_gate} {init_name} {port.format(**tmp)} \n"
     return txt
 
 ####################################################################################################################################
