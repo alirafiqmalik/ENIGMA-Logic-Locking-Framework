@@ -61,6 +61,7 @@ def extract_gates_v(verilog,gate_mapping):
 
 
 
+import re
 @utils.timer_func
 def extract_modules_def(gate_module_lib):
   gate_module_lib=re.sub(r"\n","",gate_module_lib)
@@ -103,17 +104,11 @@ def extract_modules_def(gate_module_lib):
 
       # print("PORT MAP",port_io_map)
 
-      if(2<len(port_list)>4):
-        raise Exception("INVALID PORT Length")
-
-      if(port_io_map!="IIIO" and len(port_list)==4):
-        raise Exception("INVALID PORT LISTING")
-
-      if(port_io_map!="IIO" and len(port_list)==3):
-        raise Exception("INVALID PORT LISTING")
+      if(2<len(port_list)>5):
+        raise Exception(f"INVALID PORT Length \nPort Listing = {port_list}")
       
-      if(port_io_map!="IO" and len(port_list)==2):
-        raise Exception("INVALID PORT LISTING")    
+      if(port_io_map!="I"*len(module_inputs)+"O"*len(module_outputs)):
+        raise Exception(f"INVALID PORT LISTING \nPort Listing = {port_list}")
         
 
 
@@ -122,13 +117,13 @@ def extract_modules_def(gate_module_lib):
         for i in port_list[:-1]:
           port+=f".{i}({{{i}}}), "
         port+=f".{port_list[-1]}({{{port_list[-1]}}})"+");"
-      elif(always_block!=None and assign_line==None):
+      elif(always_block!=None):
         port="("
         for i in port_list[:-1]:
           port+=f".{i}({{{i}}}), "
         port+=f".{port_list[-1]}({{{port_list[-1]}}})"+");"
       else:
-        raise Exception("Gate Definition Not Supported")
+        raise Exception(f"Gate Definition Not Supported\n{always_block}\n{assign_line}")
       # elif(always_block!=None and assign_line!=None):
       #   pass
       # elif(always_block==None and assign_line==None):
@@ -148,31 +143,31 @@ def extract_modules_def(gate_module_lib):
                           } if always_block else None
       })
 
-      if("BUF" in module_name):
+      if("BUF" in module_name.upper()):
         gate_mapping["BUF"].append(module_name)
         gates[module_name]=tmp
-      elif("NOT" in module_name or "INV" in module_name):
+      elif("NOT" in module_name.upper() or "INV" in module_name.upper()):
         gate_mapping["NOT"].append(module_name)
         gates[module_name]=tmp
-      elif("NAND" in module_name):
+      elif("NAND" in module_name.upper()):
         gate_mapping["NAND"].append(module_name)
         gates[module_name]=tmp
-      elif("XNOR" in module_name):
+      elif("XNOR" in module_name.upper()):
         gate_mapping["XNOR"].append(module_name)
         gates[module_name]=tmp
-      elif("NOR" in module_name):
+      elif("NOR" in module_name.upper()):
         gate_mapping["NOR"].append(module_name)
         gates[module_name]=tmp
-      elif("AND" in module_name):
+      elif("AND" in module_name.upper()):
         gate_mapping["AND"].append(module_name)
         gates[module_name]=tmp
-      elif("XOR" in module_name):
+      elif("XOR" in module_name.upper()):
         gate_mapping["XOR"].append(module_name)
         gates[module_name]=tmp
-      elif("OR" in module_name):
+      elif("OR" in module_name.upper()):
         gate_mapping["OR"].append(module_name)
         gates[module_name]=tmp    
-      elif("FF" in module_name):
+      elif("FF" in module_name.upper()):
         gate_mapping["FF"].append(module_name)
         FF[module_name]=tmp  
       else:
