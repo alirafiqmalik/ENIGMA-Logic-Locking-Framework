@@ -40,13 +40,17 @@ verilog_gates=[&#39;BUF_g&#39;,&#39;NOT_g&#39;, &#39;AND_g&#39;, &#39;OR_g&#39;,
 
 
 
+
 def extract_io_v(verilog,mode=&#34;input&#34;):
   nodes={}
   port=&#34;&#34;
   tmp=re.findall(&#34;\n&#34;+mode.lower()+r&#34;[\s\[](.*);&#34;,verilog)
 
+
   for i in tmp:
     i=re.sub(&#34;\[(\d+)\]&#34;,r&#34;_\1&#34;,i)
+    # if(&#34;n3471&#34; in i):
+    #    print(&#34;HERE &#34;,i)
     if(&#34;[&#34; in i):
         ei,si,tmpi=re.findall(r&#34;\[(\d+):(\d+)\] ?(.*)&#34;,i)[0]
         ei,si=int(ei),int(si)
@@ -54,6 +58,7 @@ def extract_io_v(verilog,mode=&#34;input&#34;):
         if(&#34;,&#34; in tmpi):
             tmpi=tmpi.split(&#34;,&#34;)
             for k in tmpi:
+                k=k.strip()
                 nodes[k]=utils.connector(ei-si+1,si,ei)
                 port+=k+&#34;,&#34;
         else:
@@ -62,33 +67,146 @@ def extract_io_v(verilog,mode=&#34;input&#34;):
     elif(&#34;,&#34; in i):
         tmpi=i.split(&#34;,&#34;)
         for k in tmpi:
+            k=k.strip()
             nodes[k]=utils.connector(1,0,0)
             port+=k+&#34;,&#34;
     else:
-      nodes[i]=utils.connector(1,0,0)
-      port+=i+&#34;,&#34;
+      nodes[i.strip()]=utils.connector(1,0,0)
+      port+=i.strip()+&#34;,&#34;
 
   return nodes,port
 
-def extract_gates_v(verilog):
-    tmp={}
-    gate_count = {}
-    #   tmp[re.sub(&#34;_g&#34;,&#34;&#34;,verilog_gates[0])]=re.findall(&#34; &#34;+verilog_gates[0] +&#34; .* \( .A\((.*)\), .Y\((.*)\) \) ?;&#34;,verilog)
-    #   gate_count[verilog_gates[0]] = len(tmp[re.sub(&#34;_g&#34;,&#34;&#34;,verilog_gates[0])])
-    #   tmp[re.sub(&#34;_g&#34;,&#34;&#34;,verilog_gates[1])]=re.findall(&#34; &#34;+verilog_gates[1] +&#34; .* \( .A\((.*)\), .Y\((.*)\) \) ?;&#34;,verilog)
-    #   gate_count[verilog_gates[1]] = len(tmp[re.sub(&#34;_g&#34;,&#34;&#34;,verilog_gates[1])])
-
-    for i in verilog_gates:
-        if(i==&#34;NOT_g&#34; or i==&#34;BUF_g&#34;):
-            tmpx=re.findall(r&#34;\n ?&#34;+i + r&#34; .* \( .A\((.*)\), .Y\((.*)\) \) ?;&#34;,verilog)
-        else:
-            tmpx=re.findall(r&#34;\n ?&#34;+i +r&#34; .* \( .A\((.*)\), .B\((.*)\), .Y\((.*)\) \) ?;&#34;,verilog)
-
-        tmpi=re.sub(&#34;_g&#34;,&#34;&#34;,i)
-        tmp[tmpi]=tmpx
-        gate_count[i] = len(tmp[tmpi])
-            
+def extract_gates_v(verilog,gate_mapping):
+   tmp={}
+   gate_count = {}
+   for i in gate_mapping:
+    for j in gate_mapping[i]:
+       tmpx=re.findall(r&#34;\n ?&#34;+j + r&#34; (.*) &#34;+gate_mapping[i][j][&#34;port&#34;],verilog)
+    
+    tmp[i]=tmpx
+    gate_count[i] = len(tmp[i])            
     return tmp,gate_count
+
+
+
+@utils.timer_func
+def extract_modules_def(gate_module_lib):
+  gate_module_lib=re.sub(r&#34;\n&#34;,&#34;&#34;,gate_module_lib)
+  gate_module_lib=re.sub(r&#34;endmodule&#34;,r&#34;endmodule\n&#34;,gate_module_lib)
+  gates={}
+  FF={}
+  gate_mapping={
+   &#34;FF&#34;  :[],
+   &#34;OR&#34;  :[],
+   &#34;BUF&#34; :[],
+   &#34;NOT&#34; :[],
+   &#34;AND&#34; :[],
+   &#34;XOR&#34; :[],
+   &#34;NOR&#34; :[],
+   &#34;NAND&#34;:[],
+   &#34;XNOR&#34;:[]
+   }
+  modules = re.findall(r&#34;module\s+(\w+) ?\((.*?)\);(.*?)endmodule&#34;, gate_module_lib, re.DOTALL)
+  
+  
+  for module in modules:
+      module_name = module[0]
+      port_list = [i.strip() for i in module[1].split(&#34;,&#34;)]
+      tmp=re.sub(&#34;;&#34;,r&#34;\n&#34;,module[2])
+      module_inputs = []
+      for i in re.findall(r&#34;input\s+(.*)&#34;, tmp):
+        for j in i.split(&#34;,&#34;):
+          module_inputs.append(j.strip())
+      module_outputs = re.findall(r&#34;output(?:\s+reg)?\s+(.*)&#34;, tmp)
+      assign_line = re.search(r&#34;assign\s+(.*?)\;&#34;, module[2], re.DOTALL)
+      always_block = re.search(r&#34;always\s*@\s*\((.*?)\)\s*begin\s*(.*?)\s*end&#34;, module[2], re.DOTALL)
+
+      port_io_map=&#34;&#34;
+
+      for i in port_list:
+        if(i in module_inputs):
+          port_io_map+=&#34;I&#34;
+        if(i in module_outputs):
+          port_io_map+=&#34;O&#34;
+
+      # print(&#34;PORT MAP&#34;,port_io_map)
+
+      if(2&lt;len(port_list)&gt;4):
+        raise Exception(&#34;INVALID PORT Length&#34;)
+
+      if(port_io_map!=&#34;IIIO&#34; and len(port_list)==4):
+        raise Exception(&#34;INVALID PORT LISTING&#34;)
+
+      if(port_io_map!=&#34;IIO&#34; and len(port_list)==3):
+        raise Exception(&#34;INVALID PORT LISTING&#34;)
+      
+      if(port_io_map!=&#34;IO&#34; and len(port_list)==2):
+        raise Exception(&#34;INVALID PORT LISTING&#34;)    
+        
+
+
+      if(always_block==None and assign_line!=None):
+        port=&#34;(&#34;
+        for i in port_list[:-1]:
+          port+=f&#34;.{i}({{{i}}}), &#34;
+        port+=f&#34;.{port_list[-1]}({{{port_list[-1]}}})&#34;+&#34;);&#34;
+      elif(always_block!=None and assign_line==None):
+        port=&#34;(&#34;
+        for i in port_list[:-1]:
+          port+=f&#34;.{i}({{{i}}}), &#34;
+        port+=f&#34;.{port_list[-1]}({{{port_list[-1]}}})&#34;+&#34;);&#34;
+      else:
+        raise Exception(&#34;Gate Definition Not Supported&#34;)
+      # elif(always_block!=None and assign_line!=None):
+      #   pass
+      # elif(always_block==None and assign_line==None):
+      #   pass
+      
+
+
+      tmp=dict({
+          &#34;port_list&#34;:port_list,
+          &#34;port&#34;:port,
+          &#34;inputs&#34;: [input_.strip() for input_ in module_inputs],
+          &#34;outputs&#34;: module_outputs,
+          &#34;assign_line&#34;: assign_line.group(1).strip() if assign_line else None,
+          &#34;always_block&#34;:{
+                          &#34;sensitivity_list&#34;: always_block.group(1).strip() if always_block else None,
+                          &#34;lines&#34;: always_block.group(2).strip() if always_block else None
+                          } if always_block else None
+      })
+
+      if(&#34;BUF&#34; in module_name):
+        gate_mapping[&#34;BUF&#34;].append(module_name)
+        gates[module_name]=tmp
+      elif(&#34;NOT&#34; in module_name or &#34;INV&#34; in module_name):
+        gate_mapping[&#34;NOT&#34;].append(module_name)
+        gates[module_name]=tmp
+      elif(&#34;NAND&#34; in module_name):
+        gate_mapping[&#34;NAND&#34;].append(module_name)
+        gates[module_name]=tmp
+      elif(&#34;XNOR&#34; in module_name):
+        gate_mapping[&#34;XNOR&#34;].append(module_name)
+        gates[module_name]=tmp
+      elif(&#34;NOR&#34; in module_name):
+        gate_mapping[&#34;NOR&#34;].append(module_name)
+        gates[module_name]=tmp
+      elif(&#34;AND&#34; in module_name):
+        gate_mapping[&#34;AND&#34;].append(module_name)
+        gates[module_name]=tmp
+      elif(&#34;XOR&#34; in module_name):
+        gate_mapping[&#34;XOR&#34;].append(module_name)
+        gates[module_name]=tmp
+      elif(&#34;OR&#34; in module_name):
+        gate_mapping[&#34;OR&#34;].append(module_name)
+        gates[module_name]=tmp    
+      elif(&#34;FF&#34; in module_name):
+        gate_mapping[&#34;FF&#34;].append(module_name)
+        FF[module_name]=tmp  
+      else:
+        raise Exception(f&#34;LOGIC NOT IDENTIFIED = {module_name}&#34;)
+  
+  return gate_mapping,gates,FF
 
 
 
@@ -110,90 +228,87 @@ def module_extraction (verilog):
         module_dict = dict((module[1], module[0]) for module in modules)
         return module_dict      #module_dict = {&#39;modulename&#39; : &#34;module code&#34;}
 
-def gates_module_extraction(verilog):
-  gates=[&#39;BUF_g&#39;,&#39;NOT_g&#39;, &#39;AND_g&#39;, &#39;OR_g&#39;, &#39;NAND_g&#39;, &#39;NOR_g&#39;,&#39;XOR_g&#39;,&#39;XNOR_g&#39;]
-  FF=[&#39;DFFcell&#39;,&#34;DFFRcell&#34;,&#34;dffsr&#34;]
-  #   DFFRcell _2116_ ( .C(CLOCK_50), .D(_0153_), .Q(T3state[0]), .R(_0149_) );
-  #   {&#39;BUF&#39;:[],&#39;NOT&#39;:[], &#39;AND&#39;:[], &#39;OR&#39;:[],&#39;XOR&#39;:[],&#39;NAND&#39;:[], &#39;NOR&#39;:[],&#39;XNOR&#39;:[]}
+@utils.timer_func
+def gates_module_extraction(verilog,gate_mapping,gates,FF):
   gate_tech={}
   FF_tech={}
   Clock_pins=[]
   Reset_pins=[]
   sub_module={}
+  
   def process_chunk(chunk):
     type_block,init,extra=chunk
-    # extra=re.sub(&#34; \[&#34;,&#34;[&#34;,extra)
-    # extra=re.sub(&#34;\[(\d+)\](\[\d+\])&#34;,r&#34;_\1\2&#34;,extra)
+
     if(type_block in gates):
-        tmpx=re.findall(r&#39;\.\S+\(([^\(\),]+)\)&#39;,extra)
-        tmpx.reverse()
-        type_block_port=re.sub(&#34;_g&#34;,&#34;&#34;,type_block)
-        if type_block_port not in gate_tech:
-            gate_tech[type_block_port]={}
-        gate_tech[type_block_port][type_block_port+init]={&#34;inputs&#34;: tmpx[1:] ,&#34;outputs&#34;: tmpx[0]}
-        
+      tmpx=re.findall(r&#39;\.\S+\( ?([^\(\),]+)\)&#39;,extra)
+      tmpx.reverse()
+      
+      logic=utils.det_logic(type_block,gate_mapping)
+    
+      if logic not in gate_tech:
+          gate_tech[logic]={}
+      
+      if type_block not in gate_tech[logic]:
+        gate_tech[logic][type_block]={}
+      
+      gate_tech[logic][type_block][logic+&#34;_&#34;+init]={&#34;inputs&#34;: tmpx[1:] ,&#34;outputs&#34;: tmpx[0]}
+  
     elif(type_block in FF):
-        # print(type_block,init,extra)
-        if(type_block==&#34;DFFRcell&#34;):
-            type_block_port=&#34;DFF_&#34;+init
-            regex_pattern = r&#34;\((.*?)\)&#34;
-            matches = re.findall(regex_pattern, extra)
-            C,D,Q,R = [match for match in matches]
-            if(C not in Clock_pins):
-                Clock_pins.append(C)
-            if(R not in Reset_pins):
-                Reset_pins.append(R)
-            
-            if type_block not in FF_tech:
-                FF_tech[type_block]={}
-            
-            FF_tech[type_block][type_block_port]={&#34;inputs&#34;: D ,&#34;outputs&#34;: Q,&#34;clock&#34;:C,&#34;reset&#34;:R}
-            
-            # print(&#34;HERE&#34;,C,D,Q,R)
-            # print(re.findall(&#34;.C(CLOCK_50), .D(_0056_), .Q(T2x[0]), .R(_0040_)&#34;,extra))
-        elif(type_block==&#34;DFFcell&#34;):
-            type_block_port=&#34;DFF_&#34;+init
-            regex_pattern = r&#34;\((.*?)\)&#34;
-            matches = re.findall(regex_pattern, extra)
-            C,D,Q = [match for match in matches]
-            if(C not in Clock_pins):
-                Clock_pins.append(C)
-            if type_block not in FF_tech:
-                FF_tech[type_block]={}   
-            FF_tech[type_block][type_block_port]={&#34;inputs&#34;: D ,&#34;outputs&#34;: Q,&#34;clock&#34;:C}
-            # print(&#34;HERE&#34;,C,D,Q,extra)
-        elif(type_block==&#34;dffsr&#34;):
-            type_block_port=&#34;DFF_&#34;+init
-            regex_pattern = r&#34;\((.*?)\)&#34;
-            matches = re.findall(regex_pattern, extra)
-            Clear,C,D,Preset,Q= [match for match in matches]
-            # &#34;inputs&#34;: D ,&#34;outputs&#34;: Q,&#34;clock&#34;:C,&#34;clear&#34;:Clear,&#34;preset&#34;:Preset
-            # dffsr _123757_ (.CLEAR(1&#39;h0), .CLK(clk_i), .D(_158363_Y), .PRESET(1&#39;h0), .Q(_155393_A));s
-            if(C not in Clock_pins):
-                Clock_pins.append(C)
-            if type_block not in FF_tech:
-                FF_tech[type_block]={}   
-            FF_tech[type_block][type_block_port]={&#34;inputs&#34;: D ,&#34;outputs&#34;: Q,&#34;clock&#34;:C,&#34;clear&#34;:Clear,&#34;preset&#34;:Preset}
-            # print(&#34;HERE&#34;,C,D,Q,extra)
-        else:
-            raise Exception(&#34;FLIP_FLOP NOT Defined&#34;)
 
+      tmpx=re.findall(r&#39;\.\S+\(([^\(\),]+)\)&#39;,extra)
+
+      if(type_block in FF):
+        Presetpin=None
+        Resetpin=None
+        for mIO,NodeIO in zip(FF[type_block][&#34;port_list&#34;],tmpx):
+          if(&#34;clock&#34; in mIO.lower() or &#34;clk&#34; in mIO.lower()):
+            Clockpin=NodeIO
+          elif(mIO==&#34;R&#34; or mIO.lower()==&#34;rn&#34; or mIO.lower()==&#34;rst&#34; or mIO.lower()==&#34;clr&#34; or mIO.lower()==&#34;clear&#34; or mIO.lower()==&#34;reset&#34;):
+            Resetpin=NodeIO
+          elif(mIO==&#34;S&#34; or mIO.lower()==&#34;sn&#34; or mIO.lower()==&#34;pr&#34; or mIO.lower()==&#34;prn&#34; or mIO.lower()==&#34;preset&#34; or mIO.lower()==&#34;set&#34;):
+            Presetpin=NodeIO
+          elif(mIO==&#34;D&#34;):
+            D_pin=NodeIO
+          elif(mIO==&#34;Q&#34;):
+            Q_pin=NodeIO
+
+      
+        if(Clockpin not in Clock_pins):
+          Clock_pins.append(Clockpin)
+        
+        if(Resetpin not in Reset_pins and Resetpin!=None):
+          Reset_pins.append(Resetpin)
+        
+        if(Presetpin not in Reset_pins and Presetpin!=None):
+          Reset_pins.append(Presetpin)
+
+        if type_block not in FF_tech:
+            FF_tech[type_block]={}    
+            
+        FF_tech[type_block][init]={&#34;inputs&#34;: D_pin ,&#34;outputs&#34;: Q_pin,&#34;clock&#34;:Clockpin,&#34;reset&#34;:Resetpin,&#34;preset&#34;:Presetpin}
+  
+    elif(type_block==&#34;module&#34;):
+      return
+    
     else:
-        links=[]
-        for i in extra.split(&#34;,&#34;):
-            Li,Ri=re.findall(&#34;\.(.*)\((.*)\)&#34;,i)[0]
-            links.append((Li,Ri,None))
+      links=[]
+      for i in extra.split(&#34;,&#34;):
+          Li,Ri=re.findall(&#34;\.(.*)\((.*)\)&#34;,i)[0]
+          links.append((Li,Ri,None))
+      
+      links=[re.findall(&#34;\.(.*)\((.*)\)&#34;,i)[0] for i in extra.split(&#34;,&#34;)]
+    
+      sub_module[init]={&#34;module_name&#34;: type_block,&#34;links&#34;:links,&#34;port&#34;:extra} 
+  
+    # else:
+    #   raise Exception(f&#34;TypeBlock={type_block} NOT Defined&#34;)
 
-        # links=[re.findall(&#34;\.(.*)\((.*)\)&#34;,i)[0] for i in extra.split(&#34;,&#34;)]
-        sub_module[init]={&#34;module_name&#34;: type_block,&#34;links&#34;:links,&#34;port&#34;:extra}
-
+  
   for i in re.findall(r&#34;(\w+) (\w+) \((.*)\);&#34;,verilog):
-    # print(&#34;HERE1 &#34;,i)
     process_chunk(i)
 
-
-    #   and &#34;1&#39;&#34; not in Clock_pins
   return gate_tech,sub_module,(FF_tech,Clock_pins,Reset_pins)
+
 
 def submodules_info(sub):
     dictionary = {}
@@ -253,7 +368,7 @@ def find_verilog_files_recursive(tmp,parentdir):
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="src.Parser.verilog_parser.extract_gates_v"><code class="name flex">
-<span>def <span class="ident">extract_gates_v</span></span>(<span>verilog)</span>
+<span>def <span class="ident">extract_gates_v</span></span>(<span>verilog, gate_mapping)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -261,24 +376,15 @@ def find_verilog_files_recursive(tmp,parentdir):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def extract_gates_v(verilog):
-    tmp={}
-    gate_count = {}
-    #   tmp[re.sub(&#34;_g&#34;,&#34;&#34;,verilog_gates[0])]=re.findall(&#34; &#34;+verilog_gates[0] +&#34; .* \( .A\((.*)\), .Y\((.*)\) \) ?;&#34;,verilog)
-    #   gate_count[verilog_gates[0]] = len(tmp[re.sub(&#34;_g&#34;,&#34;&#34;,verilog_gates[0])])
-    #   tmp[re.sub(&#34;_g&#34;,&#34;&#34;,verilog_gates[1])]=re.findall(&#34; &#34;+verilog_gates[1] +&#34; .* \( .A\((.*)\), .Y\((.*)\) \) ?;&#34;,verilog)
-    #   gate_count[verilog_gates[1]] = len(tmp[re.sub(&#34;_g&#34;,&#34;&#34;,verilog_gates[1])])
-
-    for i in verilog_gates:
-        if(i==&#34;NOT_g&#34; or i==&#34;BUF_g&#34;):
-            tmpx=re.findall(r&#34;\n ?&#34;+i + r&#34; .* \( .A\((.*)\), .Y\((.*)\) \) ?;&#34;,verilog)
-        else:
-            tmpx=re.findall(r&#34;\n ?&#34;+i +r&#34; .* \( .A\((.*)\), .B\((.*)\), .Y\((.*)\) \) ?;&#34;,verilog)
-
-        tmpi=re.sub(&#34;_g&#34;,&#34;&#34;,i)
-        tmp[tmpi]=tmpx
-        gate_count[i] = len(tmp[tmpi])
-            
+<pre><code class="python">def extract_gates_v(verilog,gate_mapping):
+   tmp={}
+   gate_count = {}
+   for i in gate_mapping:
+    for j in gate_mapping[i]:
+       tmpx=re.findall(r&#34;\n ?&#34;+j + r&#34; (.*) &#34;+gate_mapping[i][j][&#34;port&#34;],verilog)
+    
+    tmp[i]=tmpx
+    gate_count[i] = len(tmp[i])            
     return tmp,gate_count</code></pre>
 </details>
 </dd>
@@ -296,8 +402,11 @@ def find_verilog_files_recursive(tmp,parentdir):
   port=&#34;&#34;
   tmp=re.findall(&#34;\n&#34;+mode.lower()+r&#34;[\s\[](.*);&#34;,verilog)
 
+
   for i in tmp:
     i=re.sub(&#34;\[(\d+)\]&#34;,r&#34;_\1&#34;,i)
+    # if(&#34;n3471&#34; in i):
+    #    print(&#34;HERE &#34;,i)
     if(&#34;[&#34; in i):
         ei,si,tmpi=re.findall(r&#34;\[(\d+):(\d+)\] ?(.*)&#34;,i)[0]
         ei,si=int(ei),int(si)
@@ -305,6 +414,7 @@ def find_verilog_files_recursive(tmp,parentdir):
         if(&#34;,&#34; in tmpi):
             tmpi=tmpi.split(&#34;,&#34;)
             for k in tmpi:
+                k=k.strip()
                 nodes[k]=utils.connector(ei-si+1,si,ei)
                 port+=k+&#34;,&#34;
         else:
@@ -313,11 +423,12 @@ def find_verilog_files_recursive(tmp,parentdir):
     elif(&#34;,&#34; in i):
         tmpi=i.split(&#34;,&#34;)
         for k in tmpi:
+            k=k.strip()
             nodes[k]=utils.connector(1,0,0)
             port+=k+&#34;,&#34;
     else:
-      nodes[i]=utils.connector(1,0,0)
-      port+=i+&#34;,&#34;
+      nodes[i.strip()]=utils.connector(1,0,0)
+      port+=i.strip()+&#34;,&#34;
 
   return nodes,port</code></pre>
 </details>
@@ -393,101 +504,6 @@ def find_verilog_files_recursive(tmp,parentdir):
   return tmp</code></pre>
 </details>
 </dd>
-<dt id="src.Parser.verilog_parser.gates_module_extraction"><code class="name flex">
-<span>def <span class="ident">gates_module_extraction</span></span>(<span>verilog)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def gates_module_extraction(verilog):
-  gates=[&#39;BUF_g&#39;,&#39;NOT_g&#39;, &#39;AND_g&#39;, &#39;OR_g&#39;, &#39;NAND_g&#39;, &#39;NOR_g&#39;,&#39;XOR_g&#39;,&#39;XNOR_g&#39;]
-  FF=[&#39;DFFcell&#39;,&#34;DFFRcell&#34;,&#34;dffsr&#34;]
-  #   DFFRcell _2116_ ( .C(CLOCK_50), .D(_0153_), .Q(T3state[0]), .R(_0149_) );
-  #   {&#39;BUF&#39;:[],&#39;NOT&#39;:[], &#39;AND&#39;:[], &#39;OR&#39;:[],&#39;XOR&#39;:[],&#39;NAND&#39;:[], &#39;NOR&#39;:[],&#39;XNOR&#39;:[]}
-  gate_tech={}
-  FF_tech={}
-  Clock_pins=[]
-  Reset_pins=[]
-  sub_module={}
-  def process_chunk(chunk):
-    type_block,init,extra=chunk
-    # extra=re.sub(&#34; \[&#34;,&#34;[&#34;,extra)
-    # extra=re.sub(&#34;\[(\d+)\](\[\d+\])&#34;,r&#34;_\1\2&#34;,extra)
-    if(type_block in gates):
-        tmpx=re.findall(r&#39;\.\S+\(([^\(\),]+)\)&#39;,extra)
-        tmpx.reverse()
-        type_block_port=re.sub(&#34;_g&#34;,&#34;&#34;,type_block)
-        if type_block_port not in gate_tech:
-            gate_tech[type_block_port]={}
-        gate_tech[type_block_port][type_block_port+init]={&#34;inputs&#34;: tmpx[1:] ,&#34;outputs&#34;: tmpx[0]}
-        
-    elif(type_block in FF):
-        # print(type_block,init,extra)
-        if(type_block==&#34;DFFRcell&#34;):
-            type_block_port=&#34;DFF_&#34;+init
-            regex_pattern = r&#34;\((.*?)\)&#34;
-            matches = re.findall(regex_pattern, extra)
-            C,D,Q,R = [match for match in matches]
-            if(C not in Clock_pins):
-                Clock_pins.append(C)
-            if(R not in Reset_pins):
-                Reset_pins.append(R)
-            
-            if type_block not in FF_tech:
-                FF_tech[type_block]={}
-            
-            FF_tech[type_block][type_block_port]={&#34;inputs&#34;: D ,&#34;outputs&#34;: Q,&#34;clock&#34;:C,&#34;reset&#34;:R}
-            
-            # print(&#34;HERE&#34;,C,D,Q,R)
-            # print(re.findall(&#34;.C(CLOCK_50), .D(_0056_), .Q(T2x[0]), .R(_0040_)&#34;,extra))
-        elif(type_block==&#34;DFFcell&#34;):
-            type_block_port=&#34;DFF_&#34;+init
-            regex_pattern = r&#34;\((.*?)\)&#34;
-            matches = re.findall(regex_pattern, extra)
-            C,D,Q = [match for match in matches]
-            if(C not in Clock_pins):
-                Clock_pins.append(C)
-            if type_block not in FF_tech:
-                FF_tech[type_block]={}   
-            FF_tech[type_block][type_block_port]={&#34;inputs&#34;: D ,&#34;outputs&#34;: Q,&#34;clock&#34;:C}
-            # print(&#34;HERE&#34;,C,D,Q,extra)
-        elif(type_block==&#34;dffsr&#34;):
-            type_block_port=&#34;DFF_&#34;+init
-            regex_pattern = r&#34;\((.*?)\)&#34;
-            matches = re.findall(regex_pattern, extra)
-            Clear,C,D,Preset,Q= [match for match in matches]
-            # &#34;inputs&#34;: D ,&#34;outputs&#34;: Q,&#34;clock&#34;:C,&#34;clear&#34;:Clear,&#34;preset&#34;:Preset
-            # dffsr _123757_ (.CLEAR(1&#39;h0), .CLK(clk_i), .D(_158363_Y), .PRESET(1&#39;h0), .Q(_155393_A));s
-            if(C not in Clock_pins):
-                Clock_pins.append(C)
-            if type_block not in FF_tech:
-                FF_tech[type_block]={}   
-            FF_tech[type_block][type_block_port]={&#34;inputs&#34;: D ,&#34;outputs&#34;: Q,&#34;clock&#34;:C,&#34;clear&#34;:Clear,&#34;preset&#34;:Preset}
-            # print(&#34;HERE&#34;,C,D,Q,extra)
-        else:
-            raise Exception(&#34;FLIP_FLOP NOT Defined&#34;)
-
-    else:
-        links=[]
-        for i in extra.split(&#34;,&#34;):
-            Li,Ri=re.findall(&#34;\.(.*)\((.*)\)&#34;,i)[0]
-            links.append((Li,Ri,None))
-
-        # links=[re.findall(&#34;\.(.*)\((.*)\)&#34;,i)[0] for i in extra.split(&#34;,&#34;)]
-        sub_module[init]={&#34;module_name&#34;: type_block,&#34;links&#34;:links,&#34;port&#34;:extra}
-
-  for i in re.findall(r&#34;(\w+) (\w+) \((.*)\);&#34;,verilog):
-    # print(&#34;HERE1 &#34;,i)
-    process_chunk(i)
-
-
-    #   and &#34;1&#39;&#34; not in Clock_pins
-  return gate_tech,sub_module,(FF_tech,Clock_pins,Reset_pins)</code></pre>
-</details>
-</dd>
 <dt id="src.Parser.verilog_parser.module_extraction"><code class="name flex">
 <span>def <span class="ident">module_extraction</span></span>(<span>verilog)</span>
 </code></dt>
@@ -550,7 +566,6 @@ def find_verilog_files_recursive(tmp,parentdir):
 <li><code><a title="src.Parser.verilog_parser.extract_module_name" href="#src.Parser.verilog_parser.extract_module_name">extract_module_name</a></code></li>
 <li><code><a title="src.Parser.verilog_parser.find_verilog_files_iter" href="#src.Parser.verilog_parser.find_verilog_files_iter">find_verilog_files_iter</a></code></li>
 <li><code><a title="src.Parser.verilog_parser.find_verilog_files_recursive" href="#src.Parser.verilog_parser.find_verilog_files_recursive">find_verilog_files_recursive</a></code></li>
-<li><code><a title="src.Parser.verilog_parser.gates_module_extraction" href="#src.Parser.verilog_parser.gates_module_extraction">gates_module_extraction</a></code></li>
 <li><code><a title="src.Parser.verilog_parser.module_extraction" href="#src.Parser.verilog_parser.module_extraction">module_extraction</a></code></li>
 <li><code><a title="src.Parser.verilog_parser.submodules_info" href="#src.Parser.verilog_parser.submodules_info">submodules_info</a></code></li>
 </ul>

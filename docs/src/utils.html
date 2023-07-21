@@ -59,6 +59,26 @@ def timer_func(func):
   return function_timer
 
 
+@timer_func
+def simple_read_verilog(path):
+  file=open(path)
+  verilog=file.read()
+  return format_verilog(verilog)
+
+
+import mmap
+@timer_func
+def nmap_read_verilog(path):
+  # Open the file in binary mode
+  with open(path, &#34;rb&#34;) as file:
+      # Memory-map the file
+      with mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as mapped_file:
+          # Read the entire file
+          verilog = mapped_file.read().decode()
+  return format_verilog(verilog)
+
+
+
 ####################################################################################################################################
 ####################################################################################################################################
 
@@ -283,6 +303,8 @@ def format_verilog(verilog):
 
     verilog=re.sub(r&#34; \[&#34;,&#34;[&#34;,verilog)
     verilog=re.sub(r&#34;\[(\d+)\](\[\d+\])&#34;,r&#34;_\1\2&#34;,verilog)
+    verilog=re.sub(r&#34;(\.\S+\() ?&#34;,r&#34;\1&#34;,verilog)
+
 
     verilog=re.sub(r&#34;(wire|input|output)\[&#34;,r&#34;\1 [&#34;,verilog)
     verilog=re.sub(r&#34;(wire|input|output)( \[\d+:\d+\] .*)\[(\d+)\]&#34;,r&#34;\1\2_\3&#34;,verilog)
@@ -411,7 +433,7 @@ def check_port(i):
         tmptxt=re.sub(&#34;(.*\[\d+\])\[\d+\]&#34;,r&#34;\1&#34;,i)
     else:
         tmptxt=re.sub(&#34;\[\d+\]&#34;,&#34;&#34;,i)
-    return tmptxt
+    return tmptxt.strip()
 
 
 
@@ -435,6 +457,25 @@ def invert_gate(operator):
 
 ####################################################################################################################################
 ####################################################################################################################################
+
+
+def del_dir_files(parentdir):
+    stack = [parentdir]
+    dir=[]
+    while stack:
+        currentdir = stack.pop()
+        for i in os.listdir(currentdir):
+            if os.path.isfile(os.path.join(currentdir, i)):
+                print(os.path.join(os.path.abspath(currentdir),i))
+                os.remove(os.path.join(os.path.abspath(currentdir),i))
+            elif os.path.isdir(os.path.join(currentdir, i)):
+                stack.append(os.path.join(currentdir, i))
+                dir.append(os.path.join(currentdir, i))
+    print(dir)
+    dir.reverse()
+    dir.remove(parentdir)
+    for i in dir:
+        os.removedirs(i)
 
 
 
@@ -462,11 +503,6 @@ def node_to_txt(iodict,mode=&#34;input&#34;,return_bits=False):
             txt+=f&#34;{mode} {i};\n&#34;
         else:
             total_bits+=tmpi[&#34;bits&#34;]
-            # # print(i)
-            # if(&#34;[&#34; in i):
-            #     port,rbit=i.split(&#34;[&#34;)
-            #     txt+=f&#34;{mode} [{tmpi[&#39;endbit&#39;]}:{tmpi[&#39;startbit&#39;]}] {port}_{rbit[:-1]};\n&#34;
-            # else:
             txt+=f&#34;{mode} [{tmpi[&#39;endbit&#39;]}:{tmpi[&#39;startbit&#39;]}] {i};\n&#34;
 
     if(return_bits):
@@ -477,44 +513,57 @@ def node_to_txt(iodict,mode=&#34;input&#34;,return_bits=False):
 
 ####################################################################################################################################
 ####################################################################################################################################
-def FF_to_txt(FF):
-    txt=&#34;&#34;
-    # DFFcell(C, D, Q)
-    for i in FF:
-        if(i==&#34;DFFcell&#34;):
-            fn =lambda io,initname: f&#34;{i} {initname}(.C({io[&#39;clock&#39;]}), .D({io[&#39;inputs&#39;]}), .Q({io[&#39;outputs&#39;]}));&#34;
-        elif(i==&#34;DFFRcell&#34;):
-            fn=lambda io,initname: f&#34;{i} {initname}(.C({io[&#39;clock&#39;]}), .D({io[&#39;inputs&#39;]}), .Q({io[&#39;outputs&#39;]}), .R({io[&#39;reset&#39;]}));&#34;
-        elif(i==&#34;dffsr&#34;):
-            fn=lambda io,initname: f&#34;{i} {initname}(.CLEAR({io[&#39;clear&#39;]}), .CLK({io[&#39;clock&#39;]}), .D({io[&#39;inputs&#39;]}), .PRESET({io[&#39;preset&#39;]}), .Q({io[&#39;outputs&#39;]}));&#34;
-            # &#34;inputs&#34;: D ,&#34;outputs&#34;: Q,&#34;clock&#34;:C,&#34;clear&#34;:Clear,&#34;preset&#34;:Preset
-            # dffsr _123757_ (.CLEAR(1&#39;h0), .CLK(clk_i), .D(_158363_Y), .PRESET(1&#39;h0), .Q(_155393_A));
-        else:
-            raise Exception(&#34;FF not defined&#34;)
-        
-        for jj in FF[i]:
-            j=FF[i][jj]
-            txt+=fn(j,jj)+&#34;\n&#34;
-        # print(fn(j[&#39;inputs&#39;],j[&#39;outputs&#39;]))
-    return txt
+
+def det_logic(logic_gate,gate_mapping):
+  for gate, gate_list in gate_mapping.items():
+    if logic_gate in gate_list:
+        return gate
 
 ####################################################################################################################################
 ####################################################################################################################################
-def gates_to_txt(gates):
+
+def det_FF_node(mIO):
+  if(&#34;clock&#34; in mIO.lower() or &#34;clk&#34; in mIO.lower()):
+    return &#34;clock&#34;
+  elif(mIO==&#34;R&#34; or mIO.lower()==&#34;rn&#34; or mIO.lower()==&#34;rst&#34; or mIO.lower()==&#34;clr&#34; or mIO.lower()==&#34;clear&#34; or mIO.lower()==&#34;reset&#34;):
+    return &#34;reset&#34;
+  elif(mIO==&#34;S&#34; or mIO.lower()==&#34;sn&#34; or mIO.lower()==&#34;pr&#34; or mIO.lower()==&#34;prn&#34; or mIO.lower()==&#34;preset&#34; or mIO.lower()==&#34;set&#34;):
+    return &#34;preset&#34;
+  elif(mIO==&#34;D&#34;):
+    return &#34;inputs&#34;
+  elif(mIO==&#34;Q&#34;):
+    return &#34;outputs&#34;
+
+
+####################################################################################################################################
+####################################################################################################################################
+
+def FF_to_txt(FF_tech,FF):
+  txt=&#34;&#34;
+  for FF_tech_i in FF_tech:
+    port=FF[FF_tech_i][&#39;port&#39;]
+    for init_name in FF_tech[FF_tech_i]:
+      tmp={}
+      for mIO in FF[FF_tech_i][&#34;port_list&#34;]:
+        tmp[mIO]=FF_tech[FF_tech_i][init_name][det_FF_node(mIO)]
+      txt+= f&#34;{FF_tech_i} {init_name} {port.format(**tmp)}\n&#34;
+  return txt
+
+####################################################################################################################################
+####################################################################################################################################
+def gates_to_txt(gate_tech,gates_vlib):
     txt=&#34;&#34;
-    for i in gates:
-        # print(i)
-        if(i==&#34;NOT&#34; or i==&#34;BUF&#34;):
-            fn =lambda inputs,outputs,initname: f&#34;{i}_g {initname}(.A({inputs[0]}), .Y({outputs}));&#34;
-        else:
-            fn=lambda inputs,outputs,initname: f&#34;{i}_g {initname}(.A({inputs[0]}), .B({inputs[1]}), .Y({outputs}));&#34;     
-        # print(gates[i])
-        for jj in gates[i]:
-            j=gates[i][jj]
-            # print(jj,j)
-            # print(j,gates[i][j])
-            txt+=fn(j[&#39;inputs&#39;],j[&#39;outputs&#39;],jj)+&#34;\n&#34;
-        # print(fn(j[&#39;inputs&#39;],j[&#39;outputs&#39;]))
+    for logic in gate_tech:
+        for logic_gate in gate_tech[logic]:
+            NodeIO_def=gates_vlib[logic_gate]
+            port=NodeIO_def[&#39;port&#39;]
+            for init_name in gate_tech[logic][logic_gate]:
+                I=gate_tech[logic][logic_gate][init_name][&#34;inputs&#34;]
+                tmp={}
+                tmp[NodeIO_def[&#34;outputs&#34;][0]]=gate_tech[logic][logic_gate][init_name][&#34;outputs&#34;]
+                for NodeI,mI in zip(NodeIO_def[&#34;inputs&#34;],I):
+                    tmp[NodeI]=mI
+                txt+= f&#34;{logic_gate} {init_name} {port.format(**tmp)}\n&#34;
     return txt
 
 ####################################################################################################################################
@@ -637,7 +686,7 @@ def remove_key(thedict,thekey):
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="src.utils.FF_to_txt"><code class="name flex">
-<span>def <span class="ident">FF_to_txt</span></span>(<span>FF)</span>
+<span>def <span class="ident">FF_to_txt</span></span>(<span>FF_tech, FF)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -645,26 +694,16 @@ def remove_key(thedict,thekey):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def FF_to_txt(FF):
-    txt=&#34;&#34;
-    # DFFcell(C, D, Q)
-    for i in FF:
-        if(i==&#34;DFFcell&#34;):
-            fn =lambda io,initname: f&#34;{i} {initname}(.C({io[&#39;clock&#39;]}), .D({io[&#39;inputs&#39;]}), .Q({io[&#39;outputs&#39;]}));&#34;
-        elif(i==&#34;DFFRcell&#34;):
-            fn=lambda io,initname: f&#34;{i} {initname}(.C({io[&#39;clock&#39;]}), .D({io[&#39;inputs&#39;]}), .Q({io[&#39;outputs&#39;]}), .R({io[&#39;reset&#39;]}));&#34;
-        elif(i==&#34;dffsr&#34;):
-            fn=lambda io,initname: f&#34;{i} {initname}(.CLEAR({io[&#39;clear&#39;]}), .CLK({io[&#39;clock&#39;]}), .D({io[&#39;inputs&#39;]}), .PRESET({io[&#39;preset&#39;]}), .Q({io[&#39;outputs&#39;]}));&#34;
-            # &#34;inputs&#34;: D ,&#34;outputs&#34;: Q,&#34;clock&#34;:C,&#34;clear&#34;:Clear,&#34;preset&#34;:Preset
-            # dffsr _123757_ (.CLEAR(1&#39;h0), .CLK(clk_i), .D(_158363_Y), .PRESET(1&#39;h0), .Q(_155393_A));
-        else:
-            raise Exception(&#34;FF not defined&#34;)
-        
-        for jj in FF[i]:
-            j=FF[i][jj]
-            txt+=fn(j,jj)+&#34;\n&#34;
-        # print(fn(j[&#39;inputs&#39;],j[&#39;outputs&#39;]))
-    return txt</code></pre>
+<pre><code class="python">def FF_to_txt(FF_tech,FF):
+  txt=&#34;&#34;
+  for FF_tech_i in FF_tech:
+    port=FF[FF_tech_i][&#39;port&#39;]
+    for init_name in FF_tech[FF_tech_i]:
+      tmp={}
+      for mIO in FF[FF_tech_i][&#34;port_list&#34;]:
+        tmp[mIO]=FF_tech[FF_tech_i][init_name][det_FF_node(mIO)]
+      txt+= f&#34;{FF_tech_i} {init_name} {port.format(**tmp)}\n&#34;
+  return txt</code></pre>
 </details>
 </dd>
 <dt id="src.utils.HammingDistance"><code class="name flex">
@@ -698,7 +737,7 @@ def remove_key(thedict,thekey):
         tmptxt=re.sub(&#34;(.*\[\d+\])\[\d+\]&#34;,r&#34;\1&#34;,i)
     else:
         tmptxt=re.sub(&#34;\[\d+\]&#34;,&#34;&#34;,i)
-    return tmptxt</code></pre>
+    return tmptxt.strip()</code></pre>
 </details>
 </dd>
 <dt id="src.utils.clean_dir"><code class="name flex">
@@ -734,6 +773,71 @@ def remove_key(thedict,thekey):
         return {&#34;bits&#34;:bits}
     else:
         return {&#34;bits&#34;:bits,&#34;startbit&#34;:startbit,&#34;endbit&#34;:endbit}</code></pre>
+</details>
+</dd>
+<dt id="src.utils.del_dir_files"><code class="name flex">
+<span>def <span class="ident">del_dir_files</span></span>(<span>parentdir)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def del_dir_files(parentdir):
+    stack = [parentdir]
+    dir=[]
+    while stack:
+        currentdir = stack.pop()
+        for i in os.listdir(currentdir):
+            if os.path.isfile(os.path.join(currentdir, i)):
+                print(os.path.join(os.path.abspath(currentdir),i))
+                os.remove(os.path.join(os.path.abspath(currentdir),i))
+            elif os.path.isdir(os.path.join(currentdir, i)):
+                stack.append(os.path.join(currentdir, i))
+                dir.append(os.path.join(currentdir, i))
+    print(dir)
+    dir.reverse()
+    dir.remove(parentdir)
+    for i in dir:
+        os.removedirs(i)</code></pre>
+</details>
+</dd>
+<dt id="src.utils.det_FF_node"><code class="name flex">
+<span>def <span class="ident">det_FF_node</span></span>(<span>mIO)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def det_FF_node(mIO):
+  if(&#34;clock&#34; in mIO.lower() or &#34;clk&#34; in mIO.lower()):
+    return &#34;clock&#34;
+  elif(mIO==&#34;R&#34; or mIO.lower()==&#34;rn&#34; or mIO.lower()==&#34;rst&#34; or mIO.lower()==&#34;clr&#34; or mIO.lower()==&#34;clear&#34; or mIO.lower()==&#34;reset&#34;):
+    return &#34;reset&#34;
+  elif(mIO==&#34;S&#34; or mIO.lower()==&#34;sn&#34; or mIO.lower()==&#34;pr&#34; or mIO.lower()==&#34;prn&#34; or mIO.lower()==&#34;preset&#34; or mIO.lower()==&#34;set&#34;):
+    return &#34;preset&#34;
+  elif(mIO==&#34;D&#34;):
+    return &#34;inputs&#34;
+  elif(mIO==&#34;Q&#34;):
+    return &#34;outputs&#34;</code></pre>
+</details>
+</dd>
+<dt id="src.utils.det_logic"><code class="name flex">
+<span>def <span class="ident">det_logic</span></span>(<span>logic_gate, gate_mapping)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def det_logic(logic_gate,gate_mapping):
+  for gate, gate_list in gate_mapping.items():
+    if logic_gate in gate_list:
+        return gate</code></pre>
 </details>
 </dd>
 <dt id="src.utils.extract_value"><code class="name flex">
@@ -844,6 +948,8 @@ def remove_key(thedict,thekey):
 
     verilog=re.sub(r&#34; \[&#34;,&#34;[&#34;,verilog)
     verilog=re.sub(r&#34;\[(\d+)\](\[\d+\])&#34;,r&#34;_\1\2&#34;,verilog)
+    verilog=re.sub(r&#34;(\.\S+\() ?&#34;,r&#34;\1&#34;,verilog)
+
 
     verilog=re.sub(r&#34;(wire|input|output)\[&#34;,r&#34;\1 [&#34;,verilog)
     verilog=re.sub(r&#34;(wire|input|output)( \[\d+:\d+\] .*)\[(\d+)\]&#34;,r&#34;\1\2_\3&#34;,verilog)
@@ -928,7 +1034,7 @@ def remove_key(thedict,thekey):
 </details>
 </dd>
 <dt id="src.utils.gates_to_txt"><code class="name flex">
-<span>def <span class="ident">gates_to_txt</span></span>(<span>gates)</span>
+<span>def <span class="ident">gates_to_txt</span></span>(<span>gate_tech, gates_vlib)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -936,21 +1042,19 @@ def remove_key(thedict,thekey):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def gates_to_txt(gates):
+<pre><code class="python">def gates_to_txt(gate_tech,gates_vlib):
     txt=&#34;&#34;
-    for i in gates:
-        # print(i)
-        if(i==&#34;NOT&#34; or i==&#34;BUF&#34;):
-            fn =lambda inputs,outputs,initname: f&#34;{i}_g {initname}(.A({inputs[0]}), .Y({outputs}));&#34;
-        else:
-            fn=lambda inputs,outputs,initname: f&#34;{i}_g {initname}(.A({inputs[0]}), .B({inputs[1]}), .Y({outputs}));&#34;     
-        # print(gates[i])
-        for jj in gates[i]:
-            j=gates[i][jj]
-            # print(jj,j)
-            # print(j,gates[i][j])
-            txt+=fn(j[&#39;inputs&#39;],j[&#39;outputs&#39;],jj)+&#34;\n&#34;
-        # print(fn(j[&#39;inputs&#39;],j[&#39;outputs&#39;]))
+    for logic in gate_tech:
+        for logic_gate in gate_tech[logic]:
+            NodeIO_def=gates_vlib[logic_gate]
+            port=NodeIO_def[&#39;port&#39;]
+            for init_name in gate_tech[logic][logic_gate]:
+                I=gate_tech[logic][logic_gate][init_name][&#34;inputs&#34;]
+                tmp={}
+                tmp[NodeIO_def[&#34;outputs&#34;][0]]=gate_tech[logic][logic_gate][init_name][&#34;outputs&#34;]
+                for NodeI,mI in zip(NodeIO_def[&#34;inputs&#34;],I):
+                    tmp[NodeI]=mI
+                txt+= f&#34;{logic_gate} {init_name} {port.format(**tmp)}\n&#34;
     return txt</code></pre>
 </details>
 </dd>
@@ -1128,6 +1232,25 @@ def remove_key(thedict,thekey):
     return txt</code></pre>
 </details>
 </dd>
+<dt id="src.utils.nmap_read_verilog"><code class="name flex">
+<span>def <span class="ident">nmap_read_verilog</span></span>(<span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def function_timer(*args, **kwargs):
+  start = time.time()
+  value = func(*args, **kwargs)
+  end = time.time()
+  runtime = end - start
+  msg = &#34;{func} took {time} seconds to complete its execution.&#34;
+  print(msg.format(func = func.__name__,time = runtime))
+  return value</code></pre>
+</details>
+</dd>
 <dt id="src.utils.node_to_txt"><code class="name flex">
 <span>def <span class="ident">node_to_txt</span></span>(<span>iodict, mode='input', return_bits=False)</span>
 </code></dt>
@@ -1147,11 +1270,6 @@ def remove_key(thedict,thekey):
             txt+=f&#34;{mode} {i};\n&#34;
         else:
             total_bits+=tmpi[&#34;bits&#34;]
-            # # print(i)
-            # if(&#34;[&#34; in i):
-            #     port,rbit=i.split(&#34;[&#34;)
-            #     txt+=f&#34;{mode} [{tmpi[&#39;endbit&#39;]}:{tmpi[&#39;startbit&#39;]}] {port}_{rbit[:-1]};\n&#34;
-            # else:
             txt+=f&#34;{mode} [{tmpi[&#39;endbit&#39;]}:{tmpi[&#39;startbit&#39;]}] {i};\n&#34;
 
     if(return_bits):
@@ -1337,6 +1455,25 @@ def remove_key(thedict,thekey):
         subprocess.run(&#34;dot -Tsvg ./tmp/tmp.dot &gt; ./tmp/tmp.svg&#34;, shell=True)</code></pre>
 </details>
 </dd>
+<dt id="src.utils.simple_read_verilog"><code class="name flex">
+<span>def <span class="ident">simple_read_verilog</span></span>(<span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def function_timer(*args, **kwargs):
+  start = time.time()
+  value = func(*args, **kwargs)
+  end = time.time()
+  runtime = end - start
+  msg = &#34;{func} took {time} seconds to complete its execution.&#34;
+  print(msg.format(func = func.__name__,time = runtime))
+  return value</code></pre>
+</details>
+</dd>
 <dt id="src.utils.sortio"><code class="name flex">
 <span>def <span class="ident">sortio</span></span>(<span>tmp, reverse=True)</span>
 </code></dt>
@@ -1419,6 +1556,9 @@ def remove_key(thedict,thekey):
 <li><code><a title="src.utils.check_port" href="#src.utils.check_port">check_port</a></code></li>
 <li><code><a title="src.utils.clean_dir" href="#src.utils.clean_dir">clean_dir</a></code></li>
 <li><code><a title="src.utils.connector" href="#src.utils.connector">connector</a></code></li>
+<li><code><a title="src.utils.del_dir_files" href="#src.utils.del_dir_files">del_dir_files</a></code></li>
+<li><code><a title="src.utils.det_FF_node" href="#src.utils.det_FF_node">det_FF_node</a></code></li>
+<li><code><a title="src.utils.det_logic" href="#src.utils.det_logic">det_logic</a></code></li>
 <li><code><a title="src.utils.extract_value" href="#src.utils.extract_value">extract_value</a></code></li>
 <li><code><a title="src.utils.find_common_elements" href="#src.utils.find_common_elements">find_common_elements</a></code></li>
 <li><code><a title="src.utils.format_bench" href="#src.utils.format_bench">format_bench</a></code></li>
@@ -1433,6 +1573,7 @@ def remove_key(thedict,thekey):
 <li><code><a title="src.utils.io_port" href="#src.utils.io_port">io_port</a></code></li>
 <li><code><a title="src.utils.merge_lists" href="#src.utils.merge_lists">merge_lists</a></code></li>
 <li><code><a title="src.utils.module_to_txt" href="#src.utils.module_to_txt">module_to_txt</a></code></li>
+<li><code><a title="src.utils.nmap_read_verilog" href="#src.utils.nmap_read_verilog">nmap_read_verilog</a></code></li>
 <li><code><a title="src.utils.node_to_txt" href="#src.utils.node_to_txt">node_to_txt</a></code></li>
 <li><code><a title="src.utils.proc_assign_bracket" href="#src.utils.proc_assign_bracket">proc_assign_bracket</a></code></li>
 <li><code><a title="src.utils.proc_node_dec" href="#src.utils.proc_node_dec">proc_node_dec</a></code></li>
@@ -1441,6 +1582,7 @@ def remove_key(thedict,thekey):
 <li><code><a title="src.utils.rand_selection" href="#src.utils.rand_selection">rand_selection</a></code></li>
 <li><code><a title="src.utils.remove_key" href="#src.utils.remove_key">remove_key</a></code></li>
 <li><code><a title="src.utils.save_graph" href="#src.utils.save_graph">save_graph</a></code></li>
+<li><code><a title="src.utils.simple_read_verilog" href="#src.utils.simple_read_verilog">simple_read_verilog</a></code></li>
 <li><code><a title="src.utils.sortio" href="#src.utils.sortio">sortio</a></code></li>
 <li><code><a title="src.utils.timer_func" href="#src.utils.timer_func">timer_func</a></code></li>
 <li><code><a title="src.utils.timerit_func" href="#src.utils.timerit_func">timerit_func</a></code></li>

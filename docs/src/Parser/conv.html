@@ -26,7 +26,7 @@
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">from src.Parser.verilog_parser import extract_io_v,extract_gates_v
+<pre><code class="python">from src.Parser.verilog_parser import extract_io_v,gates_module_extraction
 from src.Parser.bench_parser import extract_gates_b,extract_io_b
 from src.utils import format_verilog,io_port
 
@@ -144,12 +144,12 @@ def bench_to_verilog(bench,clkpin=&#34;Clock&#34;,modulename=&#34;top&#34;):
 ####################################################################################################################################
 
 
-def verilog_to_bench(verilog):
+def verilog_to_bench(verilog,gate_mapping,gates_vlib,FF_vlib):
     verilog = format_verilog(verilog)
     inputs,_=extract_io_v(verilog,mode=&#34;input&#34;)
     outputs,_=extract_io_v(verilog,mode=&#34;output&#34;)
     
-    gates,gate_count=extract_gates_v(verilog)
+    gate_tech,sub_module,(FF_tech,Clock_pins,Reset_pins)=gates_module_extraction(verilog,gate_mapping,gates_vlib,FF_vlib)
 
     bench=&#34;&#34;
 
@@ -171,13 +171,13 @@ def verilog_to_bench(verilog):
                 bench+=&#34;OUTPUT({})\n&#34;.format(i+f&#34;[{k}]&#34;)
 
     
-    for i in gates:
-        if(i==&#39;BUF&#39; or i==&#39;NOT&#39;):
-            for j in gates[i]:
-                bench+=&#34;{} = {}({})\n&#34;.format(j[1],i,j[0])
-        else:
-            for j in gates[i]:
-                bench+=&#34;{} = {}({},{})\n&#34;.format(j[2],i,j[0],j[1])
+    # for i in gates:
+    #     if(i==&#39;BUF&#39; or i==&#39;NOT&#39;):
+    #         for j in gates[i]:
+    #             bench+=&#34;{} = {}({})\n&#34;.format(j[1],i,j[0])
+    #     else:
+    #         for j in gates[i]:
+    #             bench+=&#34;{} = {}({},{})\n&#34;.format(j[2],i,j[0],j[1])
     return bench</code></pre>
 </details>
 </section>
@@ -304,7 +304,7 @@ def verilog_to_bench(verilog):
 </details>
 </dd>
 <dt id="src.Parser.conv.verilog_to_bench"><code class="name flex">
-<span>def <span class="ident">verilog_to_bench</span></span>(<span>verilog)</span>
+<span>def <span class="ident">verilog_to_bench</span></span>(<span>verilog, gate_mapping, gates_vlib, FF_vlib)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -312,12 +312,12 @@ def verilog_to_bench(verilog):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def verilog_to_bench(verilog):
+<pre><code class="python">def verilog_to_bench(verilog,gate_mapping,gates_vlib,FF_vlib):
     verilog = format_verilog(verilog)
     inputs,_=extract_io_v(verilog,mode=&#34;input&#34;)
     outputs,_=extract_io_v(verilog,mode=&#34;output&#34;)
     
-    gates,gate_count=extract_gates_v(verilog)
+    gate_tech,sub_module,(FF_tech,Clock_pins,Reset_pins)=gates_module_extraction(verilog,gate_mapping,gates_vlib,FF_vlib)
 
     bench=&#34;&#34;
 
@@ -339,13 +339,13 @@ def verilog_to_bench(verilog):
                 bench+=&#34;OUTPUT({})\n&#34;.format(i+f&#34;[{k}]&#34;)
 
     
-    for i in gates:
-        if(i==&#39;BUF&#39; or i==&#39;NOT&#39;):
-            for j in gates[i]:
-                bench+=&#34;{} = {}({})\n&#34;.format(j[1],i,j[0])
-        else:
-            for j in gates[i]:
-                bench+=&#34;{} = {}({},{})\n&#34;.format(j[2],i,j[0],j[1])
+    # for i in gates:
+    #     if(i==&#39;BUF&#39; or i==&#39;NOT&#39;):
+    #         for j in gates[i]:
+    #             bench+=&#34;{} = {}({})\n&#34;.format(j[1],i,j[0])
+    #     else:
+    #         for j in gates[i]:
+    #             bench+=&#34;{} = {}({},{})\n&#34;.format(j[2],i,j[0],j[1])
     return bench</code></pre>
 </details>
 </dd>
