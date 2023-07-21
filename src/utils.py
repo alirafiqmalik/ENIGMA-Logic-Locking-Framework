@@ -31,6 +31,26 @@ def timer_func(func):
   return function_timer
 
 
+@timer_func
+def simple_read_verilog(path):
+  file=open(path)
+  verilog=file.read()
+  return format_verilog(verilog)
+
+
+import mmap
+@timer_func
+def nmap_read_verilog(path):
+  # Open the file in binary mode
+  with open(path, "rb") as file:
+      # Memory-map the file
+      with mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as mapped_file:
+          # Read the entire file
+          verilog = mapped_file.read().decode()
+  return format_verilog(verilog)
+
+
+
 ####################################################################################################################################
 ####################################################################################################################################
 
