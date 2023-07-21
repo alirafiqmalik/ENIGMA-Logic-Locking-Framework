@@ -431,6 +431,26 @@ def invert_gate(operator):
 ####################################################################################################################################
 
 
+def del_dir_files(parentdir):
+    stack = [parentdir]
+    dir=[]
+    while stack:
+        currentdir = stack.pop()
+        for i in os.listdir(currentdir):
+            if os.path.isfile(os.path.join(currentdir, i)):
+                # print(os.path.join(os.path.abspath(currentdir),i))
+                os.remove(os.path.join(os.path.abspath(currentdir),i))
+            elif os.path.isdir(os.path.join(currentdir, i)):
+                stack.append(os.path.join(currentdir, i))
+                dir.append(os.path.join(currentdir, i))
+    # print(dir)
+    dir.reverse()
+    if parentdir in dir:
+        dir.remove(parentdir)
+    for i in dir:
+        os.removedirs(i)
+
+
 
 
 
