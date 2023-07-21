@@ -533,7 +533,7 @@ class AST:
         self.FF_vlib=verilog_ast["Gate_Lib_Data"]["FF_vlib"]
 
         
-        print("\t Loading gate level data in AST")
+        print("\t Done Loading gate level data in AST")
 
 
         print("Done Reading LL file")
