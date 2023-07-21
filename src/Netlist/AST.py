@@ -497,8 +497,6 @@ class AST:
         self.flatten_bench=verilog_ast["Code"]["Bench_format_flattened"]
         self.gate_lib=verilog_ast["Code"]["gate_lib"]
         # self.linkages=verilog_ast["linkages"]
-        self.top_module=self.modules[self.top_module_name]
-        self.top_module.bitkey=verilog_ast["AST_overview"]["bitkey"]
         
         print(f"\t Done Loading Top module {self.top_module_name} in AST")
 
@@ -521,13 +519,17 @@ class AST:
             self.modules[i].base64_data = verilog_ast["modules"][i]["DiGraph"]
             self.modules[i].circuitgraph = pickle.loads(base64.b64decode(self.modules[i].base64_data.encode('utf-8')))
             print(f"\t\t Done Loading module {i} in AST")
+
+        self.top_module=self.modules[self.top_module_name]
+        self.top_module.bitkey=verilog_ast["AST_overview"]["bitkey"]
+
         print("\t Done Loading module data in AST")
 
 
         print("\t Loading gate level data in AST")
 
-        self.gate_mapping_vlib,=verilog_ast["Gate_Lib_Data"]["gate_mapping_vlib"]
-        self.gates_vlib,=verilog_ast["Gate_Lib_Data"]["gates_vlib"]
+        self.gate_mapping_vlib=verilog_ast["Gate_Lib_Data"]["gate_mapping_vlib"]
+        self.gates_vlib=verilog_ast["Gate_Lib_Data"]["gates_vlib"]
         self.FF_vlib=verilog_ast["Gate_Lib_Data"]["FF_vlib"]
 
         
