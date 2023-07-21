@@ -452,29 +452,35 @@ def det_logic(logic_gate,gate_mapping):
     if logic_gate in gate_list:
         return gate
 
+####################################################################################################################################
+####################################################################################################################################
+
+def det_FF_node(mIO):
+  if("clock" in mIO.lower() or "clk" in mIO.lower()):
+    return "clock"
+  elif(mIO=="R" or mIO.lower()=="rn" or mIO.lower()=="rst" or mIO.lower()=="clr" or mIO.lower()=="clear" or mIO.lower()=="reset"):
+    return "reset"
+  elif(mIO=="S" or mIO.lower()=="sn" or mIO.lower()=="pr" or mIO.lower()=="prn" or mIO.lower()=="preset" or mIO.lower()=="set"):
+    return "preset"
+  elif(mIO=="D"):
+    return "inputs"
+  elif(mIO=="Q"):
+    return "outputs"
+
 
 ####################################################################################################################################
 ####################################################################################################################################
-def FF_to_txt(FF):
-    txt=""
-    # DFFcell(C, D, Q)
-    for i in FF:
-        if(i=="DFFcell"):
-            fn =lambda io,initname: f"{i} {initname}(.C({io['clock']}), .D({io['inputs']}), .Q({io['outputs']}));"
-        elif(i=="DFFRcell"):
-            fn=lambda io,initname: f"{i} {initname}(.C({io['clock']}), .D({io['inputs']}), .Q({io['outputs']}), .R({io['reset']}));"
-        elif(i=="dffsr"):
-            fn=lambda io,initname: f"{i} {initname}(.CLEAR({io['clear']}), .CLK({io['clock']}), .D({io['inputs']}), .PRESET({io['preset']}), .Q({io['outputs']}));"
-            # "inputs": D ,"outputs": Q,"clock":C,"clear":Clear,"preset":Preset
-            # dffsr _123757_ (.CLEAR(1'h0), .CLK(clk_i), .D(_158363_Y), .PRESET(1'h0), .Q(_155393_A));
-        else:
-            raise Exception("FF not defined")
-        
-        for jj in FF[i]:
-            j=FF[i][jj]
-            txt+=fn(j,jj)+"\n"
-        # print(fn(j['inputs'],j['outputs']))
-    return txt
+
+def FF_to_txt(FF_tech,FF):
+  txt=""
+  for FF_tech_i in FF_tech:
+    port=FF[FF_tech_i]['port']
+    for init_name in FF_tech[FF_tech_i]:
+      tmp={}
+      for mIO in FF[FF_tech_i]["port_list"]:
+        tmp[mIO]=FF_tech[FF_tech_i][init_name][det_FF_node(mIO)]
+      txt+= f"{FF_tech_i} {init_name} {port.format(**tmp)}\n"
+  return txt
 
 ####################################################################################################################################
 ####################################################################################################################################
@@ -490,7 +496,7 @@ def gates_to_txt(gate_tech,gates_vlib):
                 tmp[NodeIO_def["outputs"][0]]=gate_tech[logic][logic_gate][init_name]["outputs"]
                 for NodeI,mI in zip(NodeIO_def["inputs"],I):
                     tmp[NodeI]=mI
-                txt+= f"{logic_gate} {init_name} {port.format(**tmp)} \n"
+                txt+= f"{logic_gate} {init_name} {port.format(**tmp)}\n"
     return txt
 
 ####################################################################################################################################
