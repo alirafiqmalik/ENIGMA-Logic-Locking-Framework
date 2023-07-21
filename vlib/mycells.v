@@ -52,8 +52,9 @@ endmodule
 module DFFcell(C, D, Q);
 input C, D;
 output reg Q;
-always @(posedge C)
+always @(posedge C) begin
 	Q <= D;
+end
 endmodule
 
 
@@ -62,32 +63,38 @@ input C, D, R;
 wire x;
 assign x=~R;
 output reg Q;
-always @(posedge C, negedge x)
+always @(posedge C, negedge x) begin
 	if (!x)
 		Q <= 1'b0;
 	else
 		Q <= D;
+end
 endmodule
 
 
 
-module dffn(input CLK, D, output reg Q);
+module dffn(CLK, D,Q);
+input CLK, D;
+output reg Q;
 
-always @(negedge CLK)
+always @(negedge CLK) begin
 	Q <= D;
+end
 
 
 
 endmodule
 
 module dffsr(input CLK, D, CLEAR, PRESET, output reg Q);
+input CLK, D, CLEAR, PRESET;
+output reg Q;
 
-always @(posedge CLK, posedge CLEAR, posedge PRESET)
+always @(posedge CLK, posedge CLEAR, posedge PRESET) begin
 	if (CLEAR)
 		Q <= 0;
 	else if (PRESET)
 		Q <= 1;
 	else
 		Q <= D;
-
+end
 endmodule
