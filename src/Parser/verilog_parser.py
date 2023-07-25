@@ -64,6 +64,8 @@ def extract_gates_v(verilog,gate_mapping):
 import re
 @utils.timer_func
 def extract_modules_def(gate_module_lib):
+  gate_module_lib=re.sub(r" +"," ",gate_module_lib)
+  gate_module_lib=re.sub(r"\t+"," ",gate_module_lib)
   gate_module_lib=re.sub(r"\n","",gate_module_lib)
   gate_module_lib=re.sub(r"endmodule",r"endmodule\n",gate_module_lib)
   gates={}
@@ -106,30 +108,21 @@ def extract_modules_def(gate_module_lib):
 
       if(2<len(port_list)>5):
         raise Exception(f"INVALID PORT Length \nPort Listing = {port_list}")
-      
+
+
       if(port_io_map!="I"*len(module_inputs)+"O"*len(module_outputs)):
         raise Exception(f"INVALID PORT LISTING \nPort Listing = {port_list}")
-        
 
 
-      if(always_block==None and assign_line!=None):
-        port="("
-        for i in port_list[:-1]:
-          port+=f".{i}({{{i}}}), "
-        port+=f".{port_list[-1]}({{{port_list[-1]}}})"+");"
-      elif(always_block!=None):
-        port="("
-        for i in port_list[:-1]:
-          port+=f".{i}({{{i}}}), "
-        port+=f".{port_list[-1]}({{{port_list[-1]}}})"+");"
-      else:
-        raise Exception(f"Gate Definition Not Supported\n{always_block}\n{assign_line}")
-      # elif(always_block!=None and assign_line!=None):
-      #   pass
-      # elif(always_block==None and assign_line==None):
-      #   pass
+      if(always_block==None and assign_line==None):
+        raise Exception(f"Gate Definition Not Supported\nmodule={module}")
+
+
+      port="("
+      for i in port_list[:-1]:
+        port+=f".{i}({{{i}}}), "
+      port+=f".{port_list[-1]}({{{port_list[-1]}}})"+");"
       
-
 
       tmp=dict({
           "port_list":port_list,
@@ -143,6 +136,7 @@ def extract_modules_def(gate_module_lib):
                           } if always_block else None
       })
 
+      
       if("BUF" in module_name.upper()):
         gate_mapping["BUF"].append(module_name)
         gates[module_name]=tmp
