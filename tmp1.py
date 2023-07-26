@@ -20,6 +20,10 @@ import time
 # '
 # """
 
+
+
+
+
 top="fsm_0_obf"
 pathin="input_files/ASSURE_LOCKED/design1/design1_netlist.v"
 
@@ -28,12 +32,12 @@ pathin="input_files/ASSURE_LOCKED/design1/design1_netlist.v"
 
 # utils.clean_dir("./tmp")
 
-obj=AST(file_path=pathin,rw="w",flag="v",top=top,filename=f"{top}org",vlibpath="input_files/ASSURE_LOCKED/modulefiles.v",synth=False)#Run to Read in Verilog Design
+# obj=AST(file_path=pathin,rw="w",flag="v",top=top,filename=f"{top}org",vlibpath="input_files/ASSURE_LOCKED/modulefiles.v",synth=False)#Run to Read in Verilog Design
 
 
 
 # top="fsm_0_obf"
-# locked = AST(file_path=f"./output_files/{top}org.json",rw='r',filename=f"{top}locked_test") #Run to read in AST Format
+locked = AST(file_path=f"./output_files/{top}org.json",rw='r',filename=f"{top}locked_test") #Run to read in AST Format
 # top="fsm"
 # unlocked = AST(file_path=f"./output_files/{top}org.json",rw='r',filename=f"{top}locked_test") #Run to read in AST Format
 
