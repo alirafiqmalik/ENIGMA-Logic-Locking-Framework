@@ -80,10 +80,19 @@ output reg Q;
 always @(negedge CLK) begin
 	Q <= D;
 end
-
-
-
 endmodule
+
+
+
+module dffs (D,CLK,PRESET,Q);
+input CLK,PRESET, D;
+output reg Q;
+always @(posedge CLK,negedge PRESET)begin
+    if(!PRESET)Q<=1;
+    else Q <= D;
+end	
+endmodule
+
 
 module dffsr(CLK, D, CLEAR, PRESET, Q);
 input CLK, D, CLEAR, PRESET;
@@ -98,3 +107,4 @@ always @(posedge CLK, posedge CLEAR, posedge PRESET) begin
 		Q <= D;
 end
 endmodule
+
