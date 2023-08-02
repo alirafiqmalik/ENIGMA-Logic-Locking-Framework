@@ -3,7 +3,7 @@ import z3
 import time
 import attacks.satattack.circuit as circuit
 import attacks.satattack.sat_model as sat_model
-import attacks.satattack.benchmarks as benchmarks
+import src.Attacks.SATAttack.benchmarks_custom as benchmarks
 import attacks.satattack.dip_finder as dip_finder
 import attacks.satattack.oracle_runner as oracle_runner
 
@@ -11,10 +11,26 @@ import attacks.satattack.oracle_runner as oracle_runner
 class SatAttack:
     """The main class for conducting the SAT attack."""
 
-    def __init__(self, locked_filename, unlocked_filename,file_type):
+    def __init__(self, 
+                 file_type,
+                 locked_filename=None, 
+                 unlocked_filename=None,
+                 locked_obj=None,
+                 unlocked_obj=None
+                 ):
+        if(file_type==None):
+            raise Exception("No file Type Given")
+        elif(file_type=="obj"):
+            self.unlocked_obj=unlocked_obj
+            self.locked_obj=locked_obj
+
+
+        self.file_type=file_type
         self.locked_filename = locked_filename
         self.unlocked_filename = unlocked_filename
-        self.file_type=file_type
+        
+        
+        
         self.iterations = 0
 
     def run(self):
@@ -25,10 +41,17 @@ class SatAttack:
             self.nodes, self.output_names = benchmarks.read_nodes_b(self.locked_filename)
         elif(self.file_type=='v'):
             self.nodes, self.output_names = benchmarks.read_nodes_v(self.locked_filename)
+        elif(self.file_type=='obj'):
+            self.nodes, self.output_names = benchmarks.read_nodes_obj(self.locked_obj)
+
 
         # print("Reading in unlocked circuit...")
+        if(self.file_type=='obj'):
+            self.nodes_org, self.output_names_org = benchmarks.read_nodes_obj(self.unlocked_obj)
+            self.oracle_ckt=circuit.Circuit.from_nodes(self.nodes_org, self.output_names_org)
+        else:
+            self.oracle_ckt = benchmarks.read_ckt(self.unlocked_filename,self.file_type)
 
-        self.oracle_ckt = benchmarks.read_ckt(self.unlocked_filename,self.file_type)
 
 
         key_inputs = [node.name for node in self.nodes.values() if node.type == "Key Input"]
@@ -66,9 +89,10 @@ class SatAttack:
         self._check_key(key)
         if self._check_key(key):
             # print("Locked and unlocked circuits match")
-            print("%s" % (self._key_string(key)))
+            # print("%s" % (self._key_string(key)))
+            return self._key_string(key)
         else:
-            print("-1")
+            return -1
 
     def _find_key(self, oracle_io_pairs, key_names):
         """
@@ -129,8 +153,8 @@ class SatAttack:
         ordered_names = sorted(key.keys(), key=x,reverse=True)
         # print(key.keys())
         # print(ordered_names)
-        for i in ordered_names[:-1]:
-            print(i,end=" ")
+        # for i in ordered_names[:-1]:
+        #     print(i,end=" ")
         
         # print(ordered_names[-1])
         
