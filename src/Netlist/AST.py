@@ -246,6 +246,17 @@ class AST:
                  sub_modules=None,
                  synth=True
                  ):
+        
+        self.top_module_name=top
+        with open(vlibpath,"r") as f:
+            self.gate_lib=f.read()
+        self.gate_mapping_vlib,self.gates_vlib,self.FF_vlib=verilog_parser.extract_modules_def(self.gate_lib)
+
+        self.synthesized_verilog = None
+        self.extracted_modules = None
+        self.top_module = module()
+        self.modules = {}
+
         self.LLverilog = ""
         self.postsat_lib=""
         if(filename==None):
@@ -260,8 +271,6 @@ class AST:
         elif rw == 'w':
             if flag == 'v':
                 self.verilog = open(file_path).read()
-                with open(vlibpath,"r") as f:
-                    self.gate_lib=f.read()
                 
 
                 if(sub_modules!=None):
@@ -280,22 +289,20 @@ class AST:
                 yosys.verify_verilog(tmp_file_path,top)
                 print("Input Verilog File Verified Without Issue")
                 os.remove(tmp_file_path)
+
+                # self.linkages={}
+                self.gen_LLFile(synth=synth)
+                self.writeLLFile() 
                 
             elif flag == 'b':
                 self.bench = open(file_path).read()
-                self.verilog = conv.bench_to_verilog(self.bench)
+                self.verilog,_ = conv.bench_to_verilog(self.bench,modulename=self.top_module_name)
+            
             else:
                 Exception("Enter either 'v' (for verilog) or 'b' (for bench)")
             
-            self.synthesized_verilog = None
-            self.extracted_modules = None
-            self.top_module = module()
-            self.modules = {}
-            # self.linkages={}
-            self.top_module_name=top
-            self.gate_mapping_vlib,self.gates_vlib,self.FF_vlib=verilog_parser.extract_modules_def(self.gate_lib)
-            self.gen_LLFile(synth=synth)
-            self.writeLLFile() 
+
+
         else:
             Exception("Enter either 'r' (for read) or 'w' (for write)")
         
