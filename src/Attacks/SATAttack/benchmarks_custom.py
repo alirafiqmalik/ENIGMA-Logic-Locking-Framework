@@ -55,7 +55,6 @@ def read_nodes_b(filename):
   return node,out
 
 
-from node import Node,DFF
 
 def read_nodes_obj(obj):
   inp= obj.io["inputs"]
@@ -75,9 +74,6 @@ def read_nodes_obj(obj):
   for logic,modules in gates.items():
     for module,inits in modules.items():
       for init,io in inits.items():
-        if("po2" in io['inputs'] or "po2" in io['outputs']):
-          print("HEHRE ",module,init,io)
-        # print(io['outputs'])
         nodes[io['outputs']]=Node(io['outputs'],io['inputs'],logic)
   return nodes, out
 
