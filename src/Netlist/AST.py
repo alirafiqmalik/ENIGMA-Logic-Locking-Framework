@@ -280,26 +280,32 @@ class AST:
                     else:
                         self.verilog+=open(sub_modules).read()
                 
-                tmp_file_path=f"./tmp/tmp_verilog_{top}.v"
-                with open(tmp_file_path,"w") as f:
-                    if(~synth):
-                        f.write(self.verilog+self.gate_lib)
-                # self.verilog=format_verilog_org(self.verilog)
-                print("Verifiying Input Verilog File")
-                yosys.verify_verilog(tmp_file_path,top)
-                print("Input Verilog File Verified Without Issue")
-                os.remove(tmp_file_path)
-
-                # self.linkages={}
-                self.gen_LLFile(synth=synth)
-                self.writeLLFile() 
                 
             elif flag == 'b':
                 self.bench = open(file_path).read()
-                self.verilog,_ = conv.bench_to_verilog(self.bench,modulename=self.top_module_name)
-            
+                # self.verilog,_ = conv.bench_to_verilog(self.bench,modulename=self.top_module_name)
+                self.verilog,_ = conv.bench_to_verilog_vlib(self.bench,
+                                                            (self.gate_mapping_vlib,self.gates_vlib,self.FF_vlib),
+                                                            modulename=self.top_module_name,
+                                                            clkpin="Clock"
+                                                            )
+                with open("tmp.v","w") as f:
+                    f.write(self.verilog)
             else:
                 Exception("Enter either 'v' (for verilog) or 'b' (for bench)")
+            
+            tmp_file_path=f"./tmp/tmp_verilog_{top}.v"
+            with open(tmp_file_path,"w") as f:
+                if(~synth):
+                    f.write(self.verilog+self.gate_lib)
+            # self.verilog=format_verilog_org(self.verilog)
+            print("Verifiying Input Verilog File")
+            yosys.verify_verilog(tmp_file_path,top)
+            print("Input Verilog File Verified Without Issue")
+            os.remove(tmp_file_path)
+            # self.linkages={}
+            self.gen_LLFile(synth=synth)
+            self.writeLLFile() 
             
 
 
@@ -637,9 +643,11 @@ class AST:
         # cir=re.sub(r"endmodule",r"endmodule\n",cir)
         cir=re.sub(r"\\","",cir)
         cir=re.sub(r"\s+module",r" \n\nmodule",cir)
-        cir=re.sub(r"\s+endmodule",r" endmodule",cir)
+        cir=re.sub(r"\s+endmodule",r" \nendmodule",cir)
 
 
+        if(file_name==""):
+            file_name=self.top_module_name
         top_path=os.path.join(output_dir,f"top{file_name}.v")
 
         print(f"\t Writing Output Verilog File to {top_path}")
