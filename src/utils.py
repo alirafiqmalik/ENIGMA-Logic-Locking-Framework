@@ -299,7 +299,11 @@ def format_verilog(verilog):
             if(re.findall(re.compile(L),verilog_without_wire)==[]):
                 continue
             # tmpassign+=f"assign {L} = {R};\n"
-            node=re.findall(f"wire(.*){L};",verilog)[0]
+            node=re.findall(f"wire(.*){L};",verilog)
+            if(node==None):
+                node=L
+            else:
+                node=[0]
 
             if("[" in node):
                 ct=extract_value(R)
@@ -454,8 +458,12 @@ def del_dir_files(parentdir):
 
 
 
-def clean_dir(dir):
-    files=os.listdir(dir)
+def clean_dir(dir,clean_tmp=False):
+    if(clean_tmp):
+        files=[i for i in os.listdir(dir) if("tmp_" in i)]
+    else:
+        files=os.listdir(dir)
+
     for i in files:
         if(".svg" in i):
             continue
