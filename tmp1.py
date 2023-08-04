@@ -24,20 +24,27 @@ import time
 
 
 
-top="fsm_0_obf"
-pathin="input_files/ASSURE_LOCKED/design1/design1_netlist.v"
+# top="fsm_0_obf"
+# pathin="input_files/ASSURE_LOCKED/design1/design1_netlist.v"
 
 # top="fsm"
 # pathin="input_files/ASSURE_LOCKED/design1/oracle1_netlist.v"
 
-# utils.clean_dir("./tmp")
+utils.clean_dir("./tmp")
 
-# obj=AST(file_path=pathin,rw="w",flag="v",top=top,filename=f"{top}org",vlibpath="input_files/ASSURE_LOCKED/modulefiles.v",synth=False)#Run to Read in Verilog Design
+locked_filename="input_files/benchmark_bench/rnd/apex2_enc05.bench"
+unlocked_filename="input_files/benchmark_bench/original/apex2.bench"
 
-
+top="apex2_enc05"
+obj=AST(file_path=locked_filename,rw="w",flag="b",top=top,filename=f"{top}org",vlibpath="input_files/ASSURE_LOCKED/modulefiles.v",synth=False)#Run to Read in Verilog Design
+top="apex2"
+obj=AST(file_path=unlocked_filename,rw="w",flag="b",top=top,filename=f"{top}org",vlibpath="input_files/ASSURE_LOCKED/modulefiles.v",synth=False)#Run to Read in Verilog Design
 
 # top="fsm_0_obf"
-locked = AST(file_path=f"./output_files/{top}org.json",rw='r',filename=f"{top}locked_test") #Run to read in AST Format
+# obj=AST(file_path="input_files/ASSURE_LOCKED/design1/design1_netlist.v",rw="w",flag="v",top=top,filename=f"{top}org",vlibpath="input_files/ASSURE_LOCKED/modulefiles.v",synth=False)#Run to Read in Verilog Design
+
+# top="fsm_0_obf"
+# locked = AST(file_path=f"./output_files/{top}org.json",rw='r',filename=f"{top}locked_test") #Run to read in AST Format
 # top="fsm"
 # unlocked = AST(file_path=f"./output_files/{top}org.json",rw='r',filename=f"{top}locked_test") #Run to read in AST Format
 
