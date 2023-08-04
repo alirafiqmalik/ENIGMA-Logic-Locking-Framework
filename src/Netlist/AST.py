@@ -234,7 +234,6 @@ class module:
 class AST:
     """
 
-    
     """
     def __init__(self,
                  file_path,
@@ -358,12 +357,9 @@ class AST:
             for i in self.modules[key].Clock_pins:
                 if(("1'" in i) or (i not in inputs.keys())):
                     self.modules[key].Clock_pins.remove(i)
-            # print("N4944" in  wire.keys())
-            # print(get_diference(wire.keys(),outputs.keys()))
-            # print("HERE",wire["cpuregs[5]"])
             
-            # print("N1947" in outputs.keys())
-            # print(self.modules[key].gates)
+
+
             self.modules[key].io = dict({"Clock_pins":self.modules[key].Clock_pins,"Reset_pins":self.modules[key].Reset_pins,'wires':wire,'inputs':inputs,'outputs':outputs,'input_ports':input_ports,'output_ports':output_ports})
             self.modules[key].gen_graph()
         self.top_module=self.modules[self.top_module_name]
@@ -551,41 +547,6 @@ class AST:
 
         print("Done Reading LL file")
     
-    # def gen_module_connections(self):
-    #     self.module_connections = nx.DiGraph()
-    #     for i in self.modules:
-    #         tmpi=self.modules[i]
-    #         for jj in tmpi.linkages:
-    #             j=tmpi.linkages[jj]
-    #             module_name = j['module_name']
-    #             init_name = jj  
-    #             # Check if an edge already exists in the graph
-    #             if self.module_connections.has_edge(i, module_name):
-    #                 # If an edge already exists, update its attributes without overwriting
-    #                 # existing ones
-    #                 tmp=[self.module_connections[i][module_name]['init_name']]
-    #                 tmp.append(init_name)
-    #                 # print(tmp)
-    #                 self.module_connections[i][module_name].update({'init_name': tmp})
-    #             else:
-    #                 # If no edge exists, add a new edge with the specified attributes
-    #                 self.module_connections.add_edge(i, module_name, init_name=init_name) 
-
-    
-    # def save_module_connections(self):
-    #     save_graph(self.module_connections)
-    
-
-    # def update_org_verilog(self):
-    #     self.gate_level_flattened=""
-    #     for i in self.modules:
-    #         self.modules[i].gen_org_verilog(gates_vlib=self.gates_vlib,FF_vlib=self.FF_vlib)
-    #         self.LLverilog=""
-    #         self.gate_level_flattened+=self.top_module.gate_level_verilog+"\n"
-    #         for i in self.modules:
-    #             if(i!=self.top_module_name):
-    #                 self.gate_level_flattened+=self.modules[i].gate_level_verilog+"\n"
-
 
     def update_LLverilog(self):
         for i in self.modules:
@@ -716,49 +677,37 @@ class AST:
             print("Overhead in Number of Gates: ",(gate_count-self.org_gate_count)*100/gate_count)
             print("Expected Overhead in Number of Flip-Flops: ",(gate_count-self.org_gate_count)*100/FF_count)
             
+    # def gen_module_connections(self):
+    #     self.module_connections = nx.DiGraph()
+    #     for i in self.modules:
+    #         tmpi=self.modules[i]
+    #         for jj in tmpi.linkages:
+    #             j=tmpi.linkages[jj]
+    #             module_name = j['module_name']
+    #             init_name = jj  
+    #             # Check if an edge already exists in the graph
+    #             if self.module_connections.has_edge(i, module_name):
+    #                 # If an edge already exists, update its attributes without overwriting
+    #                 # existing ones
+    #                 tmp=[self.module_connections[i][module_name]['init_name']]
+    #                 tmp.append(init_name)
+    #                 # print(tmp)
+    #                 self.module_connections[i][module_name].update({'init_name': tmp})
+    #             else:
+    #                 # If no edge exists, add a new edge with the specified attributes
+    #                 self.module_connections.add_edge(i, module_name, init_name=init_name) 
 
+    
+    # def save_module_connections(self):
+    #     save_graph(self.module_connections)
+    
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# // module locked(inputs, key, out);
-# // input [7:0] inputs;
-# // input [7:0] key;
-# // output [1:0]out;
-# // sarlock s(.inputs(inputs), .key(key), .lock_out(out[0]));
-# // sarlock s1(.inputs(inputs), .key(key), .lock_out(out[1]));
-# // endmodule
-
-# // module ckt(a,b,c);
-# // input [3:0] a,b;
-# // output [4:0] c;
-# // assign	c = a + b;
-# // endmodule
-
-# // module sarlock (inputs, key, lock_out);
-# // input [7:0] inputs;
-# // input [7:0] key;
-# // output lock_out;
-# // wire [4:0]ckt_out; 
-# // reg keyx = 8'b01101101;
-# // assign lock_out =ckt_out[0]^( (inputs == key) & (inputs != keyx));
-# // ckt c(.a(inputs[3:0]), .b(inputs[7:4]), .c(ckt_out));
-# // endmodule
-
+    # def update_org_verilog(self):
+    #     self.gate_level_flattened=""
+    #     for i in self.modules:
+    #         self.modules[i].gen_org_verilog(gates_vlib=self.gates_vlib,FF_vlib=self.FF_vlib)
+    #         self.LLverilog=""
+    #         self.gate_level_flattened+=self.top_module.gate_level_verilog+"\n"
+    #         for i in self.modules:
+    #             if(i!=self.top_module_name):
+    #                 self.gate_level_flattened+=self.modules[i].gate_level_verilog+"\n"
