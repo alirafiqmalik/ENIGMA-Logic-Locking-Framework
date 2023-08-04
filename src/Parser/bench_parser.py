@@ -17,11 +17,8 @@ def extract_gates_b(bench):
 
         if i=='NOT' or i=='BUF' or i=='DFF':
             tmp[i]=re.findall(r" ?(.*) = "+ ix +r"\((.*)\)\n?",bench)
-
-            i.lower()
         else:
             tmp[i]=re.findall(r" ?(.*) = "+ ix +r"\((.*), ?(.*)\)\n?",bench)
-        
         gcount = len(tmp[i])
         if (gcount == 0):
             tmp.pop(i, None)
