@@ -15,14 +15,12 @@ class SatAttack:
                  file_type,
                  locked_filename=None, 
                  unlocked_filename=None,
-                 locked_obj=None,
-                 unlocked_obj=None
+                 satobj=None
                  ):
         if(file_type==None):
             raise Exception("No file Type Given")
         elif(file_type=="obj"):
-            self.unlocked_obj=unlocked_obj
-            self.locked_obj=locked_obj
+            self.satobj=satobj
 
 
         self.file_type=file_type
@@ -41,21 +39,19 @@ class SatAttack:
             self.nodes, self.output_names = benchmarks.read_nodes_b(self.locked_filename)
         elif(self.file_type=='v'):
             self.nodes, self.output_names = benchmarks.read_nodes_v(self.locked_filename)
-        elif(self.file_type=='obj'):
-            self.nodes, self.output_names = benchmarks.read_nodes_obj(self.locked_obj)
-
 
         # print("Reading in unlocked circuit...")
         if(self.file_type=='obj'):
-            self.nodes_org, self.output_names_org = benchmarks.read_nodes_obj(self.unlocked_obj)
-            self.oracle_ckt=circuit.Circuit.from_nodes(self.nodes_org, self.output_names_org)
+            self.oracle_ckt=self.satobj.oracle_ckt
+
+            self.nodes, self.output_names = self.satobj.locked_ckt
+            key_inputs = self.satobj.keyinputs
+            primary_inputs=self.satobj.prim_inputs
         else:
             self.oracle_ckt = benchmarks.read_ckt(self.unlocked_filename,self.file_type)
 
-
-
-        key_inputs = [node.name for node in self.nodes.values() if node.type == "Key Input"]
-        primary_inputs = [node.name for node in self.nodes.values() if node.type == "Primary Input"]
+            key_inputs = [node.name for node in self.nodes.values() if node.type == "Key Input"]
+            primary_inputs = [node.name for node in self.nodes.values() if node.type == "Primary Input"]
 
         # for i in self.nodes:
         #     print(i)
@@ -73,6 +69,7 @@ class SatAttack:
             # print(dip)
             # print(oracle_output)
             finder.add_constraint(dip, oracle_output)
+
 
             oracle_io_pairs.append((dip, oracle_output))
             self.iterations += 1
@@ -166,7 +163,7 @@ class SatAttack:
             else:
                 key_string += "0"
 
-        return key_string
+        return ordered_names,key_string
 
 
 
