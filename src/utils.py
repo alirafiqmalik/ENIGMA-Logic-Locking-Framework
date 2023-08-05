@@ -54,7 +54,7 @@ def nmap_read_verilog(path):
 ####################################################################################################################################
 ####################################################################################################################################
 
-def find_common_elements(list1, list2):
+def get_common_elements(list1, list2):
     set1 = set(list1)
     set2 = set(list2)
     common_elements = set1.intersection(set2)
@@ -62,11 +62,19 @@ def find_common_elements(list1, list2):
 
 
 
-def get_diference(a,b):
+def get_difference(a,b):
     tmpa=list(set(a) - set(b))
     tmpb=list(set(b) - set(a))
     tmplist=[tmpa,tmpb]#list(set(tmpa)|set(tmpb))
     return tmplist
+
+from itertools import combinations
+def get_differences(*args):
+    result = {}
+    for list1, list2 in combinations(args, 2):
+        set_difference = set(list1) - set(list2)
+        result[(list1, list2)] = list(set_difference)
+    return result
 
 ####################################################################################################################################
 ####################################################################################################################################
@@ -77,6 +85,7 @@ def get_difference_abs(*args):
     others = args[1:]
     all_others = set().union(*others)
     return list(set(a) - all_others)
+
 
 ####################################################################################################################################
 ####################################################################################################################################
