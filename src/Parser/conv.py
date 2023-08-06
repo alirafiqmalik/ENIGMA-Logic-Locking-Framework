@@ -5,7 +5,6 @@ from src.utils import format_verilog,io_port,det_FF_node
 
 gate_to_assign={'BUF':'','NOT':'~', 'AND':'&', 'OR':'|','XOR':'^','NAND':'&', 'NOR':'|','XNOR':'^'}
 
-
 def bench_to_verilog_vlib(bench,vlib_var,clkpin="Clock",modulename="top"):
     gate_mapping_vlib,gates_vlib,FF_vlib=vlib_var
     bench=re.sub(" +"," ",bench)
@@ -28,6 +27,37 @@ def bench_to_verilog_vlib(bench,vlib_var,clkpin="Clock",modulename="top"):
     porto, output_dec,replace_o = io_port(outputs, mode="output")
     verilog = "module {} ({},{});{}".format(modulename,
         porti+clockp, porto, input_dec+output_dec+clockio)
+    
+
+    def gen_line(i,j,inputs,output,port,module_name):
+        tmp={}
+        for mIO,mNode in zip(inputs,j[1:]):
+            tmp[mIO]=mNode
+        tmp[output]=j[0]
+
+        formatted_out=re.sub(r"[^A-Za-z0-9_]",r"",j[0])
+        init_name=f"{i}_out_{formatted_out}_"
+        return f"{module_name} {init_name} {port.format(**tmp)}\n"
+    
+    def gen_line_multi(i,j,inputs,output,port,module_name):
+        def proc_nested(out,inp,layer=0):
+            tmpouts=[]
+            txt=""
+            for c,t in enumerate(range(0,len(inp)-1,2)):
+                tmpi=f"out_{layer}_{c}"
+                tmpouts.append(tmpi)
+                txt+=gen_line(i,[tmpi]+inp[t:t+2],inputs,output,port,module_name)
+
+            if(inp[t+2:]):
+                tmpouts=tmpouts+inp[t+2:]
+
+            if(len(tmpouts)==2):
+                txt+=gen_line(i,[out]+tmpouts,inputs,output,port,module_name)
+                return txt
+            
+            return txt+proc_nested(out,tmpouts,layer+1)
+  
+        return proc_nested(j[0],j[1:],layer=0)
 
 
     wires=[]
@@ -72,16 +102,12 @@ def bench_to_verilog_vlib(bench,vlib_var,clkpin="Clock",modulename="top"):
             module_name=gate_mapping_vlib[i][0]
             for j in Node:
                 if((j[0] not in outputs) and (j[0] not in wires)):
-                    verilog_wire +="wire {};".format(j[0])
+                    verilog_wire +="wire {};\n".format(j[0])
                     wires.append(j[0])
-                tmp={}
-                for mIO,mNode in zip(inputs,j[1:]):
-                    tmp[mIO]=mNode
-                tmp[output]=j[0]
-
-                formatted_out=re.sub(r"[^A-Za-z0-9]",r"",j[0])
-                init_name=f"{i}_out_{formatted_out}_"
-                verilog_init+=f"{module_name} {init_name} {port.format(**tmp)}\n"
+                if(len(j[1:])>2):
+                    verilog_init+=gen_line_multi(i,j,inputs,output,port,module_name)
+                else:
+                    verilog_init+=gen_line(i,j,inputs,output,port,module_name)
                 
     verilog += verilog_wire + verilog_init + "endmodule"
     return verilog, gate_count
