@@ -8,24 +8,20 @@ bench_gates=['DFF','BUF','NOT', 'AND', 'OR', 'NAND', 'NOR','XOR','XNOR']
 ####################################################################################################################################
 def extract_gates_b(bench):
     tmp={i:[] for i in bench_gates}
-    gate_count = {i: 0 for i in tmp}
-    for i in bench_gates:
-        if(i.lower() in bench):
-            ix=i.lower()
-        else:
-            ix=i
+    matches = re.findall(r"(\w+)\s*=\s*(\w+)\((.*?)\)", bench, re.MULTILINE)
+    output_list = [(match[0], match[1], *re.findall(r"G\d+", match[2])) for match in matches]
 
-        if i=='NOT' or i=='BUF' or i=='DFF':
-            tmp[i]=re.findall(r" ?(.*) = "+ ix +r"\((.*)\)\n?",bench)
-        else:
-            tmp[i]=re.findall(r" ?(.*) = "+ ix +r"\((.*), ?(.*)\)\n?",bench)
-        gcount = len(tmp[i])
-        if (gcount == 0):
-            tmp.pop(i, None)
-        else:
-            gate_count[i] = gcount
+    tmp={i:[] for i in bench_gates}
+    for i in output_list:
+        if i[1].upper()=='NOT' or i[1].upper()=='BUF' or i[1].upper()=='DFF':
+            tmp[i[1].upper()].append((i[0],i[2]))
+            pass
+        elif i[1].upper() in bench_gates:
+            tmp[i[1].upper()].append((i[0],i[2:]))
+    
+    gate_count = {i: len(tmp[i]) for i in tmp}
+    
     return tmp,gate_count
-
 
 def extract_io_b(bench,mode="input"):
     tmp=re.findall(mode.upper()+r"\((.*)\)",bench)
