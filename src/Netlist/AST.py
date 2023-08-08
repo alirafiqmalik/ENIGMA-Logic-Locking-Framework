@@ -59,6 +59,17 @@ class module:
                     elif(port in self.io["wires"]):
                         self.circuitgraph.add_node(node_output, type="wire")
                         self.circuitgraph.add_edge(node_name, node_output)
+                    elif(port in self.io["inputs"]):
+                        print(f"Netlist Connection Fault, Input Node {node_output} Assigned to GATE {logic_gate},{init_name} Output")
+                        if(port==node_output):
+                            print(f"Removing node {port}= {self.io['inputs'].pop(port)}",end=" ")
+                            print(f"From {self.module_name}.io['inputs'] and Adding to {self.module_name}.io['wires']")
+                            self.io['input_ports']=re.sub(f"{port},","",self.io['input_ports'])
+                            self.io["wires"][port]=utils.connector(1,0,0)
+                            self.circuitgraph.add_node(node_output, type="wire",port=port)
+                            self.circuitgraph.add_edge(node_name, node_output)
+                        else:
+                            raise Exception(f"FIX ERROR IN NETLIST CONNECTION FOR NODE = {node_output} AND TRY AGAIN")
                     elif(port==node_output):
                         print(f"Found single bit Explict Wire {port} , Storing in {self.module_name}.io['wires']")
                         self.io["wires"][port]=utils.connector(1,0,0)
@@ -132,6 +143,18 @@ class module:
                 elif(port in self.io["wires"]):
                     self.circuitgraph.add_node(node_output, type="wire",port=port)
                     self.circuitgraph.add_edge(node_name, node_output)
+                elif(port in self.io["inputs"]):
+                    print(f"Netlist Connection Fault, Input Node {node_output} Assigned to FF Output")
+                    if(port==node_output):
+                        print(f"Removing node {port}= {self.io['inputs'].pop(port)}",end=" ")
+                        print(f"From {self.module_name}.io['inputs'] and Adding to {self.module_name}.io['wires']")
+                        self.io['input_ports']=re.sub(f"{port},","",self.io['input_ports'])
+                        self.io["wires"][port]=utils.connector(1,0,0)
+                        self.circuitgraph.add_node(node_output, type="wire",port=port)
+                        self.circuitgraph.add_edge(node_name, node_output)
+                    else:
+                        raise Exception(f"FIX ERROR IN NETLIST CONNECTION FOR NODE = {node_output} AND TRY AGAIN")
+
                 elif(port==node_output):
                     print(f"Found single bit Explict Wire {port} , Storing in {self.module_name}.io['wires']")
                     self.io["wires"][port]=utils.connector(1,0,0)
@@ -262,7 +285,8 @@ class AST:
                  rw = 'w',
                  flag = 'v',
                  filename=None,
-                 vlibpath="vlib/mycells.v",
+                 vlibpath="./vlib/mycells.v",
+                 output_dir_path="./output_files",
                  sub_modules=None,
                  synth=True,
                  locked=False
@@ -270,6 +294,10 @@ class AST:
         
         self.top_module_name=top
         self.locked=locked
+        self.output_dir_path=output_dir_path
+        if not os.path.isdir(output_dir_path):
+            os.mkdir(output_dir_path)
+
         with open(vlibpath,"r") as f:
             self.gate_lib=f.read()
         self.gate_mapping_vlib,self.gates_vlib,self.FF_vlib=verilog_parser.extract_modules_def(self.gate_lib)
@@ -283,10 +311,10 @@ class AST:
         self.postsat_lib=""
         if(filename==None):
             self.filename=top
-            self.filepath="./output_files/{}.json".format(top)
+            self.filepath=f"{self.output_dir_path}/{top}.json"
         else:
             self.filename=filename
-            self.filepath="./output_files/{}.json".format(self.filename)
+            self.filepath=f"{self.output_dir_path}/{self.filename}.json"
         
         if rw == 'r':
             self.read_LLFile(file_path)
