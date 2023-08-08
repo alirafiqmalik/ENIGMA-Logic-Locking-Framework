@@ -32,13 +32,50 @@ import time
 
 utils.clean_dir("./tmp")
 
-locked_filename="input_files/benchmark_bench/rnd/apex2_enc05.bench"
-unlocked_filename="input_files/benchmark_bench/original/apex2.bench"
+# path="/home/alira/FYP_FINAL/tmptest.v"
+# top="test_adder"
 
-top="apex2_enc05"
-obj=AST(file_path=locked_filename,rw="w",flag="b",top=top,filename=f"{top}org",vlibpath="input_files/ASSURE_LOCKED/modulefiles.v",synth=False)#Run to Read in Verilog Design
-top="apex2"
-obj=AST(file_path=unlocked_filename,rw="w",flag="b",top=top,filename=f"{top}org",vlibpath="input_files/ASSURE_LOCKED/modulefiles.v",synth=False)#Run to Read in Verilog Design
+# obj=AST(file_path=path,rw="w",flag="v",top=top,filename=f"{top}org",synth=False)#Run to Read in Verilog Design
+
+import re
+import os
+files=[([f"input_files/ASSURE_LOCKED/{i}/{k}" for k in os.listdir("input_files/ASSURE_LOCKED/"+i) if(".v" in k and "design" in k)][0],[f"input_files/ASSURE_LOCKED/{i}/{j}" for j in os.listdir("input_files/ASSURE_LOCKED/"+i) if(".v" in j and "oracle" in j)][0]) for i in os.listdir("input_files/ASSURE_LOCKED") if("design" in i)]
+files.sort()
+notdone=[]
+
+
+for i in files:
+  design=i[0]
+  oracle=i[1]
+  
+
+  tmp=open(design).read()
+  top_design = re.findall(r'(module\s+(\w+)\s*\(.*?\)\s*;.*?endmodule)', utils.format_verilog_org(tmp), re.DOTALL)[0][1]
+  tmp=open(oracle).read()
+  top_oracle = re.findall(r'(module\s+(\w+)\s*\(.*?\)\s*;.*?endmodule)', utils.format_verilog_org(tmp), re.DOTALL)[0][1]
+  print(top_oracle,top_design)
+  # try:
+  print("DOING ",top_oracle)
+  obj=AST(file_path=oracle,rw="w",flag="v",top=top_oracle,filename=f"{top_oracle}org",vlibpath="input_files/ASSURE_LOCKED/modulefiles.v",synth=False)#Run to Read in Verilog Design
+  # except:
+  #   print("FAILED ",top_oracle)
+  #   notdone.append(oracle)
+  # try:
+  print("DOING ",top_design)
+  obj=AST(file_path=design,rw="w",flag="v",top=top_design,filename=f"{top_design}org",vlibpath="input_files/ASSURE_LOCKED/modulefiles.v",synth=False,locked=True)#Run to Read in Verilog Design
+  # except:
+  #   print("FAILED ",top_design)
+  #   notdone.append(design)
+  # break
+
+
+# locked_filename="input_files/benchmark_bench/rnd/apex2_enc05.bench"
+# unlocked_filename="input_files/benchmark_bench/original/apex2.bench"
+
+# top="apex2_enc05"
+# obj=AST(file_path=locked_filename,rw="w",flag="b",top=top,filename=f"{top}org",vlibpath="input_files/ASSURE_LOCKED/modulefiles.v",synth=False,locked=True)#Run to Read in Verilog Design
+# top="apex2"
+# obj=AST(file_path=unlocked_filename,rw="w",flag="b",top=top,filename=f"{top}org",vlibpath="input_files/ASSURE_LOCKED/modulefiles.v",synth=False)#Run to Read in Verilog Design
 
 # top="fsm_0_obf"
 # obj=AST(file_path="input_files/ASSURE_LOCKED/design1/design1_netlist.v",rw="w",flag="v",top=top,filename=f"{top}org",vlibpath="input_files/ASSURE_LOCKED/modulefiles.v",synth=False)#Run to Read in Verilog Design
