@@ -223,15 +223,15 @@ def gates_module_extraction(verilog,gate_mapping,gates,FF):
         Resetpin=None
         for mIO,NodeIO in zip(FF[type_block]["port_list"],tmpx):
           if("clock" in mIO.lower() or "clk" in mIO.lower()):
-            Clockpin=NodeIO
+            Clockpin=NodeIO.strip()
           elif(mIO=="R" or mIO.lower()=="rn" or mIO.lower()=="rst" or mIO.lower()=="clr" or mIO.lower()=="clear" or mIO.lower()=="reset"):
-            Resetpin=NodeIO
+            Resetpin=NodeIO.strip()
           elif(mIO=="S" or mIO.lower()=="sn" or mIO.lower()=="pr" or mIO.lower()=="prn" or mIO.lower()=="preset" or mIO.lower()=="set"):
-            Presetpin=NodeIO
+            Presetpin=NodeIO.strip()
           elif(mIO=="D"):
-            D_pin=NodeIO
+            D_pin=NodeIO.strip()
           elif(mIO=="Q"):
-            Q_pin=NodeIO
+            Q_pin=NodeIO.strip()
 
       
         if(Clockpin not in Clock_pins):
@@ -321,3 +321,79 @@ def find_verilog_files_recursive(tmp,parentdir):
   return tmp
 
 
+
+
+### TECHMAPPING FUNCTIONS
+
+def match_FF(FF1,FF2):
+  FF1_I=FF1["inputs"]
+  FF2_I=FF2["inputs"].copy()
+  if(len(FF1_I)!=len(FF2_I)):
+    return False
+  # print(FF1_I,FF2_I)
+  count=0
+  for i in FF1_I:
+    for j in FF2_I:
+      if(utils.det_FF_node(i)==utils.det_FF_node(j)):
+        # print(i,j)
+        count+=1
+        # FF1_I.remove(i)
+        FF2_I.remove(j)
+        break
+  
+  return count==len(FF1_I)
+
+def gen_FF_techmap(FF_target,FF_source):
+  # tech_map={target:[source]}
+  tech_map={}
+  for j in FF_source:
+    for i in FF_target:
+      if(match_FF(FF_target[i],FF_source[j])):
+        if(i not in tech_map):
+          tech_map[j]=i
+          break
+        # else:
+        #   tech_map[i].append(j)
+  return tech_map
+
+
+def gen_tech_map(gate_mapping_vlib,FF_vlib,gates_vlib,gate_mapping_vlib2,FF_vlib2,gates_vlib2):
+  gate_mapping_vlib=gate_mapping_vlib.copy()
+  gate_mapping_vlib.pop("FF")
+  tech_map=gen_FF_techmap(FF_vlib2,FF_vlib)
+
+  for i in gate_mapping_vlib:
+    for org_gate in gate_mapping_vlib[i]:
+      for target_gate in gate_mapping_vlib2[i]:
+        if(len(gates_vlib[org_gate]['inputs'])==len(gates_vlib2[target_gate]['inputs'])):
+          tech_map[org_gate]=target_gate
+          break
+  return tech_map
+
+
+def gates_to_txt_techmap(gates_tech,gates_vlib_2,tech_map):
+  txt=""
+  for _,logic_gates in gates_tech.items():
+    for logic_gate,gate_inits in logic_gates.items():
+      node_name=tech_map[logic_gate]
+      port=gates_vlib_2[node_name]['port']
+      for init_name in gate_inits:
+        tmp={}
+        for mIO,mNode in zip(gates_vlib_2[node_name]["inputs"],gate_inits[init_name]['inputs']):
+          tmp[mIO]=mNode
+        tmp[gates_vlib_2[node_name]["outputs"][0]]=gate_inits[init_name]['outputs']
+        txt+=f"{node_name} {init_name} {port.format(**tmp)}\n"
+  return txt
+
+def FF_to_txt_techmap(FF_tech,FF_vlib_2,tech_map):
+  # tech_map={target:[source]}
+  txt=""
+  for FF_tech_i in FF_tech:
+    node_name=tech_map[FF_tech_i]
+    port=FF_vlib_2[node_name]['port']
+    for init_name in FF_tech[FF_tech_i]:
+      tmp={}
+      for mIO in FF_vlib_2[node_name]["port_list"]:
+        tmp[mIO]=FF_tech[FF_tech_i][init_name][utils.det_FF_node(mIO)]
+      txt+= f"{node_name} {init_name} {port.format(**tmp)}\n"
+  return txt
