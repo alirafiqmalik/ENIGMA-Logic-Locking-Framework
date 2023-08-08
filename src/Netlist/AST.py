@@ -294,6 +294,7 @@ class AST:
         
         self.top_module_name=top
         self.locked=locked
+        # Added arg for custom output dir
         self.output_dir_path=output_dir_path
         if not os.path.isdir(output_dir_path):
             os.mkdir(output_dir_path)
