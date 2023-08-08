@@ -39,24 +39,26 @@ def bench_to_verilog_vlib(bench,vlib_var,clkpin="Clock",modulename="top"):
         init_name=f"{i}_out_{formatted_out}_"
         return f"{module_name} {init_name} {port.format(**tmp)}\n"
     
+
+    def proc_nested(out,inp,layer=0):
+        tmpouts=[]
+        txt=""
+        for c,t in enumerate(range(0,len(inp)-1,2)):
+            tmpi=f"{out}_{layer}_{c}"
+            tmpouts.append(tmpi)
+            txt+=gen_line(i,[tmpi]+inp[t:t+2],inputs,output,port,module_name)
+
+        if(inp[t+2:]):
+            tmpouts=tmpouts+inp[t+2:]
+
+        if(len(tmpouts)==2):
+            txt+=gen_line(i,[out]+tmpouts,inputs,output,port,module_name)
+            return tmpouts,txt
+        
+        tmpouts_r,txt_r=proc_nested(out,tmpouts,layer+1)
+        return tmpouts+tmpouts_r,txt+txt_r
+    
     def gen_line_multi(i,j,inputs,output,port,module_name):
-        def proc_nested(out,inp,layer=0):
-            tmpouts=[]
-            txt=""
-            for c,t in enumerate(range(0,len(inp)-1,2)):
-                tmpi=f"out_{layer}_{c}"
-                tmpouts.append(tmpi)
-                txt+=gen_line(i,[tmpi]+inp[t:t+2],inputs,output,port,module_name)
-
-            if(inp[t+2:]):
-                tmpouts=tmpouts+inp[t+2:]
-
-            if(len(tmpouts)==2):
-                txt+=gen_line(i,[out]+tmpouts,inputs,output,port,module_name)
-                return txt
-            
-            return txt+proc_nested(out,tmpouts,layer+1)
-  
         return proc_nested(j[0],j[1:],layer=0)
 
 
@@ -105,7 +107,15 @@ def bench_to_verilog_vlib(bench,vlib_var,clkpin="Clock",modulename="top"):
                     verilog_wire +="wire {};\n".format(j[0])
                     wires.append(j[0])
                 if(len(j[1:])>2):
-                    verilog_init+=gen_line_multi(i,j,inputs,output,port,module_name)
+                    new_wires_all,verilog_init_i=gen_line_multi(i,j,inputs,output,port,module_name)
+                    verilog_init+=verilog_init_i
+
+                    
+                    for tmpwire in new_wires_all:
+                        if((tmpwire not in outputs) and (tmpwire not in wires)):
+                            wires.append(tmpwire)
+                            verilog_wire +="wire {};\n".format(tmpwire)
+
                 else:
                     verilog_init+=gen_line(i,j,inputs,output,port,module_name)
                 
