@@ -124,11 +124,11 @@ def io_port(inputs, mode="input"):
         portnodes = portnodes+i+","
         if (tmpdict[i] != 0):
             #print("["+str(tmpdict[i])+":0] "+i)
-            inputnodes = inputnodes+mode+" ["+str(tmpdict[i])+":0] "+i+";"
+            inputnodes = inputnodes+mode+" ["+str(tmpdict[i])+":0] "+i+";\n"
             replace_.append(i)
         else:
             # replace_.remove(i)
-            inputnodes = inputnodes+mode+" "+i+";"
+            inputnodes = inputnodes+mode+" "+i+";\n"
 
     # inputnodes=inputnodes[:]
     portnodes = portnodes[:-1]
