@@ -59,6 +59,11 @@ class module:
                     elif(port in self.io["wires"]):
                         self.circuitgraph.add_node(node_output, type="wire")
                         self.circuitgraph.add_edge(node_name, node_output)
+                    elif(port==node_output):
+                        print(f"Found single bit Explict Wire {port} , Storing in {self.module_name}.io['wires']")
+                        self.io["wires"][port]=utils.connector(1,0,0)
+                        self.circuitgraph.add_node(node_output, type="wire")
+                        self.circuitgraph.add_edge(node_name, node_output)
                     else:
                         # print(self.module_name)
                         print(port,node_output)
@@ -84,6 +89,11 @@ class module:
                             self.circuitgraph.add_edge(i,node_name)
                         elif("1'" in i):
                             self.circuitgraph.add_node(i, type="bit",value=i)
+                            self.circuitgraph.add_edge(i,node_name)
+                        elif(i==tmptxt):
+                            print(f"Found single bit Explict Wire {tmptxt} , Storing in {self.module_name}.io['wires']")
+                            self.io["wires"][tmptxt]=utils.connector(1,0,0)
+                            self.circuitgraph.add_node(i, type="wire",port=tmptxt)
                             self.circuitgraph.add_edge(i,node_name)
                         else:
                             print("HERE")
@@ -122,6 +132,11 @@ class module:
                 elif(port in self.io["wires"]):
                     self.circuitgraph.add_node(node_output, type="wire",port=port)
                     self.circuitgraph.add_edge(node_name, node_output)
+                elif(port==node_output):
+                    print(f"Found single bit Explict Wire {port} , Storing in {self.module_name}.io['wires']")
+                    self.io["wires"][port]=utils.connector(1,0,0)
+                    self.circuitgraph.add_node(node_output, type="wire",port=port)
+                    self.circuitgraph.add_edge(node_name, node_output)
                 else:
                     print(self.module_name)
                     print(port,node_output)
@@ -144,6 +159,12 @@ class module:
                 elif("1'h" in node_input):
                     self.circuitgraph.add_node(node_input, type="bit",value=int(node_input[-1]))
                     self.circuitgraph.add_edge(node_input,node_name)
+                elif(tmptxt==node_input):
+                    print(f"Found single bit Explict Wire {tmptxt} , Storing in {self.module_name}.io['wires']")
+                    self.io["wires"][tmptxt]=utils.connector(1,0,0)
+                    self.circuitgraph.add_node(node_input, type="wire",port=tmptxt)
+                    self.circuitgraph.add_edge(node_input,node_name)
+
                 else:
                     print(self.module_name)
                     print(tmptxt,i)
@@ -353,7 +374,17 @@ class AST:
             wire, _ = extract_io_v(self.modules[key].gate_level_verilog, "wire")
             with open("tmp/tmp.v","w") as f:
                 f.write(self.modules[key].gate_level_verilog)
+
+            # print("f331" in wire)
+            # for ti in wire:
+            #     if("f331" in ti):
+            #         print("HERE ",ti)
+            # raise Exception("")
             wire={key:wire[key]  for key in get_difference_abs(wire.keys(),inputs.keys(),outputs.keys())}
+            # print("f331" in wire)
+            # for ti in wire:
+            #     if("f331" in ti):
+            #         print("HERE ",ti)
 
 
             for i in self.modules[key].Clock_pins:
