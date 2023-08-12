@@ -74,6 +74,7 @@ def bench_to_verilog_vlib(bench,vlib_var,clkpin="Clock",modulename="top"):
                 port=FF_vlib[k]["port"]
                 if(len(inputs)==2):
                     template=FF_vlib[k]
+                    break
             port=template["port"]
             inputs=template["inputs"]
             output=template["outputs"][0]
