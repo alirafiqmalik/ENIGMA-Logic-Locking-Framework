@@ -39,34 +39,30 @@ utils.clean_dir("./tmp")
 
 import re
 import os
-files=[([f"input_files/ASSURE_LOCKED/{i}/{k}" for k in os.listdir("input_files/ASSURE_LOCKED/"+i) if(".v" in k and "design" in k)][0],[f"input_files/ASSURE_LOCKED/{i}/{j}" for j in os.listdir("input_files/ASSURE_LOCKED/"+i) if(".v" in j and "oracle" in j)][0]) for i in os.listdir("input_files/ASSURE_LOCKED") if("design" in i)]
+
+return_top =lambda i:re.findall(r'(module\s+(\w+)\s*\(.*?\)\s*;.*?endmodule)', utils.format_verilog_org(open(i).read()), re.DOTALL)[0][1]
+
+orgfile_names={i:[return_top(f"input_files/ASSURE_LOCKED/{i}/{k}") for k in os.listdir("input_files/ASSURE_LOCKED/"+i) if("oracle" in k and ".v" in k)][0] for i in os.listdir("input_files/ASSURE_LOCKED") if("design" in i)}
+
+
+def sort(x):
+  x.sort()
+  return x
+files=[sort([f"input_files/ASSURE_LOCKED/{i}/{j}" for j in os.listdir("input_files/ASSURE_LOCKED/"+i) if(".bench" in j)]) for i in os.listdir("input_files/ASSURE_LOCKED") if("design" in i)]
 files.sort()
-notdone=[]
 
-
-for i in files:
+for i in files[3:]:
   design=i[0]
   oracle=i[1]
+  design_file=design.split("/")[-2]
+  top_design= orgfile_names[design_file]+"_0_obf"
+  top_oracle=orgfile_names[design_file]
+  print(design,oracle,top_oracle,top_design)
   
-
-  tmp=open(design).read()
-  top_design = re.findall(r'(module\s+(\w+)\s*\(.*?\)\s*;.*?endmodule)', utils.format_verilog_org(tmp), re.DOTALL)[0][1]
-  tmp=open(oracle).read()
-  top_oracle = re.findall(r'(module\s+(\w+)\s*\(.*?\)\s*;.*?endmodule)', utils.format_verilog_org(tmp), re.DOTALL)[0][1]
-  print(top_oracle,top_design)
-  # try:
   print("DOING ",top_oracle)
-  obj=AST(file_path=oracle,rw="w",flag="v",top=top_oracle,filename=f"{top_oracle}org",vlibpath="input_files/ASSURE_LOCKED/modulefiles.v",synth=False)#Run to Read in Verilog Design
-  # except:
-  #   print("FAILED ",top_oracle)
-  #   notdone.append(oracle)
-  # try:
+  obj=AST(file_path=oracle,rw="w",flag="b",top=top_oracle,filename=f"{top_oracle}org",output_dir_path="output_files/ASSURE_BENCH",vlibpath="input_files/ASSURE_LOCKED/modulefiles.v",synth=False)#Run to Read in Verilog Design
   print("DOING ",top_design)
-  obj=AST(file_path=design,rw="w",flag="v",top=top_design,filename=f"{top_design}org",vlibpath="input_files/ASSURE_LOCKED/modulefiles.v",synth=False,locked=True)#Run to Read in Verilog Design
-  # except:
-  #   print("FAILED ",top_design)
-  #   notdone.append(design)
-  # break
+  obj=AST(file_path=design,rw="w",flag="b",top=top_design,filename=f"{top_design}org",output_dir_path="output_files/ASSURE_BENCH",vlibpath="input_files/ASSURE_LOCKED/modulefiles.v",synth=False,locked=True)#Run to Read in Verilog Design
 
 
 # locked_filename="input_files/benchmark_bench/rnd/apex2_enc05.bench"
