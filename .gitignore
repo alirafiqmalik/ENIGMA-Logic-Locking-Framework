@@ -5,3 +5,4 @@ __pycache__
 attacks/
 tmp.v
 .vscode
+./attacks
