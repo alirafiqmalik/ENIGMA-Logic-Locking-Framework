@@ -49,45 +49,62 @@ output Y;
 assign Y = ~(A ^ B);
 endmodule
 
-module DFFcell(C, D, Q);
-input C, D;
+module DFFcell(CLK, D, Q);
+input CLK, D;
 output reg Q;
-always @(posedge C)
+always @(posedge CLK) begin
 	Q <= D;
+end
 endmodule
 
 
-module DFFRcell(C, D, Q, R);
-input C, D, R;
+module DFFRcell(CLK, D, RST, Q);
+input CLK, D, RST;
 wire x;
-assign x=~R;
+assign x=~RST;
 output reg Q;
-always @(posedge C, negedge x)
+always @(posedge CLK, negedge x) begin
 	if (!x)
 		Q <= 1'b0;
 	else
 		Q <= D;
+end
 endmodule
 
 
 
-module dffn(input CLK, D, output reg Q);
+module dffn(CLK, D,Q);
+input CLK, D;
+output reg Q;
 
-always @(negedge CLK)
+always @(negedge CLK) begin
 	Q <= D;
-
-
-
+end
 endmodule
 
-module dffsr(input CLK, D, CLEAR, PRESET, output reg Q);
 
-always @(posedge CLK, posedge CLEAR, posedge PRESET)
+
+module dffs (D,CLK,PRESET,Q);
+input CLK,PRESET, D;
+output reg Q;
+always @(posedge CLK,negedge PRESET)begin
+    if(!PRESET)Q<=1;
+    else Q <= D;
+end	
+endmodule
+
+
+module dffsr(CLK, D, CLEAR, PRESET, Q);
+input CLK, D, CLEAR, PRESET;
+output reg Q;
+
+always @(posedge CLK, posedge CLEAR, posedge PRESET) begin
 	if (CLEAR)
 		Q <= 0;
 	else if (PRESET)
 		Q <= 1;
 	else
 		Q <= D;
-
+end
 endmodule
+

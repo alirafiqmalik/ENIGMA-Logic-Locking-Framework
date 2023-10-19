@@ -1,0 +1,1598 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>src.utils API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>src.utils</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import re
+import random
+import os
+import time 
+
+
+
+
+def timerit_func(func):
+  def function_timer(*args, **kwargs):
+    start = time.time()
+    value = func(*args, **kwargs)
+    end = time.time()
+    runtime = end - start
+    msg = &#34;{func} took {time} seconds to complete its execution.&#34;
+    print(msg.format(func = func.__name__,time = runtime))
+    return value
+  return function_timer
+
+
+
+def timer_func(func):
+  def function_timer(*args, **kwargs):
+    start = time.time()
+    value = func(*args, **kwargs)
+    end = time.time()
+    runtime = end - start
+    msg = &#34;{func} took {time} seconds to complete its execution.&#34;
+    print(msg.format(func = func.__name__,time = runtime))
+    return value
+  return function_timer
+
+
+@timer_func
+def simple_read_verilog(path):
+  file=open(path)
+  verilog=file.read()
+  return format_verilog(verilog)
+
+
+import mmap
+@timer_func
+def nmap_read_verilog(path):
+  # Open the file in binary mode
+  with open(path, &#34;rb&#34;) as file:
+      # Memory-map the file
+      with mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as mapped_file:
+          # Read the entire file
+          verilog = mapped_file.read().decode()
+  return format_verilog(verilog)
+
+
+
+####################################################################################################################################
+####################################################################################################################################
+
+def find_common_elements(list1, list2):
+    set1 = set(list1)
+    set2 = set(list2)
+    common_elements = set1.intersection(set2)
+    return list(common_elements)
+
+
+
+def get_diference(a,b):
+    tmpa=list(set(a) - set(b))
+    tmpb=list(set(b) - set(a))
+    tmplist=[tmpa,tmpb]#list(set(tmpa)|set(tmpb))
+    return tmplist
+
+####################################################################################################################################
+####################################################################################################################################
+
+
+def get_difference_abs(*args):
+    a = args[0]
+    others = args[1:]
+    all_others = set().union(*others)
+    return list(set(a) - all_others)
+
+####################################################################################################################################
+####################################################################################################################################
+
+def merge_lists(listset):
+    tmplist=[]
+    if(type(listset[0])==list):
+        for i in listset:
+            tmplist=list(set(tmplist)|set(i))
+    return tmplist
+
+####################################################################################################################################
+####################################################################################################################################
+
+def io_port(inputs, mode=&#34;input&#34;):
+    tmpdict = {}
+    replace_=[]
+    for i in inputs:
+        # if(re.findall(&#34;(.*)_(\d+)_?&#34;,i)!=[]):
+        #     i=re.sub(&#34;(.*)_(\d+)_?&#34;,r&#34;\1&#34;+&#34;[&#34;+r&#34;\2&#34;+&#34;]&#34;,i)
+        if (&#34;[&#34; in i and &#34;]&#34; in i):
+            tmpis = i.split(&#34;[&#34;)
+            if tmpis[0] in tmpdict:
+                tmpdict[tmpis[0]] += 1
+            else:
+                tmpdict[tmpis[0]] = 0
+                # print(tmpis[0],tmpis[1][:-1])
+        elif (&#34;[&#34; in i or &#34;]&#34; in i):
+            print(&#34;ERROR INVALID SYNTAX&#34;)
+        else:
+            tmpdict[i] = 0
+
+    inputnodes = &#34;&#34;
+    portnodes = &#34;&#34;
+    for i in tmpdict.keys():
+        portnodes = portnodes+i+&#34;,&#34;
+        if (tmpdict[i] != 0):
+            #print(&#34;[&#34;+str(tmpdict[i])+&#34;:0] &#34;+i)
+            inputnodes = inputnodes+mode+&#34; [&#34;+str(tmpdict[i])+&#34;:0] &#34;+i+&#34;;&#34;
+            replace_.append(i)
+        else:
+            # replace_.remove(i)
+            inputnodes = inputnodes+mode+&#34; &#34;+i+&#34;;&#34;
+
+    # inputnodes=inputnodes[:]
+    portnodes = portnodes[:-1]
+    return portnodes, inputnodes,replace_
+
+####################################################################################################################################
+####################################################################################################################################
+
+
+def sortio(tmp, reverse=True):
+    tmpl = list(set([re.sub(r&#34;\[[0-9]+\]&#34;, &#34;&#34;, i) for i in tmp]))
+    tmpl.sort(reverse=False)
+    def x(inp): return (tmpl.index(
+        re.sub(r&#34;(\[[0-9]+\])&#34;, &#34;&#34;, inp)), re.sub(r&#34;.*\[?([0-9]+)\]?.*&#34;, r&#34;\1&#34;, inp))
+    tmp.sort(key=x, reverse=reverse)
+
+####################################################################################################################################
+####################################################################################################################################
+
+def getnodeport(netlist, buskey):
+    tmpval = re.findall(buskey+&#34; (.*);&#34;, netlist)
+    if (len(tmpval) != 1):
+        raise Exception(&#34;CHECK &#34;+buskey.upper()+&#34; NODES&#34;)
+
+    portnodes, busnodes,_ = io_port(tmpval[0].split(&#34;, &#34;), mode=buskey)
+    return portnodes, busnodes
+
+
+
+####################################################################################################################################
+####################################################################################################################################
+
+def HammingDistance(x: str, y: str) -&gt; int:
+    h = 0
+    for i in range(len(x)):
+        h += (x[i] != y[i])
+    return h
+
+####################################################################################################################################
+####################################################################################################################################
+
+def randKey(bits, seed=None):
+    if(seed!=None):
+        random.seed(seed)
+    intkey = random.randint(0, (2**bits)-1)
+    tmpkey = format(intkey, &#34;0&#34;+str(bits)+&#34;b&#34;)
+    return intkey, tmpkey
+
+
+####################################################################################################################################
+####################################################################################################################################
+
+def extract_value(encoded_value,bits=None):
+    size, encoding_value = encoded_value.split(&#34;&#39;&#34;)
+    base = encoding_value[0]
+    value=encoding_value[1:]
+    if(bits==None):
+        bits=int(size)
+
+
+    if(len(value)==value.count(&#34;x&#34;)):
+        val_bin=&#34;x&#34;*bits
+    elif(&#39;x&#39; in value):
+        raise ValueError(f&#34;Mix of x and numbers in value = {value}&#34;)
+    elif base == &#34;h&#34;:
+        val_bin = bin(int(value, 16))[2:]
+    elif base == &#34;d&#34;:
+        val_bin = bin(int(value))[2:]
+    elif base == &#34;b&#34;:
+        val_bin = value
+    else:
+        raise ValueError(f&#34;Unknown encoding scheme: {base}&#34;)
+
+    return val_bin.zfill(bits)
+
+####################################################################################################################################
+####################################################################################################################################
+
+
+def proc_assign_bracket(node): #assign {,}={,.,} 
+    node_n=[]
+    for node_i in node:
+        if(&#34;:&#34; in node_i):
+            tmpi,ei,si=re.findall(r&#34;(.*)\[(\d+):(\d+)\]&#34;,node_i)[0]
+            si,ei=int(si),int(ei)
+            for k in range(si,ei+1):
+                # print(f&#34;{tmpi}[{k}]&#34;)
+                node_n.append(f&#34;{tmpi}[{k}]&#34;)
+        elif(&#34;&#39;h&#34; in node_i):
+            bit_val=extract_value(node_i)
+            for k in range(len(bit_val)-1, -1, -1):
+                node_n.append(f&#34;1&#39;b{bit_val[k]}&#34;)
+        else:
+            node_n.append(node_i)
+    return node_n
+            
+
+
+
+####################################################################################################################################
+####################################################################################################################################
+
+
+def format_verilog_org(verilog):
+    # verilog=re.sub(&#34;`&#34;,&#34;\\`&#34;,verilog)
+    verilog=re.sub(r&#34;//.*\n&#34;,&#34;&#34;,verilog)
+    # verilog=re.sub(r&#34;[/][].[*][/]&#34;,&#34;&#34;,verilog)
+    # verilog=re.sub(r&#34;[(][].[*][)]\n&#34;,&#34;&#34;,verilog)
+    verilog=re.sub(r&#34;/\*.*?\*/&#34;, &#34;&#34;, verilog, flags=re.DOTALL)
+
+    verilog=re.sub(r&#34;\n+&#34;,&#34;&#34;,verilog)
+    verilog=re.sub(r&#34;\s+&#34;,&#34; &#34;,verilog)
+    verilog=re.sub(r&#34; ?; ?&#34;,&#34;;\n&#34;,verilog)
+
+    verilog=re.sub(r&#34;endmodule&#34;,&#34; endmodule\n&#34;,verilog)
+    verilog=re.sub(r&#34;end &#34;,&#34;end \n&#34;,verilog)
+    verilog=re.sub(r&#34;begin&#34;,&#34;begin \n&#34;,verilog)
+
+    return verilog
+
+
+####################################################################################################################################
+####################################################################################################################################
+
+
+
+
+def format_verilog(verilog):
+    verilog=re.sub(r&#34;//.*\n&#34;,&#34;&#34;,verilog)
+    verilog=re.sub(r&#34; +\)&#34;,&#34;)&#34;,verilog)
+    verilog=re.sub(r&#34;\( +&#34;,&#34;(&#34;,verilog)
+    # verilog=re.sub(r&#34;[/][].[*][/]&#34;,&#34;&#34;,verilog)
+    # verilog=re.sub(r&#34;[(][].[*][)]\n&#34;,&#34;&#34;,verilog)
+    verilog=re.sub(r&#34;/\*.*?\*/&#34;, &#34;&#34;, verilog, flags=re.DOTALL)
+    verilog=re.sub(r&#34;(\w) (\[\d\])&#34;, r&#34;\1\2&#34;, verilog)
+    verilog=re.sub(r&#34;\\&#34;,&#34;&#34;,verilog)
+
+    verilog=re.sub(r&#34;\n+&#34;,&#34;&#34;,verilog)
+    verilog=re.sub(r&#34;\s+&#34;,&#34; &#34;,verilog)
+    verilog=re.sub(r&#34; ?; ?&#34;,&#34;;\n&#34;,verilog)
+    verilog=re.sub(r&#34;endmodule&#34;,&#34;endmodule\n&#34;,verilog)
+    verilog=re.sub(r&#34;end &#34;,&#34;end\n&#34;,verilog)
+    verilog=re.sub(r&#34;begin&#34;,&#34;begin\n&#34;,verilog)
+
+    
+    verilog=re.sub(r&#34;(\w)\.&#34;,r&#34;\1&#34;,verilog)
+    verilog=re.sub(r&#34;\] \[&#34;,&#34;][&#34;,verilog)
+
+    t=re.findall(r&#34;assign (\\?.*) = (\\?.*) ?;\n&#34;,verilog)
+    verilog=re.sub(r&#34;assign (\\?.*) = (\\?.*) ?;\n&#34;,&#34;&#34;,verilog)
+
+    verilog_without_wire=re.sub(&#34;wire .*;\n&#34;,&#34;&#34;,verilog)
+
+    verilog=re.sub(r&#34; \[&#34;,&#34;[&#34;,verilog)
+    verilog=re.sub(r&#34;\[(\d+)\](\[\d+\])&#34;,r&#34;_\1\2&#34;,verilog)
+    verilog=re.sub(r&#34;(\.\S+\() ?&#34;,r&#34;\1&#34;,verilog)
+
+
+    verilog=re.sub(r&#34;(wire|input|output)\[&#34;,r&#34;\1 [&#34;,verilog)
+    verilog=re.sub(r&#34;(wire|input|output)( \[\d+:\d+\] .*)\[(\d+)\]&#34;,r&#34;\1\2_\3&#34;,verilog)
+
+    tmpbuf=&#34;&#34;
+    tmpassign=&#34;&#34;
+    for i in t:
+        L,R=i
+        if(&#34;{&#34; in L):
+            L=re.sub(&#34; +&#34;,&#34;&#34;,L)[1:-1].split(&#34;,&#34;)
+            R=re.sub(&#34; +&#34;,&#34;&#34;,R)[1:-1].split(&#34;,&#34;)
+            if(len(L)!=len(R)):
+                L=proc_assign_bracket(L)
+                R=proc_assign_bracket(R) 
+            for Li,Ri in zip(L,R):
+                if(re.findall(re.compile(Li),verilog_without_wire)!=[]):
+                    tmp=Ri.split(&#34;&#39;&#34;)[-1]
+                    tmpbuf+=f&#34;BUF_g assignbuf_{Li}_{tmp}_ ( .A({Ri}), .Y({Li}) );\n&#34;
+        else:
+            if(re.findall(re.compile(L),verilog_without_wire)==[]):
+                continue
+            # tmpassign+=f&#34;assign {L} = {R};\n&#34;
+            node=re.findall(f&#34;wire(.*){L};&#34;,verilog)[0]
+
+            if(&#34;[&#34; in node):
+                ct=extract_value(R)
+                end,start=node.strip().split(&#34;:&#34;)
+                end,start=int(end[1:]),int(start[:-1])
+                # print(end,start)
+                for k in range(start,end+1):
+                    tmp=R.split(&#34;&#39;&#34;)[-1]
+                    tmpassign+=f&#34;BUF_g assignbuf_{L}[{k}]_{tmp}_ ( .A(1&#39;b{ct[k]}), .Y({L}[{k}]) );\n&#34;
+                    # print(f&#34;BUF_g assignbuf_{L}[{k}]_{R}_ ( .A(1&#39;b{ct[k]}), .Y({L}[{k}]) );\n&#34;)
+            else:
+                tmp=R.split(&#34;&#39;&#34;)[-1]
+                tmpassign+=f&#34;BUF_g assignbuf_{L}_{tmp}_ ( .A({R}), .Y({L}) );\n&#34;
+                # print(f&#34;BUF_g assignbuf_{L}_{R}_ ( .A({R}), .Y({L}) );\n&#34;)
+            
+            # print(node,re.findall(f&#34;wire(.*){L};&#34;,verilog))
+        #     if(node[&#39;bits&#39;]!=1):
+        #         ct=utils.extract_value(i[1])
+        #         ei,si=re.findall(f&#34;wire \[(\d+):(\d+)\] {i[0]};&#34;,verilog)[0]
+        #         si,ei=int(si),int(ei)
+        #         # print(node[&#39;bits&#39;],len(ct),ct,si,ei)
+                # for k in range(si,ei+1):
+                #     tmp+=f&#34;BUF_g assignbuf_{i[0]}_{k}_{i[1]}_ ( .A(1&#39;b{ct[k]}), .Y({i[0]}[{k}]) );\n&#34;
+                #     print(f&#34;BUF_g assignbuf_{i[0]}_{k}_{i[1]}_ ( .A(1&#39;b{ct[k]}), .Y({i[0]}[{k}]) );\n&#34;)
+        # else:
+        #     print(f&#34;BUF_g assignbuf_{i[0]}_{i[1]}_ ( .A({i[1]}), .Y({i[0]}) );\n&#34;)
+
+    verilog=re.sub(&#34;endmodule&#34;,tmpbuf+tmpassign+&#34;endmodule&#34;,verilog)
+
+
+    return verilog
+
+####################################################################################################################################
+####################################################################################################################################
+
+def format_bench(netlist):
+#   netlist=re.sub(&#34;//.*\n&#34;,&#34;&#34;,netlist)
+#   netlist=re.sub(&#34;[/][*].*[*][/]&#34;,&#34;&#34;,netlist)
+#   netlist=re.sub(&#34;#.*\n&#34;,&#34;\n&#34;,netlist)
+  netlist=re.sub(&#34;#.*\n&#34;,&#34;\n&#34;,netlist)
+  netlist=re.sub(&#34;=&#34;,&#34; = &#34;,netlist)
+  netlist=re.sub(&#34;\n+&#34;,&#34;&#34;,netlist)
+  netlist=re.sub(&#34;\s+&#34;,&#34; &#34;,netlist)
+  netlist=re.sub(r&#34;\)&#34;,&#34;)\n&#34;,netlist)
+
+  return netlist
+
+
+####################################################################################################################################
+####################################################################################################################################
+
+def gen_busport(node,size:int):
+    port=&#34;&#34;
+    if(type(node)==str):
+        for i in range(size):
+            port+=node+format(str(size-i-1),&#34;&#34;)+&#34;, &#34;
+        port=port[:-2]
+    return port
+####################################################################################################################################
+####################################################################################################################################
+
+
+
+####################################################################################################################################
+####################################################################################################################################
+def connector(bits,startbit,endbit) -&gt; None:
+    if bits==1:
+        return {&#34;bits&#34;:bits}
+    else:
+        return {&#34;bits&#34;:bits,&#34;startbit&#34;:startbit,&#34;endbit&#34;:endbit}
+
+
+
+def proc_port(x):
+    tmp=x.split(&#34;[&#34;)    
+    if(len(tmp)==3):
+        # print(f&#34;{tmp[0]}_{tmp[1][:-1]}[{tmp[2]}&#34;)
+        return f&#34;{tmp[0]}_{tmp[1][:-1]}[{tmp[2]}&#34;
+    elif(len(tmp)&gt;2):
+        raise Exception(&#34;More than 2d memory in output verilog&#34;)
+    else:
+        return x
+    # if(&#34;[&#34; in x):
+    #     print(x)
+    #     port,rbit=x.split(&#34;[&#34;)
+    #     return f&#34;{port}_{rbit}&#34;
+    return x
+
+
+def proc_node_dec(x):
+    if(&#34;[&#34; in x):
+        port,rbit=x.split(&#34;[&#34;)
+        return f&#34;{port}_{rbit[:-1]}&#34;
+    return x
+
+
+####################################################################################################################################
+####################################################################################################################################
+
+def check_port(i):
+    tmptxt=re.findall(r&#34;\[&#34;,i)
+    if(len(tmptxt)!=1):
+        tmptxt=re.sub(&#34;(.*\[\d+\])\[\d+\]&#34;,r&#34;\1&#34;,i)
+    else:
+        tmptxt=re.sub(&#34;\[\d+\]&#34;,&#34;&#34;,i)
+    return tmptxt.strip()
+
+
+
+
+####################################################################################################################################
+####################################################################################################################################
+
+def invert_gate(operator):
+    operator_map = {
+        &#39;AND&#39;: &#39;NAND&#39;,
+        &#39;OR&#39;: &#39;NOR&#39;,
+        &#39;XOR&#39;: &#39;XNOR&#39;,
+        &#39;NAND&#39;: &#39;AND&#39;,
+        &#39;NOR&#39;: &#39;OR&#39;,
+        &#39;XNOR&#39;: &#39;XOR&#39;
+    }
+    return operator_map.get(operator, operator)
+
+
+
+
+####################################################################################################################################
+####################################################################################################################################
+
+
+def del_dir_files(parentdir):
+    stack = [parentdir]
+    dir=[]
+    while stack:
+        currentdir = stack.pop()
+        for i in os.listdir(currentdir):
+            if os.path.isfile(os.path.join(currentdir, i)):
+                print(os.path.join(os.path.abspath(currentdir),i))
+                os.remove(os.path.join(os.path.abspath(currentdir),i))
+            elif os.path.isdir(os.path.join(currentdir, i)):
+                stack.append(os.path.join(currentdir, i))
+                dir.append(os.path.join(currentdir, i))
+    print(dir)
+    dir.reverse()
+    dir.remove(parentdir)
+    for i in dir:
+        os.removedirs(i)
+
+
+
+
+
+def clean_dir(dir):
+    files=os.listdir(dir)
+    for i in files:
+        if(&#34;.svg&#34; in i):
+            continue
+        path_i=os.path.join(os.path.abspath(dir),i)
+        if(os.path.isfile(path_i)):
+            os.remove(path_i)
+
+
+####################################################################################################################################
+####################################################################################################################################
+def node_to_txt(iodict,mode=&#34;input&#34;,return_bits=False):
+    txt=&#34;&#34;
+    total_bits=0
+    for i in iodict:
+        tmpi=iodict[i]
+        if(tmpi[&#34;bits&#34;]==1):
+            total_bits+=1
+            txt+=f&#34;{mode} {i};\n&#34;
+        else:
+            total_bits+=tmpi[&#34;bits&#34;]
+            txt+=f&#34;{mode} [{tmpi[&#39;endbit&#39;]}:{tmpi[&#39;startbit&#39;]}] {i};\n&#34;
+
+    if(return_bits):
+        return txt,total_bits
+    else:
+        return txt
+        
+
+####################################################################################################################################
+####################################################################################################################################
+
+def det_logic(logic_gate,gate_mapping):
+  for gate, gate_list in gate_mapping.items():
+    if logic_gate in gate_list:
+        return gate
+
+####################################################################################################################################
+####################################################################################################################################
+
+def det_FF_node(mIO):
+  if(&#34;clock&#34; in mIO.lower() or &#34;clk&#34; in mIO.lower()):
+    return &#34;clock&#34;
+  elif(mIO==&#34;R&#34; or mIO.lower()==&#34;rn&#34; or mIO.lower()==&#34;rst&#34; or mIO.lower()==&#34;clr&#34; or mIO.lower()==&#34;clear&#34; or mIO.lower()==&#34;reset&#34;):
+    return &#34;reset&#34;
+  elif(mIO==&#34;S&#34; or mIO.lower()==&#34;sn&#34; or mIO.lower()==&#34;pr&#34; or mIO.lower()==&#34;prn&#34; or mIO.lower()==&#34;preset&#34; or mIO.lower()==&#34;set&#34;):
+    return &#34;preset&#34;
+  elif(mIO==&#34;D&#34;):
+    return &#34;inputs&#34;
+  elif(mIO==&#34;Q&#34;):
+    return &#34;outputs&#34;
+
+
+####################################################################################################################################
+####################################################################################################################################
+
+def FF_to_txt(FF_tech,FF):
+  txt=&#34;&#34;
+  for FF_tech_i in FF_tech:
+    port=FF[FF_tech_i][&#39;port&#39;]
+    for init_name in FF_tech[FF_tech_i]:
+      tmp={}
+      for mIO in FF[FF_tech_i][&#34;port_list&#34;]:
+        tmp[mIO]=FF_tech[FF_tech_i][init_name][det_FF_node(mIO)]
+      txt+= f&#34;{FF_tech_i} {init_name} {port.format(**tmp)}\n&#34;
+  return txt
+
+####################################################################################################################################
+####################################################################################################################################
+def gates_to_txt(gate_tech,gates_vlib):
+    txt=&#34;&#34;
+    for logic in gate_tech:
+        for logic_gate in gate_tech[logic]:
+            NodeIO_def=gates_vlib[logic_gate]
+            port=NodeIO_def[&#39;port&#39;]
+            for init_name in gate_tech[logic][logic_gate]:
+                I=gate_tech[logic][logic_gate][init_name][&#34;inputs&#34;]
+                tmp={}
+                tmp[NodeIO_def[&#34;outputs&#34;][0]]=gate_tech[logic][logic_gate][init_name][&#34;outputs&#34;]
+                for NodeI,mI in zip(NodeIO_def[&#34;inputs&#34;],I):
+                    tmp[NodeI]=mI
+                txt+= f&#34;{logic_gate} {init_name} {port.format(**tmp)}\n&#34;
+    return txt
+
+####################################################################################################################################
+####################################################################################################################################
+def module_to_txt(linkages):
+    txt=&#34;&#34;
+    for i in linkages:
+        tmpi=linkages[i]
+        # print(i,tmpi)
+        port=&#34;&#34;
+        for L,R in zip(tmpi[&#34;L&#34;],tmpi[&#34;R&#34;]):
+            if(&#34;:&#34; in R):
+                print(&#34;here   &#34;,L,R)
+            port+=f&#34;.{L}({R}), &#34;
+        txt+=f&#34;{tmpi[&#39;module_name&#39;]} {i}({port[:-2]});\n&#34;
+            # print(f&#34;{tmpi[&#39;module_name&#39;]} {i}({port[:-2]});&#34;)
+    return txt
+
+
+
+
+####################################################################################################################################
+####################################################################################################################################
+def save_graph(G,svg=False):
+    import networkx as nx
+    nx.drawing.nx_agraph.write_dot(G, &#34;./tmp/tmp.dot&#34;)
+    import subprocess
+    if(svg):
+        subprocess.run(&#34;dot -Tsvg ./tmp/tmp.dot &gt; ./tmp/tmp.svg&#34;, shell=True)
+
+# _0174_
+####################################################################################################################################
+####################################################################################################################################
+
+
+
+def rand_selection(my_dict,val,req_bits):
+    MAX_ITERATIONS=6000
+    #req_bits: Set the desired sum of counts
+
+    # Initialize the sum to zero
+    sum_counts = 0
+    # Initialize the list of selected keys to an empty list
+    selected_keys = []
+    # Loop until you find a combination of keys that satisfies the condition
+    keys=list(my_dict.keys())
+
+    MAX_keys_sample=None
+    MAX_num_keys=0
+    MIN_Diff_num_keys=999999999
+    
+    
+    
+    current_try=0
+    while sum_counts != req_bits:
+        # print(&#34;doing &#34;, sum_counts)
+        # Select `num_keys` keys at random
+        num_keys=random.randint(1,len(keys)-1)
+        selected_keys = random.sample(keys, num_keys)
+        # Calculate the sum of counts for the selected keys
+        
+        sum_counts = sum(my_dict[key][val] for key in selected_keys)        
+        # print(&#34;Doing &#34;,current_try,req_bits, sum_counts)
+        if(sum_counts==req_bits):
+            print(f&#34;Match found under max iterations at iteration {current_try}, {sum_counts} &#34;)
+            req_bits_i=req_bits
+            break
+        
+        current_try+=1
+        
+        if(abs(sum_counts-req_bits)&lt;MIN_Diff_num_keys):
+            MIN_Diff_num_keys=abs(sum_counts-req_bits)
+            MAX_keys_sample=selected_keys
+            MAX_num_keys=sum_counts
+
+        if(current_try&gt;MAX_ITERATIONS):
+            selected_keys=MAX_keys_sample
+            print(f&#34;Match not found under max iterations {MAX_ITERATIONS}&#34;)
+            print(f&#34;Using key sample with MIN DIFFERENCE {MIN_Diff_num_keys} with Count {MAX_num_keys}&#34;)
+            req_bits_i=MAX_num_keys
+            break
+
+    
+    return {i:my_dict[i] for i in my_dict if i in selected_keys},req_bits_i
+
+
+
+####################################################################################################################################
+####################################################################################################################################
+
+def remove_key(thedict,thekey):
+    if(type(thekey)!=list):
+        thekey=[thekey]
+    for i in thekey:
+        if i in thedict: del thedict[i]
+
+####################################################################################################################################
+####################################################################################################################################
+
+
+
+
+
+
+
+
+
+####################################################################################################################################
+####################################################################################################################################
+####################################################################################################################################
+####################################################################################################################################
+####################################################################################################################################</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="src.utils.FF_to_txt"><code class="name flex">
+<span>def <span class="ident">FF_to_txt</span></span>(<span>FF_tech, FF)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def FF_to_txt(FF_tech,FF):
+  txt=&#34;&#34;
+  for FF_tech_i in FF_tech:
+    port=FF[FF_tech_i][&#39;port&#39;]
+    for init_name in FF_tech[FF_tech_i]:
+      tmp={}
+      for mIO in FF[FF_tech_i][&#34;port_list&#34;]:
+        tmp[mIO]=FF_tech[FF_tech_i][init_name][det_FF_node(mIO)]
+      txt+= f&#34;{FF_tech_i} {init_name} {port.format(**tmp)}\n&#34;
+  return txt</code></pre>
+</details>
+</dd>
+<dt id="src.utils.HammingDistance"><code class="name flex">
+<span>def <span class="ident">HammingDistance</span></span>(<span>x: str, y: str) ‑> int</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def HammingDistance(x: str, y: str) -&gt; int:
+    h = 0
+    for i in range(len(x)):
+        h += (x[i] != y[i])
+    return h</code></pre>
+</details>
+</dd>
+<dt id="src.utils.check_port"><code class="name flex">
+<span>def <span class="ident">check_port</span></span>(<span>i)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def check_port(i):
+    tmptxt=re.findall(r&#34;\[&#34;,i)
+    if(len(tmptxt)!=1):
+        tmptxt=re.sub(&#34;(.*\[\d+\])\[\d+\]&#34;,r&#34;\1&#34;,i)
+    else:
+        tmptxt=re.sub(&#34;\[\d+\]&#34;,&#34;&#34;,i)
+    return tmptxt.strip()</code></pre>
+</details>
+</dd>
+<dt id="src.utils.clean_dir"><code class="name flex">
+<span>def <span class="ident">clean_dir</span></span>(<span>dir)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def clean_dir(dir):
+    files=os.listdir(dir)
+    for i in files:
+        if(&#34;.svg&#34; in i):
+            continue
+        path_i=os.path.join(os.path.abspath(dir),i)
+        if(os.path.isfile(path_i)):
+            os.remove(path_i)</code></pre>
+</details>
+</dd>
+<dt id="src.utils.connector"><code class="name flex">
+<span>def <span class="ident">connector</span></span>(<span>bits, startbit, endbit) ‑> None</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def connector(bits,startbit,endbit) -&gt; None:
+    if bits==1:
+        return {&#34;bits&#34;:bits}
+    else:
+        return {&#34;bits&#34;:bits,&#34;startbit&#34;:startbit,&#34;endbit&#34;:endbit}</code></pre>
+</details>
+</dd>
+<dt id="src.utils.del_dir_files"><code class="name flex">
+<span>def <span class="ident">del_dir_files</span></span>(<span>parentdir)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def del_dir_files(parentdir):
+    stack = [parentdir]
+    dir=[]
+    while stack:
+        currentdir = stack.pop()
+        for i in os.listdir(currentdir):
+            if os.path.isfile(os.path.join(currentdir, i)):
+                print(os.path.join(os.path.abspath(currentdir),i))
+                os.remove(os.path.join(os.path.abspath(currentdir),i))
+            elif os.path.isdir(os.path.join(currentdir, i)):
+                stack.append(os.path.join(currentdir, i))
+                dir.append(os.path.join(currentdir, i))
+    print(dir)
+    dir.reverse()
+    dir.remove(parentdir)
+    for i in dir:
+        os.removedirs(i)</code></pre>
+</details>
+</dd>
+<dt id="src.utils.det_FF_node"><code class="name flex">
+<span>def <span class="ident">det_FF_node</span></span>(<span>mIO)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def det_FF_node(mIO):
+  if(&#34;clock&#34; in mIO.lower() or &#34;clk&#34; in mIO.lower()):
+    return &#34;clock&#34;
+  elif(mIO==&#34;R&#34; or mIO.lower()==&#34;rn&#34; or mIO.lower()==&#34;rst&#34; or mIO.lower()==&#34;clr&#34; or mIO.lower()==&#34;clear&#34; or mIO.lower()==&#34;reset&#34;):
+    return &#34;reset&#34;
+  elif(mIO==&#34;S&#34; or mIO.lower()==&#34;sn&#34; or mIO.lower()==&#34;pr&#34; or mIO.lower()==&#34;prn&#34; or mIO.lower()==&#34;preset&#34; or mIO.lower()==&#34;set&#34;):
+    return &#34;preset&#34;
+  elif(mIO==&#34;D&#34;):
+    return &#34;inputs&#34;
+  elif(mIO==&#34;Q&#34;):
+    return &#34;outputs&#34;</code></pre>
+</details>
+</dd>
+<dt id="src.utils.det_logic"><code class="name flex">
+<span>def <span class="ident">det_logic</span></span>(<span>logic_gate, gate_mapping)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def det_logic(logic_gate,gate_mapping):
+  for gate, gate_list in gate_mapping.items():
+    if logic_gate in gate_list:
+        return gate</code></pre>
+</details>
+</dd>
+<dt id="src.utils.extract_value"><code class="name flex">
+<span>def <span class="ident">extract_value</span></span>(<span>encoded_value, bits=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def extract_value(encoded_value,bits=None):
+    size, encoding_value = encoded_value.split(&#34;&#39;&#34;)
+    base = encoding_value[0]
+    value=encoding_value[1:]
+    if(bits==None):
+        bits=int(size)
+
+
+    if(len(value)==value.count(&#34;x&#34;)):
+        val_bin=&#34;x&#34;*bits
+    elif(&#39;x&#39; in value):
+        raise ValueError(f&#34;Mix of x and numbers in value = {value}&#34;)
+    elif base == &#34;h&#34;:
+        val_bin = bin(int(value, 16))[2:]
+    elif base == &#34;d&#34;:
+        val_bin = bin(int(value))[2:]
+    elif base == &#34;b&#34;:
+        val_bin = value
+    else:
+        raise ValueError(f&#34;Unknown encoding scheme: {base}&#34;)
+
+    return val_bin.zfill(bits)</code></pre>
+</details>
+</dd>
+<dt id="src.utils.find_common_elements"><code class="name flex">
+<span>def <span class="ident">find_common_elements</span></span>(<span>list1, list2)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def find_common_elements(list1, list2):
+    set1 = set(list1)
+    set2 = set(list2)
+    common_elements = set1.intersection(set2)
+    return list(common_elements)</code></pre>
+</details>
+</dd>
+<dt id="src.utils.format_bench"><code class="name flex">
+<span>def <span class="ident">format_bench</span></span>(<span>netlist)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def format_bench(netlist):
+#   netlist=re.sub(&#34;//.*\n&#34;,&#34;&#34;,netlist)
+#   netlist=re.sub(&#34;[/][*].*[*][/]&#34;,&#34;&#34;,netlist)
+#   netlist=re.sub(&#34;#.*\n&#34;,&#34;\n&#34;,netlist)
+  netlist=re.sub(&#34;#.*\n&#34;,&#34;\n&#34;,netlist)
+  netlist=re.sub(&#34;=&#34;,&#34; = &#34;,netlist)
+  netlist=re.sub(&#34;\n+&#34;,&#34;&#34;,netlist)
+  netlist=re.sub(&#34;\s+&#34;,&#34; &#34;,netlist)
+  netlist=re.sub(r&#34;\)&#34;,&#34;)\n&#34;,netlist)
+
+  return netlist</code></pre>
+</details>
+</dd>
+<dt id="src.utils.format_verilog"><code class="name flex">
+<span>def <span class="ident">format_verilog</span></span>(<span>verilog)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def format_verilog(verilog):
+    verilog=re.sub(r&#34;//.*\n&#34;,&#34;&#34;,verilog)
+    verilog=re.sub(r&#34; +\)&#34;,&#34;)&#34;,verilog)
+    verilog=re.sub(r&#34;\( +&#34;,&#34;(&#34;,verilog)
+    # verilog=re.sub(r&#34;[/][].[*][/]&#34;,&#34;&#34;,verilog)
+    # verilog=re.sub(r&#34;[(][].[*][)]\n&#34;,&#34;&#34;,verilog)
+    verilog=re.sub(r&#34;/\*.*?\*/&#34;, &#34;&#34;, verilog, flags=re.DOTALL)
+    verilog=re.sub(r&#34;(\w) (\[\d\])&#34;, r&#34;\1\2&#34;, verilog)
+    verilog=re.sub(r&#34;\\&#34;,&#34;&#34;,verilog)
+
+    verilog=re.sub(r&#34;\n+&#34;,&#34;&#34;,verilog)
+    verilog=re.sub(r&#34;\s+&#34;,&#34; &#34;,verilog)
+    verilog=re.sub(r&#34; ?; ?&#34;,&#34;;\n&#34;,verilog)
+    verilog=re.sub(r&#34;endmodule&#34;,&#34;endmodule\n&#34;,verilog)
+    verilog=re.sub(r&#34;end &#34;,&#34;end\n&#34;,verilog)
+    verilog=re.sub(r&#34;begin&#34;,&#34;begin\n&#34;,verilog)
+
+    
+    verilog=re.sub(r&#34;(\w)\.&#34;,r&#34;\1&#34;,verilog)
+    verilog=re.sub(r&#34;\] \[&#34;,&#34;][&#34;,verilog)
+
+    t=re.findall(r&#34;assign (\\?.*) = (\\?.*) ?;\n&#34;,verilog)
+    verilog=re.sub(r&#34;assign (\\?.*) = (\\?.*) ?;\n&#34;,&#34;&#34;,verilog)
+
+    verilog_without_wire=re.sub(&#34;wire .*;\n&#34;,&#34;&#34;,verilog)
+
+    verilog=re.sub(r&#34; \[&#34;,&#34;[&#34;,verilog)
+    verilog=re.sub(r&#34;\[(\d+)\](\[\d+\])&#34;,r&#34;_\1\2&#34;,verilog)
+    verilog=re.sub(r&#34;(\.\S+\() ?&#34;,r&#34;\1&#34;,verilog)
+
+
+    verilog=re.sub(r&#34;(wire|input|output)\[&#34;,r&#34;\1 [&#34;,verilog)
+    verilog=re.sub(r&#34;(wire|input|output)( \[\d+:\d+\] .*)\[(\d+)\]&#34;,r&#34;\1\2_\3&#34;,verilog)
+
+    tmpbuf=&#34;&#34;
+    tmpassign=&#34;&#34;
+    for i in t:
+        L,R=i
+        if(&#34;{&#34; in L):
+            L=re.sub(&#34; +&#34;,&#34;&#34;,L)[1:-1].split(&#34;,&#34;)
+            R=re.sub(&#34; +&#34;,&#34;&#34;,R)[1:-1].split(&#34;,&#34;)
+            if(len(L)!=len(R)):
+                L=proc_assign_bracket(L)
+                R=proc_assign_bracket(R) 
+            for Li,Ri in zip(L,R):
+                if(re.findall(re.compile(Li),verilog_without_wire)!=[]):
+                    tmp=Ri.split(&#34;&#39;&#34;)[-1]
+                    tmpbuf+=f&#34;BUF_g assignbuf_{Li}_{tmp}_ ( .A({Ri}), .Y({Li}) );\n&#34;
+        else:
+            if(re.findall(re.compile(L),verilog_without_wire)==[]):
+                continue
+            # tmpassign+=f&#34;assign {L} = {R};\n&#34;
+            node=re.findall(f&#34;wire(.*){L};&#34;,verilog)[0]
+
+            if(&#34;[&#34; in node):
+                ct=extract_value(R)
+                end,start=node.strip().split(&#34;:&#34;)
+                end,start=int(end[1:]),int(start[:-1])
+                # print(end,start)
+                for k in range(start,end+1):
+                    tmp=R.split(&#34;&#39;&#34;)[-1]
+                    tmpassign+=f&#34;BUF_g assignbuf_{L}[{k}]_{tmp}_ ( .A(1&#39;b{ct[k]}), .Y({L}[{k}]) );\n&#34;
+                    # print(f&#34;BUF_g assignbuf_{L}[{k}]_{R}_ ( .A(1&#39;b{ct[k]}), .Y({L}[{k}]) );\n&#34;)
+            else:
+                tmp=R.split(&#34;&#39;&#34;)[-1]
+                tmpassign+=f&#34;BUF_g assignbuf_{L}_{tmp}_ ( .A({R}), .Y({L}) );\n&#34;
+                # print(f&#34;BUF_g assignbuf_{L}_{R}_ ( .A({R}), .Y({L}) );\n&#34;)
+            
+            # print(node,re.findall(f&#34;wire(.*){L};&#34;,verilog))
+        #     if(node[&#39;bits&#39;]!=1):
+        #         ct=utils.extract_value(i[1])
+        #         ei,si=re.findall(f&#34;wire \[(\d+):(\d+)\] {i[0]};&#34;,verilog)[0]
+        #         si,ei=int(si),int(ei)
+        #         # print(node[&#39;bits&#39;],len(ct),ct,si,ei)
+                # for k in range(si,ei+1):
+                #     tmp+=f&#34;BUF_g assignbuf_{i[0]}_{k}_{i[1]}_ ( .A(1&#39;b{ct[k]}), .Y({i[0]}[{k}]) );\n&#34;
+                #     print(f&#34;BUF_g assignbuf_{i[0]}_{k}_{i[1]}_ ( .A(1&#39;b{ct[k]}), .Y({i[0]}[{k}]) );\n&#34;)
+        # else:
+        #     print(f&#34;BUF_g assignbuf_{i[0]}_{i[1]}_ ( .A({i[1]}), .Y({i[0]}) );\n&#34;)
+
+    verilog=re.sub(&#34;endmodule&#34;,tmpbuf+tmpassign+&#34;endmodule&#34;,verilog)
+
+
+    return verilog</code></pre>
+</details>
+</dd>
+<dt id="src.utils.format_verilog_org"><code class="name flex">
+<span>def <span class="ident">format_verilog_org</span></span>(<span>verilog)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def format_verilog_org(verilog):
+    # verilog=re.sub(&#34;`&#34;,&#34;\\`&#34;,verilog)
+    verilog=re.sub(r&#34;//.*\n&#34;,&#34;&#34;,verilog)
+    # verilog=re.sub(r&#34;[/][].[*][/]&#34;,&#34;&#34;,verilog)
+    # verilog=re.sub(r&#34;[(][].[*][)]\n&#34;,&#34;&#34;,verilog)
+    verilog=re.sub(r&#34;/\*.*?\*/&#34;, &#34;&#34;, verilog, flags=re.DOTALL)
+
+    verilog=re.sub(r&#34;\n+&#34;,&#34;&#34;,verilog)
+    verilog=re.sub(r&#34;\s+&#34;,&#34; &#34;,verilog)
+    verilog=re.sub(r&#34; ?; ?&#34;,&#34;;\n&#34;,verilog)
+
+    verilog=re.sub(r&#34;endmodule&#34;,&#34; endmodule\n&#34;,verilog)
+    verilog=re.sub(r&#34;end &#34;,&#34;end \n&#34;,verilog)
+    verilog=re.sub(r&#34;begin&#34;,&#34;begin \n&#34;,verilog)
+
+    return verilog</code></pre>
+</details>
+</dd>
+<dt id="src.utils.gates_to_txt"><code class="name flex">
+<span>def <span class="ident">gates_to_txt</span></span>(<span>gate_tech, gates_vlib)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def gates_to_txt(gate_tech,gates_vlib):
+    txt=&#34;&#34;
+    for logic in gate_tech:
+        for logic_gate in gate_tech[logic]:
+            NodeIO_def=gates_vlib[logic_gate]
+            port=NodeIO_def[&#39;port&#39;]
+            for init_name in gate_tech[logic][logic_gate]:
+                I=gate_tech[logic][logic_gate][init_name][&#34;inputs&#34;]
+                tmp={}
+                tmp[NodeIO_def[&#34;outputs&#34;][0]]=gate_tech[logic][logic_gate][init_name][&#34;outputs&#34;]
+                for NodeI,mI in zip(NodeIO_def[&#34;inputs&#34;],I):
+                    tmp[NodeI]=mI
+                txt+= f&#34;{logic_gate} {init_name} {port.format(**tmp)}\n&#34;
+    return txt</code></pre>
+</details>
+</dd>
+<dt id="src.utils.gen_busport"><code class="name flex">
+<span>def <span class="ident">gen_busport</span></span>(<span>node, size: int)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def gen_busport(node,size:int):
+    port=&#34;&#34;
+    if(type(node)==str):
+        for i in range(size):
+            port+=node+format(str(size-i-1),&#34;&#34;)+&#34;, &#34;
+        port=port[:-2]
+    return port</code></pre>
+</details>
+</dd>
+<dt id="src.utils.get_diference"><code class="name flex">
+<span>def <span class="ident">get_diference</span></span>(<span>a, b)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_diference(a,b):
+    tmpa=list(set(a) - set(b))
+    tmpb=list(set(b) - set(a))
+    tmplist=[tmpa,tmpb]#list(set(tmpa)|set(tmpb))
+    return tmplist</code></pre>
+</details>
+</dd>
+<dt id="src.utils.get_difference_abs"><code class="name flex">
+<span>def <span class="ident">get_difference_abs</span></span>(<span>*args)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_difference_abs(*args):
+    a = args[0]
+    others = args[1:]
+    all_others = set().union(*others)
+    return list(set(a) - all_others)</code></pre>
+</details>
+</dd>
+<dt id="src.utils.getnodeport"><code class="name flex">
+<span>def <span class="ident">getnodeport</span></span>(<span>netlist, buskey)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getnodeport(netlist, buskey):
+    tmpval = re.findall(buskey+&#34; (.*);&#34;, netlist)
+    if (len(tmpval) != 1):
+        raise Exception(&#34;CHECK &#34;+buskey.upper()+&#34; NODES&#34;)
+
+    portnodes, busnodes,_ = io_port(tmpval[0].split(&#34;, &#34;), mode=buskey)
+    return portnodes, busnodes</code></pre>
+</details>
+</dd>
+<dt id="src.utils.invert_gate"><code class="name flex">
+<span>def <span class="ident">invert_gate</span></span>(<span>operator)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def invert_gate(operator):
+    operator_map = {
+        &#39;AND&#39;: &#39;NAND&#39;,
+        &#39;OR&#39;: &#39;NOR&#39;,
+        &#39;XOR&#39;: &#39;XNOR&#39;,
+        &#39;NAND&#39;: &#39;AND&#39;,
+        &#39;NOR&#39;: &#39;OR&#39;,
+        &#39;XNOR&#39;: &#39;XOR&#39;
+    }
+    return operator_map.get(operator, operator)</code></pre>
+</details>
+</dd>
+<dt id="src.utils.io_port"><code class="name flex">
+<span>def <span class="ident">io_port</span></span>(<span>inputs, mode='input')</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def io_port(inputs, mode=&#34;input&#34;):
+    tmpdict = {}
+    replace_=[]
+    for i in inputs:
+        # if(re.findall(&#34;(.*)_(\d+)_?&#34;,i)!=[]):
+        #     i=re.sub(&#34;(.*)_(\d+)_?&#34;,r&#34;\1&#34;+&#34;[&#34;+r&#34;\2&#34;+&#34;]&#34;,i)
+        if (&#34;[&#34; in i and &#34;]&#34; in i):
+            tmpis = i.split(&#34;[&#34;)
+            if tmpis[0] in tmpdict:
+                tmpdict[tmpis[0]] += 1
+            else:
+                tmpdict[tmpis[0]] = 0
+                # print(tmpis[0],tmpis[1][:-1])
+        elif (&#34;[&#34; in i or &#34;]&#34; in i):
+            print(&#34;ERROR INVALID SYNTAX&#34;)
+        else:
+            tmpdict[i] = 0
+
+    inputnodes = &#34;&#34;
+    portnodes = &#34;&#34;
+    for i in tmpdict.keys():
+        portnodes = portnodes+i+&#34;,&#34;
+        if (tmpdict[i] != 0):
+            #print(&#34;[&#34;+str(tmpdict[i])+&#34;:0] &#34;+i)
+            inputnodes = inputnodes+mode+&#34; [&#34;+str(tmpdict[i])+&#34;:0] &#34;+i+&#34;;&#34;
+            replace_.append(i)
+        else:
+            # replace_.remove(i)
+            inputnodes = inputnodes+mode+&#34; &#34;+i+&#34;;&#34;
+
+    # inputnodes=inputnodes[:]
+    portnodes = portnodes[:-1]
+    return portnodes, inputnodes,replace_</code></pre>
+</details>
+</dd>
+<dt id="src.utils.merge_lists"><code class="name flex">
+<span>def <span class="ident">merge_lists</span></span>(<span>listset)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def merge_lists(listset):
+    tmplist=[]
+    if(type(listset[0])==list):
+        for i in listset:
+            tmplist=list(set(tmplist)|set(i))
+    return tmplist</code></pre>
+</details>
+</dd>
+<dt id="src.utils.module_to_txt"><code class="name flex">
+<span>def <span class="ident">module_to_txt</span></span>(<span>linkages)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def module_to_txt(linkages):
+    txt=&#34;&#34;
+    for i in linkages:
+        tmpi=linkages[i]
+        # print(i,tmpi)
+        port=&#34;&#34;
+        for L,R in zip(tmpi[&#34;L&#34;],tmpi[&#34;R&#34;]):
+            if(&#34;:&#34; in R):
+                print(&#34;here   &#34;,L,R)
+            port+=f&#34;.{L}({R}), &#34;
+        txt+=f&#34;{tmpi[&#39;module_name&#39;]} {i}({port[:-2]});\n&#34;
+            # print(f&#34;{tmpi[&#39;module_name&#39;]} {i}({port[:-2]});&#34;)
+    return txt</code></pre>
+</details>
+</dd>
+<dt id="src.utils.nmap_read_verilog"><code class="name flex">
+<span>def <span class="ident">nmap_read_verilog</span></span>(<span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def function_timer(*args, **kwargs):
+  start = time.time()
+  value = func(*args, **kwargs)
+  end = time.time()
+  runtime = end - start
+  msg = &#34;{func} took {time} seconds to complete its execution.&#34;
+  print(msg.format(func = func.__name__,time = runtime))
+  return value</code></pre>
+</details>
+</dd>
+<dt id="src.utils.node_to_txt"><code class="name flex">
+<span>def <span class="ident">node_to_txt</span></span>(<span>iodict, mode='input', return_bits=False)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def node_to_txt(iodict,mode=&#34;input&#34;,return_bits=False):
+    txt=&#34;&#34;
+    total_bits=0
+    for i in iodict:
+        tmpi=iodict[i]
+        if(tmpi[&#34;bits&#34;]==1):
+            total_bits+=1
+            txt+=f&#34;{mode} {i};\n&#34;
+        else:
+            total_bits+=tmpi[&#34;bits&#34;]
+            txt+=f&#34;{mode} [{tmpi[&#39;endbit&#39;]}:{tmpi[&#39;startbit&#39;]}] {i};\n&#34;
+
+    if(return_bits):
+        return txt,total_bits
+    else:
+        return txt</code></pre>
+</details>
+</dd>
+<dt id="src.utils.proc_assign_bracket"><code class="name flex">
+<span>def <span class="ident">proc_assign_bracket</span></span>(<span>node)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def proc_assign_bracket(node): #assign {,}={,.,} 
+    node_n=[]
+    for node_i in node:
+        if(&#34;:&#34; in node_i):
+            tmpi,ei,si=re.findall(r&#34;(.*)\[(\d+):(\d+)\]&#34;,node_i)[0]
+            si,ei=int(si),int(ei)
+            for k in range(si,ei+1):
+                # print(f&#34;{tmpi}[{k}]&#34;)
+                node_n.append(f&#34;{tmpi}[{k}]&#34;)
+        elif(&#34;&#39;h&#34; in node_i):
+            bit_val=extract_value(node_i)
+            for k in range(len(bit_val)-1, -1, -1):
+                node_n.append(f&#34;1&#39;b{bit_val[k]}&#34;)
+        else:
+            node_n.append(node_i)
+    return node_n</code></pre>
+</details>
+</dd>
+<dt id="src.utils.proc_node_dec"><code class="name flex">
+<span>def <span class="ident">proc_node_dec</span></span>(<span>x)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def proc_node_dec(x):
+    if(&#34;[&#34; in x):
+        port,rbit=x.split(&#34;[&#34;)
+        return f&#34;{port}_{rbit[:-1]}&#34;
+    return x</code></pre>
+</details>
+</dd>
+<dt id="src.utils.proc_port"><code class="name flex">
+<span>def <span class="ident">proc_port</span></span>(<span>x)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def proc_port(x):
+    tmp=x.split(&#34;[&#34;)    
+    if(len(tmp)==3):
+        # print(f&#34;{tmp[0]}_{tmp[1][:-1]}[{tmp[2]}&#34;)
+        return f&#34;{tmp[0]}_{tmp[1][:-1]}[{tmp[2]}&#34;
+    elif(len(tmp)&gt;2):
+        raise Exception(&#34;More than 2d memory in output verilog&#34;)
+    else:
+        return x
+    # if(&#34;[&#34; in x):
+    #     print(x)
+    #     port,rbit=x.split(&#34;[&#34;)
+    #     return f&#34;{port}_{rbit}&#34;
+    return x</code></pre>
+</details>
+</dd>
+<dt id="src.utils.randKey"><code class="name flex">
+<span>def <span class="ident">randKey</span></span>(<span>bits, seed=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def randKey(bits, seed=None):
+    if(seed!=None):
+        random.seed(seed)
+    intkey = random.randint(0, (2**bits)-1)
+    tmpkey = format(intkey, &#34;0&#34;+str(bits)+&#34;b&#34;)
+    return intkey, tmpkey</code></pre>
+</details>
+</dd>
+<dt id="src.utils.rand_selection"><code class="name flex">
+<span>def <span class="ident">rand_selection</span></span>(<span>my_dict, val, req_bits)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def rand_selection(my_dict,val,req_bits):
+    MAX_ITERATIONS=6000
+    #req_bits: Set the desired sum of counts
+
+    # Initialize the sum to zero
+    sum_counts = 0
+    # Initialize the list of selected keys to an empty list
+    selected_keys = []
+    # Loop until you find a combination of keys that satisfies the condition
+    keys=list(my_dict.keys())
+
+    MAX_keys_sample=None
+    MAX_num_keys=0
+    MIN_Diff_num_keys=999999999
+    
+    
+    
+    current_try=0
+    while sum_counts != req_bits:
+        # print(&#34;doing &#34;, sum_counts)
+        # Select `num_keys` keys at random
+        num_keys=random.randint(1,len(keys)-1)
+        selected_keys = random.sample(keys, num_keys)
+        # Calculate the sum of counts for the selected keys
+        
+        sum_counts = sum(my_dict[key][val] for key in selected_keys)        
+        # print(&#34;Doing &#34;,current_try,req_bits, sum_counts)
+        if(sum_counts==req_bits):
+            print(f&#34;Match found under max iterations at iteration {current_try}, {sum_counts} &#34;)
+            req_bits_i=req_bits
+            break
+        
+        current_try+=1
+        
+        if(abs(sum_counts-req_bits)&lt;MIN_Diff_num_keys):
+            MIN_Diff_num_keys=abs(sum_counts-req_bits)
+            MAX_keys_sample=selected_keys
+            MAX_num_keys=sum_counts
+
+        if(current_try&gt;MAX_ITERATIONS):
+            selected_keys=MAX_keys_sample
+            print(f&#34;Match not found under max iterations {MAX_ITERATIONS}&#34;)
+            print(f&#34;Using key sample with MIN DIFFERENCE {MIN_Diff_num_keys} with Count {MAX_num_keys}&#34;)
+            req_bits_i=MAX_num_keys
+            break
+
+    
+    return {i:my_dict[i] for i in my_dict if i in selected_keys},req_bits_i</code></pre>
+</details>
+</dd>
+<dt id="src.utils.remove_key"><code class="name flex">
+<span>def <span class="ident">remove_key</span></span>(<span>thedict, thekey)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove_key(thedict,thekey):
+    if(type(thekey)!=list):
+        thekey=[thekey]
+    for i in thekey:
+        if i in thedict: del thedict[i]</code></pre>
+</details>
+</dd>
+<dt id="src.utils.save_graph"><code class="name flex">
+<span>def <span class="ident">save_graph</span></span>(<span>G, svg=False)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save_graph(G,svg=False):
+    import networkx as nx
+    nx.drawing.nx_agraph.write_dot(G, &#34;./tmp/tmp.dot&#34;)
+    import subprocess
+    if(svg):
+        subprocess.run(&#34;dot -Tsvg ./tmp/tmp.dot &gt; ./tmp/tmp.svg&#34;, shell=True)</code></pre>
+</details>
+</dd>
+<dt id="src.utils.simple_read_verilog"><code class="name flex">
+<span>def <span class="ident">simple_read_verilog</span></span>(<span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def function_timer(*args, **kwargs):
+  start = time.time()
+  value = func(*args, **kwargs)
+  end = time.time()
+  runtime = end - start
+  msg = &#34;{func} took {time} seconds to complete its execution.&#34;
+  print(msg.format(func = func.__name__,time = runtime))
+  return value</code></pre>
+</details>
+</dd>
+<dt id="src.utils.sortio"><code class="name flex">
+<span>def <span class="ident">sortio</span></span>(<span>tmp, reverse=True)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def sortio(tmp, reverse=True):
+    tmpl = list(set([re.sub(r&#34;\[[0-9]+\]&#34;, &#34;&#34;, i) for i in tmp]))
+    tmpl.sort(reverse=False)
+    def x(inp): return (tmpl.index(
+        re.sub(r&#34;(\[[0-9]+\])&#34;, &#34;&#34;, inp)), re.sub(r&#34;.*\[?([0-9]+)\]?.*&#34;, r&#34;\1&#34;, inp))
+    tmp.sort(key=x, reverse=reverse)</code></pre>
+</details>
+</dd>
+<dt id="src.utils.timer_func"><code class="name flex">
+<span>def <span class="ident">timer_func</span></span>(<span>func)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def timer_func(func):
+  def function_timer(*args, **kwargs):
+    start = time.time()
+    value = func(*args, **kwargs)
+    end = time.time()
+    runtime = end - start
+    msg = &#34;{func} took {time} seconds to complete its execution.&#34;
+    print(msg.format(func = func.__name__,time = runtime))
+    return value
+  return function_timer</code></pre>
+</details>
+</dd>
+<dt id="src.utils.timerit_func"><code class="name flex">
+<span>def <span class="ident">timerit_func</span></span>(<span>func)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def timerit_func(func):
+  def function_timer(*args, **kwargs):
+    start = time.time()
+    value = func(*args, **kwargs)
+    end = time.time()
+    runtime = end - start
+    msg = &#34;{func} took {time} seconds to complete its execution.&#34;
+    print(msg.format(func = func.__name__,time = runtime))
+    return value
+  return function_timer</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="src" href="index.html">src</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="src.utils.FF_to_txt" href="#src.utils.FF_to_txt">FF_to_txt</a></code></li>
+<li><code><a title="src.utils.HammingDistance" href="#src.utils.HammingDistance">HammingDistance</a></code></li>
+<li><code><a title="src.utils.check_port" href="#src.utils.check_port">check_port</a></code></li>
+<li><code><a title="src.utils.clean_dir" href="#src.utils.clean_dir">clean_dir</a></code></li>
+<li><code><a title="src.utils.connector" href="#src.utils.connector">connector</a></code></li>
+<li><code><a title="src.utils.del_dir_files" href="#src.utils.del_dir_files">del_dir_files</a></code></li>
+<li><code><a title="src.utils.det_FF_node" href="#src.utils.det_FF_node">det_FF_node</a></code></li>
+<li><code><a title="src.utils.det_logic" href="#src.utils.det_logic">det_logic</a></code></li>
+<li><code><a title="src.utils.extract_value" href="#src.utils.extract_value">extract_value</a></code></li>
+<li><code><a title="src.utils.find_common_elements" href="#src.utils.find_common_elements">find_common_elements</a></code></li>
+<li><code><a title="src.utils.format_bench" href="#src.utils.format_bench">format_bench</a></code></li>
+<li><code><a title="src.utils.format_verilog" href="#src.utils.format_verilog">format_verilog</a></code></li>
+<li><code><a title="src.utils.format_verilog_org" href="#src.utils.format_verilog_org">format_verilog_org</a></code></li>
+<li><code><a title="src.utils.gates_to_txt" href="#src.utils.gates_to_txt">gates_to_txt</a></code></li>
+<li><code><a title="src.utils.gen_busport" href="#src.utils.gen_busport">gen_busport</a></code></li>
+<li><code><a title="src.utils.get_diference" href="#src.utils.get_diference">get_diference</a></code></li>
+<li><code><a title="src.utils.get_difference_abs" href="#src.utils.get_difference_abs">get_difference_abs</a></code></li>
+<li><code><a title="src.utils.getnodeport" href="#src.utils.getnodeport">getnodeport</a></code></li>
+<li><code><a title="src.utils.invert_gate" href="#src.utils.invert_gate">invert_gate</a></code></li>
+<li><code><a title="src.utils.io_port" href="#src.utils.io_port">io_port</a></code></li>
+<li><code><a title="src.utils.merge_lists" href="#src.utils.merge_lists">merge_lists</a></code></li>
+<li><code><a title="src.utils.module_to_txt" href="#src.utils.module_to_txt">module_to_txt</a></code></li>
+<li><code><a title="src.utils.nmap_read_verilog" href="#src.utils.nmap_read_verilog">nmap_read_verilog</a></code></li>
+<li><code><a title="src.utils.node_to_txt" href="#src.utils.node_to_txt">node_to_txt</a></code></li>
+<li><code><a title="src.utils.proc_assign_bracket" href="#src.utils.proc_assign_bracket">proc_assign_bracket</a></code></li>
+<li><code><a title="src.utils.proc_node_dec" href="#src.utils.proc_node_dec">proc_node_dec</a></code></li>
+<li><code><a title="src.utils.proc_port" href="#src.utils.proc_port">proc_port</a></code></li>
+<li><code><a title="src.utils.randKey" href="#src.utils.randKey">randKey</a></code></li>
+<li><code><a title="src.utils.rand_selection" href="#src.utils.rand_selection">rand_selection</a></code></li>
+<li><code><a title="src.utils.remove_key" href="#src.utils.remove_key">remove_key</a></code></li>
+<li><code><a title="src.utils.save_graph" href="#src.utils.save_graph">save_graph</a></code></li>
+<li><code><a title="src.utils.simple_read_verilog" href="#src.utils.simple_read_verilog">simple_read_verilog</a></code></li>
+<li><code><a title="src.utils.sortio" href="#src.utils.sortio">sortio</a></code></li>
+<li><code><a title="src.utils.timer_func" href="#src.utils.timer_func">timer_func</a></code></li>
+<li><code><a title="src.utils.timerit_func" href="#src.utils.timerit_func">timerit_func</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

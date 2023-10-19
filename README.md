@@ -2,29 +2,45 @@
 
 Enigma is a logic locking framework designed for securing integrated circuits by inserting additional circuitry known as "logic locks." These locks protect against intellectual property theft and unauthorized modifications. Enigma provides a set of tools and techniques for implementing logic locking in Verilog designs.
 
+
+## Documentation
+The documentation is generated using pdoc and stored in doc folder. 
+The can be viewed at following [link](https://raw.githack.com/alirafiqmalik/ENIGMA-Logic-Locking-Framework/Dynamic_Gate_Tech_Mapping/docs/src/index.html?token=GHSAT0AAAAAACBN4RM4NOVKJ5M2JAX7UKFWZFP7E7A) 
+
 ## File Structure
 
 The file structure of Enigma is organized as follows:
 
 
 <pre>
-input_files/
-├── Benchmarks/
+root
+├── input_files/
+│   ├── Benchmarks/
 │   ├── demo.v
 │   └── tmporg.v
+├── output_files/
+│   ├── demo.json
+│   └── tmporg.json
+├── attacks/
+│   └── satattack
 ├── src/
-│   ├── attacks/
-│   │   └── satattack
-│   ├── AST.py
-│   ├── LL.py
-│   ├── PostSAT.py
-│   ├── PreSAT.py
-│   ├── SATAttack.py
-│   ├── conv.py
-│   ├── netlist.py
+│   ├── Attack
+│   │   ├── SATAttack.py
+│   ├── Locking
+│   │   ├── LL.py
+│   │   ├── PostSAT.py
+│   │   └── PreSAT.py
+│   ├── Netlist
+│   │   ├── AST.py
+│   │   └── netlist.py
+│   ├── Parser
+│   │    ├── verilog_parser.py
+│   │    ├── bench_parser.py
+│   │    └── conv.py
+│   ├── Verification
+│   │   └── verification.py
 │   ├── path_var.py
 │   ├── utils.py
-│   └── verification.py
 ├── tmp/ (temporary working directory)
 ├── vlib/
 │   ├── mycells.v
@@ -49,7 +65,7 @@ To use Enigma, follow the example run commands provided below:
 To create:
 
 ```python
-from src.AST import AST
+from src.Netlist.AST import AST
 
 obj = AST(file_path="./input_files/tmporg.v", rw="w", flag="v", top="locked", filename="locked_new")
 ```
@@ -72,7 +88,7 @@ obj.writeLLFile()
 Example Usage:
 
 ```python
-from src.AST import AST
+from src.Netlist.AST import AST
 from src.PreSAT import PreSAT
 
 obj = AST(file_path="./output_files/locked_new.json", rw='r', filename="locked")

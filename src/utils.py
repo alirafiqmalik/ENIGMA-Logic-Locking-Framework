@@ -1,28 +1,80 @@
 import re
-import time
 import random
-import subprocess
-from src.path_var import *
+import os
+import time 
 
 
 
-#gates=['INVX1', 'AND2X1', 'OR2X1', 'NAND2X1', 'NOR2X1']
-#gates=['not_g', 'and_g', 'or_g', 'nand_g', 'nor_g']
-#gates=['NOT', 'AND', 'OR', 'NAND', 'NOR']
-v_gates_ps="_g"
-verilog_gates=['BUF_g','NOT_g', 'AND_g', 'OR_g', 'NAND_g', 'NOR_g','XOR_g','XNOR_g']
-bench_gates=['DFF','BUF','NOT', 'AND', 'OR', 'NAND', 'NOR','XOR','XNOR']
-gate_to_assign={'BUF':'','NOT':'~', 'AND':'&', 'OR':'|','XOR':'^','NAND':'&', 'NOR':'|','XNOR':'^'}
+
+def timerit_func(func):
+  def function_timer(*args, **kwargs):
+    start = time.time()
+    value = func(*args, **kwargs)
+    end = time.time()
+    runtime = end - start
+    msg = "{func} took {time} seconds to complete its execution."
+    print(msg.format(func = func.__name__,time = runtime))
+    return value
+  return function_timer
+
+
+
+def timer_func(func):
+  def function_timer(*args, **kwargs):
+    start = time.time()
+    value = func(*args, **kwargs)
+    end = time.time()
+    runtime = end - start
+    msg = "{func} took {time} seconds to complete its execution."
+    print(msg.format(func = func.__name__,time = runtime))
+    return value
+  return function_timer
+
+
+@timer_func
+def simple_read_verilog(path):
+  file=open(path)
+  verilog=file.read()
+  return format_verilog(verilog)
+
+
+import mmap
+@timer_func
+def nmap_read_verilog(path):
+  # Open the file in binary mode
+  with open(path, "rb") as file:
+      # Memory-map the file
+      with mmap.mmap(file.fileno(), 0, access=mmap.ACCESS_READ) as mapped_file:
+          # Read the entire file
+          verilog = mapped_file.read().decode()
+  return format_verilog(verilog)
+
 
 
 ####################################################################################################################################
 ####################################################################################################################################
 
-def get_diference(a,b):
+def get_common_elements(list1, list2):
+    set1 = set(list1)
+    set2 = set(list2)
+    common_elements = set1.intersection(set2)
+    return list(common_elements)
+
+
+
+def get_difference(a,b):
     tmpa=list(set(a) - set(b))
     tmpb=list(set(b) - set(a))
     tmplist=[tmpa,tmpb]#list(set(tmpa)|set(tmpb))
     return tmplist
+
+from itertools import combinations
+def get_differences(*args):
+    result = {}
+    for list1, list2 in combinations(args, 2):
+        set_difference = set(list1) - set(list2)
+        result[(list1, list2)] = list(set_difference)
+    return result
 
 ####################################################################################################################################
 ####################################################################################################################################
@@ -33,6 +85,7 @@ def get_difference_abs(*args):
     others = args[1:]
     all_others = set().union(*others)
     return list(set(a) - all_others)
+
 
 ####################################################################################################################################
 ####################################################################################################################################
@@ -71,11 +124,11 @@ def io_port(inputs, mode="input"):
         portnodes = portnodes+i+","
         if (tmpdict[i] != 0):
             #print("["+str(tmpdict[i])+":0] "+i)
-            inputnodes = inputnodes+mode+" ["+str(tmpdict[i])+":0] "+i+";"
+            inputnodes = inputnodes+mode+" ["+str(tmpdict[i])+":0] "+i+";\n"
             replace_.append(i)
         else:
             # replace_.remove(i)
-            inputnodes = inputnodes+mode+" "+i+";"
+            inputnodes = inputnodes+mode+" "+i+";\n"
 
     # inputnodes=inputnodes[:]
     portnodes = portnodes[:-1]
@@ -231,6 +284,8 @@ def format_verilog(verilog):
 
     verilog=re.sub(r" \[","[",verilog)
     verilog=re.sub(r"\[(\d+)\](\[\d+\])",r"_\1\2",verilog)
+    verilog=re.sub(r"(\.\S+\() ?",r"\1",verilog)
+
 
     verilog=re.sub(r"(wire|input|output)\[",r"\1 [",verilog)
     verilog=re.sub(r"(wire|input|output)( \[\d+:\d+\] .*)\[(\d+)\]",r"\1\2_\3",verilog)
@@ -253,7 +308,11 @@ def format_verilog(verilog):
             if(re.findall(re.compile(L),verilog_without_wire)==[]):
                 continue
             # tmpassign+=f"assign {L} = {R};\n"
-            node=re.findall(f"wire(.*){L};",verilog)[0]
+            node=re.findall(f"wire(.*){L};",verilog)
+            if(node==None):
+                node=L
+            else:
+                node=[0]
 
             if("[" in node):
                 ct=extract_value(R)
@@ -315,10 +374,7 @@ def gen_busport(node,size:int):
 ####################################################################################################################################
 ####################################################################################################################################
 
-def extract_io_b(bench,mode="input"):
-    tmp=re.findall(mode.upper()+r"\((.*)\)",bench)
-    sortio(tmp)
-    return tmp
+
 
 ####################################################################################################################################
 ####################################################################################################################################
@@ -353,38 +409,6 @@ def proc_node_dec(x):
     return x
 
 
-
-
-def extract_io_v(verilog,mode="input"):
-  nodes={}
-  port=""
-  tmp=re.findall("\n"+mode.lower()+r"[\s\[](.*);",verilog)
-
-  for i in tmp:
-    i=re.sub("\[(\d+)\]",r"_\1",i)
-    if("[" in i):
-        ei,si,tmpi=re.findall(r"\[(\d+):(\d+)\] ?(.*)",i)[0]
-        ei,si=int(ei),int(si)
-        # print(ei,si,tmpi)
-        if("," in tmpi):
-            tmpi=tmpi.split(",")
-            for k in tmpi:
-                nodes[k]=connector(ei-si+1,si,ei)
-                port+=k+","
-        else:
-            nodes[tmpi]=connector(ei-si+1,si,ei)
-            port+=tmpi+","
-    elif("," in i):
-        tmpi=i.split(",")
-        for k in tmpi:
-            nodes[k]=connector(1,0,0)
-            port+=k+","
-    else:
-      nodes[i]=connector(1,0,0)
-      port+=i+","
-
-  return nodes,port
-
 ####################################################################################################################################
 ####################################################################################################################################
 
@@ -394,55 +418,9 @@ def check_port(i):
         tmptxt=re.sub("(.*\[\d+\])\[\d+\]",r"\1",i)
     else:
         tmptxt=re.sub("\[\d+\]","",i)
-    return tmptxt
-####################################################################################################################################
-####################################################################################################################################
-
-def extract_gates_v(verilog):
-    tmp={}
-    gate_count = {}
-    #   tmp[re.sub("_g","",verilog_gates[0])]=re.findall(" "+verilog_gates[0] +" .* \( .A\((.*)\), .Y\((.*)\) \) ?;",verilog)
-    #   gate_count[verilog_gates[0]] = len(tmp[re.sub("_g","",verilog_gates[0])])
-    #   tmp[re.sub("_g","",verilog_gates[1])]=re.findall(" "+verilog_gates[1] +" .* \( .A\((.*)\), .Y\((.*)\) \) ?;",verilog)
-    #   gate_count[verilog_gates[1]] = len(tmp[re.sub("_g","",verilog_gates[1])])
-
-    for i in verilog_gates:
-        if(i=="NOT_g" or i=="BUF_g"):
-            tmpx=re.findall(r"\n ?"+i + r" .* \( .A\((.*)\), .Y\((.*)\) \) ?;",verilog)
-        else:
-            tmpx=re.findall(r"\n ?"+i +r" .* \( .A\((.*)\), .B\((.*)\), .Y\((.*)\) \) ?;",verilog)
-
-        tmpi=re.sub("_g","",i)
-        tmp[tmpi]=tmpx
-        gate_count[i] = len(tmp[tmpi])
-            
-    return tmp,gate_count
+    return tmptxt.strip()
 
 
-####################################################################################################################################
-####################################################################################################################################
-def extract_gates_b(bench):
-    tmp={i:[] for i in bench_gates}
-    gate_count = {i: 0 for i in tmp}
-    for i in bench_gates:
-        if(i.lower() in bench):
-            ix=i.lower()
-        else:
-            ix=i
-
-        if i=='NOT' or i=='BUF' or i=='DFF':
-            tmp[i]=re.findall(r" ?(.*) = "+ ix +r"\((.*)\)\n?",bench)
-
-            i.lower()
-        else:
-            tmp[i]=re.findall(r" ?(.*) = "+ ix +r"\((.*), ?(.*)\)\n?",bench)
-        
-        gcount = len(tmp[i])
-        if (gcount == 0):
-            tmp.pop(i, None)
-        else:
-            gate_count[i] = gcount
-    return tmp,gate_count
 
 
 ####################################################################################################################################
@@ -464,316 +442,43 @@ def invert_gate(operator):
 
 ####################################################################################################################################
 ####################################################################################################################################
-##AST help functions
-
-def extract_module_name(verilog):
-    # Regular expression to match the module name
-    module_pattern = re.compile(r"module\s+(\w+)")
-
-    # Search for the module name in the Verilog code
-    module_match = module_pattern.search(verilog)
-
-    if module_match:
-        module_name = module_match.group(1)
-    return module_name
 
 
-def verify_verilog(path,top):
-  cmd = """
-     {yosys_path} -q -p'
-      read_verilog {path}
-      hierarchy -check -top {top}
-      '
-  """
-  path=f"\"{path}\""
-  result = subprocess.run(cmd.format(yosys_path=yosys_path,path=path,top=top), shell=True)
-  if(result.returncode==1):
-    print(result)
-    raise Exception("Error code 1\nVerilog Code Syntax Error")
-  elif(result.returncode==0):
-    return True
-    # print("Verilog Code Working Without Error")
-  else:
-    print(result)
-    raise Exception(f"Unknown Error Code {result.returncode}")
+def del_dir_files(parentdir):
+    stack = [parentdir]
+    dir=[]
+    while stack:
+        currentdir = stack.pop()
+        for i in os.listdir(currentdir):
+            if os.path.isfile(os.path.join(currentdir, i)):
+                # print(os.path.join(os.path.abspath(currentdir),i))
+                os.remove(os.path.join(os.path.abspath(currentdir),i))
+            elif os.path.isdir(os.path.join(currentdir, i)):
+                stack.append(os.path.join(currentdir, i))
+                dir.append(os.path.join(currentdir, i))
+    # print(dir)
+    dir.reverse()
+    if parentdir in dir:
+        dir.remove(parentdir)
+    for i in dir:
+        os.removedirs(i)
 
 
-import os
-def synthesize_verilog(verilog, top,flag = "flatten"):
-    with open("./tmp/tmp_syn1.v", "w") as f:
-        f.write(verilog)
-    file_name=f"{top}_2_{flag}.v"
-    output_file_path=f"./tmp/{file_name}"
-    output_file_path2=f"./tmp/{top}_unformated.v"
-    readin="read_verilog ./tmp/tmp_syn1.v"
-    
-    if(os.path.isfile(output_file_path)):
-        print(f"File Already Synthesize, Delete file in tmp to re-synthesize file {file_name}")
+
+
+
+def clean_dir(dir,clean_tmp=False):
+    if(clean_tmp):
+        files=[i for i in os.listdir(dir) if("tmp_" in i)]
     else:
-        if flag == "flatten":
-            cmd = """
-                {yosys_path} -q -p'
-                {readin}
-                hierarchy -check -top {module_name}
-                proc; opt; fsm; opt; memory; opt;
-                techmap; opt
-                flatten
-                opt_clean -purge
-                dfflibmap -liberty ./vlib/mycells.lib
-                abc -liberty ./vlib/mycells.lib  
-                opt_clean -purge
-                write_verilog -noattr {out_file}
-                write_verilog -noattr {out_file2}
-                '
-            """
-            
-        elif flag == "dont_flatten":
-            cmd = """
-                {yosys_path} -q -p'
-                {readin}
-                hierarchy -check -top {module_name}
-                proc; opt; fsm; opt; memory; opt;
-                techmap; opt
-                dfflibmap -liberty ./vlib/mycells.lib
-                abc -liberty ./vlib/mycells.lib 
-                opt_clean -purge
-                write_verilog -noattr {out_file}
-                write_verilog -noattr {out_file2}
-                '
-            """
-        else:
-            Exception("Enter either 'flatten' or 'don't flatten' ")
-        # Run the command and capture the output
-        
-        
-        result=subprocess.run(cmd.format(yosys_path=yosys_path,module_name=top,out_file=output_file_path,out_file2=output_file_path2,readin=readin), shell=True)
+        files=os.listdir(dir)
 
-        if(result.returncode==1):
-            raise Exception("Error code 1\nVerilog Code Syntax Error or yosys Path not found")
-        elif(result.returncode==0):
-            pass
-            # print("Verilog Code Working Without Error")
-        else:
-            raise Exception(f"Unknown Error Code {result.returncode}")
-        
-    
-    synthesized_verilog = open(output_file_path, "r").read()
-    synthesized_verilog = format_verilog(synthesized_verilog)
-
-    with open(output_file_path,"w") as f:
-        f.write(synthesized_verilog)
-    #os.remove("./tmp/tmp_syn1.v")
-    #os.remove("./tmp/tmp_syn2.v")
-
-    return synthesized_verilog
-
-
-
-
-
-
-
-
-
-
-
-
-def synthesize_verilog_flatten_gate(verilog, top):
-    filesintmp=os.listdir("./tmp")
-    if("tmp_syn2.v" in filesintmp):
-        print("File already exists, Returning Old File")
-        return open("./tmp/tmp_syn2.v").read()
-         
-    with open("./tmp/tmp_syn2.v", "w") as f:
-        f.write(verilog)
-    file_name=f"{top}_outgatelevel_flatten.v"
-    output_file_path=f"./tmp/{file_name}"
-    output_file_path2=f"./tmp/{top}_unformated.v"
-    readin="read_verilog ./tmp/tmp_syn2.v"
-    
-    cmd = """
-        {yosys_path} -q -p'
-        {readin}
-        hierarchy -check -top {module_name}
-        proc; opt; fsm; opt; memory; opt;
-        techmap; opt
-        flatten
-        opt_clean -purge
-        write_verilog -noattr {out_file}
-        write_verilog -noattr {out_file2}
-        '
-    """
-        
-    result=subprocess.run(cmd.format(yosys_path=yosys_path,module_name=top,out_file=output_file_path,out_file2=output_file_path2,readin=readin), shell=True)
-
-    if(result.returncode==1):
-        raise Exception("Error code 1\nVerilog Code Syntax Error or yosys Path not found")
-    elif(result.returncode==0):
-        pass
-        # print("Verilog Code Working Without Error")
-    else:
-        raise Exception(f"Unknown Error Code {result.returncode}")
-    
-    
-    synthesized_verilog = open(output_file_path, "r").read()
-    synthesized_verilog = format_verilog_org(synthesized_verilog)
-
-    with open(output_file_path,"w") as f:
-        f.write(synthesized_verilog)
-    
-    return synthesized_verilog
-
-
-
-
-def clean_dir(dir):
-    files=os.listdir(dir)
     for i in files:
         if(".svg" in i):
             continue
         path_i=os.path.join(os.path.abspath(dir),i)
         if(os.path.isfile(path_i)):
             os.remove(path_i)
-
-
-
-
-
-
-
-
-
-
-
-# def synthesize_bench(bench):
-#     text_file = open("./tmp/tmp_syn1.bench", "w")
-#     text_file.write(bench)
-#     text_file.close()
-    
-#     cmd = """
-#         ~/FYP/linux/yosys/build/yosys-abc'
-#         read_bench ./tmp/tmp_syn1.bench
-#         write_bench -l ./tmp/tmp_syn2.bench
-#         '
-#     """
-#     synthesized_verilog = open(f"./tmp/tmp_syn2.v", "r").read()
-#     synthesized_verilog = format_verilog(synthesized_verilog)
-#     with open(f"./tmp/tmp_syn2.v","w") as f:
-#         f.write(synthesized_verilog)
-#     #os.remove("./tmp/tmp_syn1.v")
-#     #os.remove("./tmp/tmp_syn2.v")
-#     return synthesized_verilog
-
-def module_extraction (verilog):
-        modules = re.findall(r'(module\s+(\w+)\s*\(.*?\)\s*;.*?endmodule)', format_verilog_org(verilog), re.DOTALL)
-        module_dict = dict((module[1], module[0]) for module in modules)
-        return module_dict      #module_dict = {'modulename' : "module code"}
-
-def gates_module_extraction(verilog):
-  gates=['BUF_g','NOT_g', 'AND_g', 'OR_g', 'NAND_g', 'NOR_g','XOR_g','XNOR_g']
-  FF=['DFFcell',"DFFRcell","dffsr"]
-  #   DFFRcell _2116_ ( .C(CLOCK_50), .D(_0153_), .Q(T3state[0]), .R(_0149_) );
-  #   {'BUF':[],'NOT':[], 'AND':[], 'OR':[],'XOR':[],'NAND':[], 'NOR':[],'XNOR':[]}
-  gate_tech={}
-  FF_tech={}
-  Clock_pins=[]
-  Reset_pins=[]
-  sub_module={}
-  def process_chunk(chunk):
-    type_block,init,extra=chunk
-    # extra=re.sub(" \[","[",extra)
-    # extra=re.sub("\[(\d+)\](\[\d+\])",r"_\1\2",extra)
-    if(type_block in gates):
-        tmpx=re.findall(r'\.\S+\(([^\(\),]+)\)',extra)
-        tmpx.reverse()
-        type_block_port=re.sub("_g","",type_block)
-        if type_block_port not in gate_tech:
-            gate_tech[type_block_port]={}
-        gate_tech[type_block_port][type_block_port+init]={"inputs": tmpx[1:] ,"outputs": tmpx[0]}
-        
-    elif(type_block in FF):
-        # print(type_block,init,extra)
-        if(type_block=="DFFRcell"):
-            type_block_port="DFF_"+init
-            regex_pattern = r"\((.*?)\)"
-            matches = re.findall(regex_pattern, extra)
-            C,D,Q,R = [match for match in matches]
-            if(C not in Clock_pins):
-                Clock_pins.append(C)
-            if(R not in Reset_pins):
-                Reset_pins.append(R)
-            
-            if type_block not in FF_tech:
-                FF_tech[type_block]={}
-            
-            FF_tech[type_block][type_block_port]={"inputs": D ,"outputs": Q,"clock":C,"reset":R}
-            
-            # print("HERE",C,D,Q,R)
-            # print(re.findall(".C(CLOCK_50), .D(_0056_), .Q(T2x[0]), .R(_0040_)",extra))
-        elif(type_block=="DFFcell"):
-            type_block_port="DFF_"+init
-            regex_pattern = r"\((.*?)\)"
-            matches = re.findall(regex_pattern, extra)
-            C,D,Q = [match for match in matches]
-            if(C not in Clock_pins):
-                Clock_pins.append(C)
-            if type_block not in FF_tech:
-                FF_tech[type_block]={}   
-            FF_tech[type_block][type_block_port]={"inputs": D ,"outputs": Q,"clock":C}
-            # print("HERE",C,D,Q,extra)
-        elif(type_block=="dffsr"):
-            type_block_port="DFF_"+init
-            regex_pattern = r"\((.*?)\)"
-            matches = re.findall(regex_pattern, extra)
-            Clear,C,D,Preset,Q= [match for match in matches]
-            # "inputs": D ,"outputs": Q,"clock":C,"clear":Clear,"preset":Preset
-            # dffsr _123757_ (.CLEAR(1'h0), .CLK(clk_i), .D(_158363_Y), .PRESET(1'h0), .Q(_155393_A));s
-            if(C not in Clock_pins):
-                Clock_pins.append(C)
-            if type_block not in FF_tech:
-                FF_tech[type_block]={}   
-            FF_tech[type_block][type_block_port]={"inputs": D ,"outputs": Q,"clock":C,"clear":Clear,"preset":Preset}
-            # print("HERE",C,D,Q,extra)
-        else:
-            raise Exception("FLIP_FLOP NOT Defined")
-
-    else:
-        links=[]
-        for i in extra.split(","):
-            Li,Ri=re.findall("\.(.*)\((.*)\)",i)[0]
-            links.append((Li,Ri,None))
-
-        # links=[re.findall("\.(.*)\((.*)\)",i)[0] for i in extra.split(",")]
-        sub_module[init]={"module_name": type_block,"links":links,"port":extra}
-
-  for i in re.findall(r"(\w+) (\w+) \((.*)\);",verilog):
-    # print("HERE1 ",i)
-    process_chunk(i)
-
-
-    #   and "1'" not in Clock_pins
-  return gate_tech,sub_module,(FF_tech,Clock_pins,Reset_pins)
-
-
-
-
-
-
-def submodules_info(sub):
-    dictionary = {}
-    for ii in sub:
-        module_name = ii
-        module_code = sub[ii]
-        inputs, input_ports = extract_io_v(module_code)
-        outputs, output_ports = extract_io_v(module_code, "output")
-        io = dict({'inputs':inputs,'outputs':outputs,'input_ports':input_ports,'output_ports':output_ports})
-        gates,linkages = gates_module_extraction(module_code)
-        number_of_submodules = len(linkages)-1
-        dictionary[ii]  =  dict({"module_name": module_name, "io":io, "gates": gates, "linkages":linkages, "number_of_submodules":number_of_submodules})
-    
-    return dictionary
-
-
 
 
 ####################################################################################################################################
@@ -788,11 +493,6 @@ def node_to_txt(iodict,mode="input",return_bits=False):
             txt+=f"{mode} {i};\n"
         else:
             total_bits+=tmpi["bits"]
-            # # print(i)
-            # if("[" in i):
-            #     port,rbit=i.split("[")
-            #     txt+=f"{mode} [{tmpi['endbit']}:{tmpi['startbit']}] {port}_{rbit[:-1]};\n"
-            # else:
             txt+=f"{mode} [{tmpi['endbit']}:{tmpi['startbit']}] {i};\n"
 
     if(return_bits):
@@ -803,44 +503,57 @@ def node_to_txt(iodict,mode="input",return_bits=False):
 
 ####################################################################################################################################
 ####################################################################################################################################
-def FF_to_txt(FF):
-    txt=""
-    # DFFcell(C, D, Q)
-    for i in FF:
-        if(i=="DFFcell"):
-            fn =lambda io,initname: f"{i} {initname}(.C({io['clock']}), .D({io['inputs']}), .Q({io['outputs']}));"
-        elif(i=="DFFRcell"):
-            fn=lambda io,initname: f"{i} {initname}(.C({io['clock']}), .D({io['inputs']}), .Q({io['outputs']}), .R({io['reset']}));"
-        elif(i=="dffsr"):
-            fn=lambda io,initname: f"{i} {initname}(.CLEAR({io['clear']}), .CLK({io['clock']}), .D({io['inputs']}), .PRESET({io['preset']}), .Q({io['outputs']}));"
-            # "inputs": D ,"outputs": Q,"clock":C,"clear":Clear,"preset":Preset
-            # dffsr _123757_ (.CLEAR(1'h0), .CLK(clk_i), .D(_158363_Y), .PRESET(1'h0), .Q(_155393_A));
-        else:
-            raise Exception("FF not defined")
-        
-        for jj in FF[i]:
-            j=FF[i][jj]
-            txt+=fn(j,jj)+"\n"
-        # print(fn(j['inputs'],j['outputs']))
-    return txt
+
+def det_logic(logic_gate,gate_mapping):
+  for gate, gate_list in gate_mapping.items():
+    if logic_gate in gate_list:
+        return gate
 
 ####################################################################################################################################
 ####################################################################################################################################
-def gates_to_txt(gates):
+
+def det_FF_node(mIO):
+  if("clock" in mIO.lower() or "clk" in mIO.lower()):
+    return "clock"
+  elif(mIO=="R" or mIO.lower()=="rn" or mIO.lower()=="rst" or mIO.lower()=="clr" or mIO.lower()=="clear" or mIO.lower()=="reset"):
+    return "reset"
+  elif(mIO=="S" or mIO.lower()=="sn" or mIO.lower()=="pr" or mIO.lower()=="prn" or mIO.lower()=="preset" or mIO.lower()=="set"):
+    return "preset"
+  elif(mIO=="D"):
+    return "inputs"
+  elif(mIO=="Q"):
+    return "outputs"
+
+
+####################################################################################################################################
+####################################################################################################################################
+
+def FF_to_txt(FF_tech,FF):
+  txt=""
+  for FF_tech_i in FF_tech:
+    port=FF[FF_tech_i]['port']
+    for init_name in FF_tech[FF_tech_i]:
+      tmp={}
+      for mIO in FF[FF_tech_i]["port_list"]:
+        tmp[mIO]=FF_tech[FF_tech_i][init_name][det_FF_node(mIO)]
+      txt+= f"{FF_tech_i} {init_name} {port.format(**tmp)}\n"
+  return txt
+
+####################################################################################################################################
+####################################################################################################################################
+def gates_to_txt(gate_tech,gates_vlib):
     txt=""
-    for i in gates:
-        # print(i)
-        if(i=="NOT" or i=="BUF"):
-            fn =lambda inputs,outputs,initname: f"{i}_g {initname}(.A({inputs[0]}), .Y({outputs}));"
-        else:
-            fn=lambda inputs,outputs,initname: f"{i}_g {initname}(.A({inputs[0]}), .B({inputs[1]}), .Y({outputs}));"     
-        # print(gates[i])
-        for jj in gates[i]:
-            j=gates[i][jj]
-            # print(jj,j)
-            # print(j,gates[i][j])
-            txt+=fn(j['inputs'],j['outputs'],jj)+"\n"
-        # print(fn(j['inputs'],j['outputs']))
+    for logic in gate_tech:
+        for logic_gate in gate_tech[logic]:
+            NodeIO_def=gates_vlib[logic_gate]
+            port=NodeIO_def['port']
+            for init_name in gate_tech[logic][logic_gate]:
+                I=gate_tech[logic][logic_gate][init_name]["inputs"]
+                tmp={}
+                tmp[NodeIO_def["outputs"][0]]=gate_tech[logic][logic_gate][init_name]["outputs"]
+                for NodeI,mI in zip(NodeIO_def["inputs"],I):
+                    tmp[NodeI]=mI
+                txt+= f"{logic_gate} {init_name} {port.format(**tmp)}\n"
     return txt
 
 ####################################################################################################################################
@@ -942,65 +655,6 @@ def remove_key(thedict,thekey):
 
 
 
-
-
-def timerit_func(func):
-  def function_timer(*args, **kwargs):
-    start = time.time()
-    value = func(*args, **kwargs)
-    end = time.time()
-    runtime = end - start
-    msg = "{func} took {time} seconds to complete its execution."
-    print(msg.format(func = func.__name__,time = runtime))
-    return value
-  return function_timer
-
-
-
-def timer_func(func):
-  def function_timer(*args, **kwargs):
-    start = time.time()
-    value = func(*args, **kwargs)
-    end = time.time()
-    runtime = end - start
-    msg = "{func} took {time} seconds to complete its execution."
-    print(msg.format(func = func.__name__,time = runtime))
-    return value
-  return function_timer
-
-
-
-checks=["tb",'backup','vrf']
-def find_verilog_files_iter(parentdir,code="read_verilog {path}\n"):
-  stack = [parentdir]
-  tmp=""
-  while stack:
-      currentdir = stack.pop()
-      for i in os.listdir(currentdir):
-          if os.path.isfile(os.path.join(currentdir, i)):
-              if i.split(".")[-1] != "v":
-                  continue
-              if(any(x in i for x in checks)):
-                  continue
-              # print("ITERATIVE", os.path.join(currentdir, i))
-              tmp+=code.format(path=os.path.join(os.path.abspath(currentdir),i))
-            #   tmp.append(os.path.join(parentdir,i))
-          elif os.path.isdir(os.path.join(currentdir, i)):
-              stack.append(os.path.join(currentdir, i))
-  return tmp[:-1]
-
-@timer_func
-def find_verilog_files_recursive(tmp,parentdir):
-  for i in os.listdir(parentdir):
-    # print(i,i[-2:])
-    if os.path.isfile(os.path.join(parentdir,i)):
-      if i.split(".")[-1]!="v":
-        continue
-      # print("ITERATIVE", os.path.join(parentdir, i))
-      tmp.append(os.path.join(parentdir,i))
-    elif os.path.isdir(os.path.join(parentdir,i)):
-      find_verilog_files_recursive(tmp,os.path.join(parentdir,i))
-  return tmp
 
 
 
