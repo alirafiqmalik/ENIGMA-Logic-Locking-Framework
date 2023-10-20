@@ -3,7 +3,7 @@ import re
 from src.Parser.verilog_parser import extract_io_v,extract_gates_v
 from src.Parser.bench_parser import extract_io_b,extract_gates_b
 from src.utils import format_verilog
-from node import Node,DFF
+from node import Node
 
 
 
