@@ -335,7 +335,7 @@ class AST:
             elif flag == 'b':
                 self.bench = open(file_path).read()
                 # self.verilog,_ = conv.bench_to_verilog(self.bench,modulename=self.top_module_name)
-                self.verilog,_ = conv.bench_to_verilog_vlib(self.bench,
+                self.verilog = conv.bench_to_verilog_vlib(self.bench,
                                                             (self.gate_mapping_vlib,self.gates_vlib,self.FF_vlib),
                                                             modulename=self.top_module_name,
                                                             clkpin="Clock"

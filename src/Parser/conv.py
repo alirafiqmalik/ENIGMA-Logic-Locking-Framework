@@ -49,7 +49,7 @@ def process_FF_node(Nodeseg,clkpin,outputs,template,port,module_name):
     
         tmp={}
         for mIO in template["port_list"]:
-            type_node=utils.det_FF_node(mIO)
+            type_node=det_FF_node(mIO)
             if(type_node=="clock"):
                 tmp[mIO]=clkpin
             elif(type_node=="inputs"):
@@ -100,9 +100,9 @@ def bench_to_verilog_vlib(bench,
     
     
     
-    gates,gate_count = bench_parser.extract_gates_b(bench)
-    inputs_netlist = bench_parser.extract_io_b(bench, mode="input")
-    outputs_netlist = bench_parser.extract_io_b(bench, mode="output")
+    gates,gate_count = extract_gates_b(bench)
+    inputs_netlist = extract_io_b(bench, mode="input")
+    outputs_netlist = extract_io_b(bench, mode="output")
 
     gate_list = list(gates.keys())    
 
@@ -188,8 +188,8 @@ def bench_to_verilog_vlib(bench,
     
     
     
-    porti, input_dec,replace_i = utils.io_port(inputs_netlist, mode="input")
-    porto, output_dec,replace_o = utils.io_port(outputs_netlist, mode="output")
+    porti, input_dec,replace_i = io_port(inputs_netlist, mode="input")
+    porto, output_dec,replace_o = io_port(outputs_netlist, mode="output")
 
     verilog = "module {} ({},{});{}".format(modulename,porti, porto, input_dec+output_dec)
 
@@ -287,7 +287,7 @@ def bench_to_verilog(bench,clkpin="Clock",modulename="top"):
     verilog += verilog_wire + verilog_assign + "endmodule"
 
     
-    # verilog = utils.format_verilog(verilog)
+    # verilog = format_verilog(verilog)
     return verilog, gate_count
 
 
