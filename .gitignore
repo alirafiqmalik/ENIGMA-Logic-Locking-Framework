@@ -6,3 +6,4 @@ attacks/
 tmp.v
 .vscode
 ./attacks
+src/path_var.py
