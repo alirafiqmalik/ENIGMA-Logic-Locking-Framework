@@ -348,7 +348,7 @@ class AST:
             tmp_file_path=f"./tmp/tmp_verilog_{top}.v"
             with open(tmp_file_path,"w") as f:
                 if(~synth):
-                    f.write(self.verilog+self.gate_lib)
+                    f.write(self.verilog+"\n\n\n"+self.gate_lib)
             # self.verilog=format_verilog_org(self.verilog)
             print("Verifiying Input Verilog File")
             yosys.verify_verilog(tmp_file_path,top)
