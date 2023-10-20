@@ -577,12 +577,14 @@ def module_to_txt(linkages):
 
 ####################################################################################################################################
 ####################################################################################################################################
-def save_graph(G,svg=False):
+def save_graph(G,svg=False,dir_path="./tmp/",file_name="tmp"):
+    dot_file_path=os.path.join(dir_path,file_name+".dot")
     import networkx as nx
-    nx.drawing.nx_agraph.write_dot(G, "./tmp/tmp.dot")
+    nx.drawing.nx_agraph.write_dot(G, dot_file_path)
     import subprocess
     if(svg):
-        subprocess.run("dot -Tsvg ./tmp/tmp.dot > ./tmp/tmp.svg", shell=True)
+        svg_file_name=os.path.join(dir_path,file_name+".svg")
+        subprocess.run(f"dot -Tsvg {dot_file_path} > {svg_file_name}", shell=True)
 
 # _0174_
 ####################################################################################################################################
