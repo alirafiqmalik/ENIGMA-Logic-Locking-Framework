@@ -29,13 +29,13 @@ def read_nodes_v(filename):
   return node,out
 
 
-def read_nodes_b(filename):
+def read_nodes_b(filename,sort=True):
   netlist=open(filename).read()  
   netlist=re.sub(" +"," ",netlist)
   # with open("tmp.bench","w") as f:
   #     f.write(bench)
-  inp= extract_io_b(netlist,mode='input')
-  out=extract_io_b(netlist,mode='output')
+  inp= extract_io_b(netlist,mode='input',sort=sort)
+  out=extract_io_b(netlist,mode='output',sort=sort)
   gates,_=extract_gates_b(netlist)
 
 

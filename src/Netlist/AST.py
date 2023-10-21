@@ -289,9 +289,10 @@ class AST:
                  output_dir_path="./output_files",
                  sub_modules=None,
                  synth=True,
-                 locked=False
+                 locked=False,
+                 keyinput_ref="key"
                  ):
-        
+        self.keyinput_ref=keyinput_ref
         self.top_module_name=top
         self.locked=locked
         # Added arg for custom output dir
@@ -422,7 +423,7 @@ class AST:
             
             if(self.locked):
                 for i in inputs:
-                    if("key" in i):
+                    if(self.keyinput_ref in i):
                         self.modules[key].lockingdata["inputs"].append(i)
                 self.modules[key].lockingdata["inputs"].sort(key=lambda s: int(''.join(filter(str.isdigit,s)) or 0))
 

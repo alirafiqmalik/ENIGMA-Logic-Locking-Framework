@@ -24,7 +24,8 @@ def extract_gates_b(bench):
     gate_count = {i: len(tmp[i]) for i in tmp}
     return {key:val for key,val in tmp.items() if(val)},gate_count
 
-def extract_io_b(bench,mode="input"):
+def extract_io_b(bench,mode="input",sort=True):
     tmp=re.findall(mode.upper()+r"\((.*)\)",bench)
-    sortio(tmp)
+    if(sort):
+        sortio(tmp)
     return tmp

@@ -5,25 +5,27 @@ import attacks.satattack.circuit as circuit
 import attacks.satattack.sat_model as sat_model
 import src.Attacks.SATAttack.benchmarks_custom as benchmarks
 import attacks.satattack.dip_finder as dip_finder
-import attacks.satattack.oracle_runner as oracle_runner
+import src.Attacks.SATAttack.oracle_runner as oracle_runner
 
 
 class SatAttack:
     """The main class for conducting the SAT attack."""
 
     def __init__(self, 
-                 file_type,
+                 locked_file_type,
+                 unlocked_file_type,
                  locked_filename=None, 
                  unlocked_filename=None,
                  satobj=None
                  ):
-        if(file_type==None):
+        if(locked_file_type==None):
             raise Exception("No file Type Given")
-        elif(file_type=="obj"):
+        elif(locked_file_type=="obj"):
             self.satobj=satobj
 
 
-        self.file_type=file_type
+        self.locked_file_type=locked_file_type
+        self.unlocked_file_type=unlocked_file_type
         self.locked_filename = locked_filename
         self.unlocked_filename = unlocked_filename
         
@@ -35,21 +37,29 @@ class SatAttack:
         """Run the SAT attack."""
         # print("Reading in locked circuit...")
 
-        if(self.file_type=='b'):
+        if(self.locked_file_type=='b'):
             self.nodes, self.output_names = benchmarks.read_nodes_b(self.locked_filename)
-        elif(self.file_type=='v'):
+        elif(self.locked_file_type=='v'):
             self.nodes, self.output_names = benchmarks.read_nodes_v(self.locked_filename)
 
         # print("Reading in unlocked circuit...")
-        if(self.file_type=='obj'):
+        bin_check=False
+        if(self.unlocked_file_type=='obj'):
             self.oracle_ckt=self.satobj.oracle_ckt
 
             self.nodes, self.output_names = self.satobj.locked_ckt
             key_inputs = self.satobj.keyinputs
             primary_inputs=self.satobj.prim_inputs
-        else:
-            self.oracle_ckt = benchmarks.read_ckt(self.unlocked_filename,self.file_type)
+        elif(self.unlocked_file_type=="bin"):
+            bin_check=True
+            
+            self.oracle_ckt=self.unlocked_filename
 
+            key_inputs = [node.name for node in self.nodes.values() if node.type == "Key Input"]
+            primary_inputs = [node.name for node in self.nodes.values() if node.type == "Primary Input"]
+
+        else:
+            self.oracle_ckt = benchmarks.read_ckt(self.unlocked_filename,self.unlocked_file_type)
             key_inputs = [node.name for node in self.nodes.values() if node.type == "Key Input"]
             primary_inputs = [node.name for node in self.nodes.values() if node.type == "Primary Input"]
 
@@ -59,7 +69,7 @@ class SatAttack:
         # print("# Key Inputs: %i" % (len(key_inputs)))
 
         finder = dip_finder.DipFinder(self.nodes, self.output_names)
-        runner = oracle_runner.OracleRunner(self.oracle_ckt)
+        runner = oracle_runner.OracleRunner(self.oracle_ckt,bin=bin_check)
 
         oracle_io_pairs = []
         
